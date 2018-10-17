@@ -1,0 +1,7 @@
+set style data line
+set key autotitle columnhead
+
+plot 'z.data' us 'E(x)', '' us 'E(th)','' us 'E(th_dot)',\
+'' us 'y0','' us 'y1','' us 'y2',\
+'' us 'Y0','' us 'Y1','' us 'Y2'
+

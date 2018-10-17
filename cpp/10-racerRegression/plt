@@ -1,0 +1,7 @@
+set style data line
+set key autotitle columnhead
+
+plot 'linearPredictions-01' us 'y0_model', '' us 'y0_true', '' us 'y0_learnt',\
+'' us 'y1_model', '' us 'y1_true', '' us 'y1_learnt',\
+'' us 'y2_model', '' us 'y2_true', '' us 'y2_learnt'
+

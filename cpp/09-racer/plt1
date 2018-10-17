@@ -1,0 +1,11 @@
+set style data line
+set key autotitle columnhead
+
+plot 'z.data'\
+   us 'x', '' us 'E(x)', '' us 'V(x)',\
+'' us 'th', '' us 'E(th)', '' us 'V(th)'
+#'' us 'y0', '' us 'y1', '' us 'y2',\
+#'' us 'th_dot'
+
+#plot 'z.data' us 'x_dot','' us 'E(x_dot)', '' us 'V(x_dot)'
+#plot 'z.data' us 'th_dot','' us 'E(th_dot)', '' us 'V(th_dot)'

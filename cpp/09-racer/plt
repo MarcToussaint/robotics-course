@@ -1,0 +1,15 @@
+set style data lines
+
+plot 'z' \
+   us 1,\
+'' us 2,\
+'' us 3,\
+'' us 4
+
+#'' us 1:((column('gyro0')/2**12)),\
+#'' us 1:((column('gyro2')/2**12))
+
+#'' us 1:(2*(column('acc1')/2**15)),\
+
+#'' us (atan(column('acc_z')/column('acc_x'))) t 'atan(a_z/a_x)'
+

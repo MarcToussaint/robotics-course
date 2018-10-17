@@ -1,0 +1,2 @@
+set style data lines
+plot 'z.dat' us 1

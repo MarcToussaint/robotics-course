@@ -1,0 +1,5 @@
+set style data line
+set key autotitle columnhead
+
+plot 'z.data' us 'x', '' us 'th'
+# us 'u_acc', '' us 'B_qddot', '' us 'B_q',\

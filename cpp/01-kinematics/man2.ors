@@ -1,0 +1,89 @@
+body waist { pose=<T 0 0 0.7 0.707107 0 0.707107 0 >  mass=1  }
+body back {  mass=1  }
+body chest {  mass=1  }
+body shoulders {  mass=1  }
+body shoulderL {  mass=0.1  }
+body shoulderR {  mass=0.1  }
+body upArmL {  mass=0.1  }
+body upArmR {  mass=0.1  }
+body dnArmL {  mass=0.1  }
+body dnArmR {  mass=0.1  }
+body upWristL {  mass=0.1  }
+body upWristR {  mass=0.1  }
+body neck {  mass=0.1  }
+body head {  mass=0.1  }
+body dnWristR {  mass=0.01  }
+body dnWristL {  mass=0.01  }
+body ddnWristR {  mass=0.01  }
+body ddnWristL {  mass=0.01  }
+body handR {  mass=0.01  }
+body handL {  mass=0.01  }
+body lhip {  mass=1  }
+body rhip {  mass=1  }
+body lup {  mass=1  }
+body rup {  mass=1  }
+body ldn {  mass=1  }
+body rdn {  mass=1  }
+body lfoot {  mass=1  }
+body rfoot {  mass=1  fixed=true  }
+body rightTarget { pose=<T -0.2 -0.4 1.1 1 0 0 0 >  }
+body leftTarget { pose=<T 0.2 -0.4 1.1 1 0 0 0 >  }
+
+shape (waist){ type=2  size=[ 0 0 0.15 0.1 ]  }
+shape (back){ type=2  size=[ 0 0 0.1 0.1 ]  }
+shape (chest){ type=2  size=[ 0 0 0.2 0.1 ]  }
+shape (shoulders){ type=2  size=[ 0 0 0.2 0.1 ]  }
+shape (shoulderL){ type=1  size=[ 0 0 0.1 0.08 ]  }
+shape (shoulderR){ type=1  size=[ 0 0 0.1 0.08 ]  }
+shape (upArmL){ type=2  size=[ 0.1 0.1 0.1 0.05 ]  }
+shape (upArmR){ type=2  size=[ 0.1 0.1 0.1 0.05 ]  }
+shape (dnArmL){ type=2  size=[ 0.1 0.1 0.1 0.05 ]  }
+shape (dnArmR){ type=2  size=[ 0.1 0.1 0.1 0.05 ]  }
+shape (upWristL){ type=2  size=[ 0.1 0.1 0.1 0.045 ]  }
+shape (upWristR){ type=2  size=[ 0.1 0.1 0.1 0.045 ]  }
+shape (neck){ type=2  size=[ 0 0 0.1 0.05 ]  }
+shape (head){ type=1  size=[ 0 0 0 0.14 ]  }
+shape (dnWristR){ type=2  size=[ 0.1 0.1 0.1 0.04 ]  }
+shape (dnWristL){ type=2  size=[ 0.1 0.1 0.1 0.04 ]  }
+shape (ddnWristR){ type=2  size=[ 0.5 0.5 0.04 0.03 ]  }
+shape (ddnWristL){ type=2  size=[ 0.5 0.5 0.04 0.03 ]  }
+shape (handR){ type=0  size=[ 0.05 0.02 0.05 0.05 ]  }
+shape (handL){ type=0  size=[ 0.05 0.02 0.05 0.05 ]  }
+shape (lhip){ type=2  size=[ 0.1 0.1 0.02 0.08 ]  }
+shape (rhip){ type=2  size=[ 0.1 0.1 0.02 0.08 ]  }
+shape (lup){ type=2  size=[ 0.1 0.1 0.26 0.07 ]  }
+shape (rup){ type=2  size=[ 0.1 0.1 0.26 0.07 ]  }
+shape (ldn){ type=2  size=[ 0.1 0.1 0.3 0.06 ]  }
+shape (rdn){ type=2  size=[ 0.1 0.1 0.3 0.06 ]  }
+shape (lfoot){ type=0  size=[ 0.1 0.3 0.05 0.05 ]  }
+shape (rfoot){ type=0  size=[ 0.1 0.3 0.05 0.05 ]  }
+shape (rightTarget){ type=1  size=[ 0 0 0 0.03 ]  color=[ 1 0 0 ]  }
+shape (leftTarget){ type=1  size=[ 0 0 0 0.03 ]  color=[ 1 0 0 ]  }
+
+joint (waist back){ from=<T -0.05 0 1.11022e-17 0.707107 0 -0.707107 0 > to=<T 0 0 0.05 1 0 0 0 >  }
+joint (back chest){ from=<T 0 0 0.05 0.707107 0 0 0.707107 > to=<T 0 0 0.1 0.707107 0 0 -0.707107 >  }
+joint (chest shoulders){ from=<T 0 0 0.1 0.707107 0 0.707107 0 > to=<T -0.05 0 0 1 0 0 0 >  }
+joint (shoulders shoulderL){ from=<T -0.02 0 0.15 0.683013 0.183013 -0.183013 -0.683013 > to=<T 0 0 0 0.707107 0 0 0.707107 >  }
+joint (shoulders shoulderR){ from=<T -0.02 0 -0.15 -0.183013 0.683013 0.683013 -0.183013 > to=<T 0 0 0 0.707107 0 0 -0.707107 >  }
+joint (shoulderL upArmL){ from=<T 0.05 0 0.02 0.707107 0 0.707107 0 > to=<T 0 0 0.05 1 0 0 0 >  }
+joint (shoulderR upArmR){ from=<T -0.05 0 0.02 0.707107 0 -0.707107 0 > to=<T 0 0 0.05 1 0 0 0 >  }
+joint (upArmL dnArmL){ from=<T 0 0 0.05 0.683013 0.183013 -0.683013 0.183013 > to=<T 0.05 0 1.11022e-17 0.707107 0 0.707107 0 >  }
+joint (upArmR dnArmR){ from=<T 0 0 0.05 0.683013 0.183013 0.683013 -0.183013 > to=<T -0.05 0 1.11022e-17 0.707107 0 -0.707107 0 >  }
+joint (dnArmL upWristL){ from=<T 0 0 0.05 0.766044 0.642788 0 0 > to=<T 0 0 0.05 1 0 0 0 >  }
+joint (dnArmR upWristR){ from=<T 0 0 0.05 0.766044 0.642788 0 0 > to=<T 0 0 0.05 1 0 0 0 >  }
+joint (shoulders neck){ from=<T -0.05 0 0 1 0 0 0 > to=<T -0.05 0 1.11022e-17 0.707107 0 -0.707107 0 >  }
+joint (neck head){ from=<T 0 0 0.05 1 0 0 0 > to=<T 0 0 0.1 1 0 0 0 >  }
+joint (upWristR dnWristR){ from=<T 0 0 0.05 0.241845 0.664463 0.241845 -0.664463 > to=<T -0.05 0 1.11022e-17 0.707107 0 -0.707107 0 >  }
+joint (upWristL dnWristL){ from=<T 0 0 0.05 0.241845 0.664463 -0.241845 0.664463 > to=<T 0.05 0 1.11022e-17 0.707107 0 0.707107 0 >  }
+joint (dnWristR ddnWristR){ from=<T 0 0 0.05 0.707107 0 0 0.707107 > to=<T 0 0 0.02 0.707107 0 0 -0.707107 >  }
+joint (dnWristL ddnWristL){ from=<T 0 0 0.05 0.707107 0 0 -0.707107 > to=<T 0 0 0.02 0.707107 0 0 0.707107 >  }
+joint (ddnWristR handR){ from=<T 0 0 0.03 1 0 0 0 > to=<T 0 0 0.05 1 0 0 0 >  }
+joint (ddnWristL handL){ from=<T 0 0 0.03 1 0 0 0 > to=<T 0 0 0.05 1 0 0 0 >  }
+joint (waist lhip){ from=<T 0.05 0 -0.1 0.5 -0.5 -0.5 0.5 > to=<T 0 0 -0.01 0.707107 0 0 0.707107 >  }
+joint (waist rhip){ from=<T 0.05 0 0.1 0.5 -0.5 -0.5 0.5 > to=<T 0 0 -0.01 0.707107 0 0 0.707107 >  }
+joint (lhip lup){ from=<T 0 0 -0.01 0.984808 0.173648 0 0 > to=<T 0 0 -0.13 1 0 0 0 >  }
+joint (rhip rup){ from=<T 0 0 -0.01 0.984808 0.173648 0 0 > to=<T 0 0 -0.13 1 0 0 0 >  }
+joint (lup ldn){ from=<T 0 0 -0.13 0.939693 -0.34202 0 0 > to=<T 0 0.01 -0.15 1 0 0 0 >  }
+joint (rup rdn){ from=<T 0 0 -0.13 0.939693 -0.34202 0 0 > to=<T 0 0.01 -0.15 1 0 0 0 >  }
+joint (ldn lfoot){ from=<T 0 0 -0.17 0.984808 0.173648 0 0 > to=<T 0 0.04 -0.025 1 0 0 0 >  }
+joint (rdn rfoot){ from=<T 0 0 -0.17 0.984808 0.173648 0 0 > to=<T 0 0.04 -0.025 1 0 0 0 >  }
