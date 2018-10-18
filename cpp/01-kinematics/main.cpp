@@ -35,8 +35,8 @@ void simpleArrayOperations(){
 }
 
 
-void openingSimulator(){
-  mlr::KinematicWorld K("man.ors");
+void watchAConfig(){
+  rai::KinematicWorld K("man.ors");
   cout <<"joint dimensions = " <<K.getJointStateDimension() <<endl;
 
   cout <<"initial posture (hit ENTER in the OpenGL window to continue!!)" <<endl;
@@ -56,11 +56,11 @@ void openingSimulator(){
 
 
 void reach(){
-  mlr::KinematicWorld K("man.ors");
+  rai::KinematicWorld K("man.ors");
   arr q,W;
   uint n = K.getJointStateDimension();
   K.getJointState(q);
-  double w = mlr::getParameter("w",1e-4);
+  double w = rai::getParameter("w",1e-4);
   W.setDiag(w,n);  //W is equal the Id_n matrix times scalar w
 
   cout <<"initial posture (hit ENTER in the OpenGL window to continue!!)" <<endl;
@@ -70,7 +70,7 @@ void reach(){
   for(uint i=0;i<10;i++){
     //1st task:
     y_target = {-0.2, -0.4, 1.1}; 
-    K.kinematicsPos(y, J, K.getBodyByName("handR"));  //"handR" is the name of the right hand ("handL" for the left hand)
+    K.evalFeature(y, J, FS_position, {"handR"});  //"handR" is the name of the right hand ("handL" for the left hand)
 
     //compute joint updates
     q += inverse(~J*J + W)*~J*(y_target - y); 
@@ -86,11 +86,11 @@ void reach(){
 
 
 int main(int argc,char **argv){
-  mlr::initCmdLine(argc,argv);
+  rai::initCmdLine(argc,argv);
 
-  switch(mlr::getParameter<int>("mode",2)){
+  switch(rai::getParameter<int>("mode",2)){ // ./x.exe -mode 1   allows you to select mode from cmd line
   case 0:  simpleArrayOperations();  break;
-  case 1:  openingSimulator();  break;
+  case 1:  watchAConfig();  break;
   case 2:  reach();  break;
   }
 

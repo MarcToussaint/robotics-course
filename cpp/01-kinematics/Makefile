@@ -1,4 +1,4 @@
-BASE = ../../..
+BASE = ../../rai
 
 DEPEND = Geo Kin Core Gui
 
