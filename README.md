@@ -27,10 +27,11 @@ python3 -m pip install jupyter
 
 jupyter-notebook docs/1-basics.ipynb 
 ```
+After loading the pr2 and the kitchen (running first 3 cells in the notebook), the simulator window should look similar to:
+![Alt text](screenshot.png?raw=true "Title")
 
 ## Tutorials
-
-1. [Basics:](docs/1-basics.ipynb) Configurations, Features & Jacobians
+[Basics:](docs/1-basics.ipynb) Configurations, Features & Jacobians
 
 
 
