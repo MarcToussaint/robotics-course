@@ -24,6 +24,7 @@ source setupPython.sh
 
 python3 -m pip install --upgrade pip
 python3 -m pip install jupyter
+python3 -m pip install matplotlib
 
 jupyter-notebook docs/1-basics.ipynb 
 ```
