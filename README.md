@@ -31,6 +31,15 @@ jupyter-notebook docs/1-basics.ipynb
 After loading the pr2 and the kitchen (running first 3 cells in the notebook), the simulator window should look similar to:
 ![Alt text](screenshot.png?raw=true "Title")
 
+## Updating after a pulling a new version
+
+```
+git submodule update
+make -C rai dependAll
+make -j4
+```
+
+
 ## Tutorials
 [Basics:](docs/1-basics.ipynb) Configurations, Features & Jacobians
 
