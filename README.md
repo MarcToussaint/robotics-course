@@ -10,6 +10,8 @@ WE DIDN'T GET TO RUN THIS WITH ANACONDA PYTHON. If you have Anaconda
 installed, please remove it from the PATH in .bashrc. The setup below will
 install the standard Ubuntu python3 and jupyter notebook.
 
+In the ROBOTICS PRACTICAL course (where we use ROS), change 'ROS = 0' to '#ROS = 0' in 'config.mk' before compilation.
+
 ```
 git clone https://github.com/MarcToussaint/robotics-course.git
 cd robotics-course
