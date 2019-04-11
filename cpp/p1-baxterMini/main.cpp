@@ -1,7 +1,8 @@
 #include <Kin/kin.h>
 #include <RosCom/baxter.h>
+#include <Operate/robotInterface.h>
 
-void reach(){
+void minimal_use(){
   rai::KinematicWorld K;
   K.addFile("../../rai-robotModels/baxter/baxter.g");
   arr q0 = K.getJointState();
@@ -20,18 +21,46 @@ void reach(){
   arr q = q0;
   q = 0.;
   K.setJointState(q);
-  for(uint i=0;i<50;i++){
-    B.send_q(q);
-    rai::wait(.1);
-  }
+  B.send_q(q);
   K.watch(true);
-
 }
+
+void spline_use(){
+  rai::KinematicWorld K;
+  K.addFile("../../rai-robotModels/baxter/baxter.g");
+  arr q0 = K.getJointState();
+
+  arr q = q0;
+  q = 0.;
+
+  RobotInterface B(K);
+  cout <<"joint names: " <<B.getJointNames() <<endl;
+  B.move({q,q0}, {2.,4.});
+  B.move({q}, {2.}); //appends
+  for(;;){
+    rai::wait(.1);
+    cout <<"q:" <<B.getJointPositions() <<endl;
+    if(!B.timeToGo()) break;
+  }
+  rai::wait();
+
+  q = q0;
+  q(-1) = .1; //last joint set to .1: left gripper opens 10cm (or 20cm?)
+  q(-2) = .05; //last joint set to .1: right gripper opens 10cm (or 20cm?)
+  B.move({q}, {2.});
+  B.wait();
+
+  B.sync(K);
+  K.watch(true);
+}
+
 
 int main(int argc,char **argv){
   rai::initCmdLine(argc,argv);
 
-  reach();
+//  minimal_use();
+
+  spline_use();
 
   return 0;
 }
