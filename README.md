@@ -53,31 +53,31 @@ make -j4
 
 * generally, clone all git repos into $HOME/git
 * clone
-'''
+```
 mkdir -p ~/git
 cd ~/git
 git clone https://github.com/MarcToussaint/robotics-course.git
 cd robotics-course
-'''
-* change 'ROS = 0' to '#ROS = 0' in 'config.mk' 
+```
+* change `ROS = 0` to `#ROS = 0` in `config.mk` 
 * install also baxter sources using
-'''
+```
 cd external
 ./installBaxterSources.sh
-'''
-* then compile as described above (starting with 'git submodule init...')
-* if using c++, install 'qtcreator' as described here: https://github.com/MarcToussaint/rai-maintenance/blob/master/help/qtcreator.md
+```
+* then compile as described above (starting with `git submodule init...`)
+* if using c++, install `qtcreator` as described here: https://github.com/MarcToussaint/rai-maintenance/blob/master/help/qtcreator.md
 * when in the lab, connect to the wifi mlr-robolab (password: mlr-robolab)
-* call 'source bin/baxterwlansetup.sh' from ~/git/robotics-course
-* IF YOU'RE THE ONLY ONE USING BAXTER, turn on baxter and call 'bin/baxterStart.sh'
-* Try 'rostopic list'
+* call `source bin/baxterwlansetup.sh` from ~/git/robotics-course
+* IF YOU'RE THE ONLY ONE USING BAXTER, turn on baxter and call `bin/baxterStart.sh`
+* Try `rostopic list`
 * Try
-'''
+```
 cd cpp/p1-baxterMini
 make
 ./x.exe -useRos 1
-'''
-* Before turning off baxter, run 'rosrun baxter_tools tuck_arms.py -t'
+```
+* Before turning off baxter, run `rosrun baxter_tools tuck_arms.py -t`
 
 
 ## Details
@@ -95,9 +95,9 @@ variables to enable ROS communication. The easiest way to do this is
 to connect to run one of following scripts in Terminal from the mlr
 folder:
 
-'''
+```
 source bin/baxterwlansetup.sh
-'''
+```
 
 ### Start-up
 
@@ -105,20 +105,20 @@ Call the start-up script, which enables baxter, untucks the arms,
 turns off the ultrasonics (they click very loudly in any videos), and
 calibrates the grippers.
 
-'''
+```
 bin/baxterStart.sh
-'''
+```
 
 ### Shutdown
 
 Always tuck the arms before shutting down, to keep the spring wear to a minimum.
-'''
+```
 bin/baxterTuck.sh
-'''
+```
 or
-'''
+```
 rosrun baxter_tools tuck_arms.py -t
-'''
+```
 
 Then press the power button once to turn the robot off.
 
