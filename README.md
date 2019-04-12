@@ -51,7 +51,7 @@ make -j4
 
 ## (Not So) Quick Start
 * prerequisites: ROS, 
-                  catkin_pkg, pyyaml, empy installed using 'pip install'
+                 catkin_pkg/pyyaml/empy installed using 'pip install'
 * generally, clone all git repos into $HOME/git
 * clone
 ```
