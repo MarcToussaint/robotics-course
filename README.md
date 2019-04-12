@@ -50,7 +50,8 @@ make -j4
 # Practical Robotics information
 
 ## (Not So) Quick Start
-
+* prerequisites: ROS, 
+                  catkin_pkg, pyyaml, empy installed using 'pip install'
 * generally, clone all git repos into $HOME/git
 * clone
 ```
@@ -69,6 +70,11 @@ cd external
 * if using c++, install `qtcreator` as described here: https://github.com/MarcToussaint/rai-maintenance/blob/master/help/qtcreator.md
 * when in the lab, connect to the wifi mlr-robolab (password: mlr-robolab)
 * call `source bin/baxterwlansetup.sh` from ~/git/robotics-course
+* source ROS and your workspace 
+```
+source /opt/ros/kinetic/setup.bash
+source external/devel/setup.bash
+```
 * IF YOU'RE THE ONLY ONE USING BAXTER, turn on baxter and call `bin/baxterStart.sh`
 * Try `rostopic list`
 * Try
@@ -122,6 +128,8 @@ rosrun baxter_tools tuck_arms.py -t
 
 Then press the power button once to turn the robot off.
 
-Alternatively, you can ssh in to the robot and run:
+Alternatively, you can ssh in to the robot (password: rethink) and run:
+```
+ssh ruser@thecount.local
 sudo shutdown -h now
-
+```
