@@ -139,3 +139,10 @@ Alternatively, you can ssh in to the robot (password: rethink) and run:
 ssh ruser@thecount.local
 sudo shutdown -h now
 ```
+
+
+### Troubles
+
+* One some machines, OpenGL with the glfw seems broke. You'll have to change back to an older version which uses freeglut. For this, in `rai/Gui/Makefile` switch the 0/1 for `FREEGLUT` and `GLFW`
+
+* Beware ros node names!! (Maybe it is good if everybody uses the same rosNodeName? That way they block each other? Behavior undefined!)
