@@ -35,8 +35,8 @@ void spline_use(){
 
   RobotInterface B(K);
   cout <<"joint names: " <<B.getJointNames() <<endl;
-  B.move({q,q0}, {2.,4.});
-  B.move({q}, {2.}); //appends
+  B.move({q,q0}, {4.,8.});
+  B.move({q}, {12.}); //appends
   for(;;){
     rai::wait(.1);
     cout <<"q:" <<B.getJointPositions() <<endl;
@@ -47,11 +47,10 @@ void spline_use(){
   q = q0;
   q(-1) = .1; //last joint set to .1: left gripper opens 10cm (or 20cm?)
   q(-2) = .05; //last joint set to .1: right gripper opens 10cm (or 20cm?)
-  B.move({q}, {2.});
+  B.move({q}, {4.});
   B.wait();
 
-  B.sync(K);
-  K.watch(true);
+  rai::wait();
 }
 
 
