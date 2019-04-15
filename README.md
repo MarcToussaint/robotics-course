@@ -50,7 +50,7 @@ make -j4
 # Practical Robotics information
 
 ## (Not So) Quick Start
-* prerequisites: ROS, 
+* prerequisites: ROS Kinect, 
                  catkin_pkg/pyyaml/empy installed using 'pip install'
 * generally, clone all git repos into $HOME/git
 * clone
@@ -113,6 +113,12 @@ calibrates the grippers.
 
 ```
 bin/baxterStart.sh
+```
+Kill /end_effector_publisher node which corrupts the /robot/joint_states.
+This only has to be run once when the robot is turned on.
+
+```
+rosnode kill /end_effector_publisher
 ```
 
 ### Shutdown
