@@ -35,13 +35,9 @@ void spline_use(){
 
   RobotInterface B(K);
   cout <<"joint names: " <<B.getJointNames() <<endl;
-  B.move({q,q0}, {4.,8.});
-  B.move({q}, {12.}); //appends
-  for(;;){
-    rai::wait(.1);
-    cout <<"q:" <<B.getJointPositions() <<endl;
-    if(!B.timeToGo()) break;
-  }
+  B.move({q,q0}, {5.,10.});
+  B.move({q}, {15.}); //appends
+  B.wait();
   rai::wait();
 
   q = q0;
