@@ -50,7 +50,7 @@ make -j4
 # Practical Robotics information
 
 ## (Not So) Quick Start
-* prerequisites: ROS Kinect, 
+* prerequisites: ROS Kinetic, 
                  catkin_pkg/pyyaml/empy installed using 'pip install'
 * generally, clone all git repos into $HOME/git
 * clone
