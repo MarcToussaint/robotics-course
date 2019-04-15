@@ -1,6 +1,6 @@
 BASE = rai
 
-DEPEND = Core Algo Geo Plot Kin Gui ry
+DEPEND = Core Algo Geo Plot Kin Gui Operate ry
 
 build: $(DEPEND:%=inPath_makeLib/%)
 
