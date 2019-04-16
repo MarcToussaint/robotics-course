@@ -1,13 +1,13 @@
 #include <Kin/kin.h>
 #include <RosCom/baxter.h>
-#include <Operate/robotInterface.h>
+#include <Operate/robotOperation.h>
 
 void minimal_use(){
   rai::KinematicWorld K;
   K.addFile("../../rai-robotModels/baxter/baxter.g");
   arr q0 = K.getJointState();
 
-  BaxterInterface B;
+  BaxterInterface B(true);
   B.send_q(q0);
 
   for(uint i=0;i<10;i++){
@@ -25,15 +25,17 @@ void minimal_use(){
   K.watch(true);
 }
 
+
 void spline_use(){
   rai::KinematicWorld K;
   K.addFile("../../rai-robotModels/baxter/baxter.g");
+  K.addObject("object", rai::ST_capsule, {.2, .05}, {1., 1., 0.}, -1., 0, {.8, .0, 1.});
   arr q0 = K.getJointState();
 
   arr q = q0;
   q = 0.;
 
-  RobotInterface B(K);
+  RobotOperation B(K);
   cout <<"joint names: " <<B.getJointNames() <<endl;
   B.move({q,q0}, {5.,10.});
   B.move({q}, {15.}); //appends
