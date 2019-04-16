@@ -30,22 +30,21 @@ void spline_use(){
   rai::KinematicWorld K;
   K.addFile("../../rai-robotModels/baxter/baxter.g");
   K.addObject("object", rai::ST_capsule, {.2, .05}, {1., 1., 0.}, -1., 0, {.8, .0, 1.});
-  arr q0 = K.getJointState();
+  arr q_home = K.getJointState();
 
-  arr q = q0;
-  q = 0.;
+  arr q_zero = 0.*q_home;
 
   RobotOperation B(K);
   cout <<"joint names: " <<B.getJointNames() <<endl;
-  B.move({q,q0}, {5.,10.});
-  B.move({q}, {15.}); //appends
+  B.move({q_zero,q_home}, {5.,10.});
+  B.move({q_zero}, {15.}); //appends
   B.wait();
   rai::wait();
 
-  q = q0;
-  q(-1) = .1; //last joint set to .1: left gripper opens 10cm (or 20cm?)
-  q(-2) = .05; //last joint set to .1: right gripper opens 10cm (or 20cm?)
-  B.move({q}, {4.});
+  q_zero = q_home;
+  q_zero(-1) = .1; //last joint set to .1: left gripper opens 10cm (or 20cm?)
+  q_zero(-2) = .05; //last joint set to .1: right gripper opens 10cm (or 20cm?)
+  B.move({q_zero}, {4.});
   B.wait();
 
   rai::wait();

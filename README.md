@@ -50,8 +50,10 @@ make -j4
 # Practical Robotics information
 
 ## (Not So) Quick Start
-* prerequisites: ROS Kinetic, 
-                 catkin_pkg/pyyaml/empy installed using 'pip install'
+
+* Install ROS Kinetic following http://wiki.ros.org/kinetic/Installation/Ubuntu
+* Install `pip install wstools catkin_pkg --user`
+* Source `source /opt/ros/kinetic/setup.bash`
 * generally, clone all git repos into $HOME/git
 * clone
 ```
@@ -77,11 +79,16 @@ source external/devel/setup.bash
 ```
 * IF YOU'RE THE ONLY ONE USING BAXTER, turn on baxter and call `bin/baxterStart.sh`
 * Try `rostopic list`
-* Try
+* Try the cpp example
 ```
 cd cpp/p1-baxterMini
 make
 ./x.exe -useRos 1
+```
+* Try the python example
+```
+cd py/p1-motion
+jupyter-notebook p1-motion.ipynb 
 ```
 * Before turning off baxter, run `rosrun baxter_tools tuck_arms.py -t`
 
