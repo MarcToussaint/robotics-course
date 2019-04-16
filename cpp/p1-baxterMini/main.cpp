@@ -41,10 +41,8 @@ void spline_use(){
   B.wait();
   rai::wait();
 
-  q_zero = q_home;
-  q_zero(-1) = .1; //last joint set to .1: left gripper opens 10cm (or 20cm?)
-  q_zero(-2) = .05; //last joint set to .1: right gripper opens 10cm (or 20cm?)
-  B.move({q_zero}, {4.});
+  q_home(-1) = .1; //last joint set to .1: left gripper opens 10cm (or 20cm?)
+  B.move({q_home}, {4.});
   B.wait();
 
   rai::wait();

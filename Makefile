@@ -4,9 +4,9 @@ DEPEND = Core Algo Geo Plot Kin Gui Operate ry
 
 build: $(DEPEND:%=inPath_makeLib/%)
 
-initUbuntuPackages: $(DEPEND:%=inPath_installUbuntu/%)
+installUbuntuAll: $(DEPEND:%=inPath_installUbuntu/%)
 
-printUbuntu: $(DEPEND:%=inPath_printUbuntuPackages/%) printUbuntuPackages
+printUbuntuAll: $(DEPEND:%=inPath_printUbuntu/%) printUbuntu
 
 clean: $(DEPEND:%=inPath_clean/%)
 

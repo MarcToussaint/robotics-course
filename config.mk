@@ -13,5 +13,7 @@ G4 = 0
 PCL = 0
 GTK = 0
 BULLET = 0
+FCL = 0
+PNG = 0
 #ROS = 0
 ROS_VERSION = kinetic
