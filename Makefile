@@ -10,7 +10,7 @@ printUbuntuAll: $(DEPEND:%=inPath_printUbuntu/%) printUbuntu
 
 clean: $(DEPEND:%=inPath_clean/%)
 
-depend: $(DEPEND:%=inPath_depend/%) $(test_paths:%=inPath_depend/%)
+depend: $(DEPEND:%=inPath_depend/%)
 
 include $(BASE)/build/generic.mk
 
