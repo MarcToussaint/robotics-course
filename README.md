@@ -150,6 +150,11 @@ sudo shutdown -h now
 
 ### Troubles
 
+* To launch the camera, ssh to snuffleupagus, source ros and baxterwlansetup.sh, and
+```
+roslaunch openni2_launch openni2.launch
+```
+
 * One some machines, OpenGL with the glfw seems broke. You'll have to change back to an older version which uses freeglut. For this, in `rai/Gui/Makefile` switch the 0/1 for `FREEGLUT` and `GLFW`
 
 * Beware ros node names!! (Maybe it is good if everybody uses the same rosNodeName? That way they block each other? Behavior undefined!)
