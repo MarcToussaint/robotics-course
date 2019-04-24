@@ -37,7 +37,7 @@ After loading the pr2 and the kitchen (running first 3 cells in the notebook), t
 
 ```
 git submodule update
-make -C rai dependAll
+make dependAll
 make -j4
 ```
 
