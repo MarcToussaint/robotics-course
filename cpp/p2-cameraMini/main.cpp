@@ -2,6 +2,7 @@
 #include <Perception/opencvCamera.h>
 #include <Perception/depth2PointCloud.h>
 #include <RosCom/roscom.h>
+#include <RosCom/rosCamera.h>
 #include <Kin/frame.h>
 
 void minimal_use(){
@@ -9,10 +10,14 @@ void minimal_use(){
   Var<byteA> rgb;
   Var<floatA> depth;
 
-#if 0 //using ros
+#if 1 //using ros
+#  if 0 //directly
   RosCom ROS;
   SubscriberConv<sensor_msgs::Image, byteA, &conv_image2byteA> subRgb(rgb, "/camera/rgb/image_rect_color");
 //  SubscriberConv<sensor_msgs::Image, floatA, &conv_imageu162floatA> subDepth(depth, "/camera/depth_registered/image_raw");
+#  else //using the same interface as python
+  RosCamera cam(rgb, depth, "cameraRosNode", "/camera/rgb/image_rect_color", "/camera/depth_registered/image_raw");
+#  endif
 #else //using a webcam
   OpencvCamera cam(rgb);
 #endif
@@ -20,7 +25,10 @@ void minimal_use(){
   //looping images through opencv
   for(uint i=0;i<100;i++){
     cv::Mat img = CV(rgb.get());
-    if(img.total()>0){
+
+    if(img.total()>0){ 
+      //HERE
+      
       cv::imshow("RGB", img);
       cv::waitKey(1);
     }
