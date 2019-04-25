@@ -43,24 +43,30 @@ make -j4
 
 
 ## Tutorials
-[Basics:](docs/1-basics.ipynb) Configurations, Features & Jacobians
 
+1. [Basics:](docs/1-basics.ipynb) Configurations, Features & Jacobians
+1. [Features:](docs/2-features.ipynb) Learn about the language to define and query features and their Jacobians. Including querying collision features (whether and which objects are in collision).
 
 
 # Practical Robotics Information
 
 ## (Not So) Quick Start
 
-* Install ROS Kinetic following http://wiki.ros.org/kinetic/Installation/Ubuntu
-* Install `pip install wstools catkin_pkg --user`
-* Source `source /opt/ros/kinetic/setup.bash`
-* generally, clone all git repos into $HOME/git
+* Install [ROS Kinetic](http://wiki.ros.org/kinetic/Installation/Ubuntu)
+* Source and install
+```
+pip install wstools catkin_pkg --user
+source /opt/ros/kinetic/setup.bash
+```
+* The following assumes all git repos are cloned into $HOME/git
 * clone
 ```
 mkdir -p ~/git
 cd ~/git
 git clone https://github.com/MarcToussaint/robotics-course.git
 cd robotics-course
+git submodule init
+git submodule update
 ```
 * change `ROS = 0` to `#ROS = 0` in `config.mk` 
 * install also baxter sources using
@@ -68,11 +74,15 @@ cd robotics-course
 cd external
 ./installBaxterSources.sh
 ```
-* then compile as described above (starting with `git submodule init...`)
-* if using c++, install `qtcreator` as described here: https://github.com/MarcToussaint/rai-maintenance/blob/master/help/qtcreator.md
+* compile
+```
+make -j1 installUbuntuAll  # calls sudo apt-get install; you can always interrupt
+make -j4                   # builds libs and tests
+```
+* if using c++, install `qtcreator` as described [here](https://github.com/MarcToussaint/rai-maintenance/blob/master/help/qtcreator.md)
 * when in the lab, connect to the wifi mlr-robolab (password: mlr-robolab)
 * call `source bin/baxterwlansetup.sh` from ~/git/robotics-course
-* source ROS and your workspace 
+* source ROS and the baxter sources
 ```
 source /opt/ros/kinetic/setup.bash
 source external/devel/setup.bash
