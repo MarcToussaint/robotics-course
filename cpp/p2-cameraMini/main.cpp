@@ -78,8 +78,8 @@ void get_objects_into_configuration(){
 int main(int argc,char **argv){
   rai::initCmdLine(argc,argv);
 
-//  minimal_use();
-    get_objects_into_configuration();
+  minimal_use();
+//    get_objects_into_configuration();
 
   return 0;
 }
