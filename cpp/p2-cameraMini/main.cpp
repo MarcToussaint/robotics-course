@@ -4,6 +4,8 @@
 #include <RosCom/roscom.h>
 #include <RosCom/rosCamera.h>
 #include <Kin/frame.h>
+#include <Gui/opengl.h>
+#include <RosCom/baxter.h>
 
 void minimal_use(){
 
@@ -19,48 +21,65 @@ void minimal_use(){
   //looping images through opencv
   for(uint i=0;i<100;i++){
     _rgb.waitForNextRevision();
-    cv::Mat rgb = CV(_rgb.get());
-    cv::Mat depth = CV(_depth.get());
+    {
+      cv::Mat rgb = CV(_rgb.get());
+      cv::Mat depth = CV(_depth.get());
 
-    if(rgb.total()>0 && depth.total()>0){
-      cv::imshow("rgb", rgb); //white=2meters
-      cv::imshow("depth", 0.5*depth); //white=2meters
-      cv::waitKey(1);
+      if(rgb.total()>0 && depth.total()>0){
+        cv::imshow("rgb", rgb); //white=2meters
+        cv::imshow("depth", 0.5*depth); //white=2meters
+        cv::waitKey(1);
+      }
     }
   }
 }
 
-//void get_objects_into_configuration(){
-//  RosCom ROS;
+void get_objects_into_configuration(){
+  Var<byteA> _rgb;
+  Var<floatA> _depth;
 
-//  Var<byteA> rgb;
-//  Var<floatA> depth;
+  RosCamera cam(_rgb, _depth, "cameraRosNode", "/camera/rgb/image_rect_color", "/camera/depth_registered/image_raw");
 
-//  SubscriberConv<sensor_msgs::Image, byteA, &conv_image2byteA> subRgb(rgb, "/camera/rgb/image_rect_color");
-//  SubscriberConv<sensor_msgs::Image, floatA, &conv_imageu162floatA> subDepth(depth, "/camera/depth_registered/image_raw");
+  Depth2PointCloud d2p(_depth, 600.f, 600.f, 320.f, 240.f);
 
+  BaxterInterface B(true);
 
-//  Depth2PointCloud d2p(depth, 1.);
+  rai::KinematicWorld C;
+  C.addFile("model.g");
+  C.setJointState(B.get_q());
 
-//  rai::KinematicWorld C;
-//  C.addFile("model.g");
-//  rai::Frame *pcl = C.addFrame("pcl", "camera", "shape:pointCloud");
-//  for(uint i=0;i<100;i++){
-////    cout <<d2p.points.get()->N <<endl;
-//    pcl->shape->mesh().V = d2p.points.get();
-//    pcl->shape->mesh().V.reshape(640*480,3);
-//    C.watch(false);
-//    rai::wait(.1);
-//  }
+  rai::Frame *pcl = C.addFrame("pcl", "camera");
+  for(uint i=0;i<10000;i++){
+    _rgb.waitForNextRevision();
 
-//  rai::wait();
-//}
+    if(d2p.points.get()->N>0){
+      C.gl().dataLock.lock(RAI_HERE);
+      pcl->setPointCloud(d2p.points.get());
+      C.gl().dataLock.unlock();
+      C.watch(false);
+    }
+
+    {
+      cv::Mat rgb = CV(_rgb.get());
+      cv::Mat depth = CV(_depth.get());
+
+      if(rgb.total()>0 && depth.total()>0){
+        cv::imshow("rgb", rgb); //white=2meters
+        cv::imshow("depth", 0.5*depth); //white=2meters
+        cv::waitKey(1);
+      }
+    }
+  }
+
+  rai::wait();
+}
 
 
 int main(int argc,char **argv){
   rai::initCmdLine(argc,argv);
 
-  minimal_use();
+//  minimal_use();
+    get_objects_into_configuration();
 
   return 0;
 }
