@@ -186,6 +186,9 @@ sudo shutdown -h now
 
 * To launch the camera, ssh to snuffleupagus, source ros and baxterwlansetup.sh, and
 ```
+ssh snuffleupagus
+source /opt/ros/kinetic/setup.bash 
+source ~yoojinoh/git/robotics-course/bin/baxterwlansetup.sh
 roslaunch openni2_launch openni2.launch
 ```
 

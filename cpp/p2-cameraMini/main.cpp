@@ -7,32 +7,26 @@
 
 void minimal_use(){
 
-  Var<byteA> rgb;
-  Var<floatA> depth;
+  Var<byteA> _rgb;
+  Var<floatA> _depth;
 
 #if 1 //using ros
-#  if 0 //directly
-  RosCom ROS;
-  SubscriberConv<sensor_msgs::Image, byteA, &conv_image2byteA> subRgb(rgb, "/camera/rgb/image_rect_color");
-//  SubscriberConv<sensor_msgs::Image, floatA, &conv_imageu162floatA> subDepth(depth, "/camera/depth_registered/image_raw");
-#  else //using the same interface as python
-  RosCamera cam(rgb, depth, "cameraRosNode", "/camera/rgb/image_rect_color", "/camera/depth_registered/image_raw");
-#  endif
+  RosCamera cam(_rgb, _depth, "cameraRosNode", "/camera/rgb/image_rect_color", "/camera/depth_registered/image_raw");
 #else //using a webcam
-  OpencvCamera cam(rgb);
+  OpencvCamera cam(_rgb);
 #endif
 
   //looping images through opencv
   for(uint i=0;i<100;i++){
-    cv::Mat img = CV(rgb.get());
+    _rgb.waitForNextRevision();
+    cv::Mat rgb = CV(_rgb.get());
+    cv::Mat depth = CV(_depth.get());
 
-    if(img.total()>0){ 
-      //HERE
-      
-      cv::imshow("RGB", img);
+    if(rgb.total()>0 && depth.total()>0){
+      cv::imshow("rgb", rgb); //white=2meters
+      cv::imshow("depth", 0.5*depth); //white=2meters
       cv::waitKey(1);
     }
-    rai::wait(.1);
   }
 }
 
