@@ -162,6 +162,13 @@ This only has to be run once when the robot is turned on.
 rosnode kill /end_effector_publisher
 ```
 
+### Using vacuum gripper
+
+Switch on the air pump. Pull and slowly turn the black valve to make the air pressure around 60-100psi (preferably **70 psi**, the pressure will increase slowly so turn the valve slowly as it increases) Once the pressure is set the pump will automatically keep its pressure. Turn off air pump when finished using. 
+
+The gripper can be accessed same as the electric gripper.
+
+
 ### Shutdown
 
 Always tuck the arms before shutting down, to keep the spring wear to a minimum.
