@@ -42,7 +42,7 @@ void get_objects_into_configuration(){
 
   RosCamera cam(_rgb, _depth, "cameraRosNode", "/camera/rgb/image_rect_color", "/camera/depth_registered/image_raw");
 
-  double f = 1./tan(0.5*62.8*RAI_PI/180.);
+  double f = 1./tan(0.5*60.8*RAI_PI/180.);
   f *= 320.;
   arr Fxypxy = {f, f, 320., 240.}; //intrinsic camera parameters
 
@@ -53,9 +53,9 @@ void get_objects_into_configuration(){
   rai::KinematicWorld C;
   C.addFile("model.g");
 
-  rai::Frame *pcl = C.addFrame("pcl", "camera");
-//  pcl->Q.setText("d(-90 0 0 1) t(-.05 .13 -.25) d(4 0 1 0) d(-67 1 0 0)");
-//  pcl->calc_X_from_parent();
+  rai::Frame *pcl = C.addFrame("pcl", "head");
+  pcl->Q.setText("d(-90 0 0 1) t(-.08 .205 .115) d(26 1 0 0) d(-1 0 1 0) d(6 0 0 1)");
+  pcl->calc_X_from_parent();
 
   for(uint i=0;i<10000;i++){
     _rgb.waitForNextRevision();
@@ -66,7 +66,7 @@ void get_objects_into_configuration(){
 
     if(d2p.points.get()->N>0){
       C.gl().dataLock.lock(RAI_HERE);
-      pcl->setPointCloud(d2p.points.get());
+      pcl->setPointCloud(d2p.points.get(), _rgb.get());
       C.gl().dataLock.unlock();
       int key = C.watch(false);
       if(key=='q') break;
@@ -98,7 +98,7 @@ int main(int argc,char **argv){
   rai::initCmdLine(argc,argv);
 
 //  minimal_use();
-    get_objects_into_configuration();
+  get_objects_into_configuration();
 
   return 0;
 }
