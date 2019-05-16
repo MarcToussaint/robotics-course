@@ -6,9 +6,11 @@
 #include <Kin/frame.h>
 #include <Gui/opengl.h>
 #include <RosCom/baxter.h>
+#include <Kin/cameraview.h>
+
+//===========================================================================
 
 void minimal_use(){
-
   Var<byteA> _rgb;
   Var<floatA> _depth;
 
@@ -35,70 +37,133 @@ void minimal_use(){
   }
 }
 
+//===========================================================================
 
 void get_objects_into_configuration(){
+  //subscribe to image and depth
   Var<byteA> _rgb;
   Var<floatA> _depth;
-
   RosCamera cam(_rgb, _depth, "cameraRosNode", "/camera/rgb/image_rect_color", "/camera/depth_registered/image_raw");
 
+  //set the intrinsic camera parameters
   double f = 1./tan(0.5*60.8*RAI_PI/180.);
   f *= 320.;
-  arr Fxypxy = {f, f, 320., 240.}; //intrinsic camera parameters
+  arr Fxypxy = {f, f, 320., 240.};
 
+  //convert to point cloud (in camera frame, used only for display)
   Depth2PointCloud d2p(_depth, Fxypxy);
 
+  //interface to baxter to query it's real pose
   BaxterInterface B(true);
 
+  //load a configuration
   rai::KinematicWorld C;
-  C.addFile("model.g");
+  C.addFile("../../rai-robotModels/baxter/baxter_new.g");
 
-  rai::Frame *pcl = C.addFrame("pcl", "head");
-  pcl->Q.setText("d(-90 0 0 1) t(-.08 .205 .115) d(26 1 0 0) d(-1 0 1 0) d(6 0 0 1)");
-  pcl->calc_X_from_parent();
+  //add a frame for the camera
+  rai::Frame *cameraFrame = C.addFrame("camera", "head");
+  cameraFrame->Q.setText("d(-90 0 0 1) t(-.08 .205 .115) d(26 1 0 0) d(-1 0 1 0) d(6 0 0 1)");
+  cameraFrame->calc_X_from_parent();
 
   for(uint i=0;i<10000;i++){
+    //wait for the next rgb image
     _rgb.waitForNextRevision();
 
+    //sync C with the real baxter pose
     arr q_real = B.get_q();
     if(q_real.N==C.getJointStateDimension())
       C.setJointState(q_real);
 
+    //display the point cloud by setting it as cameraFrame shape
     if(d2p.points.get()->N>0){
-      C.gl().dataLock.lock(RAI_HERE);
-      pcl->setPointCloud(d2p.points.get(), _rgb.get());
+      C.gl().dataLock.lock(RAI_HERE); //(in case you interact with the GUI while the drawing data changes)
+      cameraFrame->setPointCloud(d2p.points.get(), _rgb.get());
       C.gl().dataLock.unlock();
       int key = C.watch(false);
       if(key=='q') break;
     }
 
-    { //display
+    //display the images
+    {
       cv::Mat rgb = CV(_rgb.get());
       cv::Mat depth = CV(_depth.get());
 
       if(rgb.total()>0 && depth.total()>0){
         cv::imshow("rgb", rgb); //white=2meters
         cv::imshow("depth", 0.5*depth); //white=2meters
-        cv::waitKey(1);
+        int key = cv::waitKey(1);
+        if((key&0xff)=='q') break;
       }
     }
 
-    //how to convert image to 3D coordinates:
+    //example on how to convert image to 3D coordinates:
     double x_pixel_coordinate=0., y_pixel_coordinate=0., depth_from_depthcam=1.2;
     arr pt = { x_pixel_coordinate, y_pixel_coordinate, depth_from_depthcam };
     depthData2point(pt, Fxypxy); //transforms the point to camera xyz coordinates
-    pcl->X.applyOnPoint(pt); //transforms into world coordinates
+    cameraFrame->X.applyOnPoint(pt); //transforms into world coordinates
   }
 
 //  rai::wait();
 }
 
+//===========================================================================
+
+void usingCameraSimulation(){
+  //load a configuration
+  rai::KinematicWorld C;
+  C.addFile("../../rai-robotModels/baxter/baxter_new.g");
+
+  //add a frame for the camera
+  rai::Frame *cameraFrame = C.addFrame("camera", "head");
+  cameraFrame->Q.setText("d(-90 0 0 1) t(-.08 .205 .115) d(26 1 0 0) d(-1 0 1 0) d(6 0 0 1)");
+  cameraFrame->calc_X_from_parent();
+
+  //associate an opengl renderer with the camera frame
+  rai::CameraView camSim(C);
+  camSim.addSensor("myCam", "camera", 640, 480, 1.);
+  camSim.selectSensor("myCam");
+
+  //add an object into the rendered scene
+  rai::Frame *realWorldObj = camSim.K.addFrame("obj");
+  realWorldObj->setPosition({1., 0., 1.});
+  realWorldObj->setShape(rai::ST_ssBox, {.1, .2, .3, .01});
+  realWorldObj->setColor({.1, .7, .1});
+
+  //compute things
+  byteA rgb;
+  floatA depth;
+  arr pcl;
+  camSim.computeImageAndDepth(rgb, depth);
+  camSim.computePointCloud(pcl, depth, false);
+
+  //display the images
+  {
+    cv::Mat _rgb = CV(rgb);
+    cv::Mat _depth = CV(depth);
+    cv::cvtColor(_rgb, _rgb, cv::COLOR_BGR2RGB);
+
+    if(_rgb.total()>0 && _depth.total()>0){
+      cv::imshow("rgb", _rgb.clone()); //white=2meters
+      cv::imshow("depth", 0.5*_depth.clone()); //white=2meters
+      int key = cv::waitKey(100);
+//      if((key&0xff)=='q') break;
+    }
+  }
+
+  //add the rendered point cloud as shape of the cameraFrame in configuration C
+  cameraFrame->setPointCloud(pcl, rgb);
+  //...and display it
+  C.watch(true);
+}
+
+//===========================================================================
 
 int main(int argc,char **argv){
   rai::initCmdLine(argc,argv);
 
 //  minimal_use();
-  get_objects_into_configuration();
+//  get_objects_into_configuration();
+  usingCameraSimulation();
 
   return 0;
 }

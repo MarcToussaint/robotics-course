@@ -3,39 +3,44 @@
 #include <Operate/robotOperation.h>
 
 void minimal_use(){
+  //load a configuration
   rai::KinematicWorld C;
   C.addFile("../../rai-robotModels/baxter/baxter.g");
-  arr q0 = C.getJointState();
 
+  //define a home and zero pose
+  arr q_home = C.getJointState();
+  arr q_zero = 0.*q_home;
+
+  //launch the interface
   BaxterInterface B(true);
-  B.send_q(q0);
 
-  for(uint i=0;i<10;i++){
+  for(uint i=0;i<40;i++){
     rai::wait(.1);
+    B.send_q(q_home); //repeatedly send q_home as reference -> moves
     cout <<B.get_q() <<endl;
     cout <<B.get_qdot() <<endl;
     cout <<B.get_u() <<endl;
   }
-  C.watch(true);
 
-  arr q = q0;
-  q = 0.;
-  C.setJointState(q);
-  B.send_q(q);
+  //just once send q_zero as reference -> will hardly move
+  B.send_q(q_zero);
+
+  C.setJointState(q_zero);
   C.watch(true);
 }
 
 
 void spline_use(){
+  //load a configuration
   rai::KinematicWorld C;
   C.addFile("../../rai-robotModels/baxter/baxter.g");
-  C.addObject("object", rai::ST_capsule, {.2, .05}, {1., 1., 0.}, -1., 0, {.8, .0, 1.});
-  arr q_home = C.getJointState();
 
+  //define a home and zero pose
+  arr q_home = C.getJointState();
   arr q_zero = 0.*q_home;
 
+  //launch the interface
   RobotOperation B(C);
-
   cout <<"joint names: " <<B.getJointNames() <<endl;
 
   //spline motion of the reference
@@ -82,9 +87,9 @@ void spline_use(){
 int main(int argc,char **argv){
   rai::initCmdLine(argc,argv);
 
-//  minimal_use();
+  minimal_use();
 
-  spline_use();
+//  spline_use();
 
   return 0;
 }
