@@ -42,9 +42,11 @@ void spline_use(){
   //launch the interface
   RobotOperation B(C);
   cout <<"joint names: " <<B.getJointNames() <<endl;
+  B.sendToReal(true);
 
   //spline motion of the reference
   B.move({q_zero}, {10.});
+  B.wait();
 
   //output states
   for(;;){
@@ -87,9 +89,9 @@ void spline_use(){
 int main(int argc,char **argv){
   rai::initCmdLine(argc,argv);
 
-  minimal_use();
+//  minimal_use();
 
-//  spline_use();
+  spline_use();
 
   return 0;
 }

@@ -15,7 +15,7 @@ void minimal_use(){
   Var<floatA> _depth;
 
 #if 1 //using ros
-  RosCamera cam(_rgb, _depth, "cameraRosNode", "/camera/rgb/image_rect_color", "/camera/depth_registered/image_raw");
+  RosCamera cam(_rgb, _depth, "cameraRosNode", "/camera/rgb/image_rect", "/camera/depth_registered/sw_registered/image_rect");
 #else //using a webcam
   OpencvCamera cam(_rgb);
 #endif
@@ -162,8 +162,8 @@ int main(int argc,char **argv){
   rai::initCmdLine(argc,argv);
 
 //  minimal_use();
-//  get_objects_into_configuration();
-  usingCameraSimulation();
+  get_objects_into_configuration();
+//  usingCameraSimulation();
 
   return 0;
 }
