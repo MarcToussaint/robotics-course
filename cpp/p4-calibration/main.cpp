@@ -25,7 +25,7 @@ q worldL worldR imageL = (x,y,d) imageR=(x,y,d)
 */
 
 
-void calibration(){
+void collectData(){
   // load a configuration
   rai::KinematicWorld C;
   C.addFile("model.g");
@@ -35,19 +35,16 @@ void calibration(){
   // launch camera
   Var<byteA> _rgb;
   Var<floatA> _depth;
-//  RosCamera cam(_rgb, _depth, "cameraRosNodeMarc", "/camera/rgb/image_raw", "/camera/depth/image_rect");
-
+#if 0
+  RosCamera cam(_rgb, _depth, "cameraRosNodeMarc", "/camera/rgb/image_raw", "/camera/depth/image_rect");
+#else
   //associate an opengl renderer with the camera frame
   Var<rai::KinematicWorld> C_visual;
   C_visual.set() = C;
   rai::Sim_CameraView camSim(C_visual, _rgb, _depth, .1);
-  camSim.C.addSensor("myCam", "camera", 640, 480, 1.);
+  camSim.C.addSensor("myCam", "camera");
   camSim.C.selectSensor("myCam");
-
-  // set the intrinsic camera parameters
-  double f = 1./tan(0.5*60.8*RAI_PI/180.);
-  f *= 320.;
-  arr Fxypxy = {f, f, 320., 240.};
+#endif
 
   // set hsv filter parameters
   arr hsvFilter = rai::getParameter<arr>("hsvFilter").reshape(2,3);
@@ -96,7 +93,7 @@ void calibration(){
 //      C["camera"]->X.applyOnPoint(OBJ.objCoords[i]()); //transforms into world coordinates
 //    }
 
-    cout <<"markers: " <<OBJ.objCoords <<endl;
+    cout <<"markers:\n" <<OBJ.objCoords <<endl;
 
     // tracking IK
     {
@@ -111,12 +108,47 @@ void calibration(){
       PhiJ.append( J / 1e-2 );
 
       if(sumOfSqr(y-target)<1e-5){
-        data_q->value = C.getJointState();
-        data_XR->value = C["calibR"]->getPosition();
-        data_xR->value = OBJ.objCoords[0];
-        fil <<data <<endl;
+        //save a data point
+        if(OBJ.objCoords(0,0)<rgb.cols-10 && OBJ.objCoords(0,1)<rgb.rows-10
+           && OBJ.objCoords(0,0)>10 && OBJ.objCoords(0,1)>10
+           && OBJ.objCoords(1,0)>10 && OBJ.objCoords(1,1)>10){
+          data_q->value = C.getJointState();
+          data_XR->value = C["calibR"]->getPosition();
+          data_xR->value = OBJ.objCoords[0];
+          fil <<data <<endl;
+
+#if 0
+          arr K = zeros(3,3);
+          double f = C["camera"]->ats.get<double>("focalLength");
+          K(0,0) = f*rgb.rows;
+          K(1,1) = -f*rgb.rows;
+          K(2,2) = -1.;
+          K(0,2) = -0.5*rgb.cols;
+          K(1,2) = -0.5*rgb.rows;
+          cout <<"K=\n" <<K <<endl;
+
+          arr T = C["camera"]->X.getInverseAffineMatrix();
+          T.delRows(-1);
+          cout <<"T=\n" <<T <<endl;
+
+          arr X = C["calibR"]->getPosition();
+          X.append(1.);
+          cout <<"X=\n" <<X <<endl;
+
+          arr TX = T*X;
+          cout <<"TX=\n" <<TX <<endl;
+
+          arr KTX = K*T*X;
+          cout <<"KTX=\n" <<KTX <<' ' <<KTX/KTX.last() <<endl;
+#endif
+
+//          rai::wait();
+        }else{
+          cout <<"SKIPPED" <<endl;
+        }
+
         gridCount++;
-        if(gridCount>=grid.d0){ gridCount=0; break; }
+        if(gridCount>=(int)grid.d0){ gridCount=0; break; }
       }
 
       //2nd task: joint should stay close to zero
@@ -150,11 +182,55 @@ void calibration(){
   }
 }
 
+//===========================================================================
+
+void optimize(){
+  Graph data("calib_data");
+
+  uint n = data.N;
+  double radius = .02;
+  arr X(n,4), x(n,3);
+  for(uint i=0;i<n;i++){
+    arr Z = data.elem(i)->get<arr>("XR");
+    Z.append(1.);
+    X[i] = Z;
+
+    arr z = data.elem(i)->get<arr>("xR");
+    //-- undo projection
+    z(0) *= z(2);
+    z(1) *= z(2);
+    //-- correct for size of ball
+//    z += z*(radius/length(z));
+    x[i] = z;
+  }
+
+  arr P = ~x * X * inverse_SymPosDef(~X*X);
+
+  cout <<"ERROR = " <<sumOfSqr(X*~P - x)/double(n) <<endl;
+  cout <<"P = " <<P <<endl;
+
+  arr K, R, t;
+  decomposeCameraProjectionMatrix(K, R, t, P, true);
+
+  for(uint i=0;i<1;i++){
+    cout <<"X=\n" <<X[i] <<endl;
+    cout <<"x=\n" <<x[i] <<endl;
+    cout <<"PX=\n" <<P*X[i] <<endl;
+//    cout <<"TX=\n" <<R*X(i,{0,2})-t <<endl;
+    cout <<"KTX=\n" <<K*R*(X(i,{0,2})-t) <<endl;
+  }
+
+
+}
+
+//===========================================================================
 
 int main(int argc,char **argv){
   rai::initCmdLine(argc,argv);
 
-  calibration();
+//  collectData();
+
+  optimize();
 
   return 0;
 }
