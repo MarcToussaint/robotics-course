@@ -75,7 +75,7 @@ void decomposeCameraProjectionMatrix(arr& K, arr& R, arr& t, const arr& P, bool 
   //R[2]() *= -1.; //OpenGL is flipping the z-axis...
   //rai::Quaternion r;  r.setMatrix(R.p);
 
-  arr PP=~(K*R);  PP.append(-K*R*t);  PP=~PP;  /*PP/=PP.elem(0);*/  cout <<PP <<endl <<P <<endl;
+//  arr PP=~(K*R);  PP.append(-K*R*t);  PP=~PP;  /*PP/=PP.elem(0);*/  cout <<PP <<endl <<P <<endl;
 
   if(verbose){
     cout <<"\nProjection Matrix:"

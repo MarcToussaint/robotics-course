@@ -44,13 +44,17 @@ void collectData(){
   rai::Sim_CameraView camSim(C_visual, _rgb, _depth, .1);
   camSim.C.addSensor("myCam", "camera");
   camSim.C.selectSensor("myCam");
+
+  // output ground truth
+  cout <<"groud truth camera:\n";
+  camSim.C.currentSensor->cam.report();
 #endif
 
   // set hsv filter parameters
   arr hsvFilter = rai::getParameter<arr>("hsvFilter").reshape(2,3);
 
   // create a 3D grid of target points
-  arr grid = ::grid({-.2,-.25,-.25},{.2,.25,.25}, {4,4,4});
+  arr grid = ::grid({-.2,-.2,-.2},{.2,.2,.2}, {2,2,2});
   int gridCount = 0;
   arr centerR = C["volumeR"]->getPosition();
   arr centerL = C["volumeL"]->getPosition();
@@ -87,12 +91,6 @@ void collectData(){
       OBJ.objCoords[1] = tmp;
     }
 
-//    // camera coordinates
-//    for(uint i=0;i<OBJ.objCoords.d0;i++){
-//      depthData2point(OBJ.objCoords[i](), Fxypxy); //transforms the point to camera xyz coordinates
-//      C["camera"]->X.applyOnPoint(OBJ.objCoords[i]()); //transforms into world coordinates
-//    }
-
     cout <<"markers:\n" <<OBJ.objCoords <<endl;
 
     // tracking IK
@@ -104,8 +102,8 @@ void collectData(){
       //1st task: track circle with right hand
       arr target = targetFrame->getPosition();
       C.evalFeature(y, J, FS_position, {"baxterR"});  //"handR" is the name of the right hand ("handL" for the left hand)
-      Phi.append( (y-target) / 1e-2);
-      PhiJ.append( J / 1e-2 );
+      Phi.append( (y-target) * 1e2);
+      PhiJ.append( J * 1e2 );
 
       if(sumOfSqr(y-target)<1e-5){
         //save a data point
@@ -116,32 +114,6 @@ void collectData(){
           data_XR->value = C["calibR"]->getPosition();
           data_xR->value = OBJ.objCoords[0];
           fil <<data <<endl;
-
-#if 0
-          arr K = zeros(3,3);
-          double f = C["camera"]->ats.get<double>("focalLength");
-          K(0,0) = f*rgb.rows;
-          K(1,1) = -f*rgb.rows;
-          K(2,2) = -1.;
-          K(0,2) = -0.5*rgb.cols;
-          K(1,2) = -0.5*rgb.rows;
-          cout <<"K=\n" <<K <<endl;
-
-          arr T = C["camera"]->X.getInverseAffineMatrix();
-          T.delRows(-1);
-          cout <<"T=\n" <<T <<endl;
-
-          arr X = C["calibR"]->getPosition();
-          X.append(1.);
-          cout <<"X=\n" <<X <<endl;
-
-          arr TX = T*X;
-          cout <<"TX=\n" <<TX <<endl;
-
-          arr KTX = K*T*X;
-          cout <<"KTX=\n" <<KTX <<' ' <<KTX/KTX.last() <<endl;
-#endif
-
 //          rai::wait();
         }else{
           cout <<"SKIPPED" <<endl;
@@ -153,14 +125,14 @@ void collectData(){
 
       //2nd task: joint should stay close to zero
       C.evalFeature(y, J, FS_qItself, {});
-      Phi .append( (y-q_home) / 1e0 );
-      PhiJ.append( J / 1e0 );
+      Phi .append( (y-q_home) * 1e0 );
+      PhiJ.append( J * 1e0 );
 
-      //      //3rd task: left hand should point upwards
-      //      K.evalFeature(y, J, FS_vectorZ, {"handL"});  //"handR" is the name of the right hand ("handL" for the left hand)
-      //      target = {0.,0.,1.};
-      //      Phi.append( (y-target) / 1e-2);
-      //      PhiJ.append( J / 1e-2 );
+      //3rd task: left hand should point upwards
+      C.evalFeature(y, J, FS_vectorZ, {"baxterR"});  //"handR" is the name of the right hand ("handL" for the left hand)
+      target = {0.,0.,1.};
+      Phi.append( (y-target) * 1e-0);
+      PhiJ.append( J * 1e-0 );
 
       // IK compute joint updates
       arr q = C.getJointState();
@@ -169,7 +141,6 @@ void collectData(){
 
 //      B.moveHard(q);
       C.watch();
-
     }
 
     if(rgb.total()>0 && depth.total()>0){
@@ -187,8 +158,8 @@ void collectData(){
 void optimize(){
   Graph data("calib_data");
 
+  //-- load data
   uint n = data.N;
-  double radius = .02;
   arr X(n,4), x(n,3);
   for(uint i=0;i<n;i++){
     arr Z = data.elem(i)->get<arr>("XR");
@@ -197,30 +168,56 @@ void optimize(){
 
     arr z = data.elem(i)->get<arr>("xR");
     //-- undo projection
-    z(0) *= z(2);
-    z(1) *= z(2);
-    //-- correct for size of ball
-//    z += z*(radius/length(z));
+    z(0) *= z(2) * 1e-2;
+    z(1) *= z(2) * 1e-2;
     x[i] = z;
   }
 
-  arr P = ~x * X * inverse_SymPosDef(~X*X);
+  //-- first iteration
+  arr P, K, R, t;
+  P = ~x * X * inverse_SymPosDef(~X*X);
+  decomposeCameraProjectionMatrix(K, R, t, P, false);
+  cout <<"1st iter ERROR = " <<sumOfSqr(X*~P - x)/double(n) <<endl;
+  cout <<"*** camera origin in world: " <<t <<endl;
+//  cout <<"P = " <<P <<endl;
 
-  cout <<"ERROR = " <<sumOfSqr(X*~P - x)/double(n) <<endl;
-  cout <<"P = " <<P <<endl;
+  //-- correct for radius
+  double radius = .02;
+  t.append(1.);
+  for(uint i=0;i<n;i++){
+    arr rel = X[i] - t;
+    X[i] -= rel*(radius/length(rel)); //pull ``closer'', to the ball front
+  }
 
-  arr K, R, t;
-  decomposeCameraProjectionMatrix(K, R, t, P, true);
+  //-- second iteration
+  P = ~x * X * inverse_SymPosDef(~X*X);
+  decomposeCameraProjectionMatrix(K, R, t, P, false);
+  cout <<"2nd iter ERROR = " <<sumOfSqr(X*~P - x)/double(n) <<endl;
+//  cout <<"P = " <<P <<endl;
 
-  for(uint i=0;i<1;i++){
+  //-- output
+  {
+    //my convention...
+    arr flip = diag(arr({1.,-1.,-1.}));
+    K = K*flip;
+    R = flip*R;
+  }
+  rai::Quaternion rot;
+  rot.setMatrix(~R);
+  cout <<"*** total project x = P X:\n";
+  cout <<" P =\n" <<P <<endl;
+  cout <<"*** camera intrinsics:\n" <<K <<endl;
+  cout <<"*** camera origin in world: " <<t <<endl;
+  cout <<"*** camera rotation in world: " <<rot <<endl;
+
+  //-- test/example
+  for(uint i=0;i<0;i++){
     cout <<"X=\n" <<X[i] <<endl;
     cout <<"x=\n" <<x[i] <<endl;
     cout <<"PX=\n" <<P*X[i] <<endl;
 //    cout <<"TX=\n" <<R*X(i,{0,2})-t <<endl;
     cout <<"KTX=\n" <<K*R*(X(i,{0,2})-t) <<endl;
   }
-
-
 }
 
 //===========================================================================
