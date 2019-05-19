@@ -89,6 +89,14 @@ void decomposeCameraProjectionMatrix(arr& K, arr& R, arr& t, const arr& P, bool 
   }
 }
 
+void decomposeInvProjectionMatrix(arr& K, arr& R, arr& t, const arr& P){
+  arr KR(3, 3);
+  P.getMatrixBlock(KR , 0, 0);
+  t = ~P.col(3);
+  KR = inverse(KR);
+  lapack_RQ(K, R, KR);
+}
+
 double projectionError(const arr& P, const arr& x, const arr& X){
   uint N=x.d0;
   arr x2 = X*~P;

@@ -160,39 +160,38 @@ void optimize(){
 
   //-- load data
   uint n = data.N;
-  arr X(n,4), x(n,3);
+  arr X(n,3), x(n,4);
   for(uint i=0;i<n;i++){
     arr Z = data.elem(i)->get<arr>("XR");
-    Z.append(1.);
     X[i] = Z;
 
     arr z = data.elem(i)->get<arr>("xR");
     //-- undo projection
-    z(0) *= z(2) * 1e-2;
-    z(1) *= z(2) * 1e-2;
+    z(0) *= z(2);
+    z(1) *= z(2);
+    z.append(1.);
     x[i] = z;
   }
 
   //-- first iteration
-  arr P, K, R, t;
-  P = ~x * X * inverse_SymPosDef(~X*X);
-  decomposeCameraProjectionMatrix(K, R, t, P, false);
-  cout <<"1st iter ERROR = " <<sumOfSqr(X*~P - x)/double(n) <<endl;
+  arr Pinv, K, R, t;
+  Pinv = ~X * x * inverse_SymPosDef(~x*x);
+  decomposeInvProjectionMatrix(K, R, t, Pinv);
+  cout <<"1st iter ERROR = " <<sqrt(sumOfSqr(x*~Pinv - X)/double(n)) <<endl;
   cout <<"*** camera origin in world: " <<t <<endl;
 //  cout <<"P = " <<P <<endl;
 
   //-- correct for radius
   double radius = .02;
-  t.append(1.);
   for(uint i=0;i<n;i++){
     arr rel = X[i] - t;
     X[i] -= rel*(radius/length(rel)); //pull ``closer'', to the ball front
   }
 
   //-- second iteration
-  P = ~x * X * inverse_SymPosDef(~X*X);
-  decomposeCameraProjectionMatrix(K, R, t, P, false);
-  cout <<"2nd iter ERROR = " <<sumOfSqr(X*~P - x)/double(n) <<endl;
+  Pinv = ~X * x * inverse_SymPosDef(~x*x);
+  decomposeInvProjectionMatrix(K, R, t, Pinv);
+  cout <<"2nd iter ERROR = " <<sqrt(sumOfSqr(x*~Pinv - X)/double(n)) <<endl;
 //  cout <<"P = " <<P <<endl;
 
   //-- output
@@ -204,8 +203,8 @@ void optimize(){
   }
   rai::Quaternion rot;
   rot.setMatrix(~R);
-  cout <<"*** total project x = P X:\n";
-  cout <<" P =\n" <<P <<endl;
+  cout <<"*** total Pinv:\n";
+  cout <<" Pinv:\n" <<Pinv <<endl;
   cout <<"*** camera intrinsics:\n" <<K <<endl;
   cout <<"*** camera origin in world: " <<t <<endl;
   cout <<"*** camera rotation in world: " <<rot <<endl;
@@ -214,7 +213,7 @@ void optimize(){
   for(uint i=0;i<0;i++){
     cout <<"X=\n" <<X[i] <<endl;
     cout <<"x=\n" <<x[i] <<endl;
-    cout <<"PX=\n" <<P*X[i] <<endl;
+    cout <<"PX=\n" <<Pinv*X[i] <<endl;
 //    cout <<"TX=\n" <<R*X(i,{0,2})-t <<endl;
     cout <<"KTX=\n" <<K*R*(X(i,{0,2})-t) <<endl;
   }
