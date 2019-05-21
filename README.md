@@ -169,6 +169,25 @@ Switch on the air pump. Pull and slowly turn the black valve to make the air pre
 The gripper can be accessed same as the electric gripper.
 
 
+### Accessing camera
+
+* To launch the ASUS camera, install openni2. Change kinetic to a different ROS version in the command if you're not using Kinetic.
+```
+sudo apt-get install ros-kinetic-openni2-launch
+```
+Plug in the camera USB and run the following command.
+```
+roslaunch openni2_launch openni2.launch depth_registration:="true" hw_registered_processing:="true" color_depth_synchronization:="true" auto_exposure:="false" auto_white_balance:="false"
+```
+
+* To launch the Kinect camera, install freenect. Change kinetic to a different ROS version in the command if you're not using Kinetic.
+```
+sudo apt-get install ros-kinetic-freenect-stack
+```
+Plug in the camera USB and run the following command.
+```
+roslaunch freenect_launch freenect.launch camera:="kinect"
+```
 ### Shutdown
 
 Always tuck the arms before shutting down, to keep the spring wear to a minimum.
@@ -190,15 +209,6 @@ sudo shutdown -h now
 
 
 ### Troubles
-
-* To launch the camera, install openni2. Change kinetic to a different ROS version in the command if you're not using Kinetic.
-```
-sudo apt-get install ros-kinetic-openni2-launch
-```
-Plug in the camera USB and run the following command.
-```
-roslaunch openni2_launch openni2.launch depth_registration:="true" hw_registered_processing:="true" color_depth_synchronization:="true" auto_exposure:="false" auto_white_balance:="false"
-```
 
 * One some machines, OpenGL with the glfw seems broke. You'll have to change back to an older version which uses freeglut. For this, in `rai/Gui/Makefile` switch the 0/1 for `FREEGLUT` and `GLFW`
 
