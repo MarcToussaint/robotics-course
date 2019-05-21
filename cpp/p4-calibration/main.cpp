@@ -224,9 +224,9 @@ void optimize(){
 int main(int argc,char **argv){
   rai::initCmdLine(argc,argv);
 
-//  collectData();
+  collectData();
 
-  optimize();
+//  optimize();
 
   return 0;
 }

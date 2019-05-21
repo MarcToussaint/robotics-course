@@ -27,6 +27,12 @@ void tracking(){
   objectFrame->setShape(rai::ST_ssBox, {.1, .1, .1, .02});
   objectFrame->setColor({.8, .8, .1});
 
+  // add a frame for the endeff reference
+  rai::Frame *pointerFrame = C.addFrame("pointer", "baxterR");
+  pointerFrame->setShape(rai::ST_ssBox, {.05, .05, .05, .01});
+  pointerFrame->setColor({.8, .1, .1});
+  pointerFrame->setRelativePosition({0.,0.,-.1});
+
   // launch robot interface
   RobotOperation B(C);
   B.sync(C);
@@ -43,6 +49,9 @@ void tracking(){
 
   // set hsv filter parameters
   arr hsvFilter = rai::getParameter<arr>("hsvFilter").reshape(2,3);
+
+  B.moveHard(q_home);
+  rai::wait();
 
   // looping
   for(uint i=0;i<1000;i++){
@@ -120,7 +129,7 @@ void tracking(){
 
       //1st task: track circle with right hand
       arr target = objectFrame->getPosition();
-      C.evalFeature(y, J, FS_position, {"baxterR"});  //"handR" is the name of the right hand ("handL" for the left hand)
+      C.evalFeature(y, J, FS_position, {"pointer"});  //"handR" is the name of the right hand ("handL" for the left hand)
       Phi.append( (y-target) / 1e-2);
       PhiJ.append( J / 1e-2 );
 
