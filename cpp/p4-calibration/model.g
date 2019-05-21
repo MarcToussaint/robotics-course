@@ -5,8 +5,11 @@ frame camera (head) { shape:box,
                       size:[.2 .03 .06] color:[0 0 0]
                       focalLength:0.895, width:640, height:480, zRange:[.1 10] }
 
-frame calibR (right_wrist){ shape:sphere size:[.02] color:[0 .5 0] Q:<t(0 .07 .138)> }
-frame calibL (left_wrist){ shape:sphere size:[.02] color:[0 .5 0] Q:<t(0 -.07 .138)> }
+frame calibR (right_wrist){ shape:sphere size:[.02] color:[0 0 .5] Q:<t(.072 .011 .134)> }
+frame calibL (left_wrist){ shape:sphere size:[.02] color:[0 0 .5] Q:<t(.072 .011 .134)> }
 
-frame volumeL { shape:ssBox size:[.4 .5 .5 .01] color:[.5 0 0 .2] X:<t(-.2 .6 1.1)>, noVisual }
-frame volumeR { shape:ssBox size:[.4 .5 .5 .01] color:[.5 0 0 .2] X:<t(.2 .6 1.1)>, noVisual }
+frame volumeL { shape:ssBox size:[.4 .5 .5 .01] color:[.5 0 0 .2] X:<t(-.2 .65 1.)>, noVisual }
+frame volumeR { shape:ssBox size:[.4 .5 .5 .01] color:[.5 0 0 .2] X:<t(.2 .65 1.)>, noVisual }
+
+Edit right_w2 { q=0.9, robot }
+Edit left_w2 { q=-0.9, robot }

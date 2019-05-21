@@ -35,7 +35,7 @@ void collectData(){
   // launch camera
   Var<byteA> _rgb;
   Var<floatA> _depth;
-#if 0
+#if 1
   RosCamera cam(_rgb, _depth, "cameraRosNodeMarc", "/camera/rgb/image_raw", "/camera/depth/image_rect");
 #else
   //associate an opengl renderer with the camera frame
@@ -60,9 +60,13 @@ void collectData(){
   arr centerL = C["volumeL"]->getPosition();
 
   // add a frame for the object
-  rai::Frame *targetFrame = C.addFrame("target");
-  targetFrame->setShape(rai::ST_ssBox, {.05, .05, .05, .02});
-  targetFrame->setColor({.8, .8, .1});
+  rai::Frame *targetRFrame = C.addFrame("target");
+  targetRFrame->setShape(rai::ST_ssBox, {.05, .05, .05, .02});
+  targetRFrame->setColor({.8, .8, .1});
+
+  rai::Frame *targetLFrame = C.addFrame("target");
+  targetRFrame->setShape(rai::ST_ssBox, {.05, .05, .05, .02});
+  targetRFrame->setColor({.8, .8, .1});
 
   ofstream fil("z.data");
   Graph data;
@@ -70,11 +74,19 @@ void collectData(){
   Node_typed<arr> *data_XR = data.newNode<arr>({"XR"}, {});
   Node_typed<arr> *data_xR = data.newNode<arr>({"xR"}, {});
 
+  // launch robot interface
+  RobotOperation B(C);
+  B.sync(C);
+  B.move(q_home, {5.});
+  rai::wait();
+
+  uint countStable=0;
+
   // looping
   for(;;){
     _depth.waitForNextRevision();
 
-    C_visual.set()->setJointState(C.getJointState());
+//    C_visual.set()->setJointState(C.getJointState());
 
     // grap copies of rgb and depth
     cv::Mat rgb = CV(_rgb.get()).clone();
@@ -97,55 +109,66 @@ void collectData(){
     {
       arr y, J, Phi, PhiJ;
 
-      targetFrame->setPosition(centerR + grid[gridCount]);
+      targetRFrame->setPosition(centerR + grid[gridCount]);
+      targetLFrame->setPosition(centerL + grid[gridCount]);
 
       //1st task: track circle with right hand
-      arr target = targetFrame->getPosition();
+      arr target = targetRFrame->getPosition();
       C.evalFeature(y, J, FS_position, {"baxterR"});  //"handR" is the name of the right hand ("handL" for the left hand)
       Phi.append( (y-target) * 1e2);
       PhiJ.append( J * 1e2 );
 
       if(sumOfSqr(y-target)<1e-5){
-        //save a data point
-        if(OBJ.objCoords(0,0)<rgb.cols-10 && OBJ.objCoords(0,1)<rgb.rows-10
-           && OBJ.objCoords(0,0)>10 && OBJ.objCoords(0,1)>10
-           && OBJ.objCoords(1,0)>10 && OBJ.objCoords(1,1)>10){
-          data_q->value = C.getJointState();
-          data_XR->value = C["calibR"]->getPosition();
-          data_xR->value = OBJ.objCoords[0];
-          fil <<data <<endl;
-//          rai::wait();
-        }else{
-          cout <<"SKIPPED" <<endl;
-        }
+        countStable++;
+        if(countStable>30){
+          //save a data point
+          if(OBJ.objCoords(0,0)<rgb.cols-10 && OBJ.objCoords(0,1)<rgb.rows-10
+             && OBJ.objCoords(0,0)>10 && OBJ.objCoords(0,1)>10
+             && OBJ.objCoords(1,0)>10 && OBJ.objCoords(1,1)>10){
+            data_q->value = C.getJointState();
+            data_XR->value = C["calibR"]->getPosition();
+            data_xR->value = OBJ.objCoords[0];
+            fil <<data <<endl;
+            //          rai::wait();
+          }else{
+            cout <<"SKIPPED" <<endl;
+          }
 
-        gridCount++;
-        if(gridCount>=(int)grid.d0){ gridCount=0; break; }
+          gridCount++;
+          if(gridCount>=(int)grid.d0){ gridCount=0; break; }
+        }
+      }else{
+        countStable = 0;
       }
+
+      target = targetLFrame->getPosition();
+      C.evalFeature(y, J, FS_position, {"baxterL"});  //"handR" is the name of the right hand ("handL" for the left hand)
+      Phi.append( (y-target) * 1e2);
+      PhiJ.append( J * 1e2 );
 
       //2nd task: joint should stay close to zero
       C.evalFeature(y, J, FS_qItself, {});
       Phi .append( (y-q_home) * 1e0 );
       PhiJ.append( J * 1e0 );
 
-      //3rd task: left hand should point upwards
-      C.evalFeature(y, J, FS_vectorZ, {"baxterR"});  //"handR" is the name of the right hand ("handL" for the left hand)
-      target = {0.,0.,1.};
-      Phi.append( (y-target) * 1e-0);
-      PhiJ.append( J * 1e-0 );
+//      //3rd task: left hand should point upwards
+//      C.evalFeature(y, J, FS_vectorZ, {"baxterR"});  //"handR" is the name of the right hand ("handL" for the left hand)
+//      target = {0.,0.,1.};
+//      Phi.append( (y-target) * 1e-0);
+//      PhiJ.append( J * 1e-0 );
 
       // IK compute joint updates
       arr q = C.getJointState();
-      q -= .5*inverse(~PhiJ*PhiJ + Wmetric) * ~PhiJ * Phi;
+      q -= .05*inverse(~PhiJ*PhiJ + Wmetric) * ~PhiJ * Phi;
       C.setJointState(q);
 
-//      B.moveHard(q);
+      B.moveHard(q);
       C.watch();
     }
 
     if(rgb.total()>0 && depth.total()>0){
       cv::imshow("rgb", rgb);
-//      cv::imshow("depth", 0.5*depth); //white=2meters
+      cv::imshow("depth", 0.5*depth); //white=2meters
 //      cv::imshow("mask", OBJ.mask);
       int key = cv::waitKey(1);
       if((key&0xff)=='q') break;
@@ -156,7 +179,7 @@ void collectData(){
 //===========================================================================
 
 void optimize(){
-  Graph data("calib_data");
+  Graph data("realCalib_data");
 
   //-- load data
   uint n = data.N;
@@ -224,9 +247,9 @@ void optimize(){
 int main(int argc,char **argv){
   rai::initCmdLine(argc,argv);
 
-  collectData();
+//  collectData();
 
-//  optimize();
+  optimize();
 
   return 0;
 }

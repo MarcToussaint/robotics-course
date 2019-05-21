@@ -22,6 +22,11 @@ void tracking(){
   cameraFrame->Q.setText("d(-90 0 0 1) t(-.08 .205 .115) d(26 1 0 0) d(-1 0 1 0) d(6 0 0 1)");
   cameraFrame->calc_X_from_parent();
 
+//  cameraFrame->setPosition({-0.0472772, 0.226517, 1.79207});
+//  cameraFrame->setQuaternion({0.969594, 0.24362, -0.00590741, 0.0223832});
+//  arr Fxypxy = {538.273, 544.277, 307.502, 249.954};
+//  Fxypxy /= 0.982094;
+
   // add a frame for the object
   rai::Frame *objectFrame = C.addFrame("obj");
   objectFrame->setShape(rai::ST_ssBox, {.1, .1, .1, .02});
@@ -31,7 +36,7 @@ void tracking(){
   rai::Frame *pointerFrame = C.addFrame("pointer", "baxterR");
   pointerFrame->setShape(rai::ST_ssBox, {.05, .05, .05, .01});
   pointerFrame->setColor({.8, .1, .1});
-  pointerFrame->setRelativePosition({0.,0.,-.1});
+  pointerFrame->setRelativePosition({0.,0.,0});
 
   // launch robot interface
   RobotOperation B(C);
