@@ -191,12 +191,13 @@ sudo shutdown -h now
 
 ### Troubles
 
-* To launch the camera, ssh to snuffleupagus, source ros and baxterwlansetup.sh, and
+* To launch the camera, install openni2. Change kinetic to a different ROS version in the command if you're not using Kinetic.
 ```
-ssh snuffleupagus
-source /opt/ros/kinetic/setup.bash 
-source ~yoojinoh/git/robotics-course/bin/baxterwlansetup.sh
-roslaunch openni2_launch openni2.launch
+sudo apt-get install ros-kinetic-openni2-launch
+```
+Plug in the camera USB and run the following command.
+```
+roslaunch openni2_launch openni2.launch depth_registration:="true" hw_registered_processing:="true" color_depth_synchronization:="true" auto_exposure:="false" auto_white_balance:="false"
 ```
 
 * One some machines, OpenGL with the glfw seems broke. You'll have to change back to an older version which uses freeglut. For this, in `rai/Gui/Makefile` switch the 0/1 for `FREEGLUT` and `GLFW`
