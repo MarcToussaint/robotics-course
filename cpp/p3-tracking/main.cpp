@@ -15,7 +15,7 @@ void tracking(){
   rai::KinematicWorld C;
   C.addFile("../../rai-robotModels/baxter/baxter_new.g");
   arr q_home = C.getJointState();
-  arr Wmetric = diag(1., C.getJointStateDimension());
+  arr Wmetric = diag(2., C.getJointStateDimension());
 
   // add a frame for the camera
   rai::Frame *cameraFrame = C.addFrame("camera", "head");
@@ -36,7 +36,7 @@ void tracking(){
   rai::Frame *pointerFrame = C.addFrame("pointer", "baxterR");
   pointerFrame->setShape(rai::ST_ssBox, {.05, .05, .05, .01});
   pointerFrame->setColor({.8, .1, .1});
-  pointerFrame->setRelativePosition({0.,0.,0});
+  pointerFrame->setRelativePosition({0.,0.,-.05});
 
   // launch robot interface
   RobotOperation B(C);
@@ -135,13 +135,13 @@ void tracking(){
       //1st task: track circle with right hand
       arr target = objectFrame->getPosition();
       C.evalFeature(y, J, FS_position, {"pointer"});  //"handR" is the name of the right hand ("handL" for the left hand)
-      Phi.append( (y-target) / 1e-2);
-      PhiJ.append( J / 1e-2 );
+      Phi.append( (y-target) * 1e2);
+      PhiJ.append( J * 1e2 );
 
       //2nd task: joint should stay close to zero
       C.evalFeature(y, J, FS_qItself, {});
-      Phi .append( (y-q_home) / 1e0 );
-      PhiJ.append( J / 1e0 );
+      Phi .append( (y-q_home) * 1e0 );
+      PhiJ.append( J * 1e0 );
 
       //      //3rd task: left hand should point upwards
       //      K.evalFeature(y, J, FS_vectorZ, {"handL"});  //"handR" is the name of the right hand ("handL" for the left hand)
@@ -151,7 +151,7 @@ void tracking(){
 
       // IK compute joint updates
       arr q = C.getJointState();
-      q -= 0.1*inverse(~PhiJ*PhiJ + Wmetric) * ~PhiJ * Phi;
+      q -= 0.05*inverse(~PhiJ*PhiJ + Wmetric) * ~PhiJ * Phi;
 
       C.setJointState(q);
       B.moveHard(q);
