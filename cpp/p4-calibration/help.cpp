@@ -1,11 +1,13 @@
 #include "help.h"
 
-GetLargestObjects::GetLargestObjects(cv::Mat& rgb, cv::Mat& depth, const arr& hsvFilter, uint num){
+GetLargestObjects::GetLargestObjects(cv::Mat& rgb, cv::Mat& depth, const arr& hsvFilter, uint num, bool bgr){
   // blur
   cv::blur(rgb, rgb, cv::Size(5,5));
 
   // hsv filter
-  cv::cvtColor(rgb, hsv, cv::COLOR_BGR2HSV);
+  if(bgr) cv::cvtColor(rgb, hsv, cv::COLOR_BGR2HSV);
+  else cv::cvtColor(rgb, hsv, cv::COLOR_RGB2HSV);
+
   cv::inRange(hsv,
               cv::Scalar(hsvFilter(0,0), hsvFilter(0,1), hsvFilter(0,2)),
               cv::Scalar(hsvFilter(1,0), hsvFilter(1,1), hsvFilter(1,2)), mask);

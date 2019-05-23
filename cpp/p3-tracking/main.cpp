@@ -22,10 +22,25 @@ void tracking(){
   cameraFrame->Q.setText("d(-90 0 0 1) t(-.08 .205 .115) d(26 1 0 0) d(-1 0 1 0) d(6 0 0 1)");
   cameraFrame->calc_X_from_parent();
 
-//  cameraFrame->setPosition({-0.0472772, 0.226517, 1.79207});
-//  cameraFrame->setQuaternion({0.969594, 0.24362, -0.00590741, 0.0223832});
-//  arr Fxypxy = {538.273, 544.277, 307.502, 249.954};
-//  Fxypxy /= 0.982094;
+  cameraFrame->setPosition({-0.048283, 0.228542, 1.78686});
+  cameraFrame->setQuaternion({0.967548, 0.251242, -0.00732202, 0.0259533});
+  arr Fxypxy = {531.597, 536.315, 313.788, 243.297};
+//  Fxypxy /= 0.989076;
+
+/*
+  *** total Pinv:
+  Pinv:
+  0.00187839 7.8914e-05 -0.614197 -0.048283
+  8.75529e-05 -0.00162767 0.864538 0.228542
+  5.11853e-05 -0.000906396 -0.676576 1.78686
+  *** camera intrinsics:
+   531.597 -6.16406 -313.788
+   0 -536.315 -243.297
+   0 0 -0.989076
+  *** camera origin in world:  -0.048283 0.228542 1.78686
+  *** camera rotation in world: (0.967548 0.251242 -0.00732202 0.0259533)
+  *** */
+
 
   // add a frame for the object
   rai::Frame *objectFrame = C.addFrame("obj");
@@ -36,7 +51,7 @@ void tracking(){
   rai::Frame *pointerFrame = C.addFrame("pointer", "baxterR");
   pointerFrame->setShape(rai::ST_ssBox, {.05, .05, .05, .01});
   pointerFrame->setColor({.8, .1, .1});
-  pointerFrame->setRelativePosition({0.,0.,-.05});
+  pointerFrame->setRelativePosition({0.,0.,-.0});
 
   // launch robot interface
   RobotOperation B(C);
@@ -47,10 +62,10 @@ void tracking(){
   Var<floatA> _depth;
   RosCamera cam(_rgb, _depth, "cameraRosNodeMarc", "/camera/rgb/image_raw", "/camera/depth/image_rect");
 
-  // set the intrinsic camera parameters
-  double f = 1./tan(0.5*60.8*RAI_PI/180.);
-  f *= 320.;
-  arr Fxypxy = {f, f, 320., 240.};
+//  // set the intrinsic camera parameters
+//  double f = 1./tan(0.5*60.8*RAI_PI/180.);
+//  f *= 320.;
+//  arr Fxypxy = {f, f, 320., 240.};
 
   // set hsv filter parameters
   arr hsvFilter = rai::getParameter<arr>("hsvFilter").reshape(2,3);

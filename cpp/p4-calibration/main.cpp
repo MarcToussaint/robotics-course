@@ -54,10 +54,10 @@ void collectData(){
   arr hsvFilter = rai::getParameter<arr>("hsvFilter").reshape(2,3);
 
   // create a 3D grid of target points
-  arr grid = ::grid({-.2,-.2,-.2},{.2,.2,.2}, {2,2,2});
+  arr grid = ::grid({-.2,-.2,-.2},{.2,.2,.2}, {3,3,3});
   int gridCount = 0;
-  arr centerR = C["volumeR"]->getPosition();
-  arr centerL = C["volumeL"]->getPosition();
+  rai::Transformation centerR = C["volumeR"]->X;
+  rai::Transformation centerL = C["volumeL"]->X;
 
   // add a frame for the object
   rai::Frame *targetRFrame = C.addFrame("target");
@@ -75,10 +75,12 @@ void collectData(){
   Node_typed<arr> *data_xR = data.newNode<arr>({"xR"}, {});
 
   // launch robot interface
+#if 1
   RobotOperation B(C);
   B.sync(C);
   B.move(q_home, {5.});
   rai::wait();
+#endif
 
   uint countStable=0;
 
@@ -94,7 +96,7 @@ void collectData(){
 
     if(rgb.rows != depth.rows) continue;
 
-    GetLargestObjects OBJ(rgb, depth, hsvFilter, 2);
+    GetLargestObjects OBJ(rgb, depth, hsvFilter, 2, true);
 
     if(OBJ.objCoords(0,0)<OBJ.objCoords(1,0)){
       arr tmp;
@@ -109,8 +111,8 @@ void collectData(){
     {
       arr y, J, Phi, PhiJ;
 
-      targetRFrame->setPosition(centerR + grid[gridCount]);
-      targetLFrame->setPosition(centerL + grid[gridCount]);
+      targetRFrame->setPosition((centerR * rai::Vector(grid[gridCount])).getArr());
+      targetLFrame->setPosition((centerL * rai::Vector(grid[gridCount])).getArr());
 
       //1st task: track circle with right hand
       arr target = targetRFrame->getPosition();
@@ -179,7 +181,7 @@ void collectData(){
 //===========================================================================
 
 void optimize(){
-  Graph data("realCalib_data");
+  Graph data("realCalib3.data");
 
   //-- load data
   uint n = data.N;

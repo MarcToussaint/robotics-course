@@ -8,8 +8,8 @@ frame camera (head) { shape:box,
 frame calibR (right_wrist){ shape:sphere size:[.02] color:[0 0 .5] Q:<t(.072 .011 .134)> }
 frame calibL (left_wrist){ shape:sphere size:[.02] color:[0 0 .5] Q:<t(.072 .011 .134)> }
 
-frame volumeL { shape:ssBox size:[.4 .5 .5 .01] color:[.5 0 0 .2] X:<t(-.2 .65 1.)>, noVisual }
-frame volumeR { shape:ssBox size:[.4 .5 .5 .01] color:[.5 0 0 .2] X:<t(.2 .65 1.)>, noVisual }
+frame volumeL { shape:ssBox size:[.4 .4 .4 .01] color:[.5 0 0 .2] X:<t(-.2 .65 1.) d(30 1 0 0)>, noVisual }
+frame volumeR { shape:ssBox size:[.4 .4 .4 .01] color:[.5 0 0 .2] X:<t( .2 .65 1.) d(30 1 0 0)>, noVisual }
 
 Edit right_w2 { q=0.9, robot }
 Edit left_w2 { q=-0.9, robot }
