@@ -41,6 +41,31 @@ void minimal_use(){
 
 //===========================================================================
 
+void wrist_camera(){
+  Var<byteA> _rgb;
+  Var<floatA> _depth;
+
+ RosCamera kin(_rgb, _depth, "cameraRosNodeMarc", "/cameras/right_hand_camera/image", "", true);
+
+  //looping images through opencv
+  for(uint i=0;i<1000;i++){
+    _rgb.waitForNextRevision();
+    {
+      byteA RGB = _rgb.get();
+      cv::Mat rgb = cv::Mat(RGB.d0, RGB.d1, CV_8UC4, RGB.p);
+      cv::cvtColor(rgb, rgb, cv::COLOR_BGRA2RGBA);
+
+      if(rgb.total()>0){
+        cv::imshow("rgb", rgb); //white=2meters
+        int key = cv::waitKey(1);
+        if((key&0xff)=='q') break;
+      }
+    }
+  }
+}
+
+//===========================================================================
+
 void get_objects_into_configuration(){
   //subscribe to image and depth
   Var<byteA> _rgb;
@@ -163,7 +188,8 @@ void usingCameraSimulation(){
 int main(int argc,char **argv){
   rai::initCmdLine(argc,argv);
 
-  minimal_use();
+//  minimal_use();
+  wrist_camera();
 //  get_objects_into_configuration();
 //  usingCameraSimulation();
 

@@ -36,7 +36,8 @@ void collectData(){
   Var<byteA> _rgb;
   Var<floatA> _depth;
 #if 1
-  RosCamera cam(_rgb, _depth, "cameraRosNodeMarc", "/camera/rgb/image_raw", "/camera/depth/image_rect");
+//  RosCamera cam(_rgb, _depth, "cameraRosNodeMarc", "/camera/rgb/image_raw", "/camera/depth/image_rect");
+  RosCamera cam(_rgb, _depth, "cameraRosNodeMarc", "/kinect/rgb/image_rect_color", "/kinect/depth_registered/sw_registered/image_rect_raw", true);
 #else
   //associate an opengl renderer with the camera frame
   Var<rai::KinematicWorld> C_visual;
@@ -54,7 +55,7 @@ void collectData(){
   arr hsvFilter = rai::getParameter<arr>("hsvFilter").reshape(2,3);
 
   // create a 3D grid of target points
-  arr grid = ::grid({-.2,-.2,-.2},{.2,.2,.2}, {3,3,3});
+  arr grid = ::grid({-.2,-.2,-.2},{.2,.2,.2}, {2,2,2});
   int gridCount = 0;
   rai::Transformation centerR = C["volumeR"]->X;
   rai::Transformation centerL = C["volumeL"]->X;
@@ -96,7 +97,7 @@ void collectData(){
 
     if(rgb.rows != depth.rows) continue;
 
-    GetLargestObjects OBJ(rgb, depth, hsvFilter, 2, true);
+    GetLargestObjects OBJ(rgb, depth, hsvFilter, 2, false);
 
     if(OBJ.objCoords(0,0)<OBJ.objCoords(1,0)){
       arr tmp;
@@ -249,9 +250,9 @@ void optimize(){
 int main(int argc,char **argv){
   rai::initCmdLine(argc,argv);
 
-//  collectData();
+  collectData();
 
-  optimize();
+//  optimize();
 
   return 0;
 }
