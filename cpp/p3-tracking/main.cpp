@@ -22,12 +22,19 @@ void tracking(){
   cameraFrame->Q.setText("d(-90 0 0 1) t(-.08 .205 .115) d(26 1 0 0) d(-1 0 1 0) d(6 0 0 1)");
   cameraFrame->calc_X_from_parent();
 
-  cameraFrame->setPosition({-0.048283, 0.228542, 1.78686});
-  cameraFrame->setQuaternion({0.967548, 0.251242, -0.00732202, 0.0259533});
-  arr Fxypxy = {531.597, 536.315, 313.788, 243.297};
-//  Fxypxy /= 0.989076;
+  cameraFrame->setPosition({-0.0499056, 0.231561, 1.7645});
+  cameraFrame->setQuaternion({0.971032, 0.237993, -0.00607315, 0.0204557});
+  arr Fxypxy = {539.637, 540.941, 317.533, 260.024};
+
+  arr Pinv = arr(3,4,{
+  0.00185141, 6.4155e-05, -0.59182, -0.0499056,
+   6.82597e-05, -0.00163821, 0.85137, 0.231561,
+   3.98992e-05, -0.000854289, -0.665166, 1.7645});
 
 /*
+*** camera origin in world:  -0.0499056 0.231561 1.7645
+*** camera rotation in world: (0.971032 0.237993 -0.00607315 0.0204557)
+
   *** total Pinv:
   Pinv:
   0.00187839 7.8914e-05 -0.614197 -0.048283
@@ -48,7 +55,7 @@ void tracking(){
   objectFrame->setColor({.8, .8, .1});
 
   // add a frame for the endeff reference
-  rai::Frame *pointerFrame = C.addFrame("pointer", "baxterR");
+  rai::Frame *pointerFrame = C.addFrame("pointer", "baxterL");
   pointerFrame->setShape(rai::ST_ssBox, {.05, .05, .05, .01});
   pointerFrame->setColor({.8, .1, .1});
   pointerFrame->setRelativePosition({0.,0.,-.0});
@@ -62,16 +69,12 @@ void tracking(){
   Var<floatA> _depth;
   RosCamera cam(_rgb, _depth, "cameraRosNodeMarc", "/camera/rgb/image_raw", "/camera/depth/image_rect");
 
-//  // set the intrinsic camera parameters
-//  double f = 1./tan(0.5*60.8*RAI_PI/180.);
-//  f *= 320.;
-//  arr Fxypxy = {f, f, 320., 240.};
-
   // set hsv filter parameters
   arr hsvFilter = rai::getParameter<arr>("hsvFilter").reshape(2,3);
 
   B.moveHard(q_home);
   rai::wait();
+  B.sync(C);
 
   // looping
   for(uint i=0;i<1000;i++){
@@ -132,11 +135,19 @@ void tracking(){
       // image coordinates
       arr objCoords = {objX, objY, objDepth};
 
+#if 0
       // camera coordinates
       depthData2point(objCoords, Fxypxy); //transforms the point to camera xyz coordinates
 
       // world coordinates
       cameraFrame->X.applyOnPoint(objCoords); //transforms into world coordinates
+#else
+      //direct affine projective transformation
+      objCoords(0) *= objCoords(2);
+      objCoords(1) *= objCoords(2);
+      objCoords.append(1.);
+      objCoords = Pinv * objCoords;
+#endif
 
       //cout <<"object coordinates: " <<objCoords <<endl;
 
@@ -144,7 +155,7 @@ void tracking(){
     }
 
     // tracking IK
-    {
+    if(true){
       arr y, J, Phi, PhiJ;
 
       //1st task: track circle with right hand
@@ -172,6 +183,8 @@ void tracking(){
       B.moveHard(q);
       C.watch();
     }
+
+    C.watch();
 
     if(rgb.total()>0 && depth.total()>0){
       if(contours.size()){

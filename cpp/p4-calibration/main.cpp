@@ -36,8 +36,8 @@ void collectData(){
   Var<byteA> _rgb;
   Var<floatA> _depth;
 #if 1
-//  RosCamera cam(_rgb, _depth, "cameraRosNodeMarc", "/camera/rgb/image_raw", "/camera/depth/image_rect");
-  RosCamera cam(_rgb, _depth, "cameraRosNodeMarc", "/kinect/rgb/image_rect_color", "/kinect/depth_registered/sw_registered/image_rect_raw", true);
+  RosCamera cam(_rgb, _depth, "cameraRosNodeMarc", "/camera/rgb/image_raw", "/camera/depth/image_rect");
+//  RosCamera cam(_rgb, _depth, "cameraRosNodeMarc", "/kinect/rgb/image_rect_color", "/kinect/depth_registered/sw_registered/image_rect_raw", true);
 #else
   //associate an opengl renderer with the camera frame
   Var<rai::KinematicWorld> C_visual;
@@ -97,7 +97,7 @@ void collectData(){
 
     if(rgb.rows != depth.rows) continue;
 
-    GetLargestObjects OBJ(rgb, depth, hsvFilter, 2, false);
+    GetLargestObjects OBJ(rgb, depth, hsvFilter, 2, true);
 
     if(OBJ.objCoords(0,0)<OBJ.objCoords(1,0)){
       arr tmp;
@@ -182,7 +182,8 @@ void collectData(){
 //===========================================================================
 
 void optimize(){
-  Graph data("realCalib3.data");
+//  Graph data("realCalib3.data");
+  Graph data("z.data");
 
   //-- load data
   uint n = data.N;
@@ -233,7 +234,7 @@ void optimize(){
   cout <<" Pinv:\n" <<Pinv <<endl;
   cout <<"*** camera intrinsics:\n" <<K <<endl;
   cout <<"*** camera origin in world: " <<t <<endl;
-  cout <<"*** camera rotation in world: " <<rot <<endl;
+  cout <<"*** camera rotation in world: " <<rot.getArr4d() <<endl;
 
   //-- test/example
   for(uint i=0;i<0;i++){
@@ -250,9 +251,9 @@ void optimize(){
 int main(int argc,char **argv){
   rai::initCmdLine(argc,argv);
 
-  collectData();
+//  collectData();
 
-//  optimize();
+  optimize();
 
   return 0;
 }
