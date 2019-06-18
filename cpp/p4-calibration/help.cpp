@@ -28,8 +28,6 @@ GetLargestObjects::GetLargestObjects(cv::Mat& rgb, cv::Mat& depth, const arr& hs
     double size = sizes(largest);
     sizes(largest)=0.; //done
 
-
-
     // draw the contour interior into the mask
     mask = cv::Scalar(0);
     if(size>300.){

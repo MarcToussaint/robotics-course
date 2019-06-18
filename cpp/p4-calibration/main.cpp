@@ -55,7 +55,7 @@ void collectData(){
   arr hsvFilter = rai::getParameter<arr>("hsvFilter").reshape(2,3);
 
   // create a 3D grid of target points
-  arr grid = ::grid({-.2,-.2,-.2},{.2,.2,.2}, {2,2,2});
+  arr grid = ::grid({-.2,-.2,-.2}, {.2,.2,.2}, {3,3,3});
   int gridCount = 0;
   rai::Transformation centerR = C["volumeR"]->X;
   rai::Transformation centerL = C["volumeL"]->X;
@@ -81,6 +81,7 @@ void collectData(){
   B.sync(C);
   B.move(q_home, {5.});
   rai::wait();
+  B.sync(C);
 #endif
 
   uint countStable=0;
@@ -251,9 +252,9 @@ void optimize(){
 int main(int argc,char **argv){
   rai::initCmdLine(argc,argv);
 
-//  collectData();
+  collectData();
 
-  optimize();
+//  optimize();
 
   return 0;
 }

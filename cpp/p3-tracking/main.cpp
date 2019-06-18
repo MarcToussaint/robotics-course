@@ -19,35 +19,13 @@ void tracking(){
 
   // add a frame for the camera
   rai::Frame *cameraFrame = C.addFrame("camera", "head");
-  cameraFrame->Q.setText("d(-90 0 0 1) t(-.08 .205 .115) d(26 1 0 0) d(-1 0 1 0) d(6 0 0 1)");
-  cameraFrame->calc_X_from_parent();
-
   cameraFrame->setPosition({-0.0499056, 0.231561, 1.7645});
   cameraFrame->setQuaternion({0.971032, 0.237993, -0.00607315, 0.0204557});
   arr Fxypxy = {539.637, 540.941, 317.533, 260.024};
-
   arr Pinv = arr(3,4,{
   0.00185141, 6.4155e-05, -0.59182, -0.0499056,
    6.82597e-05, -0.00163821, 0.85137, 0.231561,
    3.98992e-05, -0.000854289, -0.665166, 1.7645});
-
-/*
-*** camera origin in world:  -0.0499056 0.231561 1.7645
-*** camera rotation in world: (0.971032 0.237993 -0.00607315 0.0204557)
-
-  *** total Pinv:
-  Pinv:
-  0.00187839 7.8914e-05 -0.614197 -0.048283
-  8.75529e-05 -0.00162767 0.864538 0.228542
-  5.11853e-05 -0.000906396 -0.676576 1.78686
-  *** camera intrinsics:
-   531.597 -6.16406 -313.788
-   0 -536.315 -243.297
-   0 0 -0.989076
-  *** camera origin in world:  -0.048283 0.228542 1.78686
-  *** camera rotation in world: (0.967548 0.251242 -0.00732202 0.0259533)
-  *** */
-
 
   // add a frame for the object
   rai::Frame *objectFrame = C.addFrame("obj");
@@ -152,6 +130,7 @@ void tracking(){
       //cout <<"object coordinates: " <<objCoords <<endl;
 
       objectFrame->setPosition(objCoords);
+      C.watch();
     }
 
     // tracking IK
@@ -183,8 +162,6 @@ void tracking(){
       B.moveHard(q);
       C.watch();
     }
-
-    C.watch();
 
     if(rgb.total()>0 && depth.total()>0){
       if(contours.size()){

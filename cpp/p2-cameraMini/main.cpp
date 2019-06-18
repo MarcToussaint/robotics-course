@@ -15,9 +15,8 @@ void minimal_use(){
   Var<floatA> _depth;
 
 #if 1 //using ros
-//  RosCamera cam(_rgb, _depth, "cameraRosNodeMarc", "/camera/rgb/image_raw", "/camera/depth/image_rect");
-
-  RosCamera kin(_rgb, _depth, "cameraRosNodeMarc", "/kinect/rgb/image_rect_color", "/kinect/depth_registered/sw_registered/image_rect_raw", true);
+  RosCamera cam(_rgb, _depth, "cameraRosNodeMarc", "/camera/rgb/image_raw", "/camera/depth/image_rect");
+  //  RosCamera kin(_rgb, _depth, "cameraRosNodeMarc", "/kinect/rgb/image_rect_color", "/kinect/depth_registered/sw_registered/image_rect_raw", true);
 #else //using a webcam
   OpencvCamera cam(_rgb);
 #endif
@@ -188,8 +187,8 @@ void usingCameraSimulation(){
 int main(int argc,char **argv){
   rai::initCmdLine(argc,argv);
 
-//  minimal_use();
-  wrist_camera();
+  minimal_use();
+//  wrist_camera();
 //  get_objects_into_configuration();
 //  usingCameraSimulation();
 
