@@ -19,7 +19,7 @@ GetLargestObjects::GetLargestObjects(cv::Mat& rgb, cv::Mat& depth, const arr& hs
   sizes.resize(contours.size());
   for(uint i=0; i<contours.size(); i++) sizes(i) = cv::contourArea(cv::Mat(contours[i]));
 
-  objCoords.resize(num, 3).setZero();
+  cameraCoords.resize(num, 3).setZero();
 
   if(sizes.N<num) num=sizes.N;
 
@@ -56,7 +56,7 @@ GetLargestObjects::GetLargestObjects(cv::Mat& rgb, cv::Mat& depth, const arr& hs
         // mean
         //double objDepth = sum(depthValues)/double(depthValues.N);
 
-        objCoords[i] = {objX, objY, objDepth};
+        cameraCoords[i] = {objX, objY, objDepth};
 
         cv::drawContours( rgb, contours, largest, cv::Scalar(255,0,0), 2, 8);
         cv::drawContours( depth, contours, largest, cv::Scalar(0), 2, 8);

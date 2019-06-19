@@ -100,14 +100,14 @@ void collectData(){
 
     GetLargestObjects OBJ(rgb, depth, hsvFilter, 2, true);
 
-    if(OBJ.objCoords(0,0)<OBJ.objCoords(1,0)){
+    if(OBJ.cameraCoords(0,0)<OBJ.cameraCoords(1,0)){
       arr tmp;
-      tmp = OBJ.objCoords[0];
-      OBJ.objCoords[0] = OBJ.objCoords[1];
-      OBJ.objCoords[1] = tmp;
+      tmp = OBJ.cameraCoords[0];
+      OBJ.cameraCoords[0] = OBJ.cameraCoords[1];
+      OBJ.cameraCoords[1] = tmp;
     }
 
-    cout <<"markers:\n" <<OBJ.objCoords <<endl;
+    cout <<"markers:\n" <<OBJ.cameraCoords <<endl;
 
     // tracking IK
     {
@@ -126,12 +126,12 @@ void collectData(){
         countStable++;
         if(countStable>30){
           //save a data point
-          if(OBJ.objCoords(0,0)<rgb.cols-10 && OBJ.objCoords(0,1)<rgb.rows-10
-             && OBJ.objCoords(0,0)>10 && OBJ.objCoords(0,1)>10
-             && OBJ.objCoords(1,0)>10 && OBJ.objCoords(1,1)>10){
+          if(OBJ.cameraCoords(0,0)<rgb.cols-10 && OBJ.cameraCoords(0,1)<rgb.rows-10
+             && OBJ.cameraCoords(0,0)>10 && OBJ.cameraCoords(0,1)>10
+             && OBJ.cameraCoords(1,0)>10 && OBJ.cameraCoords(1,1)>10){
             data_q->value = C.getJointState();
             data_XR->value = C["calibR"]->getPosition();
-            data_xR->value = OBJ.objCoords[0];
+            data_xR->value = OBJ.cameraCoords[0];
             fil <<data <<endl;
             //          rai::wait();
           }else{
@@ -183,8 +183,8 @@ void collectData(){
 //===========================================================================
 
 void optimize(){
-//  Graph data("realCalib3.data");
-  Graph data("z.data");
+  Graph data("realCalib3.data");
+//  Graph data("z.data");
 
   //-- load data
   uint n = data.N;
@@ -201,26 +201,34 @@ void optimize(){
     x[i] = z;
   }
 
-  //-- first iteration
+  //-- multiple iterations
   arr Pinv, K, R, t;
-  Pinv = ~X * x * inverse_SymPosDef(~x*x);
-  decomposeInvProjectionMatrix(K, R, t, Pinv);
-  cout <<"1st iter ERROR = " <<sqrt(sumOfSqr(x*~Pinv - X)/double(n)) <<endl;
-  cout <<"*** camera origin in world: " <<t <<endl;
-//  cout <<"P = " <<P <<endl;
+  for(uint k=0;k<10;k++){
+    Pinv = ~X * x * inverse_SymPosDef(~x*x);
+    decomposeInvProjectionMatrix(K, R, t, Pinv);
+    for(uint i=0;i<n;i++){
+      double ei = sqrt(sumOfSqr(X[i] - Pinv*x[i]));
+      cout <<"   error on data " <<i <<": " <<ei;
+      if(ei>.15){ X[i]=0.; x[i]=0.; cout <<" -- removed"; }
+      cout <<endl;
+    }
+    double err = sqrt(sumOfSqr(x*~Pinv - X)/double(n));
+    cout <<"total ERROR = " <<err <<endl;
+    if(err<.01) break;
+  }
 
   //-- correct for radius
   double radius = .02;
   for(uint i=0;i<n;i++){
-    arr rel = X[i] - t;
-    X[i] -= rel*(radius/length(rel)); //pull ``closer'', to the ball front
+    if(sumOfSqr(X[i])>1e-8){
+      arr rel = X[i] - t;
+      X[i] -= rel*(radius/length(rel)); //pull ``closer'', to the ball front
+    }
   }
-
-  //-- second iteration
   Pinv = ~X * x * inverse_SymPosDef(~x*x);
   decomposeInvProjectionMatrix(K, R, t, Pinv);
-  cout <<"2nd iter ERROR = " <<sqrt(sumOfSqr(x*~Pinv - X)/double(n)) <<endl;
-//  cout <<"P = " <<P <<endl;
+  cout <<"total ERROR after radius correction = " <<sqrt(sumOfSqr(x*~Pinv - X)/double(n)) <<endl;
+
 
   //-- output
   {
@@ -231,11 +239,10 @@ void optimize(){
   }
   rai::Quaternion rot;
   rot.setMatrix(~R);
-  cout <<"*** total Pinv:\n";
-  cout <<" Pinv:\n" <<Pinv <<endl;
-  cout <<"*** camera intrinsics:\n" <<K <<endl;
-  cout <<"*** camera origin in world: " <<t <<endl;
-  cout <<"*** camera rotation in world: " <<rot.getArr4d() <<endl;
+  cout <<"*** total Pinv:\n" <<Pinv <<endl;
+  cout <<"*** camera intrinsics K:\n" <<K <<endl;
+  cout <<"*** camera world pos: " <<t <<endl;
+  cout <<"*** camera world rot: " <<rot.getArr4d() <<endl;
 
   //-- test/example
   for(uint i=0;i<0;i++){
@@ -252,9 +259,45 @@ void optimize(){
 int main(int argc,char **argv){
   rai::initCmdLine(argc,argv);
 
-  collectData();
+//  collectData();
 
-//  optimize();
+  optimize();
 
   return 0;
 }
+
+/* results
+
+for camera1:
+
+total ERROR = 0.00395552
+total ERROR after radius correction = 0.00396736
+*** total Pinv:
+[0.00187839, 7.8914e-05, -0.614197, -0.048283,
+ 8.75529e-05, -0.00162767, 0.864538, 0.228542,
+ 5.11853e-05, -0.000906396, -0.676576, 1.78686]
+*** camera intrinsics K:
+[531.597, -6.16406, -313.788,
+ 0, -536.315, -243.297,
+ 0, 0, -0.989076]
+*** camera world pos: [-0.048283, 0.228542, 1.78686]
+*** camera world rot: [0.967548, 0.251242, -0.00732202, 0.0259533]
+
+
+
+for camera2:
+
+total ERROR = 0.00241405
+total ERROR after radius correction = 0.00221046
+*** total Pinv:
+[0.00180045, 5.51994e-06, -0.569533, -0.0330757,
+ -1.82321e-06, -0.00133149, 1.00136, 0.125005,
+ 5.08217e-05, -0.00117336, -0.439092, 1.55487]
+*** camera intrinsics K:
+[555.197, -8.21031, -334.467,
+ 0, -563.526, -271.392,
+ 0, 0, -1.02162]
+*** camera world pos: [-0.0330757, 0.125005, 1.55487]
+*** camera world rot: [0.935411, 0.35328, -0.0133783, 0.00451155]
+
+*/
