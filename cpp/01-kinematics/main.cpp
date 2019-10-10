@@ -36,32 +36,31 @@ void simpleArrayOperations(){
 
 
 void watchAConfig(){
-  rai::KinematicWorld K("man.ors");
+  rai::Configuration K("human.g");
   cout <<"joint dimensions = " <<K.getJointStateDimension() <<endl;
 
   cout <<"initial posture (hit ENTER in the OpenGL window to continue!!)" <<endl;
   K.watch(true);        //pause and watch initial posture
 
-  arr q;
-  K.getJointState(q);
+  arr q = K.getJointState();
 
   q(0) += 0.1;                 //change the first entry of q-vector
-  K.getJointState(q);
+  K.setJointState(q);
   K.watch(true);
   
   q = 0.;                      //set q-vector equal zero
-  K.getJointState(q);
+  K.setJointState(q);
   K.watch(true);
 }
 
 
 void reach(){
-  rai::KinematicWorld K("man.ors");
+  rai::Configuration K("human.g");
   arr q,W;
   uint n = K.getJointStateDimension();
-  K.getJointState(q);
+  q = K.getJointState();
   double w = rai::getParameter("w",1e-4);
-  W.setDiag(w,n);  //W is equal the Id_n matrix times scalar w
+  W.setDiag(w, n);  //W is equal the Id_n matrix times scalar w
 
   cout <<"initial posture (hit ENTER in the OpenGL window to continue!!)" <<endl;
   K.watch(true);        //pause and watch initial posture
@@ -88,7 +87,7 @@ void reach(){
 int main(int argc,char **argv){
   rai::initCmdLine(argc,argv);
 
-  switch(rai::getParameter<int>("mode",2)){ // ./x.exe -mode 1   allows you to select mode from cmd line
+  switch(rai::getParameter<int>("mode", 2)){ // ./x.exe -mode 1   allows you to select mode from cmd line
   case 0:  simpleArrayOperations();  break;
   case 1:  watchAConfig();  break;
   case 2:  reach();  break;
@@ -96,3 +95,4 @@ int main(int argc,char **argv){
 
   return 0;
 }
+

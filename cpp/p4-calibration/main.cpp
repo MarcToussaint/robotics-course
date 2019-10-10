@@ -27,7 +27,7 @@ q worldL worldR imageL = (x,y,d) imageR=(x,y,d)
 
 void collectData(){
   // load a configuration
-  rai::KinematicWorld C;
+  rai::Configuration C;
   C.addFile("model.g");
   arr q_home = C.getJointState();
   arr Wmetric = diag(1., C.getJointStateDimension());
@@ -35,21 +35,8 @@ void collectData(){
   // launch camera
   Var<byteA> _rgb;
   Var<floatA> _depth;
-#if 1
-  RosCamera cam(_rgb, _depth, "cameraRosNodeMarc", "/camera/rgb/image_raw", "/camera/depth/image_rect");
-//  RosCamera cam(_rgb, _depth, "cameraRosNodeMarc", "/kinect/rgb/image_rect_color", "/kinect/depth_registered/sw_registered/image_rect_raw", true);
-#else
-  //associate an opengl renderer with the camera frame
-  Var<rai::KinematicWorld> C_visual;
-  C_visual.set() = C;
-  rai::Sim_CameraView camSim(C_visual, _rgb, _depth, .1);
-  camSim.C.addSensor("myCam", "camera");
-  camSim.C.selectSensor("myCam");
-
-  // output ground truth
-  cout <<"groud truth camera:\n";
-  camSim.C.currentSensor->cam.report();
-#endif
+//  RosCamera cam(_rgb, _depth, "cameraRosNodeMarc", "/camera/rgb/image_raw", "/camera/depth/image_rect");
+  RosCamera cam(_rgb, _depth, "cameraRosNodeMarc", "/kinect/rgb/image_rect_color", "/kinect/depth_registered/sw_registered/image_rect_raw", true);
 
   // set hsv filter parameters
   arr hsvFilter = rai::getParameter<arr>("hsvFilter").reshape(2,3);
@@ -57,8 +44,8 @@ void collectData(){
   // create a 3D grid of target points
   arr grid = ::grid({-.2,-.2,-.2}, {.2,.2,.2}, {3,3,3});
   int gridCount = 0;
-  rai::Transformation centerR = C["volumeR"]->X;
-  rai::Transformation centerL = C["volumeL"]->X;
+  rai::Transformation centerR = C["volumeR"]->ensure_X();
+  rai::Transformation centerL = C["volumeL"]->ensure_X();
 
   // add a frame for the object
   rai::Frame *targetRFrame = C.addFrame("target");
@@ -90,15 +77,13 @@ void collectData(){
   for(;;){
     _depth.waitForNextRevision();
 
-//    C_visual.set()->setJointState(C.getJointState());
-
     // grap copies of rgb and depth
     cv::Mat rgb = CV(_rgb.get()).clone();
     cv::Mat depth = CV(_depth.get()).clone();
 
     if(rgb.rows != depth.rows) continue;
 
-    GetLargestObjects OBJ(rgb, depth, hsvFilter, 2, true);
+    GetLargestObjects OBJ(rgb, depth, hsvFilter, 2, false);
 
     if(OBJ.cameraCoords(0,0)<OBJ.cameraCoords(1,0)){
       arr tmp;
@@ -183,8 +168,8 @@ void collectData(){
 //===========================================================================
 
 void optimize(){
-  Graph data("realCalib3.data");
-//  Graph data("z.data");
+//  Graph data("realCalib3.data");
+  Graph data("z.data");
 
   //-- load data
   uint n = data.N;
@@ -199,6 +184,12 @@ void optimize(){
     z(1) *= z(2);
     z.append(1.);
     x[i] = z;
+
+    //-- filter data based on depth
+    double d = z(2);
+    if(d>2.){
+      X[i]=0.; x[i]=0.;
+    }
   }
 
   //-- multiple iterations
@@ -209,7 +200,7 @@ void optimize(){
     for(uint i=0;i<n;i++){
       double ei = sqrt(sumOfSqr(X[i] - Pinv*x[i]));
       cout <<"   error on data " <<i <<": " <<ei;
-      if(ei>.15){ X[i]=0.; x[i]=0.; cout <<" -- removed"; }
+      if(ei>.05){ X[i]=0.; x[i]=0.; cout <<" -- removed"; }
       cout <<endl;
     }
     double err = sqrt(sumOfSqr(x*~Pinv - X)/double(n));

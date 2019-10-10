@@ -2,7 +2,7 @@
 
 
 void testDynamicSimulation(){
-  Simulator S("arm3.ors");
+  Simulator S("arm3.g");
   arr q,qdot,qddot;
   arr M,Minv,F,tau;
   S.getJointAngles(q);

@@ -2,7 +2,7 @@
 
 
 void testSimulator(){
-  Simulator S("man.ors");
+  Simulator S("human.g");
   cout <<"joint dimensions = " <<S.getJointDimension() <<endl;
 
   cout <<"initial posture (hit ENTER in the OpenGL window to continue!!)" <<endl;
@@ -71,7 +71,7 @@ void walkPhase(arr& Phi,arr& PhiJ,Simulator &S,
 
 
 void staticWalk(){
-  Simulator S("man.ors");
+  Simulator S("human.g");
   cout <<"joint dimensions = " <<S.getJointDimension() <<endl;
 
   cout <<"initial posture (hit ENTER in the OpenGL window to continue!!)" <<endl;

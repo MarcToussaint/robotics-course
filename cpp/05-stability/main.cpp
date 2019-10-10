@@ -2,8 +2,8 @@
 #include <Kin/kin.h>
 #include <Gui/opengl.h>
 
-void drawEnv(void*);
-void glDrawCartPole(void *classP);
+void drawEnv(void*, OpenGL& gl) { glStandardLight(NULL, gl); glDrawFloor(10., .9, .9, .9); }
+void glDrawCartPole(void *classP, OpenGL&);
 
 struct CartPoleState{
   double x,x1,th,th1;
@@ -55,7 +55,7 @@ struct CartPoleState{
 
 };
 
-void glDrawCartPole(void *classP){
+void glDrawCartPole(void *classP, OpenGL&){
   CartPoleState *s=(CartPoleState*)classP;
   double GLmatrix[16];
   rai::Transformation f;

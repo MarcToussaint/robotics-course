@@ -1,7 +1,7 @@
 #include <Kin/kin.h>
 
 void execTrajectory(){
-  rai::KinematicWorld K("pegArm.ors");
+  rai::Configuration K("pegArm.g");
   K.sortFrames();
   double noise = .01;
   bool gravity = true;
@@ -16,9 +16,10 @@ void execTrajectory(){
   arr integral = zeros(n);
   arr q0, q_goal;
 
-  K.getJointState(q, qdot);
+  q = K.getJointState();
+  qdot = zeros(q.N);
   q = q+0.4;
-  K.setJointState(q,qdot);
+  K.setJointState(q);
 
   q_goal = zeros(n);
   q0 = q;
@@ -43,16 +44,16 @@ void execTrajectory(){
 
 
     // e) Inverse dynamics feedforward control
-    K.equationOfMotion(M,F);
+    K.equationOfMotion(M, F, qdot);
 
 
 
     //dynamic simulation (simple Euler integration of the system dynamics, look into the code)
-    K.stepDynamics(u, tau, noise, gravity);
+    K.stepDynamics(qdot, u, tau, noise, gravity);
     K.watch(false);
-    K.getJointState(q, qdot);
+    q = K.getJointState();
 
-    cout  <<" t=" <<tau*t  <<"sec E=" <<K.getEnergy()  <<"  q = " <<q <<endl;
+    cout  <<" t=" <<tau*t  <<"sec E=" <<K.getEnergy(qdot)  <<"  q = " <<q <<endl;
     dat <<q <<endl;
   }
 

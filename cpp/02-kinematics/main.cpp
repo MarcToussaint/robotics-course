@@ -36,29 +36,29 @@ void simpleArrayOperations(){
 
 
 void watchAConfig(){
-  rai::KinematicWorld K("man.ors");
+  rai::Configuration K("human.g");
   cout <<"joint dimensions = " <<K.getJointStateDimension() <<endl;
 
   cout <<"initial posture (hit ENTER in the OpenGL window to continue!!)" <<endl;
   K.watch(true);        //pause and watch initial posture
 
   arr q;
-  K.getJointState(q);
+  q = K.getJointState();
 
   q(0) += 0.1;                 //change the first entry of q-vector
-  K.getJointState(q);
+  q = K.getJointState();
   K.watch(true);
   
   q = 0.;                      //set q-vector equal zero
-  K.getJointState(q);
+  q = K.getJointState();
   K.watch(true);
 }
 
 void reach(){
-  rai::KinematicWorld K("man.ors");
+  rai::Configuration K("human.g");
   arr q,W;
   uint n = K.getJointStateDimension();
-  K.getJointState(q);
+  q = K.getJointState();
   double w = rai::getParameter("w",1e-4);
   W.setDiag(w,n);  //W is equal the Id_n matrix times scalar w
 
@@ -84,10 +84,10 @@ void reach(){
 }
 
 void circle(){
-  rai::KinematicWorld K("man.ors");
+  rai::Configuration K("human.g");
   arr q,W;
   uint n = K.getJointStateDimension();
-  K.getJointState(q);
+  q = K.getJointState();
   double w = rai::getParameter("w",1e-4);
   W.setDiag(w,n);  //W is equal the Id_n matrix times scalar w
 
@@ -112,10 +112,10 @@ void circle(){
 
 
 void multiTask(){
-  rai::KinematicWorld K("man.ors");
+  rai::Configuration K("human.g");
   arr q,y_target,yVec_target,y,J,yVec,JVec,W,Phi,PhiJ;
   uint n = K.getJointStateDimension();
-  K.getJointState(q);
+  q = K.getJointState();
 
   W.setDiag(1.,n);
 
@@ -123,7 +123,7 @@ void multiTask(){
 
 
   for(uint i=0;i<10000;i++){
-    K.getJointState(q);
+    q = K.getJointState();
 
     Phi.clear();PhiJ.clear();
 
@@ -150,7 +150,8 @@ void multiTask(){
     //compute joint updates
     q -= 0.1*inverse(~PhiJ*PhiJ + W)*~PhiJ* Phi;
     K.setJointState(q);
-    K.watch(true);
+    K.watch();
+    rai::wait(.1);
 
   }
 }

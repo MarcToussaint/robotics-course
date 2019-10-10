@@ -1,4 +1,4 @@
-BASE = ../../../robotics-course/rai
+BASE = ../../rai
 
 DEPEND = Geo Kin Core Gui
 

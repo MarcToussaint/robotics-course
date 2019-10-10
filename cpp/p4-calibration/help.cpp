@@ -24,7 +24,7 @@ GetLargestObjects::GetLargestObjects(cv::Mat& rgb, cv::Mat& depth, const arr& hs
   if(sizes.N<num) num=sizes.N;
 
   for(uint i=0;i<num;i++){
-    uint largest = sizes.maxIndex();
+    uint largest = sizes.argmax();
     double size = sizes(largest);
     sizes(largest)=0.; //done
 

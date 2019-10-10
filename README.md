@@ -22,11 +22,9 @@ git submodule update
 make -j1 installUbuntuAll  # calls sudo apt-get install; you can always interrupt
 make -j4                   # builds libs and tests
 
-source setupPython.sh
-
-python3 -m pip install --upgrade pip
-python3 -m pip install jupyter
-python3 -m pip install matplotlib
+pip3 install --user --upgrade pip
+pip3 install --user jupyter
+pip3 install --user matplotlib
 
 jupyter-notebook docs/1-basics.ipynb 
 ```

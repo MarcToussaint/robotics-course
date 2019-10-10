@@ -39,7 +39,7 @@ public:
     parent.append(nearest);
   }
 
-  void addLineDraw(const arr& q, rai::KinematicWorld& K){
+  void addLineDraw(const arr& q, rai::Configuration& K){
     //We can't draw the edge in the 7-dim joint space!
     //But we can draw a projected edge in 3D endeffector position space:
     arr y_from,y_to;
@@ -63,11 +63,11 @@ public:
 
 
 void RTTplan(){
-  rai::KinematicWorld K("pegInAHole.ors");
+  rai::Configuration K("pegInAHole.g");
 
   arr qT = {0.945499, 0.431195, -1.97155, 0.623969, 2.22355, -0.665206, -1.48356};
   arr q0, y_col, q;
-  K.getJointState(q0);
+  q0 = K.getJointState();
   q=q0;
 
   cout <<"final posture (hit ENTER in the OpenGL window to continue!!)" <<endl;
@@ -83,7 +83,8 @@ void RTTplan(){
   double stepsize = .1;
   RRT rrt0(q0, stepsize);
 
-  K.addObject("lines0", rai::ST_mesh);  // Add a mesh for line drawing to the world
+  rai::Frame *f = K.addObject("lines0", NULL, rai::ST_mesh);  // Add a mesh for line drawing to the world
+  f->setContact(0);
   
   uint i;
   for(i=0;i<10000;i++){
@@ -118,9 +119,7 @@ void RTTplan(){
 int main(int argc,char **argv){
   rai::initCmdLine(argc,argv);
 
-  switch(rai::getParameter<int>("mode", 0)){
-  case 0: RTTplan();break;
-  }
+  RTTplan();
 
   return 0;
 }

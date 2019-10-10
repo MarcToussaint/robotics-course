@@ -4,7 +4,7 @@
 
 void minimal_use(){
   //load a configuration
-  rai::KinematicWorld C;
+  rai::Configuration C;
   C.addFile("../../rai-robotModels/baxter/baxter.g");
 
   //define a home and zero pose
@@ -32,7 +32,7 @@ void minimal_use(){
 
 void spline_use(){
   //load a configuration
-  rai::KinematicWorld C;
+  rai::Configuration C;
   C.addFile("../../rai-robotModels/baxter/baxter.g");
 
   //define a home and zero pose

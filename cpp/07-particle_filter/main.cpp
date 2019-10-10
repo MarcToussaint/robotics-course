@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include <Kin/roboticsCourse.h>
+#include <Kin/retired/roboticsCourse.h>
 #include <Gui/opengl.h>
 
 

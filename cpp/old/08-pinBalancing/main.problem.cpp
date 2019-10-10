@@ -1,7 +1,7 @@
 #include <Kin/roboticsCourse.h>
 
 void testDynamics(){
-  Simulator S("pin_balancing.ors");
+  Simulator S("pin_balancing.g");
   
   arr q,qdot,qddot;
   arr M,Minv,F,u;

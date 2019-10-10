@@ -1,7 +1,7 @@
 #include <Kin/roboticsCourse.h>
 
 void peg_in_a_hole(){
-  Simulator S("pegInAHole.ors");
+  Simulator S("pegInAHole.g");
   S.setContactMargin(.02); //this is 2 cm (all units are in meter)
   arr q,y_target,y,J,W,Phi,PhiJ;
   uint n = S.getJointDimension();

@@ -83,13 +83,12 @@ void get_objects_into_configuration(){
   BaxterInterface B(true);
 
   //load a configuration
-  rai::KinematicWorld C;
+  rai::Configuration C;
   C.addFile("../../rai-robotModels/baxter/baxter_new.g");
 
   //add a frame for the camera
   rai::Frame *cameraFrame = C.addFrame("camera", "head");
-  cameraFrame->Q.setText("d(-90 0 0 1) t(-.08 .205 .115) d(26 1 0 0) d(-1 0 1 0) d(6 0 0 1)");
-  cameraFrame->calc_X_from_parent();
+  cameraFrame->set_Q()->setText("d(-90 0 0 1) t(-.08 .205 .115) d(26 1 0 0) d(-1 0 1 0) d(6 0 0 1)");
 
   for(uint i=0;i<10000;i++){
     //wait for the next rgb image
@@ -126,7 +125,7 @@ void get_objects_into_configuration(){
     double x_pixel_coordinate=0., y_pixel_coordinate=0., depth_from_depthcam=1.2;
     arr pt = { x_pixel_coordinate, y_pixel_coordinate, depth_from_depthcam };
     depthData2point(pt, Fxypxy); //transforms the point to camera xyz coordinates
-    cameraFrame->X.applyOnPoint(pt); //transforms into world coordinates
+    cameraFrame->ensure_X().applyOnPoint(pt); //transforms into world coordinates
   }
 
 //  rai::wait();
@@ -136,13 +135,12 @@ void get_objects_into_configuration(){
 
 void usingCameraSimulation(){
   //load a configuration
-  rai::KinematicWorld C;
+  rai::Configuration C;
   C.addFile("../../rai-robotModels/baxter/baxter_new.g");
 
   //add a frame for the camera
   rai::Frame *cameraFrame = C.addFrame("camera", "head");
-  cameraFrame->Q.setText("d(-90 0 0 1) t(-.08 .205 .115) d(26 1 0 0) d(-1 0 1 0) d(6 0 0 1)");
-  cameraFrame->calc_X_from_parent();
+  cameraFrame->set_Q()->setText("d(-90 0 0 1) t(-.08 .205 .115) d(26 1 0 0) d(-1 0 1 0) d(6 0 0 1)");
 
   //associate an opengl renderer with the camera frame
   rai::CameraView camSim(C);

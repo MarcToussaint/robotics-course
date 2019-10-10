@@ -14,7 +14,7 @@ bool MOVE_ROBOT=true;
 
 void tracking(){
   // load a configuration
-  rai::KinematicWorld C;
+  rai::Configuration C;
   C.addFile("../../rai-robotModels/baxter/baxter_new.g");
   arr q_home = C.getJointState();
   arr Wmetric = diag(2., C.getJointStateDimension());
@@ -35,15 +35,17 @@ void tracking(){
   }
 
   // add a frame for the camera
-//  arr Pinv = arr(3,4,{
-//  0.00185141, 6.4155e-05, -0.59182, -0.0499056,
-//   6.82597e-05, -0.00163821, 0.85137, 0.231561,
-//   3.98992e-05, -0.000854289, -0.665166, 1.7645});
-
+#if 0 //head camera
+  arr Pinv = arr(3,4,{
+                   0.00187839, 7.8914e-05, -0.614197, -0.048283,
+                    8.75529e-05, -0.00162767, 0.864538, 0.228542,
+                    5.11853e-05, -0.000906396, -0.676576, 1.78686});
+#else //chest camera
   arr Pinv = arr(3,4,
   {0.00180045, 5.51994e-06, -0.569533, -0.0330757,
    -1.82321e-06, -0.00133149, 1.00136, 0.125005,
    5.08217e-05, -0.00117336, -0.439092, 1.55487});
+#endif
 
   // add a frame for the object
   rai::Frame *objectFrame = C.addFrame("obj");
@@ -102,7 +104,7 @@ void tracking(){
     // find largest
     arr sizes(contours.size());
     for(uint i=0; i<contours.size(); i++) sizes(i) = cv::contourArea(cv::Mat(contours[i]));
-    uint largest = sizes.maxIndex();
+    uint largest = sizes.argmax();
 
     // draw the contour interior into the mask
     mask = cv::Scalar(0);
