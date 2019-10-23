@@ -4,13 +4,14 @@ This repo is based on RAI code, including its python bindings. See https://githu
 
 ## Quick Start
 
-This assumes a standard Ubuntu 16.04 machine.
+This assumes a standard Ubuntu 18.04 machine.
 
 WE DIDN'T GET TO RUN THIS WITH ANACONDA PYTHON. If you have Anaconda
 installed, please remove it from the PATH in .bashrc. The setup below will
 install the standard Ubuntu python3 and jupyter notebook.
 
-In the ROBOTICS PRACTICAL course (where we use ROS), change 'ROS = 0' to '#ROS = 0' in 'config.mk' before compilation.
+In the PRACTICAL ROBOTICS COURSE (where we use ROS), change 'ROS = 0' to '#ROS = 0' in 'config.mk' before compilation.
+(Not applicable to Robotics Course WS 19/20, no need for ROS installation)
 
 ```
 git clone https://github.com/MarcToussaint/robotics-course.git
@@ -22,7 +23,6 @@ git submodule update
 make -j1 installUbuntuAll  # calls sudo apt-get install; you can always interrupt
 make -j4                   # builds libs and tests
 
-pip3 install --user --upgrade pip
 pip3 install --user jupyter
 pip3 install --user matplotlib
 
@@ -46,7 +46,8 @@ make -j4
 1. [Features:](docs/2-features.ipynb) Learn about the language to define and query features and their Jacobians. Including querying collision features (whether and which objects are in collision).
 
 
-# Practical Robotics Information
+# Practical Robotics Course Information
+Not applicable to Robotics Course WS 19/20
 
 ## (Not So) Quick Start
 
