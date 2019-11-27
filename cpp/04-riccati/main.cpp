@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <Gui/opengl.h>
+#include <unistd.h>
 
 void drawEnv(void*, OpenGL& gl) { glStandardLight(NULL, gl); glDrawFloor(10., .9, .9, .9); }
 void glDrawCartPole(void *classP, OpenGL&);
@@ -93,6 +94,10 @@ void testMove(){
 
     s.gl.text.clear() <<t <<" ; " <<s.x1 << " ; " <<s.th1;
     s.gl.update();
+
+    // add sleep function to slow down simulation
+    usleep(10000);
+
   }
 }
 
