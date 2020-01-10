@@ -71,8 +71,8 @@ class ConfigureEnv(object):
         glEnd()
 
         if draw_grid:
-            x_grid = np.linspace(-0.5*x, 0.5*x, num=x)
-            y_grid = np.linspace(-0.5*y, 0.5*y, num=y)
+            x_grid = np.linspace(-0.5*x, 0.5*x, num=int(x))
+            y_grid = np.linspace(-0.5*y, 0.5*y, num=int(y))
             glLineWidth(1.0)
             glBegin(GL_LINES)
             for xi, yi in zip(x_grid, y_grid):
