@@ -2,18 +2,17 @@
 
 This repo is based on RAI code, including its python bindings. See https://github.com/MarcToussaint/rai for a README of the RAI code.
 
-
-   * [MLR robotics course &amp; practical robotics course](#mlr-robotics-course--practical-robotics-course)
-      * [Quick Start](#quick-start)
-      * [Updating after a pulling a new version](#updating-after-a-pulling-a-new-version)
-      * [Tutorials](#tutorials)
-   * [Practical Robotics Course Information](#practical-robotics-course-information)
-      * [(Not So) Quick Start](#not-so-quick-start)
-   * [Documentation &amp; Installation Pointers](#documentation--installation-pointers)
+## Table of Contents
+   * [Quick Start](#quick-start)
+      * [Setup for Robotics Course](#setup-for-robotics-course)
+      * [Setup for Robotics Practical in Simulation](#setup-for-robotics-practical-in-simulation)
+      * [Setup for the Robotics Practical with the real Baxter Robot Baxter](#setup-for-the-robotics-practical-with-the-real-baxter-robot-baxter)
+   * [Further Documentation &amp; Installation Pointers](#further-documentation--installation-pointers)
       * [Installation](#installation)
       * [rai code](#rai-code)
       * [rai examples](#rai-examples)
-   * [More details on handling baxter](#more-details-on-handling-baxter)
+      * [Tutorials](#tutorials)
+      * [More details on handling baxter](#more-details-on-handling-baxter)
          * [Booting](#booting)
          * [Communicating with Baxter](#communicating-with-baxter)
          * [Start-up](#start-up)
@@ -23,7 +22,13 @@ This repo is based on RAI code, including its python bindings. See https://githu
          * [Troubles](#troubles)
 
 
-## Quick Start -- Robotics Course
+## Quick Start
+
+The repo is used for both, the robotics lectures as well as the
+practical course. And for the practical there is now a simulation
+vs. real baxter version. Please follow the respective sections.
+
+### Setup for Robotics Course
 
 This assumes a standard Ubuntu 18.04 machine.
 
@@ -58,7 +63,7 @@ After loading the pr2 and the kitchen (running first 3 cells in the notebook), t
 ![Alt text](screenshot.png?raw=true "Title")
 
 
-## Quick Start -- Robotics Practical in Simulation
+### Setup for Robotics Practical in Simulation
 
 This assumes a standard Ubuntu 18.04 machine.
 
@@ -68,11 +73,8 @@ install the standard Ubuntu python3 and jupyter notebook.
 
 * The  following assumes $HOME/git as your git path, and $HOME/opt
 to install 3rd-party libs -- please stick to this (no system-wide installs)
-
 * Install PhysX from source as described here: [PhysX](https://github.com/MarcToussaint/rai-maintenance/blob/master/help/localSourceInstalls.md#PhysX)
-
 * Install OpenCV from source as described here: [OpenCV](https://github.com/MarcToussaint/rai-maintenance/blob/master/help/localSourceInstalls.md#OpenCV)
-
 * Clone and compile our robotics-course code:
 ```
 mkdir -p $HOME/git
@@ -97,8 +99,6 @@ pip3 install --user jupyter
 pip3 install --user matplotlib
 ```
 
-* Test C++:
-
 * Test jupyter:
 ```
 jupyter-notebook docs/1-basics.ipynb 
@@ -107,16 +107,7 @@ After loading the pr2 and the kitchen (running first 3 cells in the notebook), t
 ![Alt text](screenshot.png?raw=true "Title")
 
 
-## Tutorials
-
-1. [Basics:](docs/1-basics.ipynb) Configurations, Features & Jacobians
-1. [Features:](docs/2-features.ipynb) Learn about the language to define and query features and their Jacobians. Including querying collision features (whether and which objects are in collision).
-
-
-# Practical Robotics Course Information
-Not applicable to Robotics Course WS 19/20
-
-## Not So Quick Start -- Real Robot Baxter Course
+### Setup for the Robotics Practical with the real Baxter Robot Baxter
 
 * Install [ROS Kinetic](http://wiki.ros.org/kinetic/Installation/Ubuntu)
 * Source and install
@@ -169,7 +160,7 @@ jupyter-notebook p1-motion.ipynb
 * Before turning off baxter, run `rosrun baxter_tools tuck_arms.py -t`
 
 
-# Documentation & Installation Pointers
+# Further Documentation & Installation Pointers
 
 ## Installation
 
@@ -193,9 +184,15 @@ jupyter-notebook p1-motion.ipynb
 * [Python robotics exercises](https://github.com/MarcToussaint/robotics-course/tree/master/py)
 * [Cpp robotics exercises](https://github.com/MarcToussaint/robotics-course/tree/master/cpp)
 
+## Tutorials
+
+1. [Basics:](docs/1-basics.ipynb) Configurations, Features & Jacobians
+1. [Features:](docs/2-features.ipynb) Learn about the language to define and query features and their Jacobians. Including querying collision features (whether and which objects are in collision).
 
 
-# More details on handling baxter
+
+
+## More details on handling baxter
 
 ### Booting
 
