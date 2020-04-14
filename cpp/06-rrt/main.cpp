@@ -4,7 +4,7 @@
 #include <Kin/proxy.h>
 #include <Gui/opengl.h>
 #include <Kin/frame.h>
-
+#include <Kin/viewer.h>
 
 struct RRT{
 private:
@@ -63,27 +63,27 @@ public:
 
 
 void RTTplan(){
-  rai::Configuration K("pegInAHole.g");
+  rai::Configuration C("pegInAHole.g");
 
   arr qT = {0.945499, 0.431195, -1.97155, 0.623969, 2.22355, -0.665206, -1.48356};
   arr q0, y_col, q;
-  q0 = K.getJointState();
+  q0 = C.getJointState();
   q=q0;
 
   cout <<"final posture (hit ENTER in the OpenGL window to continue!!)" <<endl;
-  K.setJointState(qT);
-  K.watch(true);
+  C.setJointState(qT);
+  C.watch(true);
   
   cout <<"initial posture (hit ENTER in the OpenGL window to continue!!)" <<endl;
-  K.setJointState(q0);
-  K.watch(true);
+  C.setJointState(q0);
+  C.watch(true);
   
-  K.watch(false);
+  C.watch(false);
 
   double stepsize = .1;
   RRT rrt0(q0, stepsize);
 
-  rai::Frame *f = K.addObject("lines0", NULL, rai::ST_mesh);  // Add a mesh for line drawing to the world
+  rai::Frame *f = C.addObject("lines0", NULL, rai::ST_mesh);  // Add a mesh for line drawing to the world
   f->setContact(0);
   
   uint i;
@@ -93,22 +93,23 @@ void RTTplan(){
 
     // compute q_new
     rrt0.getProposalTowards(q);
-    K.setJointState(q);
+    C.setJointState(q);
     
     // check if q is collision free
-    K.stepSwift();
-    K.kinematicsProxyCost(y_col, NoArr);
+    C.stepSwift();
+    C.kinematicsProxyCost(y_col, NoArr);
     if(y_col(0)<=1e-10){
       rrt0.add(q);
-      rrt0.addLineDraw(q,K);
+      rrt0.addLineDraw(q,C);
     }
 
     
     //some output
     if(!(i%100)){
-      K["lines0"]->shape->mesh() = rrt0.lines;  // updates mesh lines0 with lines from rrt
-      K.setJointState(q);
-      K.watch(true);
+      C["lines0"]->shape->mesh() = rrt0.lines;  // updates mesh lines0 with lines from rrt
+      C.setJointState(q);
+      C.gl().recopyMeshes(C);
+      C.watch(true);
       cout <<"\rRRT samples=" <<i <<" tree sizes = " <<rrt0.getNumberNodes() << std::flush;
     }
     

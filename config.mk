@@ -6,14 +6,23 @@
 # etc
 #
 
+# only UNCOMMENT some of the following lines
+# (they are already set =1 in the components that need to them)
+
 #OPTIM=fast
+#OPTIM = fast_debug
+
+#GL = 0
+#FCL = 0
 ODE = 0
-PHYSX = 0
+#PHYSX = 0
+#BULLET = 0
 G4 = 0
 PCL = 0
+#PYBIND = 0
+#OPENCV = 0
 GTK = 0
-BULLET = 0
-FCL = 0
-PNG = 0
 ROS = 0
-ROS_VERSION = kinetic
+#ROS_VERSION = melodic
+#EIGEN = 0
+CERES = 0

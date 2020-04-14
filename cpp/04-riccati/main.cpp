@@ -102,6 +102,7 @@ void testMove(){
 }
 
 int main(int argc,char **argv){
+
   //testDraw();
   testMove();
 

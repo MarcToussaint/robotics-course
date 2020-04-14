@@ -101,9 +101,7 @@ void get_objects_into_configuration(){
 
     //display the point cloud by setting it as cameraFrame shape
     if(d2p.points.get()->N>0){
-      C.gl().dataLock.lock(RAI_HERE); //(in case you interact with the GUI while the drawing data changes)
       cameraFrame->setPointCloud(d2p.points.get(), _rgb.get());
-      C.gl().dataLock.unlock();
       int key = C.watch(false);
       if(key=='q') break;
     }
@@ -148,7 +146,7 @@ void usingCameraSimulation(){
   camSim.selectSensor("myCam");
 
   //add an object into the rendered scene
-  rai::Frame *realWorldObj = camSim.K.addFrame("obj");
+  rai::Frame *realWorldObj = camSim.C.addFrame("obj");
   realWorldObj->setPosition({1., 0., 1.});
   realWorldObj->setShape(rai::ST_ssBox, {.1, .2, .3, .01});
   realWorldObj->setColor({.1, .7, .1});

@@ -2,7 +2,28 @@
 
 This repo is based on RAI code, including its python bindings. See https://github.com/MarcToussaint/rai for a README of the RAI code.
 
-## Quick Start
+
+   * [MLR robotics course &amp; practical robotics course](#mlr-robotics-course--practical-robotics-course)
+      * [Quick Start](#quick-start)
+      * [Updating after a pulling a new version](#updating-after-a-pulling-a-new-version)
+      * [Tutorials](#tutorials)
+   * [Practical Robotics Course Information](#practical-robotics-course-information)
+      * [(Not So) Quick Start](#not-so-quick-start)
+   * [Documentation &amp; Installation Pointers](#documentation--installation-pointers)
+      * [Installation](#installation)
+      * [rai code](#rai-code)
+      * [rai examples](#rai-examples)
+   * [More details on handling baxter](#more-details-on-handling-baxter)
+         * [Booting](#booting)
+         * [Communicating with Baxter](#communicating-with-baxter)
+         * [Start-up](#start-up)
+         * [Using vacuum gripper](#using-vacuum-gripper)
+         * [Accessing camera](#accessing-camera)
+         * [Shutdown](#shutdown)
+         * [Troubles](#troubles)
+
+
+## Quick Start -- Robotics Course
 
 This assumes a standard Ubuntu 18.04 machine.
 
@@ -10,8 +31,13 @@ WE DIDN'T GET TO RUN THIS WITH ANACONDA PYTHON. If you have Anaconda
 installed, please remove it from the PATH in .bashrc. The setup below will
 install the standard Ubuntu python3 and jupyter notebook.
 
-In the PRACTICAL ROBOTICS COURSE (where we use ROS), change 'ROS = 0' to '#ROS = 0' in 'config.mk' before compilation.
-(Not applicable to Robotics Course WS 19/20, no need for ROS installation)
+In this course, check that in 'config.mk' we have (disabling lots of stuff)
+```
+ROS=0
+OPENCV=0
+PHYSX=0
+BULLET=0
+```
 
 ```
 git clone https://github.com/MarcToussaint/robotics-course.git
@@ -31,13 +57,54 @@ jupyter-notebook docs/1-basics.ipynb
 After loading the pr2 and the kitchen (running first 3 cells in the notebook), the simulator window should look similar to:
 ![Alt text](screenshot.png?raw=true "Title")
 
-## Updating after a pulling a new version
 
+## Quick Start -- Robotics Practical in Simulation
+
+This assumes a standard Ubuntu 18.04 machine.
+
+WE DIDN'T GET TO RUN THIS WITH ANACONDA PYTHON. If you have Anaconda
+installed, please remove it from the PATH in .bashrc. The setup below will
+install the standard Ubuntu python3 and jupyter notebook.
+
+* The  following assumes $HOME/git as your git path, and $HOME/opt
+to install 3rd-party libs -- please stick to this (no system-wide installs)
+
+* Install PhysX from source as described here: [PhysX](https://github.com/MarcToussaint/rai-maintenance/blob/master/help/localSourceInstalls.md#PhysX)
+
+* Install OpenCV from source as described here: [OpenCV](https://github.com/MarcToussaint/rai-maintenance/blob/master/help/localSourceInstalls.md#OpenCV)
+
+* Clone and compile our robotics-course code:
 ```
+mkdir -p $HOME/git
+cd $HOME/git
+git clone https://github.com/MarcToussaint/robotics-course.git
+cd robotics-course
+
+git submodule init
 git submodule update
-make dependAll
-make -j4
+
+make -j1 installUbuntuAll  # calls sudo apt-get install; you can always interrupt
+
+mkdir build
+cd build
+cmake ..
+make -j $(command nproc)
 ```
+
+* Install python and jupyter:
+```
+pip3 install --user jupyter
+pip3 install --user matplotlib
+```
+
+* Test C++:
+
+* Test jupyter:
+```
+jupyter-notebook docs/1-basics.ipynb 
+```
+After loading the pr2 and the kitchen (running first 3 cells in the notebook), the simulator window should look similar to:
+![Alt text](screenshot.png?raw=true "Title")
 
 
 ## Tutorials
@@ -49,7 +116,7 @@ make -j4
 # Practical Robotics Course Information
 Not applicable to Robotics Course WS 19/20
 
-## (Not So) Quick Start
+## Not So Quick Start -- Real Robot Baxter Course
 
 * Install [ROS Kinetic](http://wiki.ros.org/kinetic/Installation/Ubuntu)
 * Source and install
@@ -107,8 +174,10 @@ jupyter-notebook p1-motion.ipynb
 ## Installation
 
 * [ROS kinectic](http://wiki.ros.org/kinetic/Installation/Ubuntu) (for Ubuntu 16.04) or [ROS melodic](http://wiki.ros.org/melodic/Installation/Ubuntu) (for Ubuntu 18.04)
-* [OpenCV](https://github.com/MarcToussaint/rai-maintenance/blob/master/help/localSourceInstalls.md) (4.0.1, from source)
-* [qtcreator](https://github.com/MarcToussaint/rai-maintenance/blob/master/help/qtcreator.md) (4.6.1 or ubuntu, setting up projects, pretty printers, source parsing)
+* [OpenCV](https://github.com/MarcToussaint/rai-maintenance/blob/master/help/localSourceInstalls.md#OpenCV) (from source)
+* [PhysX](https://github.com/MarcToussaint/rai-maintenance/blob/master/help/localSourceInstalls.md#PhysX) (from source)
+* [Bullet](https://github.com/MarcToussaint/rai-maintenance/blob/master/help/localSourceInstalls.md#Bullet) (from source)
+* [qtcreator](https://github.com/MarcToussaint/rai-maintenance/blob/master/help/qtcreator.md) (from source or ubuntu, setting up projects, pretty printers, source parsing)
 
 ## rai code
 

@@ -1,4 +1,5 @@
 #include <Kin/kin.h>
+#include <Kin/frame.h>
 
 void simpleArrayOperations(){
 
@@ -17,7 +18,7 @@ void simpleArrayOperations(){
   y.append(x);                 //appending a vector to a vector
   cout <<"y = " <<y <<endl;
 
-  arr M(4, 3, { 1, 0, 0,                //some 4x3 matrix
+  arr M({4,3},{ 1, 0, 0,                //some 4x3 matrix
                 0, 1, 0,
                 0, 0, 1,
                 1, 0, 0 });
@@ -72,7 +73,7 @@ void reach(){
     K.evalFeature(y, J, FS_position, {"handR"});  //"handR" is the name of the right hand ("handL" for the left hand)
 
     //compute joint updates
-    q += inverse(~J*J + W)*~J*(y_target - y); 
+    q += inverse_SymPosDef(~J*J + W)*~J*(y_target - y);
     //NOTATION: ~J is the transpose of J
     
     //sets joint angles AND computes all frames AND updates display
@@ -84,54 +85,53 @@ void reach(){
 }
 
 void circle(){
-  rai::Configuration K("human.g");
+  rai::Configuration C("human.g");
   arr q,W;
-  uint n = K.getJointStateDimension();
-  q = K.getJointState();
+  uint n = C.getJointStateDimension();
+  q = C.getJointState();
   double w = rai::getParameter("w",1e-4);
   W.setDiag(w,n);  //W is equal the Id_n matrix times scalar w
 
-  K.watch(true);        //pause and watch initial posture
+  C.watch(true);        //pause and watch initial posture
 
 
   arr y_target,y,J;
   for(uint i=0;i<1000;i++){
-    y_target = {-0.2, -0.4, 1.1};
+    y_target = C["rightTarget"]->getPosition(); //{-0.2, -0.4, 1.1};
     y_target += .2 * arr({cos((double)i/20), 0, sin((double)i/20)});
     
-    K.evalFeature(y, J, FS_position, {"handR"});  //"handR" is the name of the right hand ("handL" for the left hand)
+    C.evalFeature(y, J, FS_position, {"handR"});  //"handR" is the name of the right hand ("handL" for the left hand)
 
     cout <<i <<" current eff pos = " <<y <<"  current error = " <<length(y_target-y) <<endl;;
-    q += inverse(~J*J + W)*~J*(y_target - y);
-    K.setJointState(q);
-    K.watch(true);
-
+    q += inverse_SymPosDef(~J*J + W)*~J*(y_target - y);
+    C.setJointState(q);
+    C.watch(false);
   }
 }
 
 
 
 void multiTask(){
-  rai::Configuration K("human.g");
+  rai::Configuration C("human.g");
   arr q,y_target,yVec_target,y,J,yVec,JVec,W,Phi,PhiJ;
-  uint n = K.getJointStateDimension();
-  q = K.getJointState();
+  uint n = C.getJointStateDimension();
+  q = C.getJointState();
 
   W.setDiag(1.,n);
 
-  K.watch(true);        //pause and watch initial posture
+  C.watch(true);        //pause and watch initial posture
 
 
   for(uint i=0;i<10000;i++){
-    q = K.getJointState();
+    q = C.getJointState();
 
     Phi.clear();PhiJ.clear();
 
-    y_target = {-0.2, -0.4, 1.1};
+    y_target = C["rightTarget"]->getPosition(); //{-0.2, -0.4, 1.1};
     y_target += .2 * arr({cos((double)i/20), 0, sin((double)i/20)});
 
     //track circle with right hand
-    K.evalFeature(y, J, FS_position, {"handR"});  //"handR" is the name of the right hand ("handL" for the left hand)
+    C.evalFeature(y, J, FS_position, {"handR"});  //"handR" is the name of the right hand ("handL" for the left hand)
     Phi.append((y - y_target)/1e-2);
     PhiJ.append( J / 1e-2 );
 
@@ -149,8 +149,8 @@ void multiTask(){
 
     //compute joint updates
     q -= 0.1*inverse(~PhiJ*PhiJ + W)*~PhiJ* Phi;
-    K.setJointState(q);
-    K.watch();
+    C.setJointState(q);
+    C.watch();
     rai::wait(.1);
 
   }
@@ -159,7 +159,7 @@ void multiTask(){
 int main(int argc,char **argv){
   rai::initCmdLine(argc,argv);
 
-  switch(rai::getParameter<int>("mode",4)){
+  switch(rai::getParameter<int>("mode", 3)){
   case 0:  simpleArrayOperations();  break;
   case 1:  watchAConfig();  break;
   case 2:  reach();  break;

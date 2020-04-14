@@ -57,10 +57,10 @@ void collectData(){
   targetRFrame->setColor({.8, .8, .1});
 
   ofstream fil("z.data");
-  Graph data;
-  Node_typed<arr> *data_q = data.newNode<arr>({"q"}, {});
-  Node_typed<arr> *data_XR = data.newNode<arr>({"XR"}, {});
-  Node_typed<arr> *data_xR = data.newNode<arr>({"xR"}, {});
+  rai::Graph data;
+  rai::Node_typed<arr> *data_q = data.newNode<arr>({"q"}, {});
+  rai::Node_typed<arr> *data_XR = data.newNode<arr>({"XR"}, {});
+  rai::Node_typed<arr> *data_xR = data.newNode<arr>({"xR"}, {});
 
   // launch robot interface
 #if 1
@@ -169,7 +169,7 @@ void collectData(){
 
 void optimize(){
 //  Graph data("realCalib3.data");
-  Graph data("z.data");
+  rai::Graph data("z.data");
 
   //-- load data
   uint n = data.N;
