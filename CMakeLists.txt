@@ -22,12 +22,12 @@ include_directories(
   rai/rai
   /usr/include/eigen3
   $ENV{HOME}/opt/physx3.4/include $ENV{HOME}/opt/physx3.4/include/physx
-  #  $ENV{HOME}/opt/include/bullet/
+  #$ENV{HOME}/opt/include/bullet/
   )
 
 link_directories(
   $ENV{HOME}/opt/physx3.4/lib
-  #  /opt/ros/kinetic/lib
+  #/opt/ros/kinetic/lib
   )
 
 file(GLOB SRC_Core rai/rai/Core/*.cpp)

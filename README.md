@@ -74,7 +74,7 @@ install the standard Ubuntu python3 and jupyter notebook.
 * The  following assumes $HOME/git as your git path, and $HOME/opt
 to install 3rd-party libs -- please stick to this (no system-wide installs)
 * Install PhysX from source as described here: [PhysX](https://github.com/MarcToussaint/rai-maintenance/blob/master/help/localSourceInstalls.md#PhysX)
-* Install OpenCV from source as described here: [OpenCV](https://github.com/MarcToussaint/rai-maintenance/blob/master/help/localSourceInstalls.md#OpenCV)
+* C++ users install OpenCV via Ubuntu, Python users using pip3 as described below
 * Clone and compile our robotics-course code:
 ```
 mkdir -p $HOME/git
@@ -97,14 +97,14 @@ make -j $(command nproc)
 ```
 pip3 install --user jupyter
 pip3 install --user matplotlib
+pip3 install --user opencv-python
 ```
 
 * Test jupyter:
 ```
 jupyter-notebook docs/1-basics.ipynb 
+jupyter-notebook cpp/sim1-test/main.ipynb 
 ```
-After loading the pr2 and the kitchen (running first 3 cells in the notebook), the simulator window should look similar to:
-![Alt text](screenshot.png?raw=true "Title")
 
 
 ### Setup for the Robotics Practical with the real Baxter Robot Baxter
@@ -278,3 +278,12 @@ sudo shutdown -h now
 * One some machines, OpenGL with the glfw seems broke. You'll have to change back to an older version which uses freeglut. For this, in `rai/Gui/Makefile` switch the 0/1 for `FREEGLUT` and `GLFW`
 
 * Beware ros node names!! (Maybe it is good if everybody uses the same rosNodeName? That way they block each other? Behavior undefined!)
+
+
+## Internals
+
+Within the submodules, to set ssh access, call:
+```
+git remote set-url origin git@github.com:MarcToussaint/rai.git
+git remote set-url origin git@github.com:MarcToussaint/rai-robotModels.git
+```
