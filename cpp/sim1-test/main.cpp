@@ -1,4 +1,5 @@
 #include <Kin/kin.h>
+#include <Kin/frame.h>
 #include <Kin/feature.h>
 #include <Kin/simulation.h>
 
@@ -102,11 +103,53 @@ void testGrasp(){
 
 //===========================================================================
 
+void makeRndScene(){
+  rai::Configuration C;
+  C.addFile("../../scenarios/theChallenge.g");
+
+  for(uint i=0;i<30;i++){
+    rai::Frame *obj = C.addFrame(STRING("obj" <<i));
+    arr size = {rnd.uni(.2,.8), rnd.uni(.1,.4), rnd.uni(.05,.2), .01};
+    obj->setShape(rai::ST_ssBox, size);
+    rai::Transformation pose;
+    pose.setRandom();
+    pose.pos.y *= .3;
+    pose.pos.y += .5;
+    pose.pos.z += 2.;
+    obj->setPose(pose);
+    obj->setMass(.2);
+  }
+
+  //  rai::Simulation S(C, S._bullet, true);
+  rai::Simulation S(C, S._physx, true);
+  S.cameraview().selectSensor("camera");
+
+  byteA rgb;
+  floatA depth;
+  double tau=.01;
+  Metronome tic(tau);
+
+  for(uint t=0;t<300;t++){
+
+    S.step({}, tau, S._none);
+    if(!(t%10)) S.getImageAndDepth(rgb, depth); //we don't need images with 100Hz, rendering is slow
+    tic.waitForTic();
+
+    cout <<"depth in range: " <<depth.min() <<' ' <<depth.max() <<endl;
+  }
+
+  rai::wait();
+}
+
+//===========================================================================
+
 int main(int argc,char **argv){
   rai::initCmdLine(argc, argv);
 
 //  test();
-  testGrasp();
+//  testGrasp();
+
+  makeRndScene();
 
   return 0;
 }

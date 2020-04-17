@@ -48,9 +48,9 @@ Delete panda_rightfinger_1
 Delete panda_rightfinger_0
 
 Include: 'gripper.g'
-joint (panda_joint7 gripper){
-  Q:<d(-90 0 1 0) d(135 0 0 1) t(0 0 -.155)>
-}
+
+Edit gripper (panda_joint7){ Q:<d(-90 0 1 0) d(135 0 0 1) t(0 0 -.155)> }
+       
 Edit finger1{ joint:transX Q:<> A:<t(+.07 0 -.05)> limits: [-.04 0.02], contact: -2, shape:capsule, size:[.02, .02] }
-Edit finger2{ joint:transX mimic:finger1 Q:<> A:<d(180 0 0 1) t(+.07 0 -.05)>, contact: -2, shape:capsule, size:[.02, .02]}
+Edit finger2{ joint:transX mimic:(finger1) Q:<> A:<d(180 0 0 1) t(+.07 0 -.05)>, contact: -2, shape:capsule, size:[.02, .02]}
         
