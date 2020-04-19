@@ -107,8 +107,8 @@ pip3 install --user opencv-python
 
 * Test jupyter:
 ```
-jupyter-notebook docs/1-basics.ipynb 
-jupyter-notebook cpp/sim1-test/main.ipynb 
+jupyter-notebook tutorials/1-basics.ipynb 
+jupyter-notebook course3-Simulation/01-test/main.ipynb 
 ```
 
 
