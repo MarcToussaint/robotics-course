@@ -92,6 +92,11 @@ cd build
 cmake ..
 make -j $(command nproc)
 ```
+* Add Physx lib path to LD_LIBRARY_PATH 
+```
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/opt/physx3.4/lib    # add path (temporary)
+echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/opt/physx3.4/lib' >> ~/.bashrc     # or add permenantly in bashrc
+```
 
 * Install python and jupyter:
 ```
