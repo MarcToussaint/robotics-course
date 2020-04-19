@@ -116,7 +116,6 @@ share/extern/esdcan-*
 %% QUESTIONABLE ???!!!
 *.zip
 *_doc
-html
 *.tgz
 
 

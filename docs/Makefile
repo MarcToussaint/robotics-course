@@ -6,7 +6,10 @@ SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
 SPHINXPROJ    = raiRoboticsCourse
 SOURCEDIR     = source
-BUILDDIR      = build
+BUILDDIR      = html
+
+default:
+	@$(SPHINXBUILD) $(SOURCEDIR) $(BUILDDIR)
 
 # Put it first so that "make" without argument is like "make help".
 help:
