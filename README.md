@@ -57,7 +57,7 @@ make -j4                   # builds libs and tests
 pip3 install --user jupyter
 pip3 install --user matplotlib
 
-jupyter-notebook docs/1-basics.ipynb 
+jupyter-notebook tutorials/1-basics.ipynb 
 ```
 After loading the pr2 and the kitchen (running first 3 cells in the notebook), the simulator window should look similar to:
 ![Alt text](screenshot.png?raw=true "Title")
@@ -107,8 +107,8 @@ pip3 install --user opencv-python
 
 * Test jupyter:
 ```
-jupyter-notebook docs/1-basics.ipynb 
-jupyter-notebook cpp/sim1-test/main.ipynb 
+jupyter-notebook tutorials
+jupyter-notebook course3-Simulation
 ```
 
 
@@ -133,7 +133,7 @@ git submodule update
 * change `ROS = 0` to `#ROS = 0` in `config.mk` 
 * install also baxter sources using
 ```
-cd external
+cd course1-Lectures/external
 ./installBaxterSources.sh
 ```
 * compile
@@ -153,19 +153,23 @@ source external/devel/setup.bash
 * Try `rostopic list`
 * Try the cpp example
 ```
-cd cpp/p1-baxterMini
+cd course2-Baxter/01-baxterMini
 make
 ./x.exe -useRos 1
 ```
 * Try the python example
 ```
-cd py/p1-motion
-jupyter-notebook p1-motion.ipynb 
+cd course2-Baxter/01-baxterMini
+jupyter-notebook motion.ipynb 
 ```
 * Before turning off baxter, run `rosrun baxter_tools tuck_arms.py -t`
 
 
 # Further Documentation & Installation Pointers
+
+## Documentation
+
+* [Sphinx documentation of the python bindings (preliminary)](https://marctoussaint.github.io/robotics-course/)
 
 ## Installation
 
@@ -191,8 +195,8 @@ jupyter-notebook p1-motion.ipynb
 
 ## Tutorials
 
-1. [Basics:](docs/1-basics.ipynb) Configurations, Features & Jacobians
-1. [Features:](docs/2-features.ipynb) Learn about the language to define and query features and their Jacobians. Including querying collision features (whether and which objects are in collision).
+1. [Basics:](tutorials/1-basics.ipynb) Configurations, Features & Jacobians
+1. [Features:](tutorials/2-features.ipynb) Learn about the language to define and query features and their Jacobians. Including querying collision features (whether and which objects are in collision).
 
 
 

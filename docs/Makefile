@@ -6,7 +6,7 @@ SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
 SPHINXPROJ    = raiRoboticsCourse
 SOURCEDIR     = source
-BUILDDIR      = html
+BUILDDIR      = .
 
 default:
 	@$(SPHINXBUILD) $(SOURCEDIR) $(BUILDDIR)
