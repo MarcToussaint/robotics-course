@@ -74,7 +74,6 @@ install the standard Ubuntu python3 and jupyter notebook.
 * The  following assumes $HOME/git as your git path, and $HOME/opt
 to install 3rd-party libs -- please stick to this (no system-wide installs)
 * Install PhysX from source as described here: [PhysX](https://github.com/MarcToussaint/rai-maintenance/blob/master/help/localSourceInstalls.md#PhysX)
-* C++ users install OpenCV via Ubuntu, Python users using pip3 as described below
 * Clone and compile our robotics-course code:
 ```
 mkdir -p $HOME/git
