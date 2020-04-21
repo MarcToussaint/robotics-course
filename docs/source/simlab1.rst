@@ -8,7 +8,7 @@ Code Setup
 
 Install and test
 https://github.com/MarcToussaint/robotics-course. Follow the
-instructions towards the bottom of the README (`Setup for Lab Course
+instructions in the README (`Setup for Lab Course
 in Simulation
 <https://github.com/MarcToussaint/robotics-course#setup-for-robotics-practical-in-simulation>`_)
    
@@ -17,7 +17,7 @@ The specific goals are
 * to compile the repository
 * to run your first tests in ``course3-Simulation/01-`` and ``02-``
 * setup your coding environment in C++ (eg. qtcreator or VS Code) or python (pycharm, jupyter notebooks, VS Code)
-* Have a concept how you use git! (You definitely should use a separate git repo for your own code. You will have to pull new versions of robotics-course in the future.)
+* Have a concept how you use git! (See below.)
 
 
 
@@ -39,9 +39,11 @@ Specific goals to get started:
 Git Setup
 =========
 
-Your group should have your own git repo to collaborate. I recomment
-to create your own repo on github, and place it next to the
-robotics-course repo in ``$HOME/git`` There are two alternatives:
+You definitely should use a separate git repo for your own code. You
+will also have to pull new versions of robotics-course in the
+future. I recomment to create your own repo on github (or university
+gitlab), and clone it next to the robotics-course repo in
+``$HOME/git``. There are two alternatives:
 
 * Your repo only contains your own py or cpp code, with Makefiles pointing to the robotics-course repo (recommended for simplicity)
 * Your repo has the robotics-course as submodule. This is more self-contained, but requires you to understand more about git

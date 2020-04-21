@@ -101,17 +101,18 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/opt/physx3.4/lib    # add path (te
 echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/opt/physx3.4/lib' >> ~/.bashrc     # or add permenantly in bashrc
 ```
 
-* Install jupyter and some python packages:
+* If you use python, install jupyter and some python packages, and run tests:
 ```
-pip3 install --user jupyter
-pip3 install --user matplotlib
-pip3 install --user opencv-python
-```
-
-* Test jupyter:
-```
+pip3 install --user jupyter matplotlib opencv-python
 jupyter-notebook tutorials/1-basics.ipynb
 jupyter-notebook course3-Simulation
+```
+
+* If you use C++, compile and run the tests:
+```
+cd course3-simulation/02-basics
+make
+./x.exe
 ```
 
 * Alternative non-cmake build system (not recommended, but allows to configure config.mk):

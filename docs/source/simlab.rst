@@ -8,14 +8,14 @@ motion generation and perception, potentially also machine learning,
 task planning, and mobile navigation.
 
 The major time is spend on practically solving (coding) a series of
-problems, with direct supervision by the instructor during the
+problems, with direct supervision by the instructors during the
 session. In some lectures the instructor introduces basic
 concepts. The series of exercises includes, for instance,
 
 * generation of basic motion on the robot system,
 * leveraging motion planning and optimization,
 * perceiving objects and mapping them into virtual representations,
-* grasping, pushing and placing objects.
+* integrating perception and motion generation for grasping, pushing and placing objects
 
 Students are expected to work also offline, as homework, on these
 problems. After going though these problems the teams spend the rest
