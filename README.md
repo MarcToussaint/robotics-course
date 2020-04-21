@@ -85,22 +85,23 @@ git submodule init
 git submodule update
 
 make -j1 installUbuntuAll  # calls sudo apt-get install; you can always interrupt
-# If this fails (e.g. because you have nother Ubuntu version), please try
-make -j1 printUbuntuAll  # calls sudo apt-get install; you can always interrupt
-
+# If this fails (e.g. because you have nother Ubuntu version), please try:
+# make -j1 printUbuntuAll
+# this prints all packages. Please try installing them manually and find naming variants (e.g. libfcl-0.5-dev)
 
 mkdir build
 cd build
 cmake ..
 make -j $(command nproc)
 ```
+
 * Add Physx lib path to LD_LIBRARY_PATH 
 ```
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/opt/physx3.4/lib    # add path (temporary)
 echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/opt/physx3.4/lib' >> ~/.bashrc     # or add permenantly in bashrc
 ```
 
-* Install python and jupyter:
+* Install jupyter and some python packages:
 ```
 pip3 install --user jupyter
 pip3 install --user matplotlib
@@ -109,9 +110,19 @@ pip3 install --user opencv-python
 
 * Test jupyter:
 ```
-jupyter-notebook tutorials
+jupyter-notebook tutorials/1-basics.ipynb
 jupyter-notebook course3-Simulation
 ```
+
+* Alternative non-cmake build system (not recommended, but allows to configure config.mk):
+```
+cd $HOME/git/robotics-course
+rm -Rf build
+make -j4
+ln -s rai/lib build
+```
+
+* For a Docker with Ubuntu 18.04 and pre-compiled PhysX, in which this repo compiled, see [here](https://github.com/MarcToussaint/rai-maintenance/tree/master/docker/full18) 
 
 
 ### Setup for the Robotics Practical with the real Baxter Robot Baxter

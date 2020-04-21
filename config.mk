@@ -13,7 +13,7 @@
 #OPTIM = fast_debug
 
 #GL = 0
-#FCL = 0
+FCL = 0
 ODE = 0
 #PHYSX = 0
 #BULLET = 0

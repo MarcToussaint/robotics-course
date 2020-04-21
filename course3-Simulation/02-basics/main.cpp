@@ -45,6 +45,7 @@ void basics(){
     //send velocity controls to the simulation
     S.step(vel, tau, S._velocity);
   }
+  rai::wait();
 }
 
 
