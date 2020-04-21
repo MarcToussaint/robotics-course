@@ -71,7 +71,7 @@ WE DIDN'T GET TO RUN THIS WITH ANACONDA PYTHON. If you have Anaconda
 installed, please remove it from the PATH in .bashrc. The setup below will
 install the standard Ubuntu python3 and jupyter notebook.
 
-* The  following assumes $HOME/git as your git path, and $HOME/opt
+* The following assumes $HOME/git as your git path, and $HOME/opt
 to install 3rd-party libs -- please stick to this (no system-wide installs)
 * Install PhysX from source as described here: [PhysX](https://github.com/MarcToussaint/rai-maintenance/blob/master/help/localSourceInstalls.md#PhysX)
 * Clone and compile our robotics-course code:
@@ -85,6 +85,9 @@ git submodule init
 git submodule update
 
 make -j1 installUbuntuAll  # calls sudo apt-get install; you can always interrupt
+# If this fails (e.g. because you have nother Ubuntu version), please try
+make -j1 printUbuntuAll  # calls sudo apt-get install; you can always interrupt
+
 
 mkdir build
 cd build

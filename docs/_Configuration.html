@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Configuration &mdash; rai Robotics Course  documentation</title>
+  <title>Configuration &mdash; Robotics Course  documentation</title>
   
 
   
@@ -60,7 +60,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> rai Robotics Course
+            <a href="index.html" class="icon icon-home"> Robotics Course
           
 
           
@@ -92,6 +92,7 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="simlab.html">Lab Course in Simulation</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="rai.html">Core Data Structures</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_Frame.html">Frame</a></li>
@@ -112,7 +113,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">rai Robotics Course</a>
+          <a href="index.html">Robotics Course</a>
         
       </nav>
 
@@ -170,236 +171,6 @@
 <dt id="libry.Config">
 <em class="property">class </em><code class="descclassname">libry.</code><code class="descname">Config</code><a class="headerlink" href="#libry.Config" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is a class docstring</p>
-<dl class="method">
-<dt id="libry.Config.addFile">
-<code class="descname">addFile</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>file_name: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.addFile" title="Permalink to this definition">¶</a></dt>
-<dd><p>add the contents of the file to C</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libry.Config.addFrame">
-<code class="descname">addFrame</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>name: str</em>, <em>parent: str = ''</em>, <em>args: str = ''</em><span class="sig-paren">)</span> &#x2192; ry::RyFrame<a class="headerlink" href="#libry.Config.addFrame" title="Permalink to this definition">¶</a></dt>
-<dd><p>add a new frame to C; optionally make this a child to the given parent</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libry.Config.addObject">
-<code class="descname">addObject</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>name: str</em>, <em>parent: str = ''</em>, <em>shape: rai::ShapeType</em>, <em>size: List[float] = []</em>, <em>color: List[float] = []</em>, <em>pos: List[float] = []</em>, <em>quat: List[float] = []</em><span class="sig-paren">)</span> &#x2192; ry::RyFrame<a class="headerlink" href="#libry.Config.addObject" title="Permalink to this definition">¶</a></dt>
-<dd><p>TODO remove! use addFrame only</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libry.Config.attach">
-<code class="descname">attach</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>arg0: str</em>, <em>arg1: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.attach" title="Permalink to this definition">¶</a></dt>
-<dd><p>change the configuration by creating a rigid joint from frame1 to frame2, adopting their currentrelative pose. This also breaks the first joint joints that is parental to frame2 and reverses thetopological order from frame2 to the broken joint</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libry.Config.cameraView">
-<code class="descname">cameraView</code><span class="sig-paren">(</span><em>self: libry.Config</em><span class="sig-paren">)</span> &#x2192; ry::RyCameraView<a class="headerlink" href="#libry.Config.cameraView" title="Permalink to this definition">¶</a></dt>
-<dd><p>create an offscreen renderer for this configuration</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libry.Config.clear">
-<code class="descname">clear</code><span class="sig-paren">(</span><em>self: libry.Config</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.clear" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="libry.Config.computeCollisions">
-<code class="descname">computeCollisions</code><span class="sig-paren">(</span><em>self: libry.Config</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.computeCollisions" title="Permalink to this definition">¶</a></dt>
-<dd><p>call the broadphase collision engine (SWIFT++) to generate the list of collisions (or near proximities)between all frame shapes that have the collision tag set non-zero</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libry.Config.copy">
-<code class="descname">copy</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>C2: libry.Config</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.copy" title="Permalink to this definition">¶</a></dt>
-<dd><p>make C a (deep) copy of the given C2</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libry.Config.delFrame">
-<code class="descname">delFrame</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>frameName: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.delFrame" title="Permalink to this definition">¶</a></dt>
-<dd><p>destroy and remove a frame from C</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libry.Config.edit">
-<code class="descname">edit</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>arg0: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.edit" title="Permalink to this definition">¶</a></dt>
-<dd><p>launch a viewer that listents (inode) to changes of a file (made by you in an editor), andreloads, displays and animates the configuration whenever the file is changed</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libry.Config.equationOfMotion">
-<code class="descname">equationOfMotion</code><span class="sig-paren">(</span><em>self: libry.Config, qdot: List[float], gravity: bool</em><span class="sig-paren">)</span> &#x2192; tuple<a class="headerlink" href="#libry.Config.equationOfMotion" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="libry.Config.evalFeature">
-<code class="descname">evalFeature</code><span class="sig-paren">(</span><em>self: libry.Config, arg0: FeatureSymbol, arg1: List[str]</em><span class="sig-paren">)</span> &#x2192; tuple<a class="headerlink" href="#libry.Config.evalFeature" title="Permalink to this definition">¶</a></dt>
-<dd><p>TODO remove -&gt; use feature directly</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libry.Config.feature">
-<code class="descname">feature</code><span class="sig-paren">(</span><em>self: libry.Config, featureSymbol: FeatureSymbol, frameNames: List[str]</em><span class="sig-paren">)</span> &#x2192; ry::RyFeature<a class="headerlink" href="#libry.Config.feature" title="Permalink to this definition">¶</a></dt>
-<dd><p>create a feature (a differentiable map from joint state to a vector space), as they’re typically used for IK or optimization. See the dedicated tutorial for details.featureSymbol defines which mapping this is (position, vectors, collision distance, etc).many mapping refer to one or several frames, which need to be specified using frameNames</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libry.Config.frame">
-<code class="descname">frame</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>frameName: str</em><span class="sig-paren">)</span> &#x2192; ry::RyFrame<a class="headerlink" href="#libry.Config.frame" title="Permalink to this definition">¶</a></dt>
-<dd><p>get access to a frame by name</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libry.Config.getCollisions">
-<code class="descname">getCollisions</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>belowMargin: float = 1.0</em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#libry.Config.getCollisions" title="Permalink to this definition">¶</a></dt>
-<dd><p>return the results of collision computations: a list of 3 tuples with (frame1, frame2, distance).Optionally report only on distances below a marginTo get really precise distances and penetrations use the FS.distance feature with the two frame names</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libry.Config.getFrameBox">
-<code class="descname">getFrameBox</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>arg0: str</em><span class="sig-paren">)</span> &#x2192; array<a class="headerlink" href="#libry.Config.getFrameBox" title="Permalink to this definition">¶</a></dt>
-<dd><p>TODO remove -&gt; frame.getShape</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libry.Config.getFrameNames">
-<code class="descname">getFrameNames</code><span class="sig-paren">(</span><em>self: libry.Config</em><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#libry.Config.getFrameNames" title="Permalink to this definition">¶</a></dt>
-<dd><p>get the list of frame names</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libry.Config.getFrameState">
-<code class="descname">getFrameState</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libry.Config.getFrameState" title="Permalink to this definition">¶</a></dt>
-<dd><p>Overloaded function.</p>
-<ol class="arabic simple">
-<li>getFrameState(self: libry.Config) -&gt; array</li>
-</ol>
-<p>get the frame state as a n-times-7 numpy matrix, with a 7D pose per frame</p>
-<ol class="arabic simple" start="2">
-<li>getFrameState(self: libry.Config, arg0: str) -&gt; array</li>
-</ol>
-<p>TODO remove -&gt; use individual frame!</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libry.Config.getJointDimension">
-<code class="descname">getJointDimension</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libry.Config.getJointDimension" title="Permalink to this definition">¶</a></dt>
-<dd><p>Overloaded function.</p>
-<ol class="arabic simple">
-<li>getJointDimension(self: libry.Config) -&gt; int</li>
-</ol>
-<p>get the total number of degrees of freedom</p>
-<ol class="arabic simple" start="2">
-<li>getJointDimension(self: libry.Config) -&gt; int</li>
-</ol>
-<p>get the total number of frames</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libry.Config.getJointNames">
-<code class="descname">getJointNames</code><span class="sig-paren">(</span><em>self: libry.Config</em><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#libry.Config.getJointNames" title="Permalink to this definition">¶</a></dt>
-<dd><p>get the list of joint names</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libry.Config.getJointState">
-<code class="descname">getJointState</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>joints: List[str] = []</em><span class="sig-paren">)</span> &#x2192; array<a class="headerlink" href="#libry.Config.getJointState" title="Permalink to this definition">¶</a></dt>
-<dd><p>get the joint state as a numpy vector, optionally only for a subset of joints specified as list of joint names</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libry.Config.komo_CGO">
-<code class="descname">komo_CGO</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>numConfigs: int</em>, <em>useSwift: bool</em><span class="sig-paren">)</span> &#x2192; ry::RyKOMO<a class="headerlink" href="#libry.Config.komo_CGO" title="Permalink to this definition">¶</a></dt>
-<dd><p>create KOMO solver configured for dense graph optimization,numConfig gives the number of configurations optimized over,useSwift determine whether for eachquery the broadphase collision computations are done. (Necessary only when genericFS.accumulatedCollision feature is needed. The explicit distance feature is independentfrom broadphase collision computation)</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libry.Config.komo_IK">
-<code class="descname">komo_IK</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>useSwift: bool</em><span class="sig-paren">)</span> &#x2192; ry::RyKOMO<a class="headerlink" href="#libry.Config.komo_IK" title="Permalink to this definition">¶</a></dt>
-<dd><p>create KOMO solver configured to IK, useSwift determine whether for eachquery the broadphase collision computations are done. (Necessary only when genericFS.accumulatedCollision feature is needed. The explicit distance feature is independentfrom broadphase collision computation)</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libry.Config.komo_path">
-<code class="descname">komo_path</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>phases: float</em>, <em>stepsPerPhase: int = 20</em>, <em>timePerPhase: float = 5.0</em>, <em>useSwift: bool</em><span class="sig-paren">)</span> &#x2192; ry::RyKOMO<a class="headerlink" href="#libry.Config.komo_path" title="Permalink to this definition">¶</a></dt>
-<dd><p>create KOMO solver configured for sparse path optimization</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libry.Config.makeObjectsConvex">
-<code class="descname">makeObjectsConvex</code><span class="sig-paren">(</span><em>self: libry.Config</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.makeObjectsConvex" title="Permalink to this definition">¶</a></dt>
-<dd><p>remake all meshes associated with all frames to become their convex hull</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libry.Config.makeObjectsFree">
-<code class="descname">makeObjectsFree</code><span class="sig-paren">(</span><em>self: libry.Config, arg0: List[str]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.makeObjectsFree" title="Permalink to this definition">¶</a></dt>
-<dd><p>TODO remove -&gt; to frame</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libry.Config.selectJoints">
-<code class="descname">selectJoints</code><span class="sig-paren">(</span><em>self: libry.Config, jointNames: List[str], notThose: bool = False</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.selectJoints" title="Permalink to this definition">¶</a></dt>
-<dd><p>redefine what are considered the DOFs of this configuration: only joints listed in jointNames are consideredpart of the joint state and define the number of DOFs</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libry.Config.selectJointsByTag">
-<code class="descname">selectJointsByTag</code><span class="sig-paren">(</span><em>self: libry.Config, jointGroups: List[str]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.selectJointsByTag" title="Permalink to this definition">¶</a></dt>
-<dd><p>redefine what are considered the DOFs of this configuration: only joint that have a tag listed in jointGroups are consideredpart of the joint state and define the number of DOFs</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libry.Config.setFrameRelativePose">
-<code class="descname">setFrameRelativePose</code><span class="sig-paren">(</span><em>self: libry.Config, arg0: str, arg1: List[float]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.setFrameRelativePose" title="Permalink to this definition">¶</a></dt>
-<dd><p>TODO remove -&gt; use frame</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libry.Config.setFrameState">
-<code class="descname">setFrameState</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libry.Config.setFrameState" title="Permalink to this definition">¶</a></dt>
-<dd><p>Overloaded function.</p>
-<ol class="arabic simple">
-<li>setFrameState(self: libry.Config, X: List[float], frames: List[str] = []) -&gt; None</li>
-</ol>
-<p>set the frame state, optionally only for a subset of frames specified as list of frame names. This also computes the consistent joint state based on the relative poses.</p>
-<ol class="arabic simple" start="2">
-<li>setFrameState(self: libry.Config, X: array, frames: List[str] = [], calc_q_from_X: bool = True) -&gt; None</li>
-</ol>
-<p>set the frame state, optionally only for a subset of frames specified as list of frame names. By default this also computes and sets the consistent joint state based on the relative poses.Setting calc_q_from_x to false will not compute the joint state and leave the configuration in an inconsistent state!</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libry.Config.setJointState">
-<code class="descname">setJointState</code><span class="sig-paren">(</span><em>self: libry.Config, q: List[float], joints: List[str] = []</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.setJointState" title="Permalink to this definition">¶</a></dt>
-<dd><p>set the joint state, optionally only for a subset of joints specified as list of joint names</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libry.Config.simulation">
-<code class="descname">simulation</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>engine: rai::Simulation::SimulatorEngine</em>, <em>display: bool</em><span class="sig-paren">)</span> &#x2192; ry::RySimulation<a class="headerlink" href="#libry.Config.simulation" title="Permalink to this definition">¶</a></dt>
-<dd><p>create a generic Simulation engine, which can internally call PhysX, Bullet, or just kinematics to forward simulate,allows you to control robot motors by position, velocity, or accelerations,    and allows you go query camera images and depth</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libry.Config.sortFrames">
-<code class="descname">sortFrames</code><span class="sig-paren">(</span><em>self: libry.Config</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.sortFrames" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="libry.Config.stepDynamics">
-<code class="descname">stepDynamics</code><span class="sig-paren">(</span><em>self: libry.Config, qdot: List[float], u_control: List[float], tau: float, dynamicNoise: float, gravity: bool</em><span class="sig-paren">)</span> &#x2192; array<a class="headerlink" href="#libry.Config.stepDynamics" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="libry.Config.view">
-<code class="descname">view</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>frame: str = ''</em><span class="sig-paren">)</span> &#x2192; ry::ConfigViewer<a class="headerlink" href="#libry.Config.view" title="Permalink to this definition">¶</a></dt>
-<dd><p>create a viewer for this configuration. Optionally, specify a frame that is the origin of the viewer camera</p>
-</dd></dl>
-
 </dd></dl>
 
 </div>

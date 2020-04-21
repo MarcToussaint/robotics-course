@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# rai Robotics Course documentation build configuration file, created by
+# Robotics Course documentation build configuration file, created by
 # sphinx-quickstart on Sun Apr 19 21:10:11 2020.
 #
 # This file is execfile()d with the current directory set to its
@@ -50,7 +50,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'rai Robotics Course'
+project = 'Robotics Course'
 copyright = '2020, Marc Toussaint'
 author = 'Marc Toussaint'
 
@@ -116,7 +116,7 @@ html_sidebars = {
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'raiRoboticsCoursedoc'
+htmlhelp_basename = 'RoboticsCoursedoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -143,7 +143,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'raiRoboticsCourse.tex', 'rai Robotics Course Documentation',
+    (master_doc, 'RoboticsCourse.tex', 'Robotics Course Documentation',
      'Marc Toussaint', 'manual'),
 ]
 
@@ -153,7 +153,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'rairoboticscourse', 'rai Robotics Course Documentation',
+    (master_doc, 'roboticscourse', 'Robotics Course Documentation',
      [author], 1)
 ]
 
@@ -164,8 +164,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'raiRoboticsCourse', 'rai Robotics Course Documentation',
-     author, 'raiRoboticsCourse', 'One line description of project.',
+    (master_doc, 'RoboticsCourse', 'Robotics Course Documentation',
+     author, 'RoboticsCourse', 'One line description of project.',
      'Miscellaneous'),
 ]
 
