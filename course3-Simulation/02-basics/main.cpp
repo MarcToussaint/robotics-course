@@ -19,10 +19,15 @@ void basics(){
   rai::Configuration C;
   C.addFile("../../scenarios/pandasTable.g");
 
+  rai::Frame* obj = C.addFrame("object");
+  obj->setPosition({1., 0., 1.5});
+  obj->setQuaternion({1., 0., 1., 0});
+  obj->setShape(rai::ST_capsule, {.2, .02});
+  obj->setColor({1., .0, 1.});
+
   //-- using the viewer, you can view configurations or paths
   rai::ConfigurationViewer V;
   V.setConfiguration(C, "model world start state", true);
-
 
   //-- the following is the simulation loop
   arr q;
@@ -39,8 +44,9 @@ void basics(){
 
     //some good old fashioned IK
     C.setJointState(q); //set your robot model to match the real q
-    Value diff = C.feature(FS_position, {"R_gripper"})->eval(C);
-    arr vel = pseudoInverse(diff.J, NoArr, 1e-2) * arr({0.,0.,-1e-1});
+    V.setConfiguration(C);
+    Value diff = C.feature(FS_positionDiff, {"L_gripperCenter", "object"})->eval(C);
+    arr vel = pseudoInverse(diff.J, NoArr, 1e-2) * (-diff.y);
 
     //send velocity controls to the simulation
     S.step(vel, tau, S._velocity);

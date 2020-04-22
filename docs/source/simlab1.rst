@@ -20,7 +20,6 @@ The specific goals are
 * Have a concept how you use git! (See below.)
 
 
-
 Basic motion
 ============
 
@@ -31,8 +30,10 @@ cylinder, box, or general shape?
 
 Specific goals to get started:
 
-* The examples in ``course3../02-`` add a virtual object to the scene. Move the left arm towards that object.
-* Think about how to align the gripper, sequence motion, etc.
+* In the examples ``course3../02-`` add a virtual object to the scene. Move the left arm towards that object.
+* Be able to show, in the class, examples of more complex motion. Anything beyond the given example.
+* Read the ``tutorials/2-features.ipynb`` to get an impression about what alternative features one can use to design motion.
+* Think about how grasping could be realized (aligning the gripper, approach of the gripper)
 * To be discussed in class: How open/close gripper is realized in simulation
 
 
@@ -48,10 +49,10 @@ gitlab), and clone it next to the robotics-course repo in
 * Your repo only contains your own py or cpp code, with Makefiles pointing to the robotics-course repo (recommended for simplicity)
 * Your repo has the robotics-course as submodule. This is more self-contained, but requires you to understand more about git
 
-Specific goals to get started:
+Specific goals if you're yet unfamiliar with git:
 
 * Read the git tutorial \url{https://try.github.io/}
 * Create your own group git repo somewhere
 * Know how to create different branches, e.g.\ for parallel development of different group members
 * Each group member should have made at least one commit, e.g.\ with a trivial hello text file
-* Copy & Paste example code from ``course3-../02-`` to your own repo and get it to compile there (C++: Have a look at the simple compile commands when you build the examples; python, set the lib path appropriately)
+* Copy & Paste example code from ``course3-../02-`` to your own repo and get it to compile there (C++: Have a look at the simple compile commands when you build the examples, or copy my Makefile and modify the BASE to point to robotics-course/rai.) (In python, set the sys path appropriately to robotics-course/build.)

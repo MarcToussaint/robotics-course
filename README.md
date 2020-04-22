@@ -125,6 +125,12 @@ ln -s rai/lib build
 
 * For a Docker with Ubuntu 18.04 and pre-compiled PhysX, in which this repo compiled, see [here](https://github.com/MarcToussaint/rai-maintenance/tree/master/docker/full18) 
 
+* When pulling updates for the repo, don't forget to also update the submodules:
+```
+git pull
+git submodule update
+```
+
 
 ### Setup for the Robotics Practical with the real Baxter Robot Baxter
 
