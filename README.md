@@ -192,6 +192,11 @@ jupyter-notebook motion.ipynb
 * [PhysX](https://github.com/MarcToussaint/rai-maintenance/blob/master/help/localSourceInstalls.md#PhysX) (from source)
 * [Bullet](https://github.com/MarcToussaint/rai-maintenance/blob/master/help/localSourceInstalls.md#Bullet) (from source)
 * [qtcreator](https://github.com/MarcToussaint/rai-maintenance/blob/master/help/qtcreator.md) (from source or ubuntu, setting up projects, pretty printers, source parsing)
+* Python3:
+```
+sudo apt-get install python3 python3-dev python3-numpy python3-pip python3-distutils
+sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.6 1
+```
 
 ## rai code
 
