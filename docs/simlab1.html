@@ -192,8 +192,10 @@ grasping. What would be a way to make the robot grasp a sphere,
 cylinder, box, or general shape?</p>
 <p>Specific goals to get started:</p>
 <ul class="simple">
-<li>The examples in <code class="docutils literal"><span class="pre">course3../02-</span></code> add a virtual object to the scene. Move the left arm towards that object.</li>
-<li>Think about how to align the gripper, sequence motion, etc.</li>
+<li>In the examples <code class="docutils literal"><span class="pre">course3../02-</span></code> add a virtual object to the scene. Move the left arm towards that object.</li>
+<li>Be able to show, in the class, examples of more complex motion. Anything beyond the given example.</li>
+<li>Read the <code class="docutils literal"><span class="pre">tutorials/2-features.ipynb</span></code> to get an impression about what alternative features one can use to design motion.</li>
+<li>Think about how grasping could be realized (aligning the gripper, approach of the gripper)</li>
 <li>To be discussed in class: How open/close gripper is realized in simulation</li>
 </ul>
 </div>
@@ -208,13 +210,13 @@ gitlab), and clone it next to the robotics-course repo in
 <li>Your repo only contains your own py or cpp code, with Makefiles pointing to the robotics-course repo (recommended for simplicity)</li>
 <li>Your repo has the robotics-course as submodule. This is more self-contained, but requires you to understand more about git</li>
 </ul>
-<p>Specific goals to get started:</p>
+<p>Specific goals if you’re yet unfamiliar with git:</p>
 <ul class="simple">
 <li>Read the git tutorial url{<a class="reference external" href="https://try.github.io/">https://try.github.io/</a>}</li>
 <li>Create your own group git repo somewhere</li>
 <li>Know how to create different branches, e.g.for parallel development of different group members</li>
 <li>Each group member should have made at least one commit, e.g.with a trivial hello text file</li>
-<li>Copy &amp; Paste example code from <code class="docutils literal"><span class="pre">course3-../02-</span></code> to your own repo and get it to compile there (C++: Have a look at the simple compile commands when you build the examples; python, set the lib path appropriately)</li>
+<li>Copy &amp; Paste example code from <code class="docutils literal"><span class="pre">course3-../02-</span></code> to your own repo and get it to compile there (C++: Have a look at the simple compile commands when you build the examples, or copy my Makefile and modify the BASE to point to robotics-course/rai.) (In python, set the sys path appropriately to robotics-course/build.)</li>
 </ul>
 </div>
 </div>
