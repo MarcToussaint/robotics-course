@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.4)
 
 project(RaiRoboticsCourse)
 
+find_package( OpenCV REQUIRED )
+
 add_compile_options(
   -O3 -g -Wall -fPIC -std=c++14 -Wno-terminate
   )
@@ -11,6 +13,7 @@ add_definitions(
   -DRAI_X11 -DRAI_LAPACK -DRAI_EIGEN -DRAI_PTHREAD -DRAI_GL
   -DRAI_GLFW -DRAI_ANN -DRAI_QHULL -DRAI_ASSIMP -DNO_CYCLE_DETECTION
   -DRAI_SWIFT -DRAI_GJK -DRAI_FCL -DRAI_CCD
+  -DRAI_OPENCV
   -DRAI_PYBIND
   -DRAI_PHYSX -D_DEBUG -DPX_DISABLE_FLUIDS -DCORELIB -DPX32 -DLINUX #physx
   #-DRAI_BULLET -DBT_USE_DOUBLE_PRECISION #bullet
@@ -62,7 +65,7 @@ add_library(rai SHARED
   #${SRC_Logic}
   #${SRC_LGP}
   #${SRC_RosCom}
-  #${SRC_Perception}
+  ${SRC_Perception}
   #${SRC_Control}
   #${SRC_Operate}
   #  ${SRC_ry}
@@ -70,6 +73,7 @@ add_library(rai SHARED
 
 target_link_libraries(rai
   jsoncpp lapack blas assimp fcl ann glfw GLEW glut GLU GL X11 qhull pthread rt
+  ${OpenCV_LIBS}
   PhysX3Extensions PhysX3_x64 PhysX3Cooking_x64 PhysX3Common_x64 PxFoundation_x64
   #BulletSoftBody BulletDynamics BulletCollision LinearMath 
   )
