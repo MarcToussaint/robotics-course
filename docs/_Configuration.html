@@ -165,12 +165,1206 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="configuration">
-<h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-libry">
+<span id="configuration"></span><h1>Configuration<a class="headerlink" href="#module-libry" title="Permalink to this headline">¶</a></h1>
+<p>rai bindings</p>
+<dl class="class">
+<dt id="libry.CameraView">
+<em class="property">class </em><code class="descclassname">libry.</code><code class="descname">CameraView</code><a class="headerlink" href="#libry.CameraView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="libry.CameraView.addSensor">
+<code class="descname">addSensor</code><span class="sig-paren">(</span><em>self: libry.CameraView</em>, <em>name: str</em>, <em>frameAttached: str</em>, <em>width: int</em>, <em>height: int</em>, <em>focalLength: float = -1.0</em>, <em>orthoAbsHeight: float = -1.0</em>, <em>zRange: List[float] = []</em>, <em>backgroundImageFile: str = ''</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.CameraView.addSensor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.CameraView.computeImageAndDepth">
+<code class="descname">computeImageAndDepth</code><span class="sig-paren">(</span><em>self: libry.CameraView</em>, <em>visualsOnly: bool = True</em><span class="sig-paren">)</span> &#x2192; tuple<a class="headerlink" href="#libry.CameraView.computeImageAndDepth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.CameraView.computePointCloud">
+<code class="descname">computePointCloud</code><span class="sig-paren">(</span><em>self: libry.CameraView</em>, <em>depth: array</em>, <em>globalCoordinates: bool = True</em><span class="sig-paren">)</span> &#x2192; array<a class="headerlink" href="#libry.CameraView.computePointCloud" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.CameraView.computeSegmentation">
+<code class="descname">computeSegmentation</code><span class="sig-paren">(</span><em>self: libry.CameraView</em><span class="sig-paren">)</span> &#x2192; array<a class="headerlink" href="#libry.CameraView.computeSegmentation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.CameraView.imageViewer">
+<code class="descname">imageViewer</code><span class="sig-paren">(</span><em>self: libry.CameraView</em><span class="sig-paren">)</span> &#x2192; libry.ImageViewer<a class="headerlink" href="#libry.CameraView.imageViewer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.CameraView.pointCloudViewer">
+<code class="descname">pointCloudViewer</code><span class="sig-paren">(</span><em>self: libry.CameraView</em><span class="sig-paren">)</span> &#x2192; libry.PointCloudViewer<a class="headerlink" href="#libry.CameraView.pointCloudViewer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.CameraView.segmentationViewer">
+<code class="descname">segmentationViewer</code><span class="sig-paren">(</span><em>self: libry.CameraView</em><span class="sig-paren">)</span> &#x2192; libry.ImageViewer<a class="headerlink" href="#libry.CameraView.segmentationViewer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.CameraView.selectSensor">
+<code class="descname">selectSensor</code><span class="sig-paren">(</span><em>self: libry.CameraView</em>, <em>name: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.CameraView.selectSensor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.CameraView.updateConfig">
+<code class="descname">updateConfig</code><span class="sig-paren">(</span><em>self: libry.CameraView</em>, <em>arg0: libry.Config</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.CameraView.updateConfig" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 <dl class="class">
 <dt id="libry.Config">
 <em class="property">class </em><code class="descclassname">libry.</code><code class="descname">Config</code><a class="headerlink" href="#libry.Config" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is a class docstring</p>
+<dl class="method">
+<dt id="libry.Config.addFile">
+<code class="descname">addFile</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>file_name: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.addFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>add the contents of the file to C</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.addFrame">
+<code class="descname">addFrame</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>name: str</em>, <em>parent: str = ''</em>, <em>args: str = ''</em><span class="sig-paren">)</span> &#x2192; ry::RyFrame<a class="headerlink" href="#libry.Config.addFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>add a new frame to C; optionally make this a child to the given parent</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.addObject">
+<code class="descname">addObject</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>name: str</em>, <em>parent: str = ''</em>, <em>shape: rai::ShapeType</em>, <em>size: List[float] = []</em>, <em>color: List[float] = []</em>, <em>pos: List[float] = []</em>, <em>quat: List[float] = []</em><span class="sig-paren">)</span> &#x2192; ry::RyFrame<a class="headerlink" href="#libry.Config.addObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>TODO remove! use addFrame only</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.attach">
+<code class="descname">attach</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>arg0: str</em>, <em>arg1: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.attach" title="Permalink to this definition">¶</a></dt>
+<dd><p>change the configuration by creating a rigid joint from frame1 to frame2, adopting their currentrelative pose. This also breaks the first joint joints that is parental to frame2 and reverses thetopological order from frame2 to the broken joint</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.cameraView">
+<code class="descname">cameraView</code><span class="sig-paren">(</span><em>self: libry.Config</em><span class="sig-paren">)</span> &#x2192; ry::RyCameraView<a class="headerlink" href="#libry.Config.cameraView" title="Permalink to this definition">¶</a></dt>
+<dd><p>create an offscreen renderer for this configuration</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><em>self: libry.Config</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.computeCollisions">
+<code class="descname">computeCollisions</code><span class="sig-paren">(</span><em>self: libry.Config</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.computeCollisions" title="Permalink to this definition">¶</a></dt>
+<dd><p>call the broadphase collision engine (SWIFT++) to generate the list of collisions (or near proximities)between all frame shapes that have the collision tag set non-zero</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>C2: libry.Config</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>make C a (deep) copy of the given C2</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.delFrame">
+<code class="descname">delFrame</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>frameName: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.delFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>destroy and remove a frame from C</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.edit">
+<code class="descname">edit</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>arg0: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>launch a viewer that listents (inode) to changes of a file (made by you in an editor), andreloads, displays and animates the configuration whenever the file is changed</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.equationOfMotion">
+<code class="descname">equationOfMotion</code><span class="sig-paren">(</span><em>self: libry.Config, qdot: List[float], gravity: bool</em><span class="sig-paren">)</span> &#x2192; tuple<a class="headerlink" href="#libry.Config.equationOfMotion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.evalFeature">
+<code class="descname">evalFeature</code><span class="sig-paren">(</span><em>self: libry.Config, arg0: FeatureSymbol, arg1: List[str]</em><span class="sig-paren">)</span> &#x2192; tuple<a class="headerlink" href="#libry.Config.evalFeature" title="Permalink to this definition">¶</a></dt>
+<dd><p>TODO remove -&gt; use feature directly</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.feature">
+<code class="descname">feature</code><span class="sig-paren">(</span><em>self: libry.Config, featureSymbol: FeatureSymbol, frameNames: List[str]</em><span class="sig-paren">)</span> &#x2192; ry::RyFeature<a class="headerlink" href="#libry.Config.feature" title="Permalink to this definition">¶</a></dt>
+<dd><p>create a feature (a differentiable map from joint state to a vector space), as they’re typically used for IK or optimization. See the dedicated tutorial for details.featureSymbol defines which mapping this is (position, vectors, collision distance, etc).many mapping refer to one or several frames, which need to be specified using frameNames</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.frame">
+<code class="descname">frame</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>frameName: str</em><span class="sig-paren">)</span> &#x2192; ry::RyFrame<a class="headerlink" href="#libry.Config.frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>get access to a frame by name</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.getCollisions">
+<code class="descname">getCollisions</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>belowMargin: float = 1.0</em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#libry.Config.getCollisions" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the results of collision computations: a list of 3 tuples with (frame1, frame2, distance).Optionally report only on distances below a marginTo get really precise distances and penetrations use the FS.distance feature with the two frame names</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.getFrameBox">
+<code class="descname">getFrameBox</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>arg0: str</em><span class="sig-paren">)</span> &#x2192; array<a class="headerlink" href="#libry.Config.getFrameBox" title="Permalink to this definition">¶</a></dt>
+<dd><p>TODO remove -&gt; frame.getShape</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.getFrameNames">
+<code class="descname">getFrameNames</code><span class="sig-paren">(</span><em>self: libry.Config</em><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#libry.Config.getFrameNames" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the list of frame names</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.getFrameState">
+<code class="descname">getFrameState</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libry.Config.getFrameState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>getFrameState(self: libry.Config) -&gt; array</li>
+</ol>
+<p>get the frame state as a n-times-7 numpy matrix, with a 7D pose per frame</p>
+<ol class="arabic simple" start="2">
+<li>getFrameState(self: libry.Config, arg0: str) -&gt; array</li>
+</ol>
+<p>TODO remove -&gt; use individual frame!</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.getJointDimension">
+<code class="descname">getJointDimension</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libry.Config.getJointDimension" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>getJointDimension(self: libry.Config) -&gt; int</li>
+</ol>
+<p>get the total number of degrees of freedom</p>
+<ol class="arabic simple" start="2">
+<li>getJointDimension(self: libry.Config) -&gt; int</li>
+</ol>
+<p>get the total number of frames</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.getJointNames">
+<code class="descname">getJointNames</code><span class="sig-paren">(</span><em>self: libry.Config</em><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#libry.Config.getJointNames" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the list of joint names</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.getJointState">
+<code class="descname">getJointState</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>joints: List[str] = []</em><span class="sig-paren">)</span> &#x2192; array<a class="headerlink" href="#libry.Config.getJointState" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the joint state as a numpy vector, optionally only for a subset of joints specified as list of joint names</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.komo_CGO">
+<code class="descname">komo_CGO</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>numConfigs: int</em>, <em>useSwift: bool</em><span class="sig-paren">)</span> &#x2192; ry::RyKOMO<a class="headerlink" href="#libry.Config.komo_CGO" title="Permalink to this definition">¶</a></dt>
+<dd><p>create KOMO solver configured for dense graph optimization,numConfig gives the number of configurations optimized over,useSwift determine whether for eachquery the broadphase collision computations are done. (Necessary only when genericFS.accumulatedCollision feature is needed. The explicit distance feature is independentfrom broadphase collision computation)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.komo_IK">
+<code class="descname">komo_IK</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>useSwift: bool</em><span class="sig-paren">)</span> &#x2192; ry::RyKOMO<a class="headerlink" href="#libry.Config.komo_IK" title="Permalink to this definition">¶</a></dt>
+<dd><p>create KOMO solver configured to IK, useSwift determine whether for eachquery the broadphase collision computations are done. (Necessary only when genericFS.accumulatedCollision feature is needed. The explicit distance feature is independentfrom broadphase collision computation)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.komo_path">
+<code class="descname">komo_path</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>phases: float</em>, <em>stepsPerPhase: int = 20</em>, <em>timePerPhase: float = 5.0</em>, <em>useSwift: bool</em><span class="sig-paren">)</span> &#x2192; ry::RyKOMO<a class="headerlink" href="#libry.Config.komo_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>create KOMO solver configured for sparse path optimization</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.makeObjectsConvex">
+<code class="descname">makeObjectsConvex</code><span class="sig-paren">(</span><em>self: libry.Config</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.makeObjectsConvex" title="Permalink to this definition">¶</a></dt>
+<dd><p>remake all meshes associated with all frames to become their convex hull</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.makeObjectsFree">
+<code class="descname">makeObjectsFree</code><span class="sig-paren">(</span><em>self: libry.Config, arg0: List[str]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.makeObjectsFree" title="Permalink to this definition">¶</a></dt>
+<dd><p>TODO remove -&gt; to frame</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.selectJoints">
+<code class="descname">selectJoints</code><span class="sig-paren">(</span><em>self: libry.Config, jointNames: List[str], notThose: bool = False</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.selectJoints" title="Permalink to this definition">¶</a></dt>
+<dd><p>redefine what are considered the DOFs of this configuration: only joints listed in jointNames are consideredpart of the joint state and define the number of DOFs</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.selectJointsByTag">
+<code class="descname">selectJointsByTag</code><span class="sig-paren">(</span><em>self: libry.Config, jointGroups: List[str]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.selectJointsByTag" title="Permalink to this definition">¶</a></dt>
+<dd><p>redefine what are considered the DOFs of this configuration: only joint that have a tag listed in jointGroups are consideredpart of the joint state and define the number of DOFs</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.setFrameRelativePose">
+<code class="descname">setFrameRelativePose</code><span class="sig-paren">(</span><em>self: libry.Config, arg0: str, arg1: List[float]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.setFrameRelativePose" title="Permalink to this definition">¶</a></dt>
+<dd><p>TODO remove -&gt; use frame</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.setFrameState">
+<code class="descname">setFrameState</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libry.Config.setFrameState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>setFrameState(self: libry.Config, X: List[float], frames: List[str] = []) -&gt; None</li>
+</ol>
+<p>set the frame state, optionally only for a subset of frames specified as list of frame names. This also computes the consistent joint state based on the relative poses.</p>
+<ol class="arabic simple" start="2">
+<li>setFrameState(self: libry.Config, X: array, frames: List[str] = [], calc_q_from_X: bool = True) -&gt; None</li>
+</ol>
+<p>set the frame state, optionally only for a subset of frames specified as list of frame names. By default this also computes and sets the consistent joint state based on the relative poses.Setting calc_q_from_x to false will not compute the joint state and leave the configuration in an inconsistent state!</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.setJointState">
+<code class="descname">setJointState</code><span class="sig-paren">(</span><em>self: libry.Config, q: List[float], joints: List[str] = []</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.setJointState" title="Permalink to this definition">¶</a></dt>
+<dd><p>set the joint state, optionally only for a subset of joints specified as list of joint names</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.simulation">
+<code class="descname">simulation</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>engine: rai::Simulation::SimulatorEngine</em>, <em>display: bool</em><span class="sig-paren">)</span> &#x2192; ry::RySimulation<a class="headerlink" href="#libry.Config.simulation" title="Permalink to this definition">¶</a></dt>
+<dd><p>create a generic Simulation engine, which can internally call PhysX, Bullet, or just kinematics to forward simulate,allows you to control robot motors by position, velocity, or accelerations,    and allows you go query camera images and depth</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.sortFrames">
+<code class="descname">sortFrames</code><span class="sig-paren">(</span><em>self: libry.Config</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.sortFrames" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.stepDynamics">
+<code class="descname">stepDynamics</code><span class="sig-paren">(</span><em>self: libry.Config, qdot: List[float], u_control: List[float], tau: float, dynamicNoise: float, gravity: bool</em><span class="sig-paren">)</span> &#x2192; array<a class="headerlink" href="#libry.Config.stepDynamics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.view">
+<code class="descname">view</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>frame: str = ''</em><span class="sig-paren">)</span> &#x2192; ry::ConfigViewer<a class="headerlink" href="#libry.Config.view" title="Permalink to this definition">¶</a></dt>
+<dd><p>create a viewer for this configuration. Optionally, specify a frame that is the origin of the viewer camera</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="libry.ConfigViewer">
+<em class="property">class </em><code class="descclassname">libry.</code><code class="descname">ConfigViewer</code><a class="headerlink" href="#libry.ConfigViewer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="libry.ConfigurationViewer">
+<em class="property">class </em><code class="descclassname">libry.</code><code class="descname">ConfigurationViewer</code><a class="headerlink" href="#libry.ConfigurationViewer" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="libry.ConfigurationViewer.playVideo">
+<code class="descname">playVideo</code><span class="sig-paren">(</span><em>self: libry.ConfigurationViewer</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.ConfigurationViewer.playVideo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.ConfigurationViewer.recopyMeshes">
+<code class="descname">recopyMeshes</code><span class="sig-paren">(</span><em>self: libry.ConfigurationViewer</em>, <em>arg0: libry.Config</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.ConfigurationViewer.recopyMeshes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.ConfigurationViewer.setConfiguration">
+<code class="descname">setConfiguration</code><span class="sig-paren">(</span><em>self: libry.ConfigurationViewer</em>, <em>arg0: libry.Config</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.ConfigurationViewer.setConfiguration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.ConfigurationViewer.setPathFrames">
+<code class="descname">setPathFrames</code><span class="sig-paren">(</span><em>self: libry.ConfigurationViewer</em>, <em>arg0: array</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.ConfigurationViewer.setPathFrames" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="libry.ControlMode">
+<em class="property">class </em><code class="descclassname">libry.</code><code class="descname">ControlMode</code><a class="headerlink" href="#libry.ControlMode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Members:</p>
+<p>none</p>
+<p>position</p>
+<p>velocity</p>
+<p>acceleration</p>
+<dl class="attribute">
+<dt id="libry.ControlMode.acceleration">
+<code class="descname">acceleration</code><em class="property"> = ControlMode.acceleration</em><a class="headerlink" href="#libry.ControlMode.acceleration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.ControlMode.name">
+<code class="descname">name</code><a class="headerlink" href="#libry.ControlMode.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>(self: handle) -&gt; str</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="libry.ControlMode.none">
+<code class="descname">none</code><em class="property"> = ControlMode.none</em><a class="headerlink" href="#libry.ControlMode.none" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.ControlMode.position">
+<code class="descname">position</code><em class="property"> = ControlMode.position</em><a class="headerlink" href="#libry.ControlMode.position" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.ControlMode.velocity">
+<code class="descname">velocity</code><em class="property"> = ControlMode.velocity</em><a class="headerlink" href="#libry.ControlMode.velocity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="libry.FS">
+<em class="property">class </em><code class="descclassname">libry.</code><code class="descname">FS</code><a class="headerlink" href="#libry.FS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Members:</p>
+<p>position</p>
+<p>positionDiff</p>
+<p>positionRel</p>
+<p>quaternion</p>
+<p>quaternionDiff</p>
+<p>quaternionRel</p>
+<p>pose</p>
+<p>poseDiff</p>
+<p>poseRel</p>
+<p>vectorX</p>
+<p>vectorXDiff</p>
+<p>vectorXRel</p>
+<p>vectorY</p>
+<p>vectorYDiff</p>
+<p>vectorYRel</p>
+<p>vectorZ</p>
+<p>vectorZDiff</p>
+<p>vectorZRel</p>
+<p>scalarProductXX</p>
+<p>scalarProductXY</p>
+<p>scalarProductXZ</p>
+<p>scalarProductYX</p>
+<p>scalarProductYY</p>
+<p>scalarProductYZ</p>
+<p>scalarProductZZ</p>
+<p>gazeAt</p>
+<p>angularVel</p>
+<p>accumulatedCollisions</p>
+<p>jointLimits</p>
+<p>distance</p>
+<p>oppose</p>
+<p>qItself</p>
+<p>aboveBox</p>
+<p>insideBox</p>
+<p>standingAbove</p>
+<p>physics</p>
+<p>contactConstraints</p>
+<p>energy</p>
+<p>transAccelerations</p>
+<p>transVelocities</p>
+<dl class="attribute">
+<dt id="libry.FS.aboveBox">
+<code class="descname">aboveBox</code><em class="property"> = FS.aboveBox</em><a class="headerlink" href="#libry.FS.aboveBox" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.accumulatedCollisions">
+<code class="descname">accumulatedCollisions</code><em class="property"> = FS.accumulatedCollisions</em><a class="headerlink" href="#libry.FS.accumulatedCollisions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.angularVel">
+<code class="descname">angularVel</code><em class="property"> = FS.angularVel</em><a class="headerlink" href="#libry.FS.angularVel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.contactConstraints">
+<code class="descname">contactConstraints</code><em class="property"> = FS.contactConstraints</em><a class="headerlink" href="#libry.FS.contactConstraints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.distance">
+<code class="descname">distance</code><em class="property"> = FS.distance</em><a class="headerlink" href="#libry.FS.distance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.energy">
+<code class="descname">energy</code><em class="property"> = FS.energy</em><a class="headerlink" href="#libry.FS.energy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.gazeAt">
+<code class="descname">gazeAt</code><em class="property"> = FS.gazeAt</em><a class="headerlink" href="#libry.FS.gazeAt" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.insideBox">
+<code class="descname">insideBox</code><em class="property"> = FS.insideBox</em><a class="headerlink" href="#libry.FS.insideBox" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.jointLimits">
+<code class="descname">jointLimits</code><em class="property"> = FS.jointLimits</em><a class="headerlink" href="#libry.FS.jointLimits" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.name">
+<code class="descname">name</code><a class="headerlink" href="#libry.FS.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>(self: handle) -&gt; str</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.oppose">
+<code class="descname">oppose</code><em class="property"> = FS.oppose</em><a class="headerlink" href="#libry.FS.oppose" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.physics">
+<code class="descname">physics</code><em class="property"> = FS.physics</em><a class="headerlink" href="#libry.FS.physics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.pose">
+<code class="descname">pose</code><em class="property"> = FS.pose</em><a class="headerlink" href="#libry.FS.pose" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.poseDiff">
+<code class="descname">poseDiff</code><em class="property"> = FS.poseDiff</em><a class="headerlink" href="#libry.FS.poseDiff" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.poseRel">
+<code class="descname">poseRel</code><em class="property"> = FS.poseRel</em><a class="headerlink" href="#libry.FS.poseRel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.position">
+<code class="descname">position</code><em class="property"> = FS.position</em><a class="headerlink" href="#libry.FS.position" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.positionDiff">
+<code class="descname">positionDiff</code><em class="property"> = FS.positionDiff</em><a class="headerlink" href="#libry.FS.positionDiff" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.positionRel">
+<code class="descname">positionRel</code><em class="property"> = FS.positionRel</em><a class="headerlink" href="#libry.FS.positionRel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.qItself">
+<code class="descname">qItself</code><em class="property"> = FS.qItself</em><a class="headerlink" href="#libry.FS.qItself" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.quaternion">
+<code class="descname">quaternion</code><em class="property"> = FS.quaternion</em><a class="headerlink" href="#libry.FS.quaternion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.quaternionDiff">
+<code class="descname">quaternionDiff</code><em class="property"> = FS.quaternionDiff</em><a class="headerlink" href="#libry.FS.quaternionDiff" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.quaternionRel">
+<code class="descname">quaternionRel</code><em class="property"> = FS.quaternionRel</em><a class="headerlink" href="#libry.FS.quaternionRel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.scalarProductXX">
+<code class="descname">scalarProductXX</code><em class="property"> = FS.scalarProductXX</em><a class="headerlink" href="#libry.FS.scalarProductXX" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.scalarProductXY">
+<code class="descname">scalarProductXY</code><em class="property"> = FS.scalarProductXY</em><a class="headerlink" href="#libry.FS.scalarProductXY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.scalarProductXZ">
+<code class="descname">scalarProductXZ</code><em class="property"> = FS.scalarProductXZ</em><a class="headerlink" href="#libry.FS.scalarProductXZ" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.scalarProductYX">
+<code class="descname">scalarProductYX</code><em class="property"> = FS.scalarProductYX</em><a class="headerlink" href="#libry.FS.scalarProductYX" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.scalarProductYY">
+<code class="descname">scalarProductYY</code><em class="property"> = FS.scalarProductYY</em><a class="headerlink" href="#libry.FS.scalarProductYY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.scalarProductYZ">
+<code class="descname">scalarProductYZ</code><em class="property"> = FS.scalarProductYZ</em><a class="headerlink" href="#libry.FS.scalarProductYZ" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.scalarProductZZ">
+<code class="descname">scalarProductZZ</code><em class="property"> = FS.scalarProductZZ</em><a class="headerlink" href="#libry.FS.scalarProductZZ" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.standingAbove">
+<code class="descname">standingAbove</code><em class="property"> = FS.standingAbove</em><a class="headerlink" href="#libry.FS.standingAbove" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.transAccelerations">
+<code class="descname">transAccelerations</code><em class="property"> = FS.transAccelerations</em><a class="headerlink" href="#libry.FS.transAccelerations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.transVelocities">
+<code class="descname">transVelocities</code><em class="property"> = FS.transVelocities</em><a class="headerlink" href="#libry.FS.transVelocities" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.vectorX">
+<code class="descname">vectorX</code><em class="property"> = FS.vectorX</em><a class="headerlink" href="#libry.FS.vectorX" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.vectorXDiff">
+<code class="descname">vectorXDiff</code><em class="property"> = FS.vectorXDiff</em><a class="headerlink" href="#libry.FS.vectorXDiff" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.vectorXRel">
+<code class="descname">vectorXRel</code><em class="property"> = FS.vectorXRel</em><a class="headerlink" href="#libry.FS.vectorXRel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.vectorY">
+<code class="descname">vectorY</code><em class="property"> = FS.vectorY</em><a class="headerlink" href="#libry.FS.vectorY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.vectorYDiff">
+<code class="descname">vectorYDiff</code><em class="property"> = FS.vectorYDiff</em><a class="headerlink" href="#libry.FS.vectorYDiff" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.vectorYRel">
+<code class="descname">vectorYRel</code><em class="property"> = FS.vectorYRel</em><a class="headerlink" href="#libry.FS.vectorYRel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.vectorZ">
+<code class="descname">vectorZ</code><em class="property"> = FS.vectorZ</em><a class="headerlink" href="#libry.FS.vectorZ" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.vectorZDiff">
+<code class="descname">vectorZDiff</code><em class="property"> = FS.vectorZDiff</em><a class="headerlink" href="#libry.FS.vectorZDiff" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.FS.vectorZRel">
+<code class="descname">vectorZRel</code><em class="property"> = FS.vectorZRel</em><a class="headerlink" href="#libry.FS.vectorZRel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="libry.Feature">
+<em class="property">class </em><code class="descclassname">libry.</code><code class="descname">Feature</code><a class="headerlink" href="#libry.Feature" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="libry.Feature.description">
+<code class="descname">description</code><span class="sig-paren">(</span><em>self: libry.Feature</em>, <em>arg0: libry.Config</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#libry.Feature.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.Feature.eval">
+<code class="descname">eval</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libry.Feature.eval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>eval(self: libry.Feature, arg0: libry.Config) -&gt; tuple</li>
+<li>eval(self: libry.Feature, arg0: tuple) -&gt; tuple</li>
+</ol>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="libry.Frame">
+<em class="property">class </em><code class="descclassname">libry.</code><code class="descname">Frame</code><a class="headerlink" href="#libry.Frame" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="libry.Frame.getMeshPoints">
+<code class="descname">getMeshPoints</code><span class="sig-paren">(</span><em>self: libry.Frame</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray[float64]<a class="headerlink" href="#libry.Frame.getMeshPoints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.Frame.getPosition">
+<code class="descname">getPosition</code><span class="sig-paren">(</span><em>self: libry.Frame</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray[float64]<a class="headerlink" href="#libry.Frame.getPosition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.Frame.getQuaternion">
+<code class="descname">getQuaternion</code><span class="sig-paren">(</span><em>self: libry.Frame</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray[float64]<a class="headerlink" href="#libry.Frame.getQuaternion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.Frame.getRelativePosition">
+<code class="descname">getRelativePosition</code><span class="sig-paren">(</span><em>self: libry.Frame</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray[float64]<a class="headerlink" href="#libry.Frame.getRelativePosition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.Frame.getRelativeQuaternion">
+<code class="descname">getRelativeQuaternion</code><span class="sig-paren">(</span><em>self: libry.Frame</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray[float64]<a class="headerlink" href="#libry.Frame.getRelativeQuaternion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.Frame.getRotationMatrix">
+<code class="descname">getRotationMatrix</code><span class="sig-paren">(</span><em>self: libry.Frame</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray[float64]<a class="headerlink" href="#libry.Frame.getRotationMatrix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.Frame.info">
+<code class="descname">info</code><span class="sig-paren">(</span><em>self: libry.Frame</em><span class="sig-paren">)</span> &#x2192; dict<a class="headerlink" href="#libry.Frame.info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.Frame.setColor">
+<code class="descname">setColor</code><span class="sig-paren">(</span><em>self: libry.Frame, arg0: List[float]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setColor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.Frame.setContact">
+<code class="descname">setContact</code><span class="sig-paren">(</span><em>self: libry.Frame</em>, <em>arg0: int</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setContact" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.Frame.setJoint">
+<code class="descname">setJoint</code><span class="sig-paren">(</span><em>self: libry.Frame</em>, <em>arg0: rai::JointType</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setJoint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.Frame.setMass">
+<code class="descname">setMass</code><span class="sig-paren">(</span><em>self: libry.Frame</em>, <em>arg0: float</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setMass" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.Frame.setMeshAsLines">
+<code class="descname">setMeshAsLines</code><span class="sig-paren">(</span><em>self: libry.Frame, arg0: List[float]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setMeshAsLines" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.Frame.setPointCloud">
+<code class="descname">setPointCloud</code><span class="sig-paren">(</span><em>self: libry.Frame, arg0: array, arg1: numpy.ndarray[uint8]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setPointCloud" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.Frame.setPose">
+<code class="descname">setPose</code><span class="sig-paren">(</span><em>self: libry.Frame</em>, <em>arg0: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setPose" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.Frame.setPosition">
+<code class="descname">setPosition</code><span class="sig-paren">(</span><em>self: libry.Frame, arg0: List[float]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setPosition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.Frame.setQuaternion">
+<code class="descname">setQuaternion</code><span class="sig-paren">(</span><em>self: libry.Frame, arg0: List[float]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setQuaternion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.Frame.setRelativePose">
+<code class="descname">setRelativePose</code><span class="sig-paren">(</span><em>self: libry.Frame</em>, <em>arg0: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setRelativePose" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.Frame.setRelativePosition">
+<code class="descname">setRelativePosition</code><span class="sig-paren">(</span><em>self: libry.Frame, arg0: List[float]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setRelativePosition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.Frame.setRelativeQuaternion">
+<code class="descname">setRelativeQuaternion</code><span class="sig-paren">(</span><em>self: libry.Frame, arg0: List[float]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setRelativeQuaternion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.Frame.setShape">
+<code class="descname">setShape</code><span class="sig-paren">(</span><em>self: libry.Frame, type: libry.ST, size: List[float]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setShape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="libry.ImageViewer">
+<em class="property">class </em><code class="descclassname">libry.</code><code class="descname">ImageViewer</code><a class="headerlink" href="#libry.ImageViewer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="libry.KOMOpy">
+<em class="property">class </em><code class="descclassname">libry.</code><code class="descname">KOMOpy</code><a class="headerlink" href="#libry.KOMOpy" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="libry.KOMOpy.activateCollisionPairs">
+<code class="descname">activateCollisionPairs</code><span class="sig-paren">(</span><em>self: libry.KOMOpy, arg0: List[Tuple[str, str]]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMOpy.activateCollisionPairs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMOpy.addInteraction_elasticBounce">
+<code class="descname">addInteraction_elasticBounce</code><span class="sig-paren">(</span><em>self: libry.KOMOpy</em>, <em>time: float</em>, <em>from: str</em>, <em>to: str</em>, <em>elasticity: float = 0.8</em>, <em>stickiness: float = 0.0</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMOpy.addInteraction_elasticBounce" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMOpy.addObjective">
+<code class="descname">addObjective</code><span class="sig-paren">(</span><em>self: libry.KOMOpy</em>, <em>time: List[float] = []</em>, <em>feature: libry.FS</em>, <em>frames: List[str] = []</em>, <em>type: ObjectiveType</em>, <em>scale: List[float] = []</em>, <em>scaleTrans: List[List[float]] = []</em>, <em>target: List[float] = []</em>, <em>order: int = -1</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMOpy.addObjective" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMOpy.addSkeleton">
+<code class="descname">addSkeleton</code><span class="sig-paren">(</span><em>self: libry.KOMOpy</em>, <em>arg0: list</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMOpy.addSkeleton" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMOpy.addSwitch_dynamicTrans">
+<code class="descname">addSwitch_dynamicTrans</code><span class="sig-paren">(</span><em>self: libry.KOMOpy</em>, <em>arg0: float</em>, <em>arg1: float</em>, <em>arg2: str</em>, <em>arg3: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMOpy.addSwitch_dynamicTrans" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMOpy.addSwitch_magic">
+<code class="descname">addSwitch_magic</code><span class="sig-paren">(</span><em>self: libry.KOMOpy</em>, <em>arg0: float</em>, <em>arg1: str</em>, <em>arg2: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMOpy.addSwitch_magic" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMOpy.addTimeOptimization">
+<code class="descname">addTimeOptimization</code><span class="sig-paren">(</span><em>self: libry.KOMOpy</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMOpy.addTimeOptimization" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMOpy.add_StablePose">
+<code class="descname">add_StablePose</code><span class="sig-paren">(</span><em>self: libry.KOMOpy, confs: List[int], object: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMOpy.add_StablePose" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMOpy.add_StableRelativePose">
+<code class="descname">add_StableRelativePose</code><span class="sig-paren">(</span><em>self: libry.KOMOpy, confs: List[int], gripper: str, object: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMOpy.add_StableRelativePose" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMOpy.add_grasp">
+<code class="descname">add_grasp</code><span class="sig-paren">(</span><em>self: libry.KOMOpy</em>, <em>arg0: int</em>, <em>arg1: str</em>, <em>arg2: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMOpy.add_grasp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMOpy.add_place">
+<code class="descname">add_place</code><span class="sig-paren">(</span><em>self: libry.KOMOpy</em>, <em>arg0: int</em>, <em>arg1: str</em>, <em>arg2: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMOpy.add_place" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMOpy.add_resting">
+<code class="descname">add_resting</code><span class="sig-paren">(</span><em>self: libry.KOMOpy</em>, <em>arg0: int</em>, <em>arg1: int</em>, <em>arg2: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMOpy.add_resting" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMOpy.add_restingRelative">
+<code class="descname">add_restingRelative</code><span class="sig-paren">(</span><em>self: libry.KOMOpy</em>, <em>arg0: int</em>, <em>arg1: int</em>, <em>arg2: str</em>, <em>arg3: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMOpy.add_restingRelative" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMOpy.clearObjectives">
+<code class="descname">clearObjectives</code><span class="sig-paren">(</span><em>self: libry.KOMOpy</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMOpy.clearObjectives" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMOpy.deactivateCollisionPairs">
+<code class="descname">deactivateCollisionPairs</code><span class="sig-paren">(</span><em>self: libry.KOMOpy, arg0: List[Tuple[str, str]]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMOpy.deactivateCollisionPairs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMOpy.getConfiguration">
+<code class="descname">getConfiguration</code><span class="sig-paren">(</span><em>self: libry.KOMOpy</em>, <em>arg0: int</em><span class="sig-paren">)</span> &#x2192; array<a class="headerlink" href="#libry.KOMOpy.getConfiguration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMOpy.getConstraintViolations">
+<code class="descname">getConstraintViolations</code><span class="sig-paren">(</span><em>self: libry.KOMOpy</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libry.KOMOpy.getConstraintViolations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMOpy.getCosts">
+<code class="descname">getCosts</code><span class="sig-paren">(</span><em>self: libry.KOMOpy</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libry.KOMOpy.getCosts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMOpy.getForceInteractions">
+<code class="descname">getForceInteractions</code><span class="sig-paren">(</span><em>self: libry.KOMOpy</em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#libry.KOMOpy.getForceInteractions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMOpy.getPathFrames">
+<code class="descname">getPathFrames</code><span class="sig-paren">(</span><em>self: libry.KOMOpy, arg0: List[str]</em><span class="sig-paren">)</span> &#x2192; array<a class="headerlink" href="#libry.KOMOpy.getPathFrames" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMOpy.getPathTau">
+<code class="descname">getPathTau</code><span class="sig-paren">(</span><em>self: libry.KOMOpy</em><span class="sig-paren">)</span> &#x2192; array<a class="headerlink" href="#libry.KOMOpy.getPathTau" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMOpy.getReport">
+<code class="descname">getReport</code><span class="sig-paren">(</span><em>self: libry.KOMOpy</em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#libry.KOMOpy.getReport" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMOpy.getT">
+<code class="descname">getT</code><span class="sig-paren">(</span><em>self: libry.KOMOpy</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#libry.KOMOpy.getT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMOpy.makeObjectsFree">
+<code class="descname">makeObjectsFree</code><span class="sig-paren">(</span><em>self: libry.KOMOpy, arg0: List[str]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMOpy.makeObjectsFree" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMOpy.optimize">
+<code class="descname">optimize</code><span class="sig-paren">(</span><em>self: libry.KOMOpy</em>, <em>reinitialize: bool = True</em>, <em>initNoise: float = 0.01</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMOpy.optimize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMOpy.setConfigurations">
+<code class="descname">setConfigurations</code><span class="sig-paren">(</span><em>self: libry.KOMOpy</em>, <em>arg0: libry.Config</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMOpy.setConfigurations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMOpy.view">
+<code class="descname">view</code><span class="sig-paren">(</span><em>self: libry.KOMOpy</em><span class="sig-paren">)</span> &#x2192; libry.ConfigurationViewer<a class="headerlink" href="#libry.KOMOpy.view" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="libry.OT">
+<em class="property">class </em><code class="descclassname">libry.</code><code class="descname">OT</code><a class="headerlink" href="#libry.OT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Members:</p>
+<p>none</p>
+<p>f</p>
+<p>sos</p>
+<p>ineq</p>
+<p>eq</p>
+<dl class="attribute">
+<dt id="libry.OT.eq">
+<code class="descname">eq</code><em class="property"> = OT.eq</em><a class="headerlink" href="#libry.OT.eq" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.OT.f">
+<code class="descname">f</code><em class="property"> = OT.f</em><a class="headerlink" href="#libry.OT.f" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.OT.ineq">
+<code class="descname">ineq</code><em class="property"> = OT.ineq</em><a class="headerlink" href="#libry.OT.ineq" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.OT.name">
+<code class="descname">name</code><a class="headerlink" href="#libry.OT.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>(self: handle) -&gt; str</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="libry.OT.none">
+<code class="descname">none</code><em class="property"> = OT.none</em><a class="headerlink" href="#libry.OT.none" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.OT.sos">
+<code class="descname">sos</code><em class="property"> = OT.sos</em><a class="headerlink" href="#libry.OT.sos" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="libry.PointCloudViewer">
+<em class="property">class </em><code class="descclassname">libry.</code><code class="descname">PointCloudViewer</code><a class="headerlink" href="#libry.PointCloudViewer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="libry.RySimulation">
+<em class="property">class </em><code class="descclassname">libry.</code><code class="descname">RySimulation</code><a class="headerlink" href="#libry.RySimulation" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="libry.RySimulation.addSensor">
+<code class="descname">addSensor</code><span class="sig-paren">(</span><em>self: libry.RySimulation</em>, <em>cameraFrameName: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.RySimulation.addSensor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.RySimulation.closeGripper">
+<code class="descname">closeGripper</code><span class="sig-paren">(</span><em>self: libry.RySimulation</em>, <em>gripperFrameName: str</em>, <em>width: float = 0.05</em>, <em>speed: float = 1.0</em>, <em>force: float = 20.0</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.RySimulation.closeGripper" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.RySimulation.getGripperIsGrasped">
+<code class="descname">getGripperIsGrasped</code><span class="sig-paren">(</span><em>self: libry.RySimulation</em>, <em>gripperFrameName: str</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#libry.RySimulation.getGripperIsGrasped" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.RySimulation.getGripperWidth">
+<code class="descname">getGripperWidth</code><span class="sig-paren">(</span><em>self: libry.RySimulation</em>, <em>gripperFrameName: str</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libry.RySimulation.getGripperWidth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.RySimulation.getImageAndDepth">
+<code class="descname">getImageAndDepth</code><span class="sig-paren">(</span><em>self: libry.RySimulation</em><span class="sig-paren">)</span> &#x2192; tuple<a class="headerlink" href="#libry.RySimulation.getImageAndDepth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.RySimulation.getState">
+<code class="descname">getState</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libry.RySimulation.getState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>getState(self: libry.RySimulation) -&gt; rai::SimulationState</li>
+<li>getState(self: libry.RySimulation, arg0: rai::SimulationState) -&gt; None</li>
+</ol>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.RySimulation.get_q">
+<code class="descname">get_q</code><span class="sig-paren">(</span><em>self: libry.RySimulation</em><span class="sig-paren">)</span> &#x2192; array<a class="headerlink" href="#libry.RySimulation.get_q" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.RySimulation.get_qDot">
+<code class="descname">get_qDot</code><span class="sig-paren">(</span><em>self: libry.RySimulation</em><span class="sig-paren">)</span> &#x2192; array<a class="headerlink" href="#libry.RySimulation.get_qDot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.RySimulation.openGripper">
+<code class="descname">openGripper</code><span class="sig-paren">(</span><em>self: libry.RySimulation</em>, <em>gripperFrameName: str</em>, <em>width: float = 0.075</em>, <em>speed: float = 0.2</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.RySimulation.openGripper" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.RySimulation.pushConfigurationToSimulator">
+<code class="descname">pushConfigurationToSimulator</code><span class="sig-paren">(</span><em>self: libry.RySimulation</em>, <em>frameVelocities: List[float] = []</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.RySimulation.pushConfigurationToSimulator" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>after you modified the configuration (from which you derived the RySimulation), use this to push the modified configuration back into the simulation engine.</dt>
+<dd>Optionally: with frameVelocities</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.RySimulation.setState">
+<code class="descname">setState</code><span class="sig-paren">(</span><em>self: libry.RySimulation</em>, <em>frameState: array</em>, <em>frameVelocities: array = []</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.RySimulation.setState" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.RySimulation.step">
+<code class="descname">step</code><span class="sig-paren">(</span><em>self: libry.RySimulation, u_control: List[float], tau: float = 0.01, u_mode: libry.ControlMode = ControlMode.velocity</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.RySimulation.step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="libry.ST">
+<em class="property">class </em><code class="descclassname">libry.</code><code class="descname">ST</code><a class="headerlink" href="#libry.ST" title="Permalink to this definition">¶</a></dt>
+<dd><p>Members:</p>
+<p>none</p>
+<p>box</p>
+<p>sphere</p>
+<p>capsule</p>
+<p>mesh</p>
+<p>cylinder</p>
+<p>marker</p>
+<p>pointCloud</p>
+<p>ssCvx</p>
+<p>ssBox</p>
+<dl class="attribute">
+<dt id="libry.ST.box">
+<code class="descname">box</code><em class="property"> = ST.box</em><a class="headerlink" href="#libry.ST.box" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.ST.capsule">
+<code class="descname">capsule</code><em class="property"> = ST.capsule</em><a class="headerlink" href="#libry.ST.capsule" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.ST.cylinder">
+<code class="descname">cylinder</code><em class="property"> = ST.cylinder</em><a class="headerlink" href="#libry.ST.cylinder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.ST.marker">
+<code class="descname">marker</code><em class="property"> = ST.marker</em><a class="headerlink" href="#libry.ST.marker" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.ST.mesh">
+<code class="descname">mesh</code><em class="property"> = ST.mesh</em><a class="headerlink" href="#libry.ST.mesh" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.ST.name">
+<code class="descname">name</code><a class="headerlink" href="#libry.ST.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>(self: handle) -&gt; str</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="libry.ST.none">
+<code class="descname">none</code><em class="property"> = ST.none</em><a class="headerlink" href="#libry.ST.none" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.ST.pointCloud">
+<code class="descname">pointCloud</code><em class="property"> = ST.pointCloud</em><a class="headerlink" href="#libry.ST.pointCloud" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.ST.sphere">
+<code class="descname">sphere</code><em class="property"> = ST.sphere</em><a class="headerlink" href="#libry.ST.sphere" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.ST.ssBox">
+<code class="descname">ssBox</code><em class="property"> = ST.ssBox</em><a class="headerlink" href="#libry.ST.ssBox" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.ST.ssCvx">
+<code class="descname">ssCvx</code><em class="property"> = ST.ssCvx</em><a class="headerlink" href="#libry.ST.ssCvx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="libry.SY">
+<em class="property">class </em><code class="descclassname">libry.</code><code class="descname">SY</code><a class="headerlink" href="#libry.SY" title="Permalink to this definition">¶</a></dt>
+<dd><p>Members:</p>
+<p>touch</p>
+<p>above</p>
+<p>inside</p>
+<p>impulse</p>
+<p>stable</p>
+<p>stableOn</p>
+<p>dynamic</p>
+<p>dynamicOn</p>
+<p>dynamicTrans</p>
+<p>liftDownUp</p>
+<p>contact</p>
+<p>bounce</p>
+<p>magic</p>
+<p>push</p>
+<p>graspSlide</p>
+<dl class="attribute">
+<dt id="libry.SY.above">
+<code class="descname">above</code><em class="property"> = SY.above</em><a class="headerlink" href="#libry.SY.above" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.SY.bounce">
+<code class="descname">bounce</code><em class="property"> = SY.bounce</em><a class="headerlink" href="#libry.SY.bounce" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.SY.contact">
+<code class="descname">contact</code><em class="property"> = SY.contact</em><a class="headerlink" href="#libry.SY.contact" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.SY.dynamic">
+<code class="descname">dynamic</code><em class="property"> = SY.dynamic</em><a class="headerlink" href="#libry.SY.dynamic" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.SY.dynamicOn">
+<code class="descname">dynamicOn</code><em class="property"> = SY.dynamicOn</em><a class="headerlink" href="#libry.SY.dynamicOn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.SY.dynamicTrans">
+<code class="descname">dynamicTrans</code><em class="property"> = SY.dynamicTrans</em><a class="headerlink" href="#libry.SY.dynamicTrans" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.SY.graspSlide">
+<code class="descname">graspSlide</code><em class="property"> = SY.graspSlide</em><a class="headerlink" href="#libry.SY.graspSlide" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.SY.impulse">
+<code class="descname">impulse</code><em class="property"> = SY.impulse</em><a class="headerlink" href="#libry.SY.impulse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.SY.inside">
+<code class="descname">inside</code><em class="property"> = SY.inside</em><a class="headerlink" href="#libry.SY.inside" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.SY.liftDownUp">
+<code class="descname">liftDownUp</code><em class="property"> = SY.liftDownUp</em><a class="headerlink" href="#libry.SY.liftDownUp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.SY.magic">
+<code class="descname">magic</code><em class="property"> = SY.magic</em><a class="headerlink" href="#libry.SY.magic" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.SY.name">
+<code class="descname">name</code><a class="headerlink" href="#libry.SY.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>(self: handle) -&gt; str</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="libry.SY.push">
+<code class="descname">push</code><em class="property"> = SY.push</em><a class="headerlink" href="#libry.SY.push" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.SY.stable">
+<code class="descname">stable</code><em class="property"> = SY.stable</em><a class="headerlink" href="#libry.SY.stable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.SY.stableOn">
+<code class="descname">stableOn</code><em class="property"> = SY.stableOn</em><a class="headerlink" href="#libry.SY.stableOn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.SY.touch">
+<code class="descname">touch</code><em class="property"> = SY.touch</em><a class="headerlink" href="#libry.SY.touch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="libry.SimulatorEngine">
+<em class="property">class </em><code class="descclassname">libry.</code><code class="descname">SimulatorEngine</code><a class="headerlink" href="#libry.SimulatorEngine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Members:</p>
+<p>physx</p>
+<p>bullet</p>
+<p>kinematic</p>
+<dl class="attribute">
+<dt id="libry.SimulatorEngine.bullet">
+<code class="descname">bullet</code><em class="property"> = SimulatorEngine.bullet</em><a class="headerlink" href="#libry.SimulatorEngine.bullet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.SimulatorEngine.kinematic">
+<code class="descname">kinematic</code><em class="property"> = SimulatorEngine.kinematic</em><a class="headerlink" href="#libry.SimulatorEngine.kinematic" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libry.SimulatorEngine.name">
+<code class="descname">name</code><a class="headerlink" href="#libry.SimulatorEngine.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>(self: handle) -&gt; str</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="libry.SimulatorEngine.physx">
+<code class="descname">physx</code><em class="property"> = SimulatorEngine.physx</em><a class="headerlink" href="#libry.SimulatorEngine.physx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </div>

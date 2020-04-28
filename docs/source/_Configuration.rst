@@ -2,5 +2,6 @@
 Configuration
 =============
 
-.. autoclass:: libry.Config
-   :member-order: bysource
+.. automodule:: libry
+   :members:
+   :undoc-members:

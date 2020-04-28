@@ -1,0 +1,280 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>SimLab Exercise 2 &mdash; Robotics Course  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'./',
+              VERSION:'',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="SimLab Exercise 3" href="simlab3.html" />
+    <link rel="prev" title="SimLab Exercise 1" href="simlab1.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Robotics Course
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="simlab.html">Lab Course in Simulation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="simlab1.html">SimLab Exercise 1</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SimLab Exercise 2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#motion-generation-using-optimization">Motion Generation using Optimization</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#exercise-1">Exercise 1:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#exercise-2">Exercise 2:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#exercise-3-bonus">Exercise 3 (Bonus):</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="simlab3.html">SimLab Exercise 3</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rai.html">Core Data Structures</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Robotics Course</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="simlab.html">Lab Course in Simulation</a> &raquo;</li>
+        
+      <li>SimLab Exercise 2</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/simlab2.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="simlab-exercise-2">
+<h1>SimLab Exercise 2<a class="headerlink" href="#simlab-exercise-2" title="Permalink to this headline">¶</a></h1>
+<p>Note: Before new exercises, always update the repo:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>cd $HOME/git/robotics-course
+git pull
+git submodule update
+cd build
+make -j4
+</pre></div>
+</div>
+<div class="section" id="motion-generation-using-optimization">
+<h2>Motion Generation using Optimization<a class="headerlink" href="#motion-generation-using-optimization" title="Permalink to this headline">¶</a></h2>
+<p>In the first exercise you learnt created basi motion using direct
+Inverse Kinematics. This exercise is about using more general
+optimization methods to design motion.</p>
+<p>To design grasps and for robot manipulation, the coordinate system of
+the endeffector is really important. In our convention, the
+<code class="docutils literal"><span class="pre">graspCenter</span></code> coordinate frame is attached to the endeffector, and
+is aligned similarly as if it were a camera looking at the object: the
+z-axis goes back, and the gripper open/closes along the x-axis. For
+instance, if you want to grasp a cylinder, you need to get the gripper
+x-axis orthogonal to the zylinder’s axis.</p>
+<p>To explore possible pre-defined features, check <a class="reference external" href="https://github.com/MarcToussaint/robotics-course/blob/master/tutorials/2-features.ipynb">https://github.com/MarcToussaint/robotics-course/blob/master/tutorials/2-features.ipynb</a> .</p>
+<div class="section" id="exercise-1">
+<h3>Exercise 1:<a class="headerlink" href="#exercise-1" title="Permalink to this headline">¶</a></h3>
+<p>Use the KOMO to compute configurations for various objectives.</p>
+<ol class="loweralpha simple">
+<li>Compute a 2-arm robot configuration, where the graspCenter positions of both hands coincide, the two hands oppose, and their x-axes are orthogonal. (E.g., as if they would handover a little cube.)</li>
+<li>Add a box (shape type <code class="docutils literal"><span class="pre">ssBox</span></code>, see Tip2 below)  somewhere to the scene, compute a robot configuration where one of the grippers grasps the box (centered, along a particular axis), while avoiding collisions between the box and the two fingers and gripper.</li>
+<li>Propose alternatives for how to design grasps, based on any geometric feature you can think of. (Note that our collision code can compute normals and witness points for proximity queries, which can be used.)</li>
+</ol>
+<p>Tip1: If you want to use hard equality objectives, introduce them first as SOS and tune their scaling so that the result is approximately ok. Then change their type to EQ.</p>
+<p>Tip2: <code class="docutils literal"><span class="pre">ssBox</span></code> means sphere-swept box. This is a box with rounded corners. This should be your default primitive shape. The shape is determined by 4 numbers: x-size, y-size, z-size, radius of corners. The 2nd most important shape type is <code class="docutils literal"><span class="pre">ssCvx</span></code> (sphere-swept convex), which is determined by a set of 3D points, and sphere radius that is added to the points’ convex hull. (E.g., a capsule can also be described as simple ssCvx: 2 points with a sweeping radius.) The sphere-swept shape primitives allow for well-defined Jacobians of collision features.</p>
+</div>
+<div class="section" id="exercise-2">
+<h3>Exercise 2:<a class="headerlink" href="#exercise-2" title="Permalink to this headline">¶</a></h3>
+<p>Generate nice paths between a  start configuration <span class="math">\(q_0\)</span> and a goal configuration <span class="math">\(q_1\)</span>.</p>
+<ol class="loweralpha simple">
+<li>Let <span class="math">\(q_1\)</span> be the solution to Exercise 1a) above, and let <span class="math">\(q_0\)</span> the robot start configuration. Generate a nice path from start to goal using direct joint space interpolation. Ideally, use a sine motion profile or some other means to ensure smooth acceleration and deceleration.</li>
+<li>Execute the path in simulation. (E.g., send it series of position references.)</li>
+<li>Use KOMO to compute an optimal path from start to goal. We have the SOS objective of minimizing sum of square accelerations, and the EQ objective on qItself to constrain the final configuration <span class="math">\(q_1\)</span>.</li>
+<li>As c), but also add the <code class="docutils literal"><span class="pre">accumulatedCollisions</span></code> feature as inequality throughout. (Perhaps test by adding obstacles. Note that shapes need to have set <code class="docutils literal"><span class="pre">setContact(1)</span></code> before creating KOMO to enable their collision.)</li>
+</ol>
+</div>
+<div class="section" id="exercise-3-bonus">
+<h3>Exercise 3 (Bonus):<a class="headerlink" href="#exercise-3-bonus" title="Permalink to this headline">¶</a></h3>
+<p>Realize a simplest possible instance of Operational Space Control using KOMO. [The python interfaces are not ready for this yet.]</p>
+<ol class="loweralpha simple">
+<li>Setup a minimal KOMO problem of order <span class="math">\(k=2\)</span>. Add a add_qControlObjective to penalize accelerations. Add another add_qControlObjective to penalize also velocities! Add a weak objective on the hand position. Solve and make a single step forward.</li>
+<li>Repeat the above, always recreating KOMO from the new current configuration. [Reuse of the KOMO instance is possible - needs nicer interface.]</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="simlab3.html" class="btn btn-neutral float-right" title="SimLab Exercise 3" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="simlab1.html" class="btn btn-neutral float-left" title="SimLab Exercise 1" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Marc Toussaint
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

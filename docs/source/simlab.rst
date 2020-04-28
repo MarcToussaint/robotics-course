@@ -30,4 +30,5 @@ Below are the specific instructions for the series of exercises:
    :maxdepth: 1
 
    simlab1.rst
+   simlab2.rst
    simlab3.rst
