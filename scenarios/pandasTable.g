@@ -6,7 +6,7 @@ table (world){
     friction:.1
 }
 
-L_lift (table){ joint:transZ, limits:[0 .5] }
+#L_lift (table){ joint:transZ, limits:[0 .5] }
 
 Prefix: "L_"
 Include: 'panda_moveGripper.g'
@@ -16,7 +16,7 @@ Include: 'panda_moveGripper.g'
 
 Prefix!
         
-Edit L_panda_link0 (L_lift) { Q:<t(-.4 -.4 .1) d(90 0 0 1)> }
+Edit L_panda_link0 (table) { Q:<t(-.4 -.4 .1) d(90 0 0 1)> }
 Edit R_panda_link0 (table)  { Q:<t( .4 -.4 .1) d(90 0 0 1)> }
 
 camera(world){

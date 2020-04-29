@@ -2,6 +2,6 @@
 Configuration
 =============
 
-.. automodule:: libry
+.. automodule:: libry.Config
    :members:
    :undoc-members:

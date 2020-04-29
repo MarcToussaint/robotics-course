@@ -24,6 +24,11 @@ problems. After going though these problems the teams spend the rest
 of the course working on a final challenge. This year the challenge
 might be to build high constructions from randomly dropped objects.
 
+Lecture slides:
+
+* https://www.user.tu-berlin.de//mtoussai/teaching/20-LabCourse/01-introduction.pdf
+* https://www.user.tu-berlin.de//mtoussai/teaching/20-LabCourse/02-motion.pdf
+
 Below are the specific instructions for the series of exercises:
 
 .. toctree::
