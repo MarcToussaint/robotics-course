@@ -105,8 +105,8 @@ void use_within_simulation(){
 int main(int argc,char **argv){
   rai::initCmdLine(argc,argv);
 
-//  minimal_use_with_webcam();
-  use_within_simulation();
+  minimal_use_with_webcam();
+  //  use_within_simulation();
 
   return 0;
 }

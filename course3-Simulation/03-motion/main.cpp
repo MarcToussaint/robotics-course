@@ -36,7 +36,7 @@ void using_KOMO_for_IK(){
   komo.add_qControlObjective({}, 1, 1.); //sos-penalize (with weight=1.) the finite difference joint velocity (k_order=1) between x[-1] (current configuration) and x[0] (to be optimized)
 
   //task objectives:
-  komo.addObjective({}, FS_positionDiff, {"R_gripperCenter", "object"}, OT_sos, {1e2});
+  komo.addObjective({}, FS_positionDiff, {"R_gripperCenter", "object"}, OT_eq, {1e2});
 
   //initialize the solver
   komo.optimize();
@@ -55,7 +55,7 @@ void using_KOMO_for_IK(){
   std::shared_ptr<Objective> ob = komo.objectives(1); //which is the positionDiff added above
   ob->feat->setTarget({0., 0., .1}); //new target in that feature space: 10cm height difference
   //optimize
-  komo.optimize(false, 0.); //don't add noise or reinitialize
+  komo.optimize(0.); //don't add noise or reinitialize
 
   C.setJointState(komo.getJointState(1.)); //set your working config into the optimized state
   V.setConfiguration(C, "optimized configuration", true); //display it
@@ -85,7 +85,7 @@ void using_KOMO_for_PathPlanning(){
 
   KOMO komo;                     //create a solver
   komo.setModel(C, true);        //tell it use C as the basic configuration (internally, it will create copies of C on which the actual optimization runs)
-  komo.setTiming(1., 20, 5., 2);  //we want to optimize a single step (1 phase, 1 step/phase, duration=1, k_order=1)
+  komo.setTiming(1., 40, 5., 2);  //we want to optimize a single step (1 phase, 1 step/phase, duration=1, k_order=1)
 
   //now add objectives!
 
@@ -94,6 +94,8 @@ void using_KOMO_for_PathPlanning(){
 
   //task objectives:
   komo.addObjective({1.}, FS_positionDiff, {"R_gripperCenter", "object"}, OT_sos, {1e2});
+
+  komo.addObjective({1.}, FS_qItself, {}, OT_eq, {1e2}, {}, 1);
 
   //initialize the solver
   komo.optimize();
