@@ -184,6 +184,12 @@ cd build
 make -j4
 </pre></div>
 </div>
+<p>CODE CHANGES:
+* The komo.optimize (in both, python and C++) does not get a Boolean argument anymore, only a double that specifies the initialization noise
+* In python, playVideo now has a delay argument so slow down display (also a pathName argument to save video pics)
+* The ‘simplex types 4 4 not handled’ bug is fixed
+* The pandas now have named collision shapes panda_coll_[0..7] and panda_coll_hand, panda_coll_finger[1,2]
+* (Can’t see why vectorXRel calls NIY – need to reproduce first.)</p>
 <p>Note: The librai.so (which is linked by both, our C++ and python code) links
 to the Ubuntu package libopencv-dev. However, python coders call
 opencv directly using the pip-installed package. Hopefully this does
