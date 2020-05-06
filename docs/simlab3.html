@@ -184,12 +184,14 @@ cd build
 make -j4
 </pre></div>
 </div>
-<p>CODE CHANGES:
-* The komo.optimize (in both, python and C++) does not get a Boolean argument anymore, only a double that specifies the initialization noise
-* In python, playVideo now has a delay argument so slow down display (also a pathName argument to save video pics)
-* The ‘simplex types 4 4 not handled’ bug is fixed
-* The pandas now have named collision shapes panda_coll_[0..7] and panda_coll_hand, panda_coll_finger[1,2]
-* (Can’t see why vectorXRel calls NIY – need to reproduce first.)</p>
+<p>CODE CHANGES:</p>
+<ul class="simple">
+<li>The komo.optimize (in both, python and C++) does not get a Boolean argument anymore, only a double that specifies the initialization noise</li>
+<li>In python, playVideo now has a delay argument so slow down display (also a pathName argument to save video pics)</li>
+<li>The ‘simplex types 4 4 not handled’ bug is fixed</li>
+<li>The pandas now have named collision shapes panda_coll_[0..7] and panda_coll_hand, panda_coll_finger[1,2]</li>
+<li>(Can’t see why vectorXRel calls NIY – need to reproduce first.)</li>
+</ul>
 <p>Note: The librai.so (which is linked by both, our C++ and python code) links
 to the Ubuntu package libopencv-dev. However, python coders call
 opencv directly using the pip-installed package. Hopefully this does
@@ -208,10 +210,11 @@ this is your first example of bringing camera signals into your 3D
 model world.</p>
 <p>In this exercise you should add opencv code (directly operating on
 &#64;cv::Mat&#64;) to these examples to perform some basic image processing.</p>
-<p>There are many OpenCV tutorials:
-* For python, see <a class="reference external" href="https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_tutorials.html">https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_tutorials.html</a>
-* In C++, see <a class="reference external" href="https://docs.opencv.org/3.2/doc/tutorials/tutorials.html">https://docs.opencv.org/3.2/doc/tutorials/tutorials.html</a> (perhaps change to another OpenCV version)
-Esp, see “Image Processing”.</p>
+<p>There are many OpenCV tutorials, esp. see “Image Processing”:</p>
+<ul class="simple">
+<li>For python, see <a class="reference external" href="https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_tutorials.html">https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_tutorials.html</a></li>
+<li>In C++, see <a class="reference external" href="https://docs.opencv.org/3.2/doc/tutorials/tutorials.html">https://docs.opencv.org/3.2/doc/tutorials/tutorials.html</a> (perhaps change to another OpenCV version)</li>
+</ul>
 </div>
 <div class="section" id="opencv-tutorials">
 <h2>OpenCV tutorials<a class="headerlink" href="#opencv-tutorials" title="Permalink to this headline">¶</a></h2>

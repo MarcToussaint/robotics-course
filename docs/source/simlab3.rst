@@ -12,6 +12,7 @@ Note: Before new exercises, always update the repo::
 
 
 CODE CHANGES:
+
 * The komo.optimize (in both, python and C++) does not get a Boolean argument anymore, only a double that specifies the initialization noise
 * In python, playVideo now has a delay argument so slow down display (also a pathName argument to save video pics)
 * The 'simplex types 4 4 not handled' bug is fixed
@@ -44,10 +45,11 @@ model world.
 In this exercise you should add opencv code (directly operating on
 @cv::Mat@) to these examples to perform some basic image processing.
 
-There are many OpenCV tutorials:
+There are many OpenCV tutorials, esp. see "Image Processing":
+
 * For python, see https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_tutorials.html
 * In C++, see https://docs.opencv.org/3.2/doc/tutorials/tutorials.html (perhaps change to another OpenCV version)
-Esp, see "Image Processing".
+
 
 
 OpenCV tutorials
