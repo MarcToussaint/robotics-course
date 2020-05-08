@@ -5,7 +5,7 @@
 
 //===========================================================================
 
-void test(){
+void testPushes(){
   rai::Configuration C;
   C.addFile("model.g");
   C.watch(true);
@@ -67,7 +67,7 @@ void testGrasp(){
   double tau=.01;
   Metronome tic(tau);
 
-  for(uint t=0;t<900;t++){
+  for(uint t=0;;t++){
     tic.waitForTic();
 
     C.stepSwift();
@@ -75,29 +75,33 @@ void testGrasp(){
 
     if(!(t%10)) S.getImageAndDepth(rgb, depth); //we don't need images with 100Hz, rendering is slow
 
+    arr q = C.getJointState();
+
     //some good old fashioned IK
     if(t<=300){
-      arr q = C.getJointState();
       Value diff = C.feature(FS_oppose, {"finger1", "finger2", "ring4"})->eval(C);
       diff.y *= rai::MIN(.008/length(diff.y), 1.);
       q -= pseudoInverse(diff.J, NoArr, 1e-2) * diff.y;
-      S.step(q, tau, S._position);
     }
 
     if(t==300){
       S.closeGripper("gripper");
     }
 
-    if(t>300){
-      arr q = C.getJointState();
+    if(S.getGripperIsGrasping("gripper")){
       Value diff = C.feature(FS_position, {"gripper"})->eval(C);
       q -= pseudoInverse(diff.J, NoArr, 1e-2) * ARR(0.,0.,-2e-4);
-      S.step(q, tau, S._position);
     }
 
-    if(t==600){
+    if(t==900){
       S.openGripper("gripper");
     }
+
+    if(t>1000 && S.getGripperWidth("gripper")>=.02){ //that's the upper limit of this gripper
+      break;
+    }
+
+    S.step(q, tau, S._position);
   }
 }
 
@@ -152,10 +156,10 @@ void makeRndScene(){
 int main(int argc,char **argv){
   rai::initCmdLine(argc, argv);
 
-//  test();
-//  testGrasp();
+//  testPushes();
+  testGrasp();
 
-  makeRndScene();
+//  makeRndScene();
 
   return 0;
 }
