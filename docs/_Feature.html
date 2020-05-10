@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Enums &mdash; Robotics Course  documentation</title>
+  <title>Feature &mdash; Robotics Course  documentation</title>
   
 
   
@@ -45,7 +45,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="KOMO" href="_KOMO.html" /> 
+    <link rel="next" title="Simulation" href="_Simulation.html" />
+    <link rel="prev" title="Frame" href="_Frame.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -95,16 +96,10 @@
 <li class="toctree-l1 current"><a class="reference internal" href="rai.html">Core Data Structures</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="_Configuration.html">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_Frame.html">Frame</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_Feature.html">Feature</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Feature</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_Simulation.html">Simulation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_KOMO.html">KOMO</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Enums</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#shapetype">ShapeType</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#featuresymbol">FeatureSymbol</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#simulatorengine">SimulatorEngine</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#controlmode">ControlMode</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="_Enums.html">Enums</a></li>
 </ul>
 </li>
 </ul>
@@ -154,7 +149,7 @@
         
           <li><a href="rai.html">Core Data Structures</a> &raquo;</li>
         
-      <li>Enums</li>
+      <li>Feature</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -171,101 +166,28 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="enums">
-<h1>Enums<a class="headerlink" href="#enums" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="shapetype">
-<h2>ShapeType<a class="headerlink" href="#shapetype" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="feature">
+<h1>Feature<a class="headerlink" href="#feature" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
-<dt id="libry.ST">
-<em class="property">class </em><code class="descclassname">libry.</code><code class="descname">ST</code><a class="headerlink" href="#libry.ST" title="Permalink to this definition">¶</a></dt>
-<dd><p>Members:</p>
-<p>none</p>
-<p>box</p>
-<p>sphere</p>
-<p>capsule</p>
-<p>mesh</p>
-<p>cylinder</p>
-<p>marker</p>
-<p>pointCloud</p>
-<p>ssCvx</p>
-<p>ssBox</p>
+<dt id="libry.Feature">
+<em class="property">class </em><code class="descclassname">libry.</code><code class="descname">Feature</code><a class="headerlink" href="#libry.Feature" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="libry.Feature.description">
+<code class="descname">description</code><span class="sig-paren">(</span><em>self: libry.Feature</em>, <em>arg0: libry.Config</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#libry.Feature.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.Feature.eval">
+<code class="descname">eval</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libry.Feature.eval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>eval(self: libry.Feature, arg0: libry.Config) -&gt; tuple</li>
+<li>eval(self: libry.Feature, arg0: tuple) -&gt; tuple</li>
+</ol>
 </dd></dl>
 
-</div>
-<div class="section" id="featuresymbol">
-<h2>FeatureSymbol<a class="headerlink" href="#featuresymbol" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="libry.FS">
-<em class="property">class </em><code class="descclassname">libry.</code><code class="descname">FS</code><a class="headerlink" href="#libry.FS" title="Permalink to this definition">¶</a></dt>
-<dd><p>Members:</p>
-<p>position</p>
-<p>positionDiff</p>
-<p>positionRel</p>
-<p>quaternion</p>
-<p>quaternionDiff</p>
-<p>quaternionRel</p>
-<p>pose</p>
-<p>poseDiff</p>
-<p>poseRel</p>
-<p>vectorX</p>
-<p>vectorXDiff</p>
-<p>vectorXRel</p>
-<p>vectorY</p>
-<p>vectorYDiff</p>
-<p>vectorYRel</p>
-<p>vectorZ</p>
-<p>vectorZDiff</p>
-<p>vectorZRel</p>
-<p>scalarProductXX</p>
-<p>scalarProductXY</p>
-<p>scalarProductXZ</p>
-<p>scalarProductYX</p>
-<p>scalarProductYY</p>
-<p>scalarProductYZ</p>
-<p>scalarProductZZ</p>
-<p>gazeAt</p>
-<p>angularVel</p>
-<p>accumulatedCollisions</p>
-<p>jointLimits</p>
-<p>distance</p>
-<p>oppose</p>
-<p>qItself</p>
-<p>aboveBox</p>
-<p>insideBox</p>
-<p>standingAbove</p>
-<p>physics</p>
-<p>contactConstraints</p>
-<p>energy</p>
-<p>transAccelerations</p>
-<p>transVelocities</p>
 </dd></dl>
 
-</div>
-<div class="section" id="simulatorengine">
-<h2>SimulatorEngine<a class="headerlink" href="#simulatorengine" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="libry.SimulatorEngine">
-<em class="property">class </em><code class="descclassname">libry.</code><code class="descname">SimulatorEngine</code><a class="headerlink" href="#libry.SimulatorEngine" title="Permalink to this definition">¶</a></dt>
-<dd><p>Members:</p>
-<p>physx</p>
-<p>bullet</p>
-<p>kinematic</p>
-</dd></dl>
-
-</div>
-<div class="section" id="controlmode">
-<h2>ControlMode<a class="headerlink" href="#controlmode" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="libry.ControlMode">
-<em class="property">class </em><code class="descclassname">libry.</code><code class="descname">ControlMode</code><a class="headerlink" href="#libry.ControlMode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Members:</p>
-<p>none</p>
-<p>position</p>
-<p>velocity</p>
-<p>acceleration</p>
-</dd></dl>
-
-</div>
 </div>
 
 
@@ -276,8 +198,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="_Simulation.html" class="btn btn-neutral float-right" title="Simulation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-        <a href="_KOMO.html" class="btn btn-neutral float-left" title="KOMO" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+        <a href="_Frame.html" class="btn btn-neutral float-left" title="Frame" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

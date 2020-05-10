@@ -45,7 +45,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Enums" href="_Enums.html" />
+    <link rel="next" title="Feature" href="_Feature.html" />
     <link rel="prev" title="Configuration" href="_Configuration.html" /> 
 </head>
 
@@ -95,7 +95,17 @@
 <li class="toctree-l1"><a class="reference internal" href="simlab.html">Lab Course in Simulation</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="rai.html">Core Data Structures</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="_Configuration.html">Configuration</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Frame</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Frame</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#basic-properties-name-parent-position-orientation">Basic properties: Name, parent, position, orientation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#shape-properties">Shape properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#joint-properties">Joint properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inertial-properties">Inertial properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#collision-properties">Collision properties</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="_Feature.html">Feature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Simulation.html">Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_KOMO.html">KOMO</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_Enums.html">Enums</a></li>
 </ul>
 </li>
@@ -152,8 +162,6 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/_Frame.rst.txt" rel="nofollow"> View page source</a>
-          
         
       </li>
     
@@ -167,111 +175,128 @@
             
   <div class="section" id="frame">
 <h1>Frame<a class="headerlink" href="#frame" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="libry.Frame">
-<em class="property">class </em><code class="descclassname">libry.</code><code class="descname">Frame</code><a class="headerlink" href="#libry.Frame" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
-<dt id="libry.Frame.getMeshPoints">
-<code class="descname">getMeshPoints</code><span class="sig-paren">(</span><em>self: libry.Frame</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray[float64]<a class="headerlink" href="#libry.Frame.getMeshPoints" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="libry.Frame.getPosition">
-<code class="descname">getPosition</code><span class="sig-paren">(</span><em>self: libry.Frame</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray[float64]<a class="headerlink" href="#libry.Frame.getPosition" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="libry.Frame.getQuaternion">
-<code class="descname">getQuaternion</code><span class="sig-paren">(</span><em>self: libry.Frame</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray[float64]<a class="headerlink" href="#libry.Frame.getQuaternion" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="libry.Frame.getRelativePosition">
-<code class="descname">getRelativePosition</code><span class="sig-paren">(</span><em>self: libry.Frame</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray[float64]<a class="headerlink" href="#libry.Frame.getRelativePosition" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="libry.Frame.getRelativeQuaternion">
-<code class="descname">getRelativeQuaternion</code><span class="sig-paren">(</span><em>self: libry.Frame</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray[float64]<a class="headerlink" href="#libry.Frame.getRelativeQuaternion" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="libry.Frame.getRotationMatrix">
-<code class="descname">getRotationMatrix</code><span class="sig-paren">(</span><em>self: libry.Frame</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray[float64]<a class="headerlink" href="#libry.Frame.getRotationMatrix" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="libry.Frame.info">
-<code class="descname">info</code><span class="sig-paren">(</span><em>self: libry.Frame</em><span class="sig-paren">)</span> &#x2192; dict<a class="headerlink" href="#libry.Frame.info" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="libry.Frame.setColor">
-<code class="descname">setColor</code><span class="sig-paren">(</span><em>self: libry.Frame, arg0: List[float]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setColor" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="libry.Frame.setContact">
-<code class="descname">setContact</code><span class="sig-paren">(</span><em>self: libry.Frame</em>, <em>arg0: int</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setContact" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="libry.Frame.setJoint">
-<code class="descname">setJoint</code><span class="sig-paren">(</span><em>self: libry.Frame</em>, <em>arg0: rai::JointType</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setJoint" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="libry.Frame.setMass">
-<code class="descname">setMass</code><span class="sig-paren">(</span><em>self: libry.Frame</em>, <em>arg0: float</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setMass" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="libry.Frame.setMeshAsLines">
-<code class="descname">setMeshAsLines</code><span class="sig-paren">(</span><em>self: libry.Frame, arg0: List[float]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setMeshAsLines" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="libry.Frame.setPointCloud">
-<code class="descname">setPointCloud</code><span class="sig-paren">(</span><em>self: libry.Frame, arg0: array, arg1: numpy.ndarray[uint8]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setPointCloud" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<p>A <code class="docutils literal"><span class="pre">Frame</span></code> is the elementary data structure within a
+configuration. The core property of a frame is its 3D pose (position &amp;
+orientation). Each frame can have a parent frame, and in that case it
+can also have degrees of freedom (dofs) to parameterize its relative
+pose to the parent. A frame can also have a 3D shape (mesh)
+associated. And finally it can have Inertia associated. In advanced
+applications, a Configuration can also maintain a list of object
+interactions and their dofs (e.g., contact forces).</p>
+<p>Users get a handle to a frame only when they add it to a configuration
+with <code class="docutils literal"><span class="pre">C.addFrame</span></code>, or get it directly via <code class="docutils literal"><span class="pre">C.getFrame</span></code>. With such
+a handle, they can set frame properties, such as its name, parent,
+(relative) position, (relative) orientation; its 3D shape as mesh,
+primitive or point set, and color; its joint properties if it has
+DOFs; its inertia; and its contact flag.</p>
+<div class="section" id="basic-properties-name-parent-position-orientation">
+<h2>Basic properties: Name, parent, position, orientation<a class="headerlink" href="#basic-properties-name-parent-position-orientation" title="Permalink to this headline">¶</a></h2>
+<p>TODO: setName, setParent</p>
 <dl class="method">
 <dt id="libry.Frame.setPose">
-<code class="descname">setPose</code><span class="sig-paren">(</span><em>self: libry.Frame</em>, <em>arg0: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setPose" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Frame.</code><code class="descname">setPose</code><span class="sig-paren">(</span><em>self: libry.Frame</em>, <em>arg0: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setPose" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="libry.Frame.setPosition">
-<code class="descname">setPosition</code><span class="sig-paren">(</span><em>self: libry.Frame, arg0: List[float]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setPosition" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Frame.</code><code class="descname">setPosition</code><span class="sig-paren">(</span><em>self: libry.Frame, arg0: List[float]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setPosition" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="libry.Frame.setQuaternion">
-<code class="descname">setQuaternion</code><span class="sig-paren">(</span><em>self: libry.Frame, arg0: List[float]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setQuaternion" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="libry.Frame.setRelativePose">
-<code class="descname">setRelativePose</code><span class="sig-paren">(</span><em>self: libry.Frame</em>, <em>arg0: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setRelativePose" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Frame.</code><code class="descname">setQuaternion</code><span class="sig-paren">(</span><em>self: libry.Frame, arg0: List[float]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setQuaternion" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="libry.Frame.setRelativePosition">
-<code class="descname">setRelativePosition</code><span class="sig-paren">(</span><em>self: libry.Frame, arg0: List[float]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setRelativePosition" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Frame.</code><code class="descname">setRelativePosition</code><span class="sig-paren">(</span><em>self: libry.Frame, arg0: List[float]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setRelativePosition" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="libry.Frame.setRelativeQuaternion">
-<code class="descname">setRelativeQuaternion</code><span class="sig-paren">(</span><em>self: libry.Frame, arg0: List[float]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setRelativeQuaternion" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Frame.</code><code class="descname">setRelativeQuaternion</code><span class="sig-paren">(</span><em>self: libry.Frame, arg0: List[float]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setRelativeQuaternion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Getters:</p>
+<dl class="method">
+<dt id="libry.Frame.getPosition">
+<code class="descclassname">Frame.</code><code class="descname">getPosition</code><span class="sig-paren">(</span><em>self: libry.Frame</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray[float64]<a class="headerlink" href="#libry.Frame.getPosition" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="libry.Frame.setShape">
-<code class="descname">setShape</code><span class="sig-paren">(</span><em>self: libry.Frame, type: libry.ST, size: List[float]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setShape" title="Permalink to this definition">¶</a></dt>
+<dt id="libry.Frame.getQuaternion">
+<code class="descclassname">Frame.</code><code class="descname">getQuaternion</code><span class="sig-paren">(</span><em>self: libry.Frame</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray[float64]<a class="headerlink" href="#libry.Frame.getQuaternion" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-</dd></dl>
+<dl class="method">
+<dt id="libry.Frame.getRotationMatrix">
+<code class="descclassname">Frame.</code><code class="descname">getRotationMatrix</code><span class="sig-paren">(</span><em>self: libry.Frame</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray[float64]<a class="headerlink" href="#libry.Frame.getRotationMatrix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
+<dl class="method">
+<dt id="libry.Frame.getRelativePosition">
+<code class="descclassname">Frame.</code><code class="descname">getRelativePosition</code><span class="sig-paren">(</span><em>self: libry.Frame</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray[float64]<a class="headerlink" href="#libry.Frame.getRelativePosition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.Frame.getRelativeQuaternion">
+<code class="descclassname">Frame.</code><code class="descname">getRelativeQuaternion</code><span class="sig-paren">(</span><em>self: libry.Frame</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray[float64]<a class="headerlink" href="#libry.Frame.getRelativeQuaternion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="shape-properties">
+<h2>Shape properties<a class="headerlink" href="#shape-properties" title="Permalink to this headline">¶</a></h2>
+<dl class="method">
+<dt id="libry.Frame.setShape">
+<code class="descclassname">Frame.</code><code class="descname">setShape</code><span class="sig-paren">(</span><em>self: libry.Frame, type: libry.ST, size: List[float]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setShape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.Frame.setPointCloud">
+<code class="descclassname">Frame.</code><code class="descname">setPointCloud</code><span class="sig-paren">(</span><em>self: libry.Frame, arg0: array, arg1: numpy.ndarray[uint8]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setPointCloud" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.Frame.setMeshAsLines">
+<code class="descclassname">Frame.</code><code class="descname">setMeshAsLines</code><span class="sig-paren">(</span><em>self: libry.Frame, arg0: List[float]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setMeshAsLines" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.Frame.setColor">
+<code class="descclassname">Frame.</code><code class="descname">setColor</code><span class="sig-paren">(</span><em>self: libry.Frame, arg0: List[float]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setColor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Getters:</p>
+<dl class="method">
+<dt id="libry.Frame.getMeshPoints">
+<code class="descclassname">Frame.</code><code class="descname">getMeshPoints</code><span class="sig-paren">(</span><em>self: libry.Frame</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray[float64]<a class="headerlink" href="#libry.Frame.getMeshPoints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="joint-properties">
+<h2>Joint properties<a class="headerlink" href="#joint-properties" title="Permalink to this headline">¶</a></h2>
+<dl class="method">
+<dt id="libry.Frame.setJoint">
+<code class="descclassname">Frame.</code><code class="descname">setJoint</code><span class="sig-paren">(</span><em>self: libry.Frame</em>, <em>arg0: rai::JointType</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setJoint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="inertial-properties">
+<h2>Inertial properties<a class="headerlink" href="#inertial-properties" title="Permalink to this headline">¶</a></h2>
+<dl class="method">
+<dt id="libry.Frame.setMass">
+<code class="descclassname">Frame.</code><code class="descname">setMass</code><span class="sig-paren">(</span><em>self: libry.Frame</em>, <em>arg0: float</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setMass" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="collision-properties">
+<h2>Collision properties<a class="headerlink" href="#collision-properties" title="Permalink to this headline">¶</a></h2>
+<dl class="method">
+<dt id="libry.Frame.setContact">
+<code class="descclassname">Frame.</code><code class="descname">setContact</code><span class="sig-paren">(</span><em>self: libry.Frame</em>, <em>arg0: int</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Frame.setContact" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
 </div>
 
 
@@ -282,7 +307,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="_Enums.html" class="btn btn-neutral float-right" title="Enums" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="_Feature.html" class="btn btn-neutral float-right" title="Feature" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="_Configuration.html" class="btn btn-neutral float-left" title="Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

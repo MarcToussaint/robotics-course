@@ -1,0 +1,372 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Simulation &mdash; Robotics Course  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'./',
+              VERSION:'',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="KOMO" href="_KOMO.html" />
+    <link rel="prev" title="Feature" href="_Feature.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Robotics Course
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="simlab.html">Lab Course in Simulation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="rai.html">Core Data Structures</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="_Configuration.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Frame.html">Frame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Feature.html">Feature</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Simulation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#c-tor">C’tor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stepping-physics">Stepping physics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#opening-closing-the-gripper-and-gripping-state">Opening &amp; closing the gripper, and gripping state</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#getting-simulated-rgb-and-depth-images">Getting simulated RGB and depth images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#simulation-states-restarting-the-simulation-in-previous-states">Simulation states: restarting the simulation in previous states</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#helper-depthdata2pointcloud">Helper: depthData2pointCloud</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="_KOMO.html">KOMO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Enums.html">Enums</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Robotics Course</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="rai.html">Core Data Structures</a> &raquo;</li>
+        
+      <li>Simulation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="simulation">
+<h1>Simulation<a class="headerlink" href="#simulation" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="docutils literal"><span class="pre">Simulation</span></code> class attaches a physics engine to a configuration,
+allows to step physics on that configuration and to control joints by
+position, velocity, or accelerations, grab simulated RGB and depth
+images, and add “adverserial imps” (that is, callback methods that
+perturb the controls, configuration, or sensor signals in some way).</p>
+<div class="section" id="c-tor">
+<h2>C’tor<a class="headerlink" href="#c-tor" title="Permalink to this headline">¶</a></h2>
+<p>The c’tor attaches a physics engine to the given configuration and
+initializes it. The current choices for <code class="docutils literal"><span class="pre">engine</span></code> are PhysX, Bullet,
+and just kinematic (no physics engine). <code class="docutils literal"><span class="pre">verbose=1</span></code> will open a
+display.</p>
+<dl class="method">
+<dt id="libry.Simulation.__init__">
+<code class="descclassname">Simulation.</code><code class="descname">__init__</code><span class="sig-paren">(</span><em>self: libry.Simulation</em>, <em>arg0: libry.Config</em>, <em>arg1: libry.SimulatorEngine</em>, <em>arg2: int</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Simulation.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="stepping-physics">
+<h2>Stepping physics<a class="headerlink" href="#stepping-physics" title="Permalink to this headline">¶</a></h2>
+<p>The core methods steps a physics engine. This distinguishes between
+dynamic objects, which are governed by the laws of physics of the
+physics engine, and kinematic objects, which typically are the robot
+links. The method 1) applies the joint controls (positions,
+velocities, or accelerations) to the associated configuration, 2)
+pushes the kinematic objects (esp.the robot configuration) into the
+physics engine, 3) steps the actual physics engine, 4) reads out all
+frames of all objects and updates the associated configuration with
+these. In addition, between each of these steps, an imp can introduce
+perturbations.</p>
+<p><code class="docutils literal"><span class="pre">u_mode</span></code> can be <code class="docutils literal"><span class="pre">none</span></code> for not sending control signals (in which case <code class="docutils literal"><span class="pre">u_control</span></code> can be <code class="docutils literal"><span class="pre">[]</span></code>). Otherwise <code class="docutils literal"><span class="pre">u_control</span></code> needs to contain joint positions, velocities or accelerations for all DOFs.</p>
+<dl class="method">
+<dt id="libry.Simulation.step">
+<code class="descclassname">Simulation.</code><code class="descname">step</code><span class="sig-paren">(</span><em>self: libry.Simulation</em>, <em>u_control: rai::Array&lt;T&gt;</em>, <em>tau: float = 0.01</em>, <em>u_mode: libry.ControlMode = ControlMode.velocity</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Simulation.step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>As the robot is explicitly controlled, the joint state should be clear
+to the user. Still, for completeness two methods return the current
+joint positions and velocities:</p>
+<dl class="method">
+<dt id="libry.Simulation.get_q">
+<code class="descclassname">Simulation.</code><code class="descname">get_q</code><span class="sig-paren">(</span><em>self: libry.Simulation</em><span class="sig-paren">)</span> &#x2192; rai::Array&lt;T&gt;<a class="headerlink" href="#libry.Simulation.get_q" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.Simulation.get_qDot">
+<code class="descclassname">Simulation.</code><code class="descname">get_qDot</code><span class="sig-paren">(</span><em>self: libry.Simulation</em><span class="sig-paren">)</span> &#x2192; rai::Array&lt;T&gt;<a class="headerlink" href="#libry.Simulation.get_qDot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="opening-closing-the-gripper-and-gripping-state">
+<h2>Opening &amp; closing the gripper, and gripping state<a class="headerlink" href="#opening-closing-the-gripper-and-gripping-state" title="Permalink to this headline">¶</a></h2>
+<p>Many real grippers are controlled differently to standard robot
+joints: They receive a signal to close and do so until a force limit
+is reached. Similarly for opening. Therefore also this simulation has
+separate methods to command grippers and also read out their state.</p>
+<p>The open/close methods need the name of the gripper. The
+speed/width/force are not yet implemented.</p>
+<dl class="method">
+<dt>
+<code class="descclassname">Simulation.</code><code class="descname">get_q</code><span class="sig-paren">(</span><em>self: libry.Simulation</em><span class="sig-paren">)</span> &#x2192; rai::Array&lt;T&gt;</dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">Simulation.</code><code class="descname">get_qDot</code><span class="sig-paren">(</span><em>self: libry.Simulation</em><span class="sig-paren">)</span> &#x2192; rai::Array&lt;T&gt;</dt>
+<dd></dd></dl>
+
+<p>The gripper width can always be queried. And typical grippers also
+tell you if they have an object in hand:</p>
+<dl class="method">
+<dt id="libry.Simulation.getGripperWidth">
+<code class="descclassname">Simulation.</code><code class="descname">getGripperWidth</code><span class="sig-paren">(</span><em>self: libry.Simulation</em>, <em>gripperFrameName: str</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libry.Simulation.getGripperWidth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.Simulation.getGripperIsGrasping">
+<code class="descclassname">Simulation.</code><code class="descname">getGripperIsGrasping</code><span class="sig-paren">(</span><em>self: libry.Simulation</em>, <em>gripperFrameName: str</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#libry.Simulation.getGripperIsGrasping" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="getting-simulated-rgb-and-depth-images">
+<h2>Getting simulated RGB and depth images<a class="headerlink" href="#getting-simulated-rgb-and-depth-images" title="Permalink to this headline">¶</a></h2>
+<p>Using OpenGL it is straight-forward to grab an RGB and depth image
+from a camera. The Simulation allows you to specify a camera by
+referring to a camera frame of the configuration, which should have
+(focalLength, width, height, zRange) as attributes (defined in the
+configuration description file *.g). In C++, the cameraview access
+exposes more ways to add and define sensors. The following methods
+grabs RGB and depth from opengl, and properly transforms depth values
+to have values in meters. Optionally, imps can post-process these
+images to add noise and systematic errors.</p>
+<dl class="method">
+<dt id="libry.Simulation.getImageAndDepth">
+<code class="descclassname">Simulation.</code><code class="descname">getImageAndDepth</code><span class="sig-paren">(</span><em>self: libry.Simulation</em><span class="sig-paren">)</span> &#x2192; tuple<a class="headerlink" href="#libry.Simulation.getImageAndDepth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.Simulation.addSensor">
+<code class="descclassname">Simulation.</code><code class="descname">addSensor</code><span class="sig-paren">(</span><em>self: libry.Simulation</em>, <em>cameraFrameName: str</em><span class="sig-paren">)</span> &#x2192; rai::CameraView::Sensor<a class="headerlink" href="#libry.Simulation.addSensor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="simulation-states-restarting-the-simulation-in-previous-states">
+<h2>Simulation states: restarting the simulation in previous states<a class="headerlink" href="#simulation-states-restarting-the-simulation-in-previous-states" title="Permalink to this headline">¶</a></h2>
+<p>It is often disirable to restart a physical simulation in an exact
+same state that has been visited before. This is often missing in
+standard physics engines. Infact, also the following methods are
+slighly approximate, as they cannot exactly know and store some hidden
+states of the engines’ internal numerical solvers. What they store and
+re-instantiate (<code class="docutils literal"><span class="pre">getState</span></code> and <code class="docutils literal"><span class="pre">restoreState</span></code>) is the exact poses
+and velocities of all frames of the scene. (TODO: Also discrete facts, such as which grippers hold objects, must be stored.) The <code class="docutils literal"><span class="pre">setState</span></code> method
+allows you to directly set arbitrary pose and velocity states.</p>
+<dl class="method">
+<dt id="libry.Simulation.getState">
+<code class="descclassname">Simulation.</code><code class="descname">getState</code><span class="sig-paren">(</span><em>self: libry.Simulation</em><span class="sig-paren">)</span> &#x2192; rai::SimulationState<a class="headerlink" href="#libry.Simulation.getState" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.Simulation.restoreState">
+<code class="descclassname">Simulation.</code><code class="descname">restoreState</code><span class="sig-paren">(</span><em>self: libry.Simulation</em>, <em>arg0: rai::SimulationState</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Simulation.restoreState" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.Simulation.setState">
+<code class="descclassname">Simulation.</code><code class="descname">setState</code><span class="sig-paren">(</span><em>self: libry.Simulation</em>, <em>frameState: rai::Array&lt;T&gt;</em>, <em>frameVelocities: rai::Array&lt;T&gt; = []</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Simulation.setState" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="helper-depthdata2pointcloud">
+<h2>Helper: depthData2pointCloud<a class="headerlink" href="#helper-depthdata2pointcloud" title="Permalink to this headline">¶</a></h2>
+<p>This should acutally be declared somewhere else. In C++ it is a global
+method within the Perception code. A helper to convert a depth image
+(already in meters) to a set of 3D points (a (W*H)x3-matrix). The
+argument <code class="docutils literal"><span class="pre">fxypxy</span></code> need to be four numbers: the focal length (in
+pixel/meters units!) in x and y direction, and the image center (in
+pixel units) in x and y direction.</p>
+<dl class="method">
+<dt id="libry.Simulation.depthData2pointCloud">
+<code class="descclassname">Simulation.</code><code class="descname">depthData2pointCloud</code><span class="sig-paren">(</span><em>self: libry.Simulation, arg0: numpy.ndarray[float32], arg1: List[float]</em><span class="sig-paren">)</span> &#x2192; array<a class="headerlink" href="#libry.Simulation.depthData2pointCloud" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="_KOMO.html" class="btn btn-neutral float-right" title="KOMO" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="_Feature.html" class="btn btn-neutral float-left" title="Feature" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Marc Toussaint
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

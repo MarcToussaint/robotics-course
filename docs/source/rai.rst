@@ -7,11 +7,12 @@ Core Data Structures
 
    _Configuration
    _Frame
+   _Feature
+   _Simulation
+   _KOMO
    _Enums
 
-..   _Feature
 ..   _Simulation
-..   _KOMO
 
 ..   _ConfigurationViewer
 ..   _CameraView

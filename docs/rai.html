@@ -96,6 +96,9 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Core Data Structures</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="_Configuration.html">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_Frame.html">Frame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Feature.html">Feature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Simulation.html">Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_KOMO.html">KOMO</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_Enums.html">Enums</a></li>
 </ul>
 </li>
@@ -150,8 +153,6 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/rai.rst.txt" rel="nofollow"> View page source</a>
-          
         
       </li>
     
@@ -167,11 +168,39 @@
 <h1>Core Data Structures<a class="headerlink" href="#core-data-structures" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="_Configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="_Frame.html">Frame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_Configuration.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_Configuration.html#c-tor">C’tor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Configuration.html#adding-frames-to-the-configuration">Adding frames to the configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Configuration.html#copy-clear">Copy, clear</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Configuration.html#joint-state-get-set-and-selecting-active-joints">Joint state: get/set, and selecting active joints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Configuration.html#frame-state">Frame state</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Configuration.html#features-anything-you-might-want-to-compute-from-configurations">Features: Anything you might want to compute from Configurations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Configuration.html#structural-edits">Structural edits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Configuration.html#collision-computations">Collision computations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Configuration.html#factory-functions-to-create-other-classes-komo-simulation-viewer-etc">Factory functions to create other classes (KOMO, Simulation, viewer, etc)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_Frame.html">Frame</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_Frame.html#basic-properties-name-parent-position-orientation">Basic properties: Name, parent, position, orientation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Frame.html#shape-properties">Shape properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Frame.html#joint-properties">Joint properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Frame.html#inertial-properties">Inertial properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Frame.html#collision-properties">Collision properties</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_Feature.html">Feature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_Simulation.html">Simulation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_Simulation.html#c-tor">C’tor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Simulation.html#stepping-physics">Stepping physics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Simulation.html#opening-closing-the-gripper-and-gripping-state">Opening &amp; closing the gripper, and gripping state</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Simulation.html#getting-simulated-rgb-and-depth-images">Getting simulated RGB and depth images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Simulation.html#simulation-states-restarting-the-simulation-in-previous-states">Simulation states: restarting the simulation in previous states</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Simulation.html#helper-depthdata2pointcloud">Helper: depthData2pointCloud</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_KOMO.html">KOMO</a></li>
 <li class="toctree-l1"><a class="reference internal" href="_Enums.html">Enums</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="_Enums.html#shapetype">ShapeType</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_Enums.html#hello">Hello</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_Enums.html#featuresymbol">FeatureSymbol</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_Enums.html#simulatorengine">SimulatorEngine</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_Enums.html#controlmode">ControlMode</a></li>

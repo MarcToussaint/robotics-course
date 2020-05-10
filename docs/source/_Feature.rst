@@ -1,8 +1,8 @@
-=====
-Frame
-=====
+=======
+Feature
+=======
 
-.. autoclass:: libry.Frame
+.. autoclass:: libry.Feature
    :members:
    :undoc-members:
    :member-order: bysource

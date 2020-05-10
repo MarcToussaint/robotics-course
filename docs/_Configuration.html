@@ -94,8 +94,22 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="simlab.html">Lab Course in Simulation</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="rai.html">Core Data Structures</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Configuration</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#c-tor">C’tor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adding-frames-to-the-configuration">Adding frames to the configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#copy-clear">Copy, clear</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#joint-state-get-set-and-selecting-active-joints">Joint state: get/set, and selecting active joints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#frame-state">Frame state</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#features-anything-you-might-want-to-compute-from-configurations">Features: Anything you might want to compute from Configurations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#structural-edits">Structural edits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#collision-computations">Collision computations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#factory-functions-to-create-other-classes-komo-simulation-viewer-etc">Factory functions to create other classes (KOMO, Simulation, viewer, etc)</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="_Frame.html">Frame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Feature.html">Feature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Simulation.html">Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_KOMO.html">KOMO</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_Enums.html">Enums</a></li>
 </ul>
 </li>
@@ -152,8 +166,6 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/_Configuration.rst.txt" rel="nofollow"> View page source</a>
-          
         
       </li>
     
@@ -167,6 +179,240 @@
             
   <div class="section" id="configuration">
 <h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h1>
+<p>Just as arrays (vectors, matrices) are the core data structure to code
+numerics, a Configuration is the core data structure to code
+robotics. A configuration represents objects in a 3D world and how
+they are kinematically linked. When coding robotics, you create
+configurations, edit them, compute numerical features from them (such
+as the 3D position of an object, or the distance between two shapes),
+and formulate optimization problems over configurations to solve
+control or path finding problems.</p>
+<p>A <code class="docutils literal"><span class="pre">Configuration</span></code> is a set of <code class="docutils literal"><span class="pre">Frames</span></code>, each of which can have a
+parent frame, can have degrees of freedom (dofs) to parameterize its
+relative pose to the parent, can have a <code class="docutils literal"><span class="pre">Shape</span></code>, and can have
+<code class="docutils literal"><span class="pre">Inertia</span></code>. In advanced applications, a Configuration can also maintain
+a list of object interactions and their dofs (e.g., contact forces).</p>
+<p><code class="docutils literal"><span class="pre">Features</span></code> are the core concept that relate configurations to
+numerics: Any numerical quantity you might want to compute for a
+configuration is a <code class="docutils literal"><span class="pre">Feature</span></code>. This could be basic things like the
+position or orientation of a frame, or the distance between shapes,
+or nearest points on two shapes. But also more involved things like
+the total engergy in the configuration (if velocities are also
+represented). Often features represent errors or residuals
+of equation systems. For instance, you would often define a feature to
+be the residual between an object 3D position and a desired 3D
+position, rather than the absolute object position. Or a feature can
+be the residual of equations for force propagation or the residual of
+closed kinematic loops. In that way it is convenient to formulate
+optimization problems that aim to bring all features to zero (or lower
+equal to zero). Such optimization problems can solve control and path
+problems for you. Features are the interface between a configuration
+and numerics.</p>
+<p>The relative transformations in configurations can have <em>degrees of
+freedom</em> (dofs), thereby modelling kinematic joints. The vector of all
+these dofs is also called joint state. A fundamental operation is to
+“set the joint state” of a configuration, and then computing all
+relative and absolute transformations of all frames, which is called
+forward kinematics. The classical joint state is the main example for
+dofs – but in general we may want to introduce also other dofs,
+namely dofs that represent the force interaction between objects, or
+variables that indicate the time interval between two consecutive
+configurations. The reason is that these dofs can then become the
+decision variables in a mathematical program that solves for these
+quantities. Therefore, the general view is that whatever we might want
+to have as decision variable in a mathematical program should be dofs
+in configurations.</p>
+<div class="section" id="c-tor">
+<h2>C’tor<a class="headerlink" href="#c-tor" title="Permalink to this headline">¶</a></h2>
+<dl class="method">
+<dt id="libry.Config.__init__">
+<code class="descclassname">Config.</code><code class="descname">__init__</code><span class="sig-paren">(</span><em>self: libry.Config</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>initializes to an empty configuration, with no frames</p>
+</dd></dl>
+
+</div>
+<div class="section" id="adding-frames-to-the-configuration">
+<h2>Adding frames to the configuration<a class="headerlink" href="#adding-frames-to-the-configuration" title="Permalink to this headline">¶</a></h2>
+<dl class="method">
+<dt id="libry.Config.addFile">
+<code class="descclassname">Config.</code><code class="descname">addFile</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>file_name: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.addFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>add the contents of the file to C</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.addFrame">
+<code class="descclassname">Config.</code><code class="descname">addFrame</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>name: str</em>, <em>parent: str = ''</em>, <em>args: str = ''</em><span class="sig-paren">)</span> &#x2192; ry::RyFrame<a class="headerlink" href="#libry.Config.addFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>add a new frame to C; optionally make this a child to the given parent; use the Frame methods to set properties of the new frame</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.delFrame">
+<code class="descclassname">Config.</code><code class="descname">delFrame</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>frameName: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.delFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>destroy and remove a frame from C</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.getFrame">
+<code class="descclassname">Config.</code><code class="descname">getFrame</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>frameName: str</em><span class="sig-paren">)</span> &#x2192; ry::RyFrame<a class="headerlink" href="#libry.Config.getFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>get access to a frame by name; use the Frame methods to set/get frame properties</p>
+</dd></dl>
+
+</div>
+<div class="section" id="copy-clear">
+<h2>Copy, clear<a class="headerlink" href="#copy-clear" title="Permalink to this headline">¶</a></h2>
+<dl class="method">
+<dt id="libry.Config.copy">
+<code class="descclassname">Config.</code><code class="descname">copy</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>C2: libry.Config</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>make C a (deep) copy of the given C2</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.clear">
+<code class="descclassname">Config.</code><code class="descname">clear</code><span class="sig-paren">(</span><em>self: libry.Config</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>clear all frames and additional data; becomes the empty configuration, with no frames</p>
+</dd></dl>
+
+</div>
+<div class="section" id="joint-state-get-set-and-selecting-active-joints">
+<h2>Joint state: get/set, and selecting active joints<a class="headerlink" href="#joint-state-get-set-and-selecting-active-joints" title="Permalink to this headline">¶</a></h2>
+<dl class="method">
+<dt id="libry.Config.setJointState">
+<code class="descclassname">Config.</code><code class="descname">setJointState</code><span class="sig-paren">(</span><em>self: libry.Config, q: List[float], joints: List[str] = []</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.setJointState" title="Permalink to this definition">¶</a></dt>
+<dd><p>set the joint state, optionally only for a subset of joints specified as list of joint names</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.getJointNames">
+<code class="descclassname">Config.</code><code class="descname">getJointNames</code><span class="sig-paren">(</span><em>self: libry.Config</em><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#libry.Config.getJointNames" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the list of joint names</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.getJointDimension">
+<code class="descclassname">Config.</code><code class="descname">getJointDimension</code><span class="sig-paren">(</span><em>self: libry.Config</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#libry.Config.getJointDimension" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the total number of degrees of freedom</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.getJointState">
+<code class="descclassname">Config.</code><code class="descname">getJointState</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>joints: List[str] = []</em><span class="sig-paren">)</span> &#x2192; array<a class="headerlink" href="#libry.Config.getJointState" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the joint state as a numpy vector, optionally only for a subset of joints specified as list of joint names</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.selectJoints">
+<code class="descclassname">Config.</code><code class="descname">selectJoints</code><span class="sig-paren">(</span><em>self: libry.Config, jointNames: List[str], notThose: bool = False</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.selectJoints" title="Permalink to this definition">¶</a></dt>
+<dd><p>redefine what are considered the DOFs of this configuration: only joints listed in jointNames are considered part of the joint state and define the number of DOFs</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.selectJointsByTag">
+<code class="descclassname">Config.</code><code class="descname">selectJointsByTag</code><span class="sig-paren">(</span><em>self: libry.Config, jointGroups: List[str]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.selectJointsByTag" title="Permalink to this definition">¶</a></dt>
+<dd><p>redefine what are considered the DOFs of this configuration: only joint that have a tag listed in jointGroups are considered part of the joint state and define the number of DOFs</p>
+</dd></dl>
+
+</div>
+<div class="section" id="frame-state">
+<h2>Frame state<a class="headerlink" href="#frame-state" title="Permalink to this headline">¶</a></h2>
+<dl class="method">
+<dt id="libry.Config.setFrameState">
+<code class="descclassname">Config.</code><code class="descname">setFrameState</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libry.Config.setFrameState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>setFrameState(self: libry.Config, X: List[float], frames: List[str] = []) -&gt; None</li>
+</ol>
+<p>set the frame state, optionally only for a subset of frames specified as list of frame names</p>
+<ol class="arabic simple" start="2">
+<li>setFrameState(self: libry.Config, X: array, frames: List[str] = []) -&gt; None</li>
+</ol>
+<p>set the frame state, optionally only for a subset of frames specified as list of frame names</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.getFrameNames">
+<code class="descclassname">Config.</code><code class="descname">getFrameNames</code><span class="sig-paren">(</span><em>self: libry.Config</em><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#libry.Config.getFrameNames" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the list of frame names</p>
+</dd></dl>
+
+</div>
+<div class="section" id="features-anything-you-might-want-to-compute-from-configurations">
+<h2>Features: Anything you might want to compute from Configurations<a class="headerlink" href="#features-anything-you-might-want-to-compute-from-configurations" title="Permalink to this headline">¶</a></h2>
+<dl class="method">
+<dt id="libry.Config.feature">
+<code class="descclassname">Config.</code><code class="descname">feature</code><span class="sig-paren">(</span><em>self: libry.Config, featureSymbol: FeatureSymbol, frameNames: List[str]</em><span class="sig-paren">)</span> &#x2192; ry::RyFeature<a class="headerlink" href="#libry.Config.feature" title="Permalink to this definition">¶</a></dt>
+<dd><p>create a feature (a differentiable map from joint state to a vector space), as they’re typically used for IK or optimization. See the dedicated tutorial for details. featureSymbol defines which mapping this is (position, vectors, collision distance, etc). many mapping refer to one or several frames, which need to be specified using frameNames</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.evalFeature">
+<code class="descclassname">Config.</code><code class="descname">evalFeature</code><span class="sig-paren">(</span><em>self: libry.Config, arg0: FeatureSymbol, arg1: List[str]</em><span class="sig-paren">)</span> &#x2192; tuple<a class="headerlink" href="#libry.Config.evalFeature" title="Permalink to this definition">¶</a></dt>
+<dd><p>TODO remove -&gt; use feature directly</p>
+</dd></dl>
+
+</div>
+<div class="section" id="structural-edits">
+<h2>Structural edits<a class="headerlink" href="#structural-edits" title="Permalink to this headline">¶</a></h2>
+<dl class="method">
+<dt id="libry.Config.attach">
+<code class="descclassname">Config.</code><code class="descname">attach</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>arg0: str</em>, <em>arg1: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.attach" title="Permalink to this definition">¶</a></dt>
+<dd><p>change the configuration by creating a rigid joint from frame1 to frame2, adopting their current relative pose. This also breaks the first joint that is parental to frame2 and reverses the topological order from frame2 to the broken joint</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.sortFrames">
+<code class="descclassname">Config.</code><code class="descname">sortFrames</code><span class="sig-paren">(</span><em>self: libry.Config</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.sortFrames" title="Permalink to this definition">¶</a></dt>
+<dd><p>resort the internal order of frames according to the tree topology. This is important before saving the configuration.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.edit">
+<code class="descclassname">Config.</code><code class="descname">edit</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>arg0: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>launch a viewer that listents (inode) to changes of a file (made by you in an editor), and reloads, displays and animates the configuration whenever the file is changed</p>
+</dd></dl>
+
+</div>
+<div class="section" id="collision-computations">
+<h2>Collision computations<a class="headerlink" href="#collision-computations" title="Permalink to this headline">¶</a></h2>
+<dl class="method">
+<dt id="libry.Config.computeCollisions">
+<code class="descclassname">Config.</code><code class="descname">computeCollisions</code><span class="sig-paren">(</span><em>self: libry.Config</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.computeCollisions" title="Permalink to this definition">¶</a></dt>
+<dd><p>call the broadphase collision engine (SWIFT++ or FCL) to generate the list of collisions (or near proximities) between all frame shapes that have the collision tag set non-zero</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.getCollisions">
+<code class="descclassname">Config.</code><code class="descname">getCollisions</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>belowMargin: float = 1.0</em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#libry.Config.getCollisions" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the results of collision computations: a list of 3 tuples with (frame1, frame2, distance). Optionally report only on distances below a margin To get really precise distances and penetrations use the FS.distance feature with the two frame names</p>
+</dd></dl>
+
+</div>
+<div class="section" id="factory-functions-to-create-other-classes-komo-simulation-viewer-etc">
+<h2>Factory functions to create other classes (KOMO, Simulation, viewer, etc)<a class="headerlink" href="#factory-functions-to-create-other-classes-komo-simulation-viewer-etc" title="Permalink to this headline">¶</a></h2>
+<dl class="method">
+<dt id="libry.Config.komo_IK">
+<code class="descclassname">Config.</code><code class="descname">komo_IK</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>useSwift: bool</em><span class="sig-paren">)</span> &#x2192; KOMO<a class="headerlink" href="#libry.Config.komo_IK" title="Permalink to this definition">¶</a></dt>
+<dd><p>create KOMO solver configured to IK, useSwift determine whether for each query the broadphase collision computations are done. (Necessary only when generic FS.accumulatedCollision feature is needed. The explicit distance feature is independent from broadphase collision computation)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.komo_CGO">
+<code class="descclassname">Config.</code><code class="descname">komo_CGO</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>numConfigs: int</em>, <em>useSwift: bool</em><span class="sig-paren">)</span> &#x2192; KOMO<a class="headerlink" href="#libry.Config.komo_CGO" title="Permalink to this definition">¶</a></dt>
+<dd><p>create KOMO solver configured for dense graph optimization, numConfig gives the number of configurations optimized over, useSwift determine whether for each query the broadphase collision computations are done. (Necessary only when generic FS.accumulatedCollision feature is needed. The explicit distance feature is independent from broadphase collision computation)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.komo_path">
+<code class="descclassname">Config.</code><code class="descname">komo_path</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>phases: float</em>, <em>stepsPerPhase: int = 20</em>, <em>timePerPhase: float = 5.0</em>, <em>useSwift: bool</em><span class="sig-paren">)</span> &#x2192; KOMO<a class="headerlink" href="#libry.Config.komo_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>create KOMO solver configured for sparse path optimization</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libry.Config.simulation">
+<code class="descclassname">Config.</code><code class="descname">simulation</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>engine: rai::Simulation::SimulatorEngine</em>, <em>verbose: int</em><span class="sig-paren">)</span> &#x2192; rai::Simulation<a class="headerlink" href="#libry.Config.simulation" title="Permalink to this definition">¶</a></dt>
+<dd><p>create a generic Simulation engine, which can internally call PhysX, Bullet, or just kinematics to forward simulate, allows you to control robot motors by position, velocity, or accelerations,     and allows you go query camera images and depth</p>
+</dd></dl>
+
+</div>
 </div>
 
 

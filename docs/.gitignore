@@ -1,3 +1,4 @@
 _sources
 .doctrees
 .buildinfo
+*.inv

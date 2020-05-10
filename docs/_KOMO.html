@@ -1,0 +1,368 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>KOMO &mdash; Robotics Course  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'./',
+              VERSION:'',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Enums" href="_Enums.html" />
+    <link rel="prev" title="Simulation" href="_Simulation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Robotics Course
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="simlab.html">Lab Course in Simulation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="rai.html">Core Data Structures</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="_Configuration.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Frame.html">Frame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Feature.html">Feature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Simulation.html">Simulation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">KOMO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Enums.html">Enums</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Robotics Course</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="rai.html">Core Data Structures</a> &raquo;</li>
+        
+      <li>KOMO</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="komo">
+<h1>KOMO<a class="headerlink" href="#komo" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="libry.KOMO">
+<em class="property">class </em><code class="descclassname">libry.</code><code class="descname">KOMO</code><a class="headerlink" href="#libry.KOMO" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constrained solver to optimize configurations or paths. (KOMO = k-order Markov Optimization)</p>
+<dl class="method">
+<dt id="libry.KOMO.activateCollisionPairs">
+<code class="descname">activateCollisionPairs</code><span class="sig-paren">(</span><em>self: libry.KOMO, arg0: List[Tuple[str, str]]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.activateCollisionPairs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMO.addInteraction_elasticBounce">
+<code class="descname">addInteraction_elasticBounce</code><span class="sig-paren">(</span><em>self: libry.KOMO</em>, <em>time: float</em>, <em>from: str</em>, <em>to: str</em>, <em>elasticity: float = 0.8</em>, <em>stickiness: float = 0.0</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.addInteraction_elasticBounce" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMO.addObjective">
+<code class="descname">addObjective</code><span class="sig-paren">(</span><em>self: libry.KOMO</em>, <em>time: List[float] = []</em>, <em>feature: libry.FS</em>, <em>frames: List[str] = []</em>, <em>type: ObjectiveType</em>, <em>scale: List[float] = []</em>, <em>scaleTrans: List[List[float]] = []</em>, <em>target: List[float] = []</em>, <em>order: int = -1</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.addObjective" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMO.addSkeleton">
+<code class="descname">addSkeleton</code><span class="sig-paren">(</span><em>self: libry.KOMO</em>, <em>arg0: list</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.addSkeleton" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMO.addSwitch_dynamicTrans">
+<code class="descname">addSwitch_dynamicTrans</code><span class="sig-paren">(</span><em>self: libry.KOMO</em>, <em>arg0: float</em>, <em>arg1: float</em>, <em>arg2: str</em>, <em>arg3: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.addSwitch_dynamicTrans" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMO.addSwitch_magic">
+<code class="descname">addSwitch_magic</code><span class="sig-paren">(</span><em>self: libry.KOMO</em>, <em>arg0: float</em>, <em>arg1: float</em>, <em>arg2: str</em>, <em>arg3: str</em>, <em>arg4: float</em>, <em>arg5: float</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.addSwitch_magic" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMO.addTimeOptimization">
+<code class="descname">addTimeOptimization</code><span class="sig-paren">(</span><em>self: libry.KOMO</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.addTimeOptimization" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMO.add_StablePose">
+<code class="descname">add_StablePose</code><span class="sig-paren">(</span><em>self: libry.KOMO, confs: List[int], object: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.add_StablePose" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMO.add_StableRelativePose">
+<code class="descname">add_StableRelativePose</code><span class="sig-paren">(</span><em>self: libry.KOMO, confs: List[int], gripper: str, object: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.add_StableRelativePose" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMO.add_grasp">
+<code class="descname">add_grasp</code><span class="sig-paren">(</span><em>self: libry.KOMO</em>, <em>arg0: int</em>, <em>arg1: str</em>, <em>arg2: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.add_grasp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMO.add_place">
+<code class="descname">add_place</code><span class="sig-paren">(</span><em>self: libry.KOMO</em>, <em>arg0: int</em>, <em>arg1: str</em>, <em>arg2: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.add_place" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMO.add_qControlObjective">
+<code class="descname">add_qControlObjective</code><span class="sig-paren">(</span><em>self: libry.KOMO</em>, <em>time: List[float] = []</em>, <em>order: int</em>, <em>scale: float = 1.0</em>, <em>target: List[float] = []</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.add_qControlObjective" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMO.add_resting">
+<code class="descname">add_resting</code><span class="sig-paren">(</span><em>self: libry.KOMO</em>, <em>arg0: int</em>, <em>arg1: int</em>, <em>arg2: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.add_resting" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMO.add_restingRelative">
+<code class="descname">add_restingRelative</code><span class="sig-paren">(</span><em>self: libry.KOMO</em>, <em>arg0: int</em>, <em>arg1: int</em>, <em>arg2: str</em>, <em>arg3: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.add_restingRelative" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMO.clearObjectives">
+<code class="descname">clearObjectives</code><span class="sig-paren">(</span><em>self: libry.KOMO</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.clearObjectives" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMO.deactivateCollisionPairs">
+<code class="descname">deactivateCollisionPairs</code><span class="sig-paren">(</span><em>self: libry.KOMO, arg0: List[Tuple[str, str]]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.deactivateCollisionPairs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMO.getConfiguration">
+<code class="descname">getConfiguration</code><span class="sig-paren">(</span><em>self: libry.KOMO</em>, <em>arg0: int</em><span class="sig-paren">)</span> &#x2192; array<a class="headerlink" href="#libry.KOMO.getConfiguration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMO.getConstraintViolations">
+<code class="descname">getConstraintViolations</code><span class="sig-paren">(</span><em>self: libry.KOMO</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libry.KOMO.getConstraintViolations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMO.getCosts">
+<code class="descname">getCosts</code><span class="sig-paren">(</span><em>self: libry.KOMO</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libry.KOMO.getCosts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMO.getForceInteractions">
+<code class="descname">getForceInteractions</code><span class="sig-paren">(</span><em>self: libry.KOMO</em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#libry.KOMO.getForceInteractions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMO.getPathFrames">
+<code class="descname">getPathFrames</code><span class="sig-paren">(</span><em>self: libry.KOMO, arg0: List[str]</em><span class="sig-paren">)</span> &#x2192; array<a class="headerlink" href="#libry.KOMO.getPathFrames" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMO.getPathTau">
+<code class="descname">getPathTau</code><span class="sig-paren">(</span><em>self: libry.KOMO</em><span class="sig-paren">)</span> &#x2192; array<a class="headerlink" href="#libry.KOMO.getPathTau" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMO.getReport">
+<code class="descname">getReport</code><span class="sig-paren">(</span><em>self: libry.KOMO</em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#libry.KOMO.getReport" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMO.getT">
+<code class="descname">getT</code><span class="sig-paren">(</span><em>self: libry.KOMO</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#libry.KOMO.getT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMO.makeObjectsFree">
+<code class="descname">makeObjectsFree</code><span class="sig-paren">(</span><em>self: libry.KOMO, arg0: List[str]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.makeObjectsFree" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMO.optimize">
+<code class="descname">optimize</code><span class="sig-paren">(</span><em>self: libry.KOMO</em>, <em>addInitializationNoise: float = 0.01</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.optimize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMO.setConfigurations">
+<code class="descname">setConfigurations</code><span class="sig-paren">(</span><em>self: libry.KOMO</em>, <em>arg0: libry.Config</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.setConfigurations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libry.KOMO.view">
+<code class="descname">view</code><span class="sig-paren">(</span><em>self: libry.KOMO</em><span class="sig-paren">)</span> &#x2192; libry.ConfigurationViewer<a class="headerlink" href="#libry.KOMO.view" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="_Enums.html" class="btn btn-neutral float-right" title="Enums" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="_Simulation.html" class="btn btn-neutral float-left" title="Simulation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Marc Toussaint
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
