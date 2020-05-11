@@ -1,3 +1,6 @@
+
+rai-python-teaching
+
 %% compile temporaries
 build
 *.o
