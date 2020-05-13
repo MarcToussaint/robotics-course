@@ -25,3 +25,9 @@ ControlMode
 
 .. autoclass:: libry.ControlMode
    :member-order: bysource
+
+ImpType
+=======
+
+.. autoclass:: libry.ImpType
+   :member-order: bysource
