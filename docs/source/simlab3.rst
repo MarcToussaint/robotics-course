@@ -1,6 +1,6 @@
-===================
- SimLab Exercise 3
-===================
+============================
+ SimLab Exercise 3 - OpenCV
+============================
 
 Note: Before new exercises, always update the repo::
 
@@ -32,10 +32,10 @@ OpenCV usage
 
 The goal of this session is to enable you using OpenCV within your code.
 
-The first example in @04-opencv@ subscribes to a webcam and starts a
+The first example in ``04-opencv`` subscribes to a webcam and starts a
 little loop that displays the image using opencv. The webcam is only
 to have more fun during coding -- later your code has to run on the
-simulated camera. The second example in @04-opencv@ does our standard
+simulated camera. The second example in ``04-opencv`` does our standard
 simulation loop, but in each iteration grabs the simulated RGB and
 depth image, displays them using opencv, converts them to a point
 cloud, and displays this point cloud in your model configuration. So
@@ -43,7 +43,7 @@ this is your first example of bringing camera signals into your 3D
 model world.
 
 In this exercise you should add opencv code (directly operating on
-@cv::Mat@) to these examples to perform some basic image processing.
+``cv::Mat``) to these examples to perform some basic image processing.
 
 There are many OpenCV tutorials, esp. see "Image Processing":
 

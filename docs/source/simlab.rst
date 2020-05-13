@@ -37,3 +37,4 @@ Below are the specific instructions for the series of exercises:
    simlab1.rst
    simlab2.rst
    simlab3.rst
+   simlab4.rst

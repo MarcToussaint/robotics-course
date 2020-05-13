@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>SimLab Exercise 3 &mdash; Robotics Course  documentation</title>
+  <title>SimLab Exercise 3 - OpenCV &mdash; Robotics Course  documentation</title>
   
 
   
@@ -45,8 +45,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Core Data Structures" href="rai.html" />
-    <link rel="prev" title="SimLab Exercise 2" href="simlab2.html" /> 
+    <link rel="next" title="SimLab Exercise 4 - Grasp" href="simlab4.html" />
+    <link rel="prev" title="SimLab Exercise 2 - Motion" href="simlab2.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -93,9 +93,9 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="simlab.html">Lab Course in Simulation</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="simlab1.html">SimLab Exercise 1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="simlab2.html">SimLab Exercise 2</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">SimLab Exercise 3</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="simlab1.html">SimLab Exercise 1 - Basic Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="simlab2.html">SimLab Exercise 2 - Motion</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SimLab Exercise 3 - OpenCV</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#opencv-usage">OpenCV usage</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#opencv-tutorials">OpenCV tutorials</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#exercise-1">Exercise 1:</a></li>
@@ -105,6 +105,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="simlab4.html">SimLab Exercise 4 - Grasp</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="rai.html">Core Data Structures</a></li>
@@ -155,7 +156,7 @@
         
           <li><a href="simlab.html">Lab Course in Simulation</a> &raquo;</li>
         
-      <li>SimLab Exercise 3</li>
+      <li>SimLab Exercise 3 - OpenCV</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -172,8 +173,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="simlab-exercise-3">
-<h1>SimLab Exercise 3<a class="headerlink" href="#simlab-exercise-3" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="simlab-exercise-3-opencv">
+<h1>SimLab Exercise 3 - OpenCV<a class="headerlink" href="#simlab-exercise-3-opencv" title="Permalink to this headline">¶</a></h1>
 <p>Note: Before new exercises, always update the repo:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>cd $HOME/git/robotics-course
 git pull
@@ -197,17 +198,17 @@ not lead to library version clashes.</p>
 <div class="section" id="opencv-usage">
 <h2>OpenCV usage<a class="headerlink" href="#opencv-usage" title="Permalink to this headline">¶</a></h2>
 <p>The goal of this session is to enable you using OpenCV within your code.</p>
-<p>The first example in &#64;04-opencv&#64; subscribes to a webcam and starts a
+<p>The first example in <code class="docutils literal"><span class="pre">04-opencv</span></code> subscribes to a webcam and starts a
 little loop that displays the image using opencv. The webcam is only
 to have more fun during coding – later your code has to run on the
-simulated camera. The second example in &#64;04-opencv&#64; does our standard
+simulated camera. The second example in <code class="docutils literal"><span class="pre">04-opencv</span></code> does our standard
 simulation loop, but in each iteration grabs the simulated RGB and
 depth image, displays them using opencv, converts them to a point
 cloud, and displays this point cloud in your model configuration. So
 this is your first example of bringing camera signals into your 3D
 model world.</p>
 <p>In this exercise you should add opencv code (directly operating on
-&#64;cv::Mat&#64;) to these examples to perform some basic image processing.</p>
+<code class="docutils literal"><span class="pre">cv::Mat</span></code>) to these examples to perform some basic image processing.</p>
 <p>There are many OpenCV tutorials, esp. see “Image Processing”:</p>
 <ul class="simple">
 <li>For python, see <a class="reference external" href="https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_tutorials.html">https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_tutorials.html</a></li>
@@ -259,10 +260,10 @@ access to depth.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="rai.html" class="btn btn-neutral float-right" title="Core Data Structures" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="simlab4.html" class="btn btn-neutral float-right" title="SimLab Exercise 4 - Grasp" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="simlab2.html" class="btn btn-neutral float-left" title="SimLab Exercise 2" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="simlab2.html" class="btn btn-neutral float-left" title="SimLab Exercise 2 - Motion" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

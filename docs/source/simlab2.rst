@@ -1,6 +1,6 @@
-===================
- SimLab Exercise 2
-===================
+============================
+ SimLab Exercise 2 - Motion
+============================
 
 Note: Before new exercises, always update the repo::
 
