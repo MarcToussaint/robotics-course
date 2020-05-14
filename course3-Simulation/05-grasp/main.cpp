@@ -20,8 +20,8 @@ void grasp_the_hopping_ball(){
 
   rai::Frame *realObj = RealWorld.getFrameByName("obj0");
   realObj->setColor({1.,0,0}); //set the color of one objet to red!
-  realObj->setShape(rai::ST_sphere, {.03});
-//  realObj->setShape(rai::ST_ssBox, {.05, .05, .2, .01});
+//  realObj->setShape(rai::ST_sphere, {.03});
+  realObj->setShape(rai::ST_ssBox, {.05, .05, .2, .01});
   realObj->setPosition({0., .5, 2.});
 
   rai::Simulation S(RealWorld, S._physx, true);
