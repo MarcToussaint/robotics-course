@@ -66,7 +66,7 @@ add_library(rai SHARED
   #${SRC_LGP}
   #${SRC_RosCom}
   ${SRC_Perception}
-  #${SRC_Control}
+  ${SRC_Control}
   #${SRC_Operate}
   #  ${SRC_ry}
   )

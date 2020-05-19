@@ -28,7 +28,7 @@ The repo is used for both, the robotics lectures as well as the
 practical course. And for the practical there is now a simulation
 vs. real baxter version. Please follow the respective sections.
 
-### Setup for Robotics Course
+### Setup for Robotics Lecture Exercises
 
 This assumes a standard Ubuntu 18.04 machine.
 

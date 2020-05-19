@@ -24,6 +24,10 @@ problems. After going though these problems the teams spend the rest
 of the course working on a final challenge. This year the challenge
 might be to build high constructions from randomly dropped objects.
 
+Code repository:
+
+* https://github.com/MarcToussaint/robotics-course
+
 Lecture slides:
 
 * https://www.user.tu-berlin.de//mtoussai/teaching/20-LabCourse/01-introduction.pdf
