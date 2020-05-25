@@ -70,6 +70,12 @@ void use_within_simulation(){
   arr points;
   double tau = .01; //time step
 
+  //move the robot to become visible
+  q = S.get_q();;
+  q(0) = -1.;
+  q(1) = .5;
+  S.step(q, tau, S._position);
+
   for(uint t=0;t<300;t++){
     rai::wait(tau); //remove to go faster
 
