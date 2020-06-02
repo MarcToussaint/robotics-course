@@ -2,6 +2,7 @@
 #include <Kin/frame.h>
 #include <Kin/feature.h>
 #include <Kin/simulation.h>
+#include <Kin/viewer.h>
 
 //===========================================================================
 
@@ -107,6 +108,33 @@ void testGrasp(){
 
 //===========================================================================
 
+void testOpenClose(){
+  rai::Configuration RealWorld;
+  RealWorld.addFile("../../scenarios/challenge.g");
+  rai::Simulation S(RealWorld, S._physx, true);
+
+  rai::Configuration C;
+  C.addFile("../../scenarios/pandasTable.g");
+
+  rai::ConfigurationViewer V;
+
+  double tau = .01;
+
+  S.closeGripper("R_gripper");
+
+  for(uint t=0;;t++){
+    rai::wait(tau);
+
+    arr q = S.get_q();
+    C.setJointState(q);
+    V.setConfiguration(C);
+
+    S.step({}, tau, S._none);
+  }
+}
+
+//===========================================================================
+
 void makeRndScene(){
   rai::Configuration C;
 
@@ -157,8 +185,8 @@ int main(int argc,char **argv){
   rai::initCmdLine(argc, argv);
 
 //  testPushes();
-  testGrasp();
-
+//  testGrasp();
+  testOpenClose();
 //  makeRndScene();
 
   return 0;
