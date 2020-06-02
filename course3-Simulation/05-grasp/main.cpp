@@ -23,7 +23,8 @@ void grasp_the_hopping_ball(){
   realObj->setColor({1.,0,0}); //set the color of one objet to red!
   realObj->setShape(rai::ST_sphere, {.03});
 //  realObj->setShape(rai::ST_ssBox, {.05, .05, .2, .01});
-  realObj->setPosition({0., .5, 2.});
+  realObj->setPosition({0., .2, 2.});
+  realObj->setContact(1);
 
   rai::Simulation S(RealWorld, S._physx, true);
   S.cameraview().addSensor("camera");
@@ -54,8 +55,10 @@ void grasp_the_hopping_ball(){
   arr q;
   byteA _rgb;
   floatA _depth;
-  arr points;
   double tau = .01; //time step
+
+  bool gripping = false;
+  bool grasped = false;
 
   for(uint t=0;t<1000;t++){
     rai::wait(tau); //remove to go faster
@@ -79,17 +82,34 @@ void grasp_the_hopping_ball(){
 
     //some good old fashioned IK
     auto diff = C.feature(FS_positionDiff, {"R_gripperCenter", "object"})->eval(C);
-    auto align = C.feature(FS_scalarProductYZ, {"R_gripperCenter", "world"})->eval(C);
+    auto vecX = C.feature(FS_vectorX, {"R_gripperCenter"})->eval(C);
+    auto vecZ = C.feature(FS_vectorZ, {"R_gripperCenter"})->eval(C);
 
     //stack them
-    arr y = diff.y;
-    arr J = diff.J;
-    y.append(align.y-arr{9.});
-    J.append(align.J);
+    arr y, J;
 
-    arr vel = pseudoInverse(J, NoArr, 1e-2) * (-y);
+    y.append(1e0*diff.y); //multiply, to make faster
+    J.append(1e0*diff.J);
+
+    y.append(vecX.y-arr{0., 1., 0}); //subtract target
+    J.append(vecX.J);
+
+    y.append(vecZ.y-arr{1./sqrt(2.), 0., 1./sqrt(2.)});
+    J.append(vecZ.J);
+
+    arr vel = 2.* pseudoInverse(J, NoArr, 1e-2) * (-y);
 
     V.setConfiguration(C, "model world start state");
+
+    if(!gripping && length(diff.y) < .02){
+      S.closeGripper("R_gripper", .05, .3);
+      gripping = true;
+    }
+
+    if(gripping && S.getGripperIsGrasping("R_gripper")){
+      cout <<"GRASPED!" <<endl;
+      break;
+    }
 
     //send no controls to the simulation
     S.step(vel, tau, S._velocity);
