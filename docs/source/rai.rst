@@ -13,7 +13,6 @@ Core Data Structures
    _Enums
 
 ..   _Simulation
-
 ..   _ConfigurationViewer
 ..   _CameraView
 
