@@ -22,8 +22,8 @@ They all share the same core code, but have quite different installation setups 
    :caption: Contents:
 
    simlab
-   komoTutorial
    rai
+   komoTutorial
 
 
 Indices and tables

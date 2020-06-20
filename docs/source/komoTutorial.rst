@@ -215,7 +215,7 @@ time 1.
 The second example ``addObjective({1.}, FS_position, {"endeff"},
 OT_eq, arr(2,3 {1,0,0, 0,1,0}), {1.,2.,3.});`` is almost the same as
 the first, but we replaced the scalar scaling 1e1 by the
-:math:`2\times 3`-matrix :math:`\mat{ccc}{1&0&0\\0&1&0}`. The effect
+:math:`2\times 3`-matrix :math:`\begin{pmatrix}1&0&0\\0&1&0\end{pmatrix}`. The effect
 is that after subtracting the target :math:`(1,2,3)^T` from the endeff
 position we map the resulting 3D vector onto only the
 :math:`xy`-position. This means this is an equality constraint on the

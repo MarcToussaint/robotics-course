@@ -45,8 +45,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Core Data Structures" href="rai.html" />
-    <link rel="prev" title="SimLab Exercise 6 - Project Proposal and Final Presentation" href="simlab6.html" /> 
+    <link rel="prev" title="Enums" href="_Enums.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -93,6 +92,7 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="simlab.html">Lab Course in Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rai.html">Core Data Structures</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Learning KOMO (K-Order Markov Optimization)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#no-dynamics-no-velocities-how-do-you-solve-for-dynamic-problems">No dynamics? No velocities? How do you solve for dynamic problems?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#what-is-komo">What is KOMO?</a></li>
@@ -112,7 +112,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#links-to-more-documentation">LINKS to more documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="rai.html">Core Data Structures</a></li>
 </ul>
 
             
@@ -358,7 +357,7 @@ time 1.</p>
 <p>The second example <code class="docutils literal"><span class="pre">addObjective({1.},</span> <span class="pre">FS_position,</span> <span class="pre">{&quot;endeff&quot;},</span>
 <span class="pre">OT_eq,</span> <span class="pre">arr(2,3</span> <span class="pre">{1,0,0,</span> <span class="pre">0,1,0}),</span> <span class="pre">{1.,2.,3.});</span></code> is almost the same as
 the first, but we replaced the scalar scaling 1e1 by the
-<span class="math">\(2\times 3\)</span>-matrix <span class="math">\(\mat{ccc}{1&amp;0&amp;0\\0&amp;1&amp;0}\)</span>. The effect
+<span class="math">\(2\times 3\)</span>-matrix <span class="math">\(\begin{pmatrix}1&amp;0&amp;0\\0&amp;1&amp;0\end{pmatrix}\)</span>. The effect
 is that after subtracting the target <span class="math">\((1,2,3)^T\)</span> from the endeff
 position we map the resulting 3D vector onto only the
 <span class="math">\(xy\)</span>-position. This means this is an equality constraint on the
@@ -565,10 +564,8 @@ motions can align with a prefixed phase schedule.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="rai.html" class="btn btn-neutral float-right" title="Core Data Structures" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-      
-        <a href="simlab6.html" class="btn btn-neutral float-left" title="SimLab Exercise 6 - Project Proposal and Final Presentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="_Enums.html" class="btn btn-neutral float-left" title="Enums" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

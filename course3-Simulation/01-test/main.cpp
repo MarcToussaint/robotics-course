@@ -181,13 +181,48 @@ void makeRndScene(){
 
 //===========================================================================
 
+void testFriction(){
+  rai::Configuration C;
+
+  for(int i=0;i<10;i++){
+    rai::Frame *obj = C.addFrame(STRING("obj" <<i));
+    arr size = {.1,.1,.1, .01};
+    obj->setShape(rai::ST_ssBox, size);
+    obj->setPosition({(i-5)*.2,0.,1.});
+    obj->setMass(.2);
+    obj->addAttribute("friction", .02*i);
+  }
+
+  C.addFile("../../scenarios/pandasTable.g");
+
+  C["table"]->setQuaternion({1.,-.1,0.,0.}); //tilt the table!!
+
+  //  rai::Simulation S(C, S._bullet, true);
+  rai::Simulation S(C, S._physx, true);
+  S.cameraview().addSensor("camera");
+
+  double tau=.01;
+  Metronome tic(tau);
+
+  for(uint t=0;t<300;t++){
+    tic.waitForTic();
+
+    S.step({}, tau, S._none);
+  }
+
+  rai::wait();
+}
+
+//===========================================================================
+
 int main(int argc,char **argv){
   rai::initCmdLine(argc, argv);
 
 //  testPushes();
 //  testGrasp();
-  testOpenClose();
+//  testOpenClose();
 //  makeRndScene();
+  testFriction();
 
   return 0;
 }
