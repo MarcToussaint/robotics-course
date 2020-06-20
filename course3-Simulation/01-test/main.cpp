@@ -21,7 +21,7 @@ void testPushes(){
 
   arr Xstart = C.getFrameState();
 
-  for(uint k=0;k<100;k++){
+  for(uint k=0;k<5;k++){
 
     //restart from the same state multiple times
     S.setState(Xstart);
@@ -121,7 +121,6 @@ void testOpenClose(){
   double tau = .01;
 
   S.closeGripper("R_gripper");
-
   for(uint t=0;;t++){
     rai::wait(tau);
 
@@ -130,6 +129,19 @@ void testOpenClose(){
     V.setConfiguration(C);
 
     S.step({}, tau, S._none);
+    if(S.getGripperIsClose("R_gripper")) break;
+  }
+
+  S.openGripper("R_gripper");
+  for(uint t=0;;t++){
+    rai::wait(tau);
+
+    arr q = S.get_q();
+    C.setJointState(q);
+    V.setConfiguration(C);
+
+    S.step({}, tau, S._none);
+    if(S.getGripperIsOpen("R_gripper")) break;
   }
 }
 
@@ -220,9 +232,9 @@ int main(int argc,char **argv){
 
 //  testPushes();
 //  testGrasp();
-//  testOpenClose();
+  testOpenClose();
 //  makeRndScene();
-  testFriction();
+//  testFriction();
 
   return 0;
 }
