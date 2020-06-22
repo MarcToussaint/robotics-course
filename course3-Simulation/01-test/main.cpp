@@ -70,6 +70,7 @@ void testGrasp(){
 
   for(uint t=0;;t++){
     tic.waitForTic();
+//    rai::wait(.05);
 
     C.stepSwift();
 //    C.reportProxies();
@@ -232,9 +233,9 @@ int main(int argc,char **argv){
 
 //  testPushes();
 //  testGrasp();
-  testOpenClose();
+//  testOpenClose();
 //  makeRndScene();
-//  testFriction();
+  testFriction();
 
   return 0;
 }
