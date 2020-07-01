@@ -5,7 +5,7 @@ Configuration
 =============
 
 Just as arrays (vectors, matrices) are the core data structure to code
-numerics, a Configuration is the core data structure to code
+numerics, a ``Configuration`` is the core data structure to code
 robotics. A configuration represents objects in a 3D world and how
 they are kinematically linked. When coding robotics, you create
 configurations, edit them, compute numerical features from them (such
@@ -37,7 +37,7 @@ problems for you. Features are the interface between a configuration
 and numerics.
 
 The relative transformations in configurations can have *degrees of
-freedom* (dofs), thereby modelling kinematic joints. The vector of all
+freedom* (dofs), thereby modelling kinematic ``Joints``. The vector of all
 these dofs is also called joint state. A fundamental operation is to
 "set the joint state" of a configuration, and then computing all
 relative and absolute transformations of all frames, which is called
@@ -59,7 +59,15 @@ C'tor
 Adding frames to the configuration
 ===================================
 
+A configuration is often initialized by reading it from a file. See
+:ref:`refConfigurationFile` for details on these files.
+
 .. automethod:: libry.Config.addFile
+
+Alternatively, a configuration can also be build up within the code by
+adding more and more frames. See :ref:`refFrame` on how to specify the
+properties of frames.
+
 .. automethod:: libry.Config.addFrame
 .. automethod:: libry.Config.delFrame
 .. automethod:: libry.Config.getFrame
@@ -107,7 +115,7 @@ Collision computations
 .. automethod:: libry.Config.getCollisions
 
 
-Factory functions to create other classes (KOMO, Simulation, viewer, etc)
+Functions to create other classes (KOMO, Simulation, viewer, etc)
 =========================================================================
 
 .. automethod:: libry.Config.komo_IK

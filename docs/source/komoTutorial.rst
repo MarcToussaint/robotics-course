@@ -93,7 +93,7 @@ as follows:
 
 * Finally, and this is the main thing, you specify the list of
   objectives. KOMO has a single method for this: addObjective. The key
-  to learning KOMO is to learn using this method -- and
+  to learning KOMO is to learn using this method.
 
 Roughly, what does KOMO do with these specs?
 ============================================
@@ -123,7 +123,7 @@ is, you can specify that there are T configurations, but they are not
 necessarily consecutive. Instead, you specify objectives, but each
 objective may depend only on maximally k+1 configurations - but these
 are arbitrary. Thereby the structure is a network of configurations,
-where the objective define couplings or cliques of maximal size
+where the objectives define couplings or cliques of maximal size
 k+1. Such problems are handled exactly the same way as path problems,
 namely by exposing a sparse graph structure to the solver.
 
@@ -134,19 +134,19 @@ Yes. But currently it is only partially automatic. The easy part is to
 convert the urdf-file to a g-file using ``$RAI/bin/urdf2rai.py``. The
 resulting g-file encodes the full kinematic structure. The part which
 usually requires manual fiddling are the mesh files. First, in the
-g-file, you have to change the path to their try location in the file
+g-file, you have to change the path to their location in the file
 system (removing the 'package' part). Potentially that's all you
 need. However, KOMO calls various collision libraries that need clean
-correct (orientation, holes, etc) mesh files. Those that come with
+and correct (orientation, holes, etc) mesh files. Those that come with
 URDF files are typically not clean and correct. I typically use
 meshlab (the command line tool) to automatically clean and compress
 meshes into ply files. The best guide for this is the hubo/HOWTO.sh in
 the rai-robotModels repository.
 
-Also, you should check the results using the ``$RAI/bin/kinEdit`` tool to
-display g-files from command line. Call 'make bin' in $RAI to compile
-this. You can edit the file with any editor during watching it with
-kinEdit.
+Also, you should check the results using the ``$RAI/bin/kinEdit`` tool
+to display g-files from command line. CMake automatically compiles it;
+otherwise call 'make bin' in $RAI to compile this. You can edit the
+file with any editor during watching it with kinEdit.
 
 First practical steps
 =====================

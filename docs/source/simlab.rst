@@ -30,8 +30,10 @@ Code repository:
 
 Lecture slides:
 
-* https://www.user.tu-berlin.de//mtoussai/teaching/20-LabCourse/01-introduction.pdf
-* https://www.user.tu-berlin.de//mtoussai/teaching/20-LabCourse/02-motion.pdf
+* https://www.user.tu-berlin.de/mtoussai/teaching/20-LabCourse/01-introduction.pdf
+* https://www.user.tu-berlin.de/mtoussai/teaching/20-LabCourse/02-motion.pdf
+* https://www.user.tu-berlin.de/mtoussai/teaching/20-LabCourse/03-vision.pdf
+* https://www.user.tu-berlin.de/mtoussai/teaching/20-LabCourse/04-behavior.pdf
 
 Below are the specific instructions for the series of exercises:
 

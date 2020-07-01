@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Core Data Structures &mdash; Robotics Course  documentation</title>
+  <title>Robotics Code Overview &mdash; Robotics Course  documentation</title>
   
 
   
@@ -46,7 +46,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Configuration" href="_Configuration.html" />
-    <link rel="prev" title="Learning KOMO (K-Order Markov Optimization)" href="komoTutorial.html" /> 
+    <link rel="prev" title="SimLab Exercise 6 - Project Proposal and Final Presentation" href="simlab6.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -93,16 +93,19 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="simlab.html">Lab Course in Simulation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="komoTutorial.html">Learning KOMO (K-Order Markov Optimization)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Core Data Structures</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Robotics Code Overview</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="_Configuration.html">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_Frame.html">Frame</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_Feature.html">Feature</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_Simulation.html">Simulation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_KOMO.html">KOMO</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_Enums.html">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Graph.html">Graph and .g-files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_ConfigurationFiles.html">.g-files to describe robot configurations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Array.html">Array</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="komoTutorial.html">Learning KOMO (K-Order Markov Optimization)</a></li>
 </ul>
 
             
@@ -148,7 +151,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Core Data Structures</li>
+      <li>Robotics Code Overview</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -165,8 +168,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="core-data-structures">
-<h1>Core Data Structures<a class="headerlink" href="#core-data-structures" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="robotics-code-overview">
+<h1>Robotics Code Overview<a class="headerlink" href="#robotics-code-overview" title="Permalink to this headline">¶</a></h1>
+<p>This give a brief overview on the rai (Robotic AI) code. It refers to
+the python bindings, but the general concepts and also API is the same
+in C++.</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="_Configuration.html">Configuration</a><ul>
@@ -178,7 +184,7 @@
 <li class="toctree-l2"><a class="reference internal" href="_Configuration.html#features-anything-you-might-want-to-compute-from-configurations">Features: Anything you might want to compute from Configurations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_Configuration.html#structural-edits">Structural edits</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_Configuration.html#collision-computations">Collision computations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_Configuration.html#factory-functions-to-create-other-classes-komo-simulation-viewer-etc">Factory functions to create other classes (KOMO, Simulation, viewer, etc)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Configuration.html#functions-to-create-other-classes-komo-simulation-viewer-etc">Functions to create other classes (KOMO, Simulation, viewer, etc)</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="_Frame.html">Frame</a><ul>
@@ -208,6 +214,15 @@
 <li class="toctree-l2"><a class="reference internal" href="_Enums.html#imptype">ImpType</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="_Graph.html">Graph and .g-files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_ConfigurationFiles.html">.g-files to describe robot configurations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_ConfigurationFiles.html#editing-using-kinedit">Editing using <code class="docutils literal"><span class="pre">kinEdit</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="_ConfigurationFiles.html#import-from-urdf">Import from URDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_ConfigurationFiles.html#notation-to-specify-transformations">Notation to specify transformations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_ConfigurationFiles.html#joint-types">Joint types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_Array.html">Array</a></li>
 </ul>
 </div>
 </div>
@@ -223,7 +238,7 @@
         <a href="_Configuration.html" class="btn btn-neutral float-right" title="Configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="komoTutorial.html" class="btn btn-neutral float-left" title="Learning KOMO (K-Order Markov Optimization)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="simlab6.html" class="btn btn-neutral float-left" title="SimLab Exercise 6 - Project Proposal and Final Presentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -1,6 +1,11 @@
-====================
-Core Data Structures
-====================
+======================
+Robotics Code Overview
+======================
+
+This give a brief overview on the rai (Robotic AI) code. It refers to
+the python bindings, but the general concepts and also API is the same
+in C++.
+
 
 .. toctree::
    :maxdepth: 3
@@ -11,10 +16,13 @@ Core Data Structures
    _Simulation
    _KOMO
    _Enums
+   _Graph
+   _ConfigurationFiles
+   _Array
 
-..   _Simulation
-..   _ConfigurationViewer
-..   _CameraView
+..   Simulation
+..   ConfigurationViewer
+..   CameraView
 
 
 ..  pybind11::enum_<rai::ShapeType>(m, "ST")

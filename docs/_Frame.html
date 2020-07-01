@@ -93,8 +93,7 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="simlab.html">Lab Course in Simulation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="komoTutorial.html">Learning KOMO (K-Order Markov Optimization)</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="rai.html">Core Data Structures</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="rai.html">Robotics Code Overview</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="_Configuration.html">Configuration</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Frame</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#basic-properties-name-parent-position-orientation">Basic properties: Name, parent, position, orientation</a></li>
@@ -108,8 +107,12 @@
 <li class="toctree-l2"><a class="reference internal" href="_Simulation.html">Simulation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_KOMO.html">KOMO</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_Enums.html">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Graph.html">Graph and .g-files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_ConfigurationFiles.html">.g-files to describe robot configurations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Array.html">Array</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="komoTutorial.html">Learning KOMO (K-Order Markov Optimization)</a></li>
 </ul>
 
             
@@ -155,7 +158,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-          <li><a href="rai.html">Core Data Structures</a> &raquo;</li>
+          <li><a href="rai.html">Robotics Code Overview</a> &raquo;</li>
         
       <li>Frame</li>
     
@@ -175,7 +178,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="frame">
-<h1>Frame<a class="headerlink" href="#frame" title="Permalink to this headline">¶</a></h1>
+<span id="refframe"></span><h1>Frame<a class="headerlink" href="#frame" title="Permalink to this headline">¶</a></h1>
 <p>A <code class="docutils literal"><span class="pre">Frame</span></code> is the elementary data structure within a
 configuration. The core property of a frame is its 3D pose (position &amp;
 orientation). Each frame can have a parent frame, and in that case it

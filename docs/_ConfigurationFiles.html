@@ -1,0 +1,361 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>.g-files to describe robot configurations &mdash; Robotics Course  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'./',
+              VERSION:'',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Array" href="_Array.html" />
+    <link rel="prev" title="Graph and .g-files" href="_Graph.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Robotics Course
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="simlab.html">Lab Course in Simulation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="rai.html">Robotics Code Overview</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="_Configuration.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Frame.html">Frame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Feature.html">Feature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Simulation.html">Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_KOMO.html">KOMO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Enums.html">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Graph.html">Graph and .g-files</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">.g-files to describe robot configurations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#editing-using-kinedit">Editing using <code class="docutils literal"><span class="pre">kinEdit</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#import-from-urdf">Import from URDF</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#notation-to-specify-transformations">Notation to specify transformations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#joint-types">Joint types</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="_Array.html">Array</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="komoTutorial.html">Learning KOMO (K-Order Markov Optimization)</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Robotics Course</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="rai.html">Robotics Code Overview</a> &raquo;</li>
+        
+      <li>.g-files to describe robot configurations</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="g-files-to-describe-robot-configurations">
+<span id="refconfigurationfile"></span><h1>.g-files to describe robot configurations<a class="headerlink" href="#g-files-to-describe-robot-configurations" title="Permalink to this headline">¶</a></h1>
+<p>We use .g-files to represent robot/world configurations. .g-files
+describe a general graph data structure as explained in
+<a class="reference internal" href="_Graph.html#refgraph"><span class="std std-ref">Graph and .g-files</span></a>. But for robot configurations it is rather simple:
+Everly node describes a frame, and is described by three things:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">frame</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span> <span class="p">(</span> <span class="o">&lt;</span><span class="n">parent</span><span class="o">&gt;</span> <span class="p">)</span> <span class="p">{</span> <span class="o">&lt;</span><span class="n">attributes</span><span class="o">&gt;</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal"><span class="pre">&lt;parent&gt;</span></code> needs to be a previously defined frame, or omitted, if
+the frame is a root frame. The attributes defined properties of the
+frame, such as its pose, shape, joint properties, etc.</p>
+<p>Here is an example taken from the <code class="docutils literal"><span class="pre">test/Kin/kin</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">stem</span> <span class="p">{</span> <span class="n">X</span><span class="p">:</span><span class="o">&lt;</span><span class="n">t</span><span class="p">(</span><span class="mi">0</span> <span class="mi">0</span> <span class="o">.</span><span class="mi">5</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span><span class="n">capsule</span><span class="p">,</span> <span class="n">mass</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="p">:[</span><span class="mi">1</span> <span class="o">.</span><span class="mi">05</span><span class="p">]</span> <span class="p">}</span>
+
+<span class="n">joint1_pre</span> <span class="p">(</span><span class="n">stem</span><span class="p">)</span> <span class="p">{</span> <span class="n">Q</span><span class="p">:</span><span class="o">&lt;</span><span class="n">t</span><span class="p">(</span><span class="mi">0</span> <span class="mi">0</span> <span class="o">.</span><span class="mi">5</span><span class="p">)</span> <span class="n">d</span><span class="p">(</span><span class="mi">90</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">)</span><span class="o">&gt;</span> <span class="p">}</span>
+<span class="n">joint1</span> <span class="p">(</span><span class="n">arm1</span><span class="p">)</span> <span class="p">{</span> <span class="n">joint</span><span class="p">:</span><span class="n">hingeX</span><span class="p">,</span> <span class="n">Q</span><span class="p">:</span><span class="o">&lt;</span><span class="n">d</span><span class="p">(</span><span class="o">-</span><span class="mi">30</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">)</span><span class="o">&gt;</span> <span class="p">}</span>
+<span class="n">arm1</span> <span class="p">(</span><span class="n">joint1</span><span class="p">)</span> <span class="p">{</span> <span class="n">Q</span><span class="p">:</span><span class="o">&lt;</span><span class="n">t</span><span class="p">(</span><span class="mi">0</span> <span class="mi">0</span> <span class="o">.</span><span class="mi">15</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span><span class="n">capsule</span><span class="p">,</span> <span class="n">mass</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="p">:[</span><span class="o">.</span><span class="mi">3</span> <span class="o">.</span><span class="mi">05</span><span class="p">]</span> <span class="p">}</span>
+
+<span class="n">arm2</span> <span class="p">{</span> <span class="n">shape</span><span class="p">:</span><span class="n">capsule</span><span class="p">,</span> <span class="n">mass</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="p">:[</span><span class="o">.</span><span class="mi">3</span> <span class="o">.</span><span class="mi">05</span><span class="p">]</span> <span class="p">}</span>
+<span class="n">eff</span> <span class="p">{</span> <span class="n">shape</span><span class="p">:</span><span class="n">capsule</span><span class="p">,</span> <span class="n">mass</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="p">:[</span><span class="o">.</span><span class="mi">3</span> <span class="o">.</span><span class="mi">05</span><span class="p">]</span> <span class="p">}</span>
+
+<span class="n">joint2</span> <span class="p">(</span><span class="n">arm1</span> <span class="n">arm2</span><span class="p">)</span> <span class="p">{</span> <span class="n">joint</span><span class="p">:</span><span class="n">hingeX</span><span class="p">,</span> <span class="n">A</span><span class="p">:</span><span class="o">&lt;</span><span class="n">t</span><span class="p">(</span><span class="mi">0</span> <span class="mi">0</span> <span class="o">.</span><span class="mi">15</span><span class="p">)</span> <span class="n">d</span><span class="p">(</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Q</span><span class="p">:</span><span class="o">&lt;</span><span class="n">d</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">B</span><span class="p">:</span><span class="o">&lt;</span><span class="n">t</span><span class="p">(</span><span class="mi">0</span> <span class="mi">0</span> <span class="o">.</span><span class="mi">15</span><span class="p">)</span> <span class="o">&gt;</span> <span class="p">}</span>
+<span class="n">joint3</span> <span class="p">(</span><span class="n">arm2</span> <span class="n">eff</span> <span class="p">)</span> <span class="p">{</span> <span class="n">joint</span><span class="p">:</span><span class="n">hingeX</span><span class="p">,</span> <span class="n">A</span><span class="p">:</span><span class="o">&lt;</span><span class="n">t</span><span class="p">(</span><span class="mi">0</span> <span class="mi">0</span> <span class="o">.</span><span class="mi">15</span><span class="p">)</span> <span class="n">d</span><span class="p">(</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Q</span><span class="p">:</span><span class="o">&lt;</span><span class="n">d</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">B</span><span class="p">:</span><span class="o">&lt;</span><span class="n">t</span><span class="p">(</span><span class="mi">0</span> <span class="mi">0</span> <span class="o">.</span><span class="mi">15</span><span class="p">)</span> <span class="o">&gt;</span> <span class="p">}</span>
+
+<span class="n">target</span> <span class="p">{</span> <span class="n">X</span><span class="p">:</span><span class="o">&lt;</span><span class="n">t</span><span class="p">(</span><span class="o">.</span><span class="mi">0</span> <span class="o">.</span><span class="mi">2</span> <span class="mf">1.7</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span><span class="n">sphere</span><span class="p">,</span> <span class="n">mass</span><span class="p">:</span><span class="o">.</span><span class="mi">001</span><span class="p">,</span> <span class="n">size</span><span class="p">:[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="o">.</span><span class="mi">02</span><span class="p">],</span> <span class="n">color</span><span class="p">:[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">]</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p>The first line defines a frame <code class="docutils literal"><span class="pre">stem</span></code>, which has absolute pose
+<code class="docutils literal"><span class="pre">&lt;t(0</span> <span class="pre">0</span> <span class="pre">.5)&gt;</span></code> (pose specifications are described below). It also has
+a shape attached, namely a capsule of length 1 and radius .05. And it
+has inertial mass attached, namely with mass 1.</p>
+<p>The 2nd to 4th line form a block of 3 new frames: the <code class="docutils literal"><span class="pre">joint1_pre</span></code>
+frame is child of step, which fixed relative transformation <code class="docutils literal"><span class="pre">&lt;t(0</span> <span class="pre">0</span>
+<span class="pre">.5)</span> <span class="pre">d(90</span> <span class="pre">1</span> <span class="pre">0</span> <span class="pre">0)&gt;</span></code> (.5 meter up, 90 degress rotation about x). The
+<code class="docutils literal"><span class="pre">joint1</span></code> frame is a child of <code class="docutils literal"><span class="pre">joint1_pre</span></code>. But this frame is
+special! It is a joint, which means that its relative transformation
+to the parent is not fixed, but varies with joint dofs. Here, it is 1
+joint dofs describing a hinge joint about the parent’s x-axis. This
+joint is here initialized to non-zero, namely to a relative transform
+<code class="docutils literal"><span class="pre">&lt;d(-30</span> <span class="pre">1</span> <span class="pre">0</span> <span class="pre">0)&gt;</span></code>. The <code class="docutils literal"><span class="pre">arm1</span></code> frame is then a child of <code class="docutils literal"><span class="pre">joint1</span></code>,
+with a relative transform <code class="docutils literal"><span class="pre">&lt;t(0</span> <span class="pre">0</span> <span class="pre">.15)&gt;</span></code>, a capsule shape attached,
+and mass.</p>
+<p>This is a typical example for a chain of frames from one link, via a
+joint, to the next. All robot configurations are just trees; and the
+configuration file simply defines frames one-by-one, where each frame
+may have 1 parent frame.</p>
+<p>The next two lines define two more frames <code class="docutils literal"><span class="pre">arm2</span></code> and <code class="docutils literal"><span class="pre">eff</span></code> mass
+and capsule shapes; but they’re yet all located at zero absolute
+pose. The following two lines are actually a short hand notation to
+introduce a joint frames between arm1 and arm2 (arm2 and arm3) in
+retrospect. The <code class="docutils literal"><span class="pre">joint2</span></code> declaration implicitly first defines a
+<code class="docutils literal"><span class="pre">joint2_pre</span></code> child of arm1 with fixed relative transformation A;
+then the <code class="docutils literal"><span class="pre">joint2</span></code> chile of joint2_pre with hinge joint and initial
+transformation Q; then attaches the arm2 frame as its child with fixed
+relative transformation B. So this is a typical short hand to specify
+a joint (more similarly to how its done in URDF). But the generated
+underlying data structure is just a tree of frames.</p>
+<div class="section" id="editing-using-kinedit">
+<h2>Editing using <code class="docutils literal"><span class="pre">kinEdit</span></code><a class="headerlink" href="#editing-using-kinedit" title="Permalink to this headline">¶</a></h2>
+<p>Whenever working with .g-files, you should try to display them using
+the <code class="docutils literal"><span class="pre">$RAI/bin/kinEdit</span></code> command line tool. CMake automatically
+compiles it; otherwise call ‘make bin’ in $RAI to compile this. Then
+you can call <code class="docutils literal"><span class="pre">kinEdit</span> <span class="pre">someFile.g</span></code> on any model file. (In
+python, the equivalence is to reload the configuration from file
+repeatedly.)  Whenever <code class="docutils literal"><span class="pre">kinEdit</span></code> reads a file, it also outputs a
+file <code class="docutils literal"><span class="pre">z.g</span></code> and <code class="docutils literal"><span class="pre">z.urdf</span></code> of what it read. Sometimes it is useful to
+look into this. It can also be used to clean and prune kinematic
+structures.</p>
+<p>But more than that, you can keep the display open when editing the
+file in any text editor. Whenever you save the file the display will
+notice it, reload the file, and display the updated model. This allows
+some degree of continuous editing. You might sometimes have to hit
+enter in the window to enforce reloading. The little tool tries to
+catch and report on syntax errors and be robust, but it crashes on
+some syntax errors and then needs to be restarted manually.</p>
+</div>
+<div class="section" id="import-from-urdf">
+<h2>Import from URDF<a class="headerlink" href="#import-from-urdf" title="Permalink to this headline">¶</a></h2>
+<p>You can convert URDF files to .g-files using the <code class="docutils literal"><span class="pre">rai/bin/urdf2rai.py</span></code> script. However, the overall conversion is only partially automatic.  The
+resulting g-file encodes the full kinematic structure, but the mesh files usually require manual fiddling. First, in the
+g-file, you have to change the path to their location in the file
+system (removing the ‘package’ part). Potentially that’s all you
+need. However, the rai code calls various collision libraries that need clean
+and correct (orientation, holes, etc) mesh files. Those that come with
+URDF files are typically not clean and correct. I typically use
+meshlab (the command line tool) to automatically clean and compress
+meshes into ply files.</p>
+<p>The best guide for the whole conversion pipeline is hubo/HOWTO.sh in
+the rai-robotModels repository, which also describes mesh cleaning
+scripts.  We also managed to import a [full
+kitchen](<a class="reference external" href="https://github.com/MarcToussaint/rai-robotModels/tree/master/bremenKitchen">https://github.com/MarcToussaint/rai-robotModels/tree/master/bremenKitchen</a>)
+from unreal, where we first exported the description to JSON.  There
+are also some working examples to import <cite>gltf</cite>.</p>
+<p>Finally, the collada file format can represent trees of frames and
+objects, which can be loaded. This can be augmented with just a little
+extra information on joints to make this a properly articulated robot
+world.</p>
+</div>
+<div class="section" id="notation-to-specify-transformations">
+<h2>Notation to specify transformations<a class="headerlink" href="#notation-to-specify-transformations" title="Permalink to this headline">¶</a></h2>
+<p>Transformation can always be specified as 7-vectors <code class="docutils literal"><span class="pre">Q:[p1</span> <span class="pre">p2</span> <span class="pre">p3</span> <span class="pre">q0</span> <span class="pre">q1</span> <span class="pre">q2</span> <span class="pre">q3]</span></code> (position,
+quaternion). But this is not intuitive for human editing. Therefore,
+the bracket notation <code class="docutils literal"><span class="pre">&lt;...&gt;</span></code> allows for another notation, namely as
+a chaining of little interpretable transformations, as in the old
+turtle language.</p>
+<p>Specifically, you specify a transform by chaining:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">t</span><span class="p">(</span><span class="n">x</span> <span class="n">y</span> <span class="n">z</span><span class="p">)</span>       <span class="c1"># translation by (x,y,z)</span>
+<span class="n">q</span><span class="p">(</span><span class="n">q0</span> <span class="n">q1</span> <span class="n">q2</span> <span class="n">q3</span><span class="p">)</span> <span class="c1"># rotation by a quaternion</span>
+<span class="n">r</span><span class="p">(</span><span class="n">r</span> <span class="n">x</span> <span class="n">y</span> <span class="n">z</span><span class="p">)</span>     <span class="c1"># rotation by `r` _radians_ around the axis (x,y,z)</span>
+<span class="n">d</span><span class="p">(</span><span class="n">d</span> <span class="n">x</span> <span class="n">y</span> <span class="n">z</span><span class="p">)</span>     <span class="c1"># rotation by `d` _degrees_ around the axis (x,y,z)</span>
+<span class="n">E</span><span class="p">(</span><span class="n">r</span> <span class="n">p</span> <span class="n">y</span><span class="p">)</span>       <span class="c1"># rotation by roll-pitch-yaw Euler angles</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="joint-types">
+<h2>Joint types<a class="headerlink" href="#joint-types" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal"><span class="pre">libry.JT</span></code> enum (in python; or rai::JointType in C++) lists all available joint type. Currently these are:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">hingeX</span><span class="p">,</span> <span class="n">hingeY</span><span class="p">,</span> <span class="n">hingeZ</span><span class="p">,</span> <span class="n">transX</span><span class="p">,</span> <span class="n">transY</span><span class="p">,</span> <span class="n">transZ</span><span class="p">,</span> <span class="n">transXY</span><span class="p">,</span> <span class="n">trans3</span><span class="p">,</span> <span class="n">transXYPhi</span><span class="p">,</span> <span class="n">universal</span><span class="p">,</span> <span class="n">rigid</span><span class="p">,</span> <span class="n">quatBall</span><span class="p">,</span> <span class="n">phiTransXY</span><span class="p">,</span> <span class="n">XBall</span><span class="p">,</span> <span class="n">free</span><span class="p">,</span> <span class="n">tau</span>
+</pre></div>
+</div>
+<p>A quatBall is a quaternion ball joint with 4 dofs (that supports all
+differentiability and optimization); a free joint is a full 7 dof
+joint; a rigid joint might seem redundant, but internally it sometimes
+markes a break between separate objects (like an object sitting
+rigidly on a table) rather than having multiple shapes attached to the
+same object.</p>
+<p>The joint’s dofs can be initialized equivalently either with a <code class="docutils literal"><span class="pre">q</span></code>
+attribute (defining the dofs values), or a <code class="docutils literal"><span class="pre">Q</span></code> attribute (defining
+the resulting relative transformation generated by the joint).</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="_Array.html" class="btn btn-neutral float-right" title="Array" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="_Graph.html" class="btn btn-neutral float-left" title="Graph and .g-files" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Marc Toussaint
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

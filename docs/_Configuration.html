@@ -46,7 +46,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Frame" href="_Frame.html" />
-    <link rel="prev" title="Core Data Structures" href="rai.html" /> 
+    <link rel="prev" title="Robotics Code Overview" href="rai.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -93,8 +93,7 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="simlab.html">Lab Course in Simulation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="komoTutorial.html">Learning KOMO (K-Order Markov Optimization)</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="rai.html">Core Data Structures</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="rai.html">Robotics Code Overview</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#c-tor">C’tor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#adding-frames-to-the-configuration">Adding frames to the configuration</a></li>
@@ -104,7 +103,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#features-anything-you-might-want-to-compute-from-configurations">Features: Anything you might want to compute from Configurations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#structural-edits">Structural edits</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#collision-computations">Collision computations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#factory-functions-to-create-other-classes-komo-simulation-viewer-etc">Factory functions to create other classes (KOMO, Simulation, viewer, etc)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#functions-to-create-other-classes-komo-simulation-viewer-etc">Functions to create other classes (KOMO, Simulation, viewer, etc)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="_Frame.html">Frame</a></li>
@@ -112,8 +111,12 @@
 <li class="toctree-l2"><a class="reference internal" href="_Simulation.html">Simulation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_KOMO.html">KOMO</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_Enums.html">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Graph.html">Graph and .g-files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_ConfigurationFiles.html">.g-files to describe robot configurations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Array.html">Array</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="komoTutorial.html">Learning KOMO (K-Order Markov Optimization)</a></li>
 </ul>
 
             
@@ -159,7 +162,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-          <li><a href="rai.html">Core Data Structures</a> &raquo;</li>
+          <li><a href="rai.html">Robotics Code Overview</a> &raquo;</li>
         
       <li>Configuration</li>
     
@@ -181,7 +184,7 @@
   <div class="section" id="configuration">
 <span id="refconfiguration"></span><h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h1>
 <p>Just as arrays (vectors, matrices) are the core data structure to code
-numerics, a Configuration is the core data structure to code
+numerics, a <code class="docutils literal"><span class="pre">Configuration</span></code> is the core data structure to code
 robotics. A configuration represents objects in a 3D world and how
 they are kinematically linked. When coding robotics, you create
 configurations, edit them, compute numerical features from them (such
@@ -210,7 +213,7 @@ equal to zero). Such optimization problems can solve control and path
 problems for you. Features are the interface between a configuration
 and numerics.</p>
 <p>The relative transformations in configurations can have <em>degrees of
-freedom</em> (dofs), thereby modelling kinematic joints. The vector of all
+freedom</em> (dofs), thereby modelling kinematic <code class="docutils literal"><span class="pre">Joints</span></code>. The vector of all
 these dofs is also called joint state. A fundamental operation is to
 “set the joint state” of a configuration, and then computing all
 relative and absolute transformations of all frames, which is called
@@ -234,12 +237,17 @@ in configurations.</p>
 </div>
 <div class="section" id="adding-frames-to-the-configuration">
 <h2>Adding frames to the configuration<a class="headerlink" href="#adding-frames-to-the-configuration" title="Permalink to this headline">¶</a></h2>
+<p>A configuration is often initialized by reading it from a file. See
+<a class="reference internal" href="_ConfigurationFiles.html#refconfigurationfile"><span class="std std-ref">.g-files to describe robot configurations</span></a> for details on these files.</p>
 <dl class="method">
 <dt id="libry.Config.addFile">
 <code class="descclassname">Config.</code><code class="descname">addFile</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>file_name: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.Config.addFile" title="Permalink to this definition">¶</a></dt>
 <dd><p>add the contents of the file to C</p>
 </dd></dl>
 
+<p>Alternatively, a configuration can also be build up within the code by
+adding more and more frames. See <a class="reference internal" href="_Frame.html#refframe"><span class="std std-ref">Frame</span></a> on how to specify the
+properties of frames.</p>
 <dl class="method">
 <dt id="libry.Config.addFrame">
 <code class="descclassname">Config.</code><code class="descname">addFrame</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>name: str</em>, <em>parent: str = ''</em>, <em>args: str = ''</em><span class="sig-paren">)</span> &#x2192; ry::RyFrame<a class="headerlink" href="#libry.Config.addFrame" title="Permalink to this definition">¶</a></dt>
@@ -387,8 +395,8 @@ in configurations.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="factory-functions-to-create-other-classes-komo-simulation-viewer-etc">
-<h2>Factory functions to create other classes (KOMO, Simulation, viewer, etc)<a class="headerlink" href="#factory-functions-to-create-other-classes-komo-simulation-viewer-etc" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="functions-to-create-other-classes-komo-simulation-viewer-etc">
+<h2>Functions to create other classes (KOMO, Simulation, viewer, etc)<a class="headerlink" href="#functions-to-create-other-classes-komo-simulation-viewer-etc" title="Permalink to this headline">¶</a></h2>
 <dl class="method">
 <dt id="libry.Config.komo_IK">
 <code class="descclassname">Config.</code><code class="descname">komo_IK</code><span class="sig-paren">(</span><em>self: libry.Config</em>, <em>useSwift: bool</em><span class="sig-paren">)</span> &#x2192; KOMO<a class="headerlink" href="#libry.Config.komo_IK" title="Permalink to this definition">¶</a></dt>
@@ -427,7 +435,7 @@ in configurations.</p>
         <a href="_Frame.html" class="btn btn-neutral float-right" title="Frame" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="rai.html" class="btn btn-neutral float-left" title="Core Data Structures" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="rai.html" class="btn btn-neutral float-left" title="Robotics Code Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
