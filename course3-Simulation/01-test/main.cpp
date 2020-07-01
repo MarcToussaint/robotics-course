@@ -4,6 +4,8 @@
 #include <Kin/simulation.h>
 #include <Kin/viewer.h>
 
+#include <iomanip>
+
 //===========================================================================
 
 void testPushes(){
@@ -217,10 +219,14 @@ void testFriction(){
   double tau=.01;
   Metronome tic(tau);
 
+  int ppmCount=0;
+  rai::system("mkdir -p z.vid/; rm -f z.vid/*.ppm");
+
   for(uint t=0;t<300;t++){
     tic.waitForTic();
 
     S.step({}, tau, S._none);
+    write_ppm(S.getScreenshot(), STRING("z.vid/"<<std::setw(4)<<std::setfill('0')<<(ppmCount++)<<".ppm"));
   }
 
   rai::wait();
