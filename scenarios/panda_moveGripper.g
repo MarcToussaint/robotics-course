@@ -25,12 +25,12 @@ frame panda_coll7(panda_joint7)	{ shape:capsule color:[.9 .9 .9 .1] size:[.1 .07
 ## zero position
 
 Edit panda_joint1 { q= 0.0 }
-Edit panda_joint2 { q= -1. }
+Edit panda_joint2 { q= -0. }
 Edit panda_joint3 { q= 0. }
 Edit panda_joint4 { q= -2.}
-Edit panda_joint5 { q= -0. }
-Edit panda_joint6 { q= 2. }
-Edit panda_joint7 { q= 0.0 }
+Edit panda_joint5 { q= 1. }
+Edit panda_joint6 { q= 2.5 }
+Edit panda_joint7 { q= -.7 }
 Edit panda_finger_joint1 { q=.05 }
 
 ## delete original gripper

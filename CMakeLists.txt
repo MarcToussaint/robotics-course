@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.4)
 project(RaiRoboticsCourse)
 
 find_package( OpenCV REQUIRED )
+find_package( Bullet REQUIRED )
 
 add_compile_options(
   -O3 -g -Wall -fPIC -std=c++14 -Wno-terminate
@@ -16,7 +17,7 @@ add_definitions(
   -DRAI_OPENCV
   -DRAI_PYBIND
   -DRAI_PHYSX -D_DEBUG -DPX_DISABLE_FLUIDS -DCORELIB -DPX32 -DLINUX #physx
-  #-DRAI_BULLET -DBT_USE_DOUBLE_PRECISION #bullet
+  -DRAI_BULLET #bullet
   )
 
 add_subdirectory(pybind11)
@@ -24,6 +25,7 @@ add_subdirectory(pybind11)
 include_directories(
   rai/rai
   /usr/include/eigen3
+  ${BULLET_INCLUDE_DIRS}
   $ENV{HOME}/opt/physx3.4/include $ENV{HOME}/opt/physx3.4/include/physx
   #$ENV{HOME}/opt/include/bullet/
   )
@@ -62,7 +64,7 @@ add_library(rai SHARED
   ${SRC_Kin}
   ${SRC_KinSwift}
   ${SRC_KOMO}
-  #${SRC_Logic}
+  ${SRC_Logic}
   #${SRC_LGP}
   #${SRC_RosCom}
   ${SRC_Perception}
@@ -74,6 +76,7 @@ add_library(rai SHARED
 target_link_libraries(rai
   jsoncpp lapack blas assimp fcl ann glfw GLEW glut GLU GL X11 png qhull pthread rt
   ${OpenCV_LIBS}
+  ${BULLET_LIBRARIES}
   PhysX3Extensions PhysX3_x64 PhysX3Cooking_x64 PhysX3Common_x64 PxFoundation_x64
   #BulletSoftBody BulletDynamics BulletCollision LinearMath 
   )

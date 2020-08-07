@@ -234,6 +234,38 @@ void testFriction(){
 
 //===========================================================================
 
+void testStackOfBlocks(){
+  rai::Configuration C;
+
+  for(int i=0;i<7;i++){
+    rai::Frame *obj = C.addFrame(STRING("obj" <<i));
+    arr size = {.2,.2,.2, .02};
+    obj->setShape(rai::ST_ssBox, size);
+    obj->setPosition({0.,0.,1.+i*.25});
+    obj->setMass(1.); //does not seem to have much effect?
+//    obj->addAttribute("friction", 1.);
+//    obj->addAttribute("restitution", .01);
+  }
+
+  C.addFile("../../scenarios/pandasTable.g");
+
+  rai::Simulation S(C, S._bullet, true);
+//  rai::Simulation S(C, S._physx, true);
+
+  double tau=.01;  //jumps a bit for tau=.01
+  Metronome tic(tau);
+
+  for(uint t=0;t<10./tau;t++){
+    tic.waitForTic();
+
+    S.step({}, tau, S._none);
+  }
+
+  rai::wait();
+}
+
+//===========================================================================
+
 int main(int argc,char **argv){
   rai::initCmdLine(argc, argv);
 
@@ -241,7 +273,8 @@ int main(int argc,char **argv){
 //  testGrasp();
 //  testOpenClose();
 //  makeRndScene();
-  testFriction();
+//  testFriction();
+  testStackOfBlocks();
 
   return 0;
 }

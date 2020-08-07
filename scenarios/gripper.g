@@ -18,5 +18,5 @@ finger2 (gripper){
 
 gripperCenter (gripper){
     shape:marker, size:[.03], color:[.9 .9 .9],
-    Q:<t(0 0 -.05)>
+    Q:<t(0 0 -.05) d(-45 1 0 0)>
 }
