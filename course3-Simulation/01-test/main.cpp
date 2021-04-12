@@ -255,7 +255,7 @@ void testStackOfBlocks(){
   double tau=.01;  //jumps a bit for tau=.01
   Metronome tic(tau);
 
-  for(uint t=0;t<10./tau;t++){
+  for(uint t=0;t<4./tau;t++){
     tic.waitForTic();
 
     S.step({}, tau, S._none);
@@ -269,12 +269,12 @@ void testStackOfBlocks(){
 int main(int argc,char **argv){
   rai::initCmdLine(argc, argv);
 
-//  testPushes();
-//  testGrasp();
-//  testOpenClose();
-//  makeRndScene();
-//  testFriction();
   testStackOfBlocks();
+  testPushes();
+  testGrasp();
+  testOpenClose();
+  makeRndScene();
+  testFriction();
 
   return 0;
 }

@@ -45,11 +45,8 @@ BULLET=0
 ```
 
 ```
-git clone https://github.com/MarcToussaint/robotics-course.git
+git clone --recursive https://github.com/MarcToussaint/robotics-course.git
 cd robotics-course
-
-git submodule init
-git submodule update
 
 make -j1 installUbuntuAll  # calls sudo apt-get install; you can always interrupt
 make -j4                   # builds libs and tests
@@ -78,11 +75,8 @@ to install 3rd-party libs -- please stick to this (no system-wide installs)
 ```
 mkdir -p $HOME/git
 cd $HOME/git
-git clone https://github.com/MarcToussaint/robotics-course.git
+git clone --recursive https://github.com/MarcToussaint/robotics-course.git
 cd robotics-course
-
-git submodule init
-git submodule update
 
 make -j1 installUbuntuAll  # calls sudo apt-get install; you can always interrupt
 # If this fails (e.g. because you have nother Ubuntu version), please try:
@@ -92,6 +86,7 @@ make -j1 installUbuntuAll  # calls sudo apt-get install; you can always interrup
 mkdir build
 cd build
 cmake ..
+#cmake -DPYBIND11_PYTHON_VERSION=3.6 .. #if you have multiple python version installed!
 make -j $(command nproc)
 ```
 
@@ -145,10 +140,8 @@ source /opt/ros/kinetic/setup.bash
 ```
 mkdir -p ~/git
 cd ~/git
-git clone https://github.com/MarcToussaint/robotics-course.git
+git clone --recursive https://github.com/MarcToussaint/robotics-course.git
 cd robotics-course
-git submodule init
-git submodule update
 ```
 * change `ROS = 0` to `#ROS = 0` in `config.mk` 
 * install also baxter sources using

@@ -5,13 +5,16 @@ project(RaiRoboticsCourse)
 find_package( OpenCV REQUIRED )
 find_package( Bullet REQUIRED )
 
+add_subdirectory(pybind11)
+
 add_compile_options(
   -O3 -g -Wall -fPIC -std=c++14 -Wno-terminate
   )
 
 add_definitions(
   -DRAI_ROOT_PATH=\"${CMAKE_SOURCE_DIR}/rai\"
-  -DRAI_X11 -DRAI_LAPACK -DRAI_EIGEN -DRAI_PTHREAD -DRAI_GL
+  -DRAI_X11 -DRAI_LAPACK -DRAI_EIGEN -DRAI_PTHREAD
+  -DRAI_GL
   -DRAI_GLFW -DRAI_ANN -DRAI_QHULL -DRAI_ASSIMP -DNO_CYCLE_DETECTION -DRAI_PNG
   -DRAI_SWIFT -DRAI_GJK -DRAI_FCL -DRAI_CCD
   -DRAI_OPENCV
@@ -19,8 +22,6 @@ add_definitions(
   -DRAI_PHYSX -D_DEBUG -DPX_DISABLE_FLUIDS -DCORELIB -DPX32 -DLINUX #physx
   -DRAI_BULLET #bullet
   )
-
-add_subdirectory(pybind11)
 
 include_directories(
   rai/rai
@@ -74,7 +75,8 @@ add_library(rai SHARED
   )
 
 target_link_libraries(rai
-  jsoncpp lapack blas assimp fcl ann glfw GLEW glut GLU GL X11 png qhull pthread rt
+  jsoncpp lapack blas pthread rt X11
+  assimp fcl ann glfw GLEW glut GLU GL png qhull
   ${OpenCV_LIBS}
   ${BULLET_LIBRARIES}
   PhysX3Extensions PhysX3_x64 PhysX3Cooking_x64 PhysX3Common_x64 PxFoundation_x64
@@ -85,6 +87,7 @@ pybind11_add_module(libry SHARED
   #${SRC_ry}
   #lgp-py.cpp
   #ry-Bullet.cpp
+  rai/rai/ry/ry-Optim.cpp
   rai/rai/ry/ry-Camera.cpp
   rai/rai/ry/ry-Config.cpp
   rai/rai/ry/ry.cpp
