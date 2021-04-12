@@ -8,7 +8,7 @@ find_package( Bullet REQUIRED )
 add_subdirectory(pybind11)
 
 add_compile_options(
-  -O3 -g -Wall -fPIC -std=c++14 -Wno-terminate
+  -O3 -g -Wall -fPIC -std=c++14 -Wno-terminate -Wno-pragmas
   )
 
 add_definitions(
@@ -18,7 +18,7 @@ add_definitions(
   -DRAI_GLFW -DRAI_ANN -DRAI_QHULL -DRAI_ASSIMP -DNO_CYCLE_DETECTION -DRAI_PNG
   -DRAI_SWIFT -DRAI_GJK -DRAI_FCL -DRAI_CCD
   -DRAI_OPENCV
-  -DRAI_PYBIND
+  -DRAI_PYBIND -DRAI_BIND_KOMO
   -DRAI_PHYSX -D_DEBUG -DPX_DISABLE_FLUIDS -DCORELIB -DPX32 -DLINUX #physx
   -DRAI_BULLET #bullet
   )
@@ -84,21 +84,21 @@ target_link_libraries(rai
   )
 
 pybind11_add_module(libry SHARED
-  #${SRC_ry}
+  ${SRC_ry}
   #lgp-py.cpp
   #ry-Bullet.cpp
-  rai/rai/ry/ry-Optim.cpp
-  rai/rai/ry/ry-Camera.cpp
-  rai/rai/ry/ry-Config.cpp
-  rai/rai/ry/ry.cpp
-  rai/rai/ry/ry-Feature.cpp
-  rai/rai/ry/ry-Frame.cpp
-  rai/rai/ry/ry-KOMO.cpp
+  #rai/rai/ry/ry-Optim.cpp
+  #rai/rai/ry/ry-Camera.cpp
+  #rai/rai/ry/ry-Config.cpp
+  #rai/rai/ry/ry.cpp
+  #rai/rai/ry/ry-Feature.cpp
+  #rai/rai/ry/ry-Frame.cpp
+  #rai/rai/ry/ry-KOMO.cpp
   #ry-LGP_Tree.cpp
   #ry-Operate.cpp
   #ry-PhysX.cpp
-  rai/rai/ry/ry-Simulation.cpp
-  rai/rai/ry/types.cpp
+  #rai/rai/ry/ry-Simulation.cpp
+  #rai/rai/ry/types.cpp
   )
 
 target_link_libraries(libry PRIVATE

@@ -26,8 +26,7 @@ void basics(){
   obj->setColor({1., .0, 1.});
 
   //-- using the viewer, you can view configurations or paths
-  rai::ConfigurationViewer V;
-  V.setConfiguration(C, "model world start state", true);
+  C.watch(true, "model world start state");
 
   //-- the following is the simulation loop
   arr q;
@@ -44,7 +43,7 @@ void basics(){
 
     //some good old fashioned IK
     C.setJointState(q); //set your robot model to match the real q
-    V.setConfiguration(C);
+    C.watch();
     Value diff = C.feature(FS_positionDiff, {"L_gripperCenter", "object"})->eval(C);
     arr vel = pseudoInverse(diff.J, NoArr, 1e-2) * (-diff.y);
 

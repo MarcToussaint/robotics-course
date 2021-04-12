@@ -21,8 +21,7 @@ void using_KOMO_for_IK(){
   obj->setColor({1., .0, 1.});
 
   //-- using the viewer, you can view configurations or paths
-  rai::ConfigurationViewer V;
-  V.setConfiguration(C, "model world start state", true);
+  C.watch(true, "model world start state");
 
   //-- optimize a single configuration using KOMO
 
@@ -42,10 +41,10 @@ void using_KOMO_for_IK(){
   komo.optimize();
 
   //get the joint vector from the optimized configuration
-  arr q = komo.getJointState(1.);
+  arr q = komo.getConfiguration_qOrg(0);
 
   C.setJointState(q); //set your working config into the optimized state
-  V.setConfiguration(C, "optimized configuration", true); //display it
+  C.watch(true, "optimized configuration"); //display it
 
 
   //-- redoing the optimization with the same KOMO object!
@@ -57,9 +56,8 @@ void using_KOMO_for_IK(){
   //optimize
   komo.optimize(0.); //don't add noise or reinitialize
 
-  C.setJointState(komo.getJointState(1.)); //set your working config into the optimized state
-  V.setConfiguration(C, "optimized configuration", true); //display it
-
+  C.setJointState(komo.getConfiguration_qOrg(0)); //set your working config into the optimized state
+  C.watch(true, "optimized configuration"); //display it
 }
 
 //===========================================================================
@@ -78,8 +76,7 @@ void using_KOMO_for_PathPlanning(){
   obj->setColor({1., .0, 1.});
 
   //-- using the viewer, you can view configurations or paths
-  rai::ConfigurationViewer V;
-  V.setConfiguration(C, "model world start state", true);
+  C.watch(true, "model world start state");
 
   //-- optimize a single configuration using KOMO
 
@@ -101,13 +98,12 @@ void using_KOMO_for_PathPlanning(){
   komo.optimize();
 
   //get the joint vector from the optimized configuration
-  arr q = komo.getJointState(1.);
+  arr q = komo.getConfiguration_qOrg(komo.T-1);
 
   C.setJointState(q); //set your working config into the optimized state
-  V.setConfiguration(C, "optimized configuration", true); //display it
 
-  V.setPath(komo.getPath_frames(), "optimized path", true);
-  V.playVideo(true);
+  komo.view(true, "optimized configuration"); //display it
+  komo.view_play();
 
   rai::wait(.1); //TODO: otherwise the opengl gets hung up?
 }

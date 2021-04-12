@@ -24,3 +24,8 @@ camera(world){
     shape:marker, size:[.1],
     focalLength:0.895, width:640, height:360, zRange:[.5 100]
 }
+
+Edit L_finger1{ joint:rigid }
+Edit L_finger2{ joint:rigid }
+Edit R_finger1{ joint:rigid }
+Edit R_finger2{ joint:rigid }

@@ -1,5 +1,5 @@
 #include <Perception/opencv.h> //always include this first! OpenCV headers define stupid macros
-#include <Perception/depth2PointCloud.h>
+#include <Geo/depth2PointCloud.h>
 
 #include <Kin/feature.h>
 #include <Kin/frame.h>
@@ -15,11 +15,11 @@ void grasp_the_hopping_ball(){
 
   //delete frames with certain names
   for(uint o=1;o<30;o++){
-    rai::Frame *f = RealWorld.getFrameByName(STRING("obj"<<o));
+    rai::Frame *f = RealWorld[STRING("obj"<<o)];
     if(f) delete f;
   }
 
-  rai::Frame *realObj = RealWorld.getFrameByName("obj0");
+  rai::Frame *realObj = RealWorld["obj0"];
   realObj->setColor({1.,0,0}); //set the color of one objet to red!
   realObj->setShape(rai::ST_sphere, {.03});
 //  realObj->setShape(rai::ST_ssBox, {.05, .05, .2, .01});

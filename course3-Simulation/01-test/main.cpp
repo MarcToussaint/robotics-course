@@ -118,8 +118,7 @@ void testOpenClose(){
 
   rai::Configuration C;
   C.addFile("../../scenarios/pandasTable.g");
-
-  rai::ConfigurationViewer V;
+  C.watch();
 
   double tau = .01;
 
@@ -129,9 +128,10 @@ void testOpenClose(){
 
     arr q = S.get_q();
     C.setJointState(q);
-    V.setConfiguration(C);
+    C.watch();
 
     S.step({}, tau, S._none);
+    cout <<S.getGripperWidth("R_gripper") <<endl;
     if(S.getGripperIsClose("R_gripper")) break;
   }
 
@@ -141,9 +141,10 @@ void testOpenClose(){
 
     arr q = S.get_q();
     C.setJointState(q);
-    V.setConfiguration(C);
+    C.watch();
 
     S.step({}, tau, S._none);
+    cout <<S.getGripperWidth("R_gripper") <<endl;
     if(S.getGripperIsOpen("R_gripper")) break;
   }
 }

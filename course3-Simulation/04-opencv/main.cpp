@@ -1,6 +1,6 @@
 #include <Perception/opencv.h> //always include this first! OpenCV headers define stupid macros
 #include <Perception/opencvCamera.h>
-#include <Perception/depth2PointCloud.h>
+#include <Geo/depth2PointCloud.h>
 
 #include <Kin/frame.h>
 #include <Kin/simulation.h>
@@ -42,7 +42,7 @@ void use_within_simulation(){
   rai::Configuration RealWorld;
   RealWorld.addFile("../../scenarios/challenge.g");
 
-  RealWorld.getFrameByName("obj1")->setColor({1.,0,0}); //set the color of one objet to red!
+  RealWorld["obj1"]->setColor({1.,0,0}); //set the color of one objet to red!
 
   rai::Simulation S(RealWorld, S._physx, true);
   S.cameraview().addSensor("camera");
@@ -116,7 +116,7 @@ void multipleCameras(){
   RealWorld.addFile("../../scenarios/challenge.g");
 
   //change the position of the central sensor
-  rai::Frame* f = RealWorld.getFrameByName("camera");
+  rai::Frame* f = RealWorld["camera"];
   f->setPosition(f->getPosition() + arr{0.,0.,.5});
 
   //add a frame for the additional camera
