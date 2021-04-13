@@ -56,6 +56,7 @@ make -j $(command nproc)
 
 * If you use python, install jupyter and some python packages, and run tests:
 ```
+# export PATH="${PATH}:/root/.local/bin"   #if not done already
 pip3 install --user jupyter nbconvert matplotlib opencv-python
 jupyter-notebook tutorials/1-basics.ipynb
 jupyter-notebook course3-Simulation
@@ -63,9 +64,10 @@ jupyter-notebook course3-Simulation
 
 * If you use C++, compile and run the tests:
 ```
-cd course3-simulation/02-basics
+cd course3-Simulation/01-test
 make
 ./x.exe
+#and the same for all other course3-Simulation/... tests
 ```
 
 * Alternative non-cmake build system (not recommended, but allows to configure config.mk):

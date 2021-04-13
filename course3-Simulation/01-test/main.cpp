@@ -13,8 +13,8 @@ void testPushes(){
   C.addFile("model.g");
   C.watch(true);
 
-//  rai::Simulation S(C, S._bullet, true);
-  rai::Simulation S(C, S._physx, true);
+  rai::Simulation S(C, S._bullet, true);
+//  rai::Simulation S(C, S._physx, true);
 
   double tau=.01;
   Metronome tic(tau);
@@ -62,8 +62,8 @@ void testGrasp(){
 
   C.selectJointsByName({"finger1", "finger2"}, true);
 
-//  rai::Simulation S(C, S._bullet, true);
-  rai::Simulation S(C, S._physx, true);
+  rai::Simulation S(C, S._bullet, true);
+//  rai::Simulation S(C, S._physx, true);
 
   byteA rgb;
   floatA depth;
@@ -114,7 +114,7 @@ void testGrasp(){
 void testOpenClose(){
   rai::Configuration RealWorld;
   RealWorld.addFile("../../scenarios/challenge.g");
-  rai::Simulation S(RealWorld, S._physx, true);
+  rai::Simulation S(RealWorld, S._bullet, true);
 
   rai::Configuration C;
   C.addFile("../../scenarios/pandasTable.g");
@@ -171,8 +171,8 @@ void makeRndScene(){
 
   C.addFile("../../scenarios/pandasTable.g");
 
-  //  rai::Simulation S(C, S._bullet, true);
-  rai::Simulation S(C, S._physx, true);
+  rai::Simulation S(C, S._bullet, true);
+//  rai::Simulation S(C, S._physx, true);
   S.cameraview().addSensor("camera");
 
   byteA rgb;
@@ -213,8 +213,8 @@ void testFriction(){
 
   C["table"]->setQuaternion({1.,-.1,0.,0.}); //tilt the table!!
 
-  //  rai::Simulation S(C, S._bullet, true);
-  rai::Simulation S(C, S._physx, true);
+  rai::Simulation S(C, S._bullet, true);
+//  rai::Simulation S(C, S._physx, true);
   S.cameraview().addSensor("camera");
 
   double tau=.01;

@@ -26,7 +26,7 @@ void grasp_the_hopping_ball(){
   realObj->setPosition({0., .2, 2.});
   realObj->setContact(1);
 
-  rai::Simulation S(RealWorld, S._physx, 1);
+  rai::Simulation S(RealWorld, S._bullet, 1);
   S.cameraview().addSensor("camera");
 
   //add an imp!!

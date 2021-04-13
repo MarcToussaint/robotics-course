@@ -11,7 +11,7 @@ void using_KOMO_for_PathPlanning(){
     //-- MODEL WORLD configuration, this is the data structure on which you represent
     rai::Configuration C;
     C.addFile("../../scenarios/pandasTable.g");
-    rai::Simulation S(C, S._physx, true);
+    rai::Simulation S(C, S._bullet, true);
     S.cameraview().addSensor("camera");
     //-- using the viewer, you can view configurations or paths
     rai::ConfigurationViewer V;

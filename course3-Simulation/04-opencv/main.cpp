@@ -44,7 +44,7 @@ void use_within_simulation(){
 
   RealWorld["obj1"]->setColor({1.,0,0}); //set the color of one objet to red!
 
-  rai::Simulation S(RealWorld, S._physx, true);
+  rai::Simulation S(RealWorld, S._bullet, true);
   S.cameraview().addSensor("camera");
 
   rai::Configuration C;
@@ -124,7 +124,7 @@ void multipleCameras(){
   f->setRelativePosition({.0, .1, 0.});
   f->setShape(rai::ST_marker, {.5});
 
-  rai::Simulation S(RealWorld, S._physx, true);
+  rai::Simulation S(RealWorld, S._bullet, true);
   S.cameraview().addSensor("camera"); //camera is a pre-existing frame that specifies the intrinsic camera parameter
   S.cameraview().addSensor("Rcamera", "R_gripperCamera", 640, 360, 1.); //R_gripperCamera is a fresh frame - we have to specify intrinsic parameters explicitly
 

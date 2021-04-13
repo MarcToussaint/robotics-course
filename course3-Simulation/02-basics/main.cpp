@@ -11,7 +11,7 @@ void basics(){
   // accessing this directly would be cheating!
   rai::Configuration RealWorld;
   RealWorld.addFile("../../scenarios/challenge.g");
-  rai::Simulation S(RealWorld, S._physx, true);
+  rai::Simulation S(RealWorld, S._bullet, true);
   S.cameraview().addSensor("camera");
 
   //-- MODEL WORLD configuration, this is the data structure on which you represent

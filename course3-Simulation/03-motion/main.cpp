@@ -64,7 +64,7 @@ void using_KOMO_for_IK(){
   //-- execute this in simulation
   rai::Configuration RealWorld;
   RealWorld.addFile("../../scenarios/challenge.g");
-  rai::Simulation S(RealWorld, S._physx, true);
+  rai::Simulation S(RealWorld, S._bullet, true);
 
   S.step();
   S.setMoveTo(q, 2.); //2 seconds to goal
