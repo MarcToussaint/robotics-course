@@ -2,15 +2,13 @@
  Lab Course in Simulation
 ==========================
 
-
-
 This year we'll have to do the lab course in simulation! The goal
 still is to learn about robot manipulation, integrating methods for
 motion generation and perception, potentially also machine learning,
 task planning, and mobile navigation.
 
 The major time is spend on practically solving (coding) a series of
-problems, with direct supervision by the instructors during the
+problems, with supervision by the instructors during the
 session. In some lectures the instructor introduces basic
 concepts. The series of exercises includes, for instance,
 
@@ -21,8 +19,7 @@ concepts. The series of exercises includes, for instance,
 
 Students are expected to work also offline, as homework, on these
 problems. After going though these problems the teams spend the rest
-of the course working on a final challenge. This year the challenge
-might be to build high constructions from randomly dropped objects.
+of the course working on a final challenge.
 
 Code repository:
 

@@ -13,6 +13,7 @@ void using_KOMO_for_IK(){
   //-- MODEL WORLD configuration, this is the data structure on which you represent
   rai::Configuration C;
   C.addFile("../../scenarios/pandasTable.g");
+  arr q0 = C.getJointState();
 
   rai::Frame* obj = C.addFrame("object");
   obj->setPosition({1., 0., 1.5});
@@ -58,6 +59,24 @@ void using_KOMO_for_IK(){
 
   C.setJointState(komo.getConfiguration_qOrg(0)); //set your working config into the optimized state
   C.watch(true, "optimized configuration"); //display it
+
+
+  //-- execute this in simulation
+  rai::Configuration RealWorld;
+  RealWorld.addFile("../../scenarios/challenge.g");
+  rai::Simulation S(RealWorld, S._physx, true);
+
+  S.step();
+  S.setMoveTo(q, 2.); //2 seconds to goal
+  S.setMoveTo(q0, 1.); //1 second back home
+  for(uint t=0;;t++){
+    cout <<"time to move: " <<S.getTimeToMove() <<endl;
+    double tau=.001; //can set anything here time...
+    S.step({}, tau);
+    rai::wait(tau);
+    if(S.getTimeToMove()<0.) break;
+  }
+  rai::wait();
 }
 
 //===========================================================================
@@ -113,8 +132,8 @@ void using_KOMO_for_PathPlanning(){
 int main(int argc,char **argv){
   rai::initCmdLine(argc, argv);
 
-//  using_KOMO_for_IK();
-  using_KOMO_for_PathPlanning();
+  using_KOMO_for_IK();
+//  using_KOMO_for_PathPlanning();
 
   return 0;
 }

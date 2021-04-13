@@ -15,7 +15,7 @@
 #GL = 0
 #FCL = 0
 ODE = 0
-#PHYSX = 0
+PHYSX = 0
 #BULLET = 0
 G4 = 0
 PCL = 0

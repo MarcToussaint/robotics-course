@@ -3,30 +3,100 @@
 This repo is based on RAI code, including its python bindings. See https://github.com/MarcToussaint/rai for a README of the RAI code.
 
 ## Table of Contents
-   * [Quick Start](#quick-start)
-      * [Setup for Robotics Course](#setup-for-robotics-course)
-      * [Setup for Robotics Practical in Simulation](#setup-for-robotics-practical-in-simulation)
-      * [Setup for the Robotics Practical with the real Baxter Robot Baxter](#setup-for-the-robotics-practical-with-the-real-baxter-robot-baxter)
-   * [Further Documentation &amp; Installation Pointers](#further-documentation--installation-pointers)
-      * [Installation](#installation)
-      * [rai code](#rai-code)
-      * [rai examples](#rai-examples)
-      * [Tutorials](#tutorials)
-      * [More details on handling baxter](#more-details-on-handling-baxter)
-         * [Booting](#booting)
-         * [Communicating with Baxter](#communicating-with-baxter)
-         * [Start-up](#start-up)
-         * [Using vacuum gripper](#using-vacuum-gripper)
-         * [Accessing camera](#accessing-camera)
-         * [Shutdown](#shutdown)
-         * [Troubles](#troubles)
+- [Quick Start](#quick-start)
+  - [Documentation](#documentation)
+  - [Setup for Robotics Lab Course in Simulation](#setup-for-robotics-lab-course-in-simulation)
+  - [Setup for Robotics Lecture Exercises](#setup-for-robotics-lecture-exercises)
+  - [Setup for the Robotics Lab Course with the real Baxter Robot Baxter](#setup-for-the-robotics-lab-course-with-the-real-baxter-robot-baxter)
+- [Further Documentation & Installation Pointers](#further-documentation--installation-pointers)
+  - [Installation](#installation)
+  - [rai code](#rai-code)
+  - [rai examples](#rai-examples)
+  - [Tutorials](#tutorials)
+  - [More details on handling baxter](#more-details-on-handling-baxter)
+  - [Internals](#internals)
 
 
 ## Quick Start
 
-The repo is used for both, the robotics lectures as well as the
-practical course. And for the practical there is now a simulation
-vs. real baxter version. Please follow the respective sections.
+The repo is now used for three lecture formats: the robotics lab
+course in simulation, the robotics lab course in real, and the
+robotics lectures. Please follow the respective sections.
+
+### Documentation
+
+* [Course material and some documentation of the code base and python bindings](https://marctoussaint.github.io/robotics-course/)
+
+
+### Setup for Robotics Lab Course in Simulation
+
+This assumes a standard Ubuntu 18.04 or 20.04 machine.
+
+* The following assumes $HOME/git as your git path, and $HOME/opt
+to install 3rd-party libs -- please stick to this (no system-wide installs)
+* Clone and compile our robotics-course code:
+```
+mkdir -p $HOME/git
+cd $HOME/git
+git clone --recursive https://github.com/MarcToussaint/robotics-course.git
+cd robotics-course
+
+make -j1 installUbuntuAll  # calls sudo apt-get install; you can always interrupt
+# If this fails, please try:
+# make -j1 printUbuntuAll
+# this prints all packages. Please try installing them manually and find naming variants (e.g. libfcl-0.5-dev)
+
+mkdir build
+cd build
+cmake ..
+#cmake -DPYBIND11_PYTHON_VERSION=3.6 .. #if you have multiple python version installed!
+make -j $(command nproc)
+```
+
+
+* If you use python, install jupyter and some python packages, and run tests:
+```
+pip3 install --user jupyter nbconvert matplotlib opencv-python
+jupyter-notebook tutorials/1-basics.ipynb
+jupyter-notebook course3-Simulation
+```
+
+* If you use C++, compile and run the tests:
+```
+cd course3-simulation/02-basics
+make
+./x.exe
+```
+
+* Alternative non-cmake build system (not recommended, but allows to configure config.mk):
+```
+cd $HOME/git/robotics-course
+rm -Rf build
+make -j4
+ln -s rai/lib build
+```
+
+* When pulling updates for the repo, don't forget to also update the submodules:
+```
+git pull
+git submodule update
+```
+
+* We tested this (sometimes) in docker. See
+  [here](https://github.com/MarcToussaint/rai-maintenance/tree/master/docker/)
+  for a collection of docker setups. In mini20 the above install was
+  tested. full18 includes a pre-compiled PhysX.
+
+
+* When enabling Physx (as alternative to bullet), first install PhysX
+  from source as described
+  [here](https://github.com/MarcToussaint/rai-maintenance/blob/master/help/localSourceInstalls.md#PhysX),
+  then add Physx lib path to LD_LIBRARY_PATH
+```
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/opt/physx3.4/lib    # add path (temporary)
+echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/opt/physx3.4/lib' >> ~/.bashrc     # or add permenantly in bashrc
+```
+
 
 ### Setup for Robotics Lecture Exercises
 
@@ -60,74 +130,9 @@ After loading the pr2 and the kitchen (running first 3 cells in the notebook), t
 ![Alt text](screenshot.png?raw=true "Title")
 
 
-### Setup for Robotics Practical in Simulation
-
-This assumes a standard Ubuntu 18.04 machine.
-
-WE DIDN'T GET TO RUN THIS WITH ANACONDA PYTHON. If you have Anaconda
-installed, please remove it from the PATH in .bashrc. The setup below will
-install the standard Ubuntu python3 and jupyter notebook.
-
-* The following assumes $HOME/git as your git path, and $HOME/opt
-to install 3rd-party libs -- please stick to this (no system-wide installs)
-* Install PhysX from source as described here: [PhysX](https://github.com/MarcToussaint/rai-maintenance/blob/master/help/localSourceInstalls.md#PhysX)
-* Clone and compile our robotics-course code:
-```
-mkdir -p $HOME/git
-cd $HOME/git
-git clone --recursive https://github.com/MarcToussaint/robotics-course.git
-cd robotics-course
-
-make -j1 installUbuntuAll  # calls sudo apt-get install; you can always interrupt
-# If this fails (e.g. because you have nother Ubuntu version), please try:
-# make -j1 printUbuntuAll
-# this prints all packages. Please try installing them manually and find naming variants (e.g. libfcl-0.5-dev)
-
-mkdir build
-cd build
-cmake ..
-#cmake -DPYBIND11_PYTHON_VERSION=3.6 .. #if you have multiple python version installed!
-make -j $(command nproc)
-```
-
-* Add Physx lib path to LD_LIBRARY_PATH 
-```
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/opt/physx3.4/lib    # add path (temporary)
-echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/opt/physx3.4/lib' >> ~/.bashrc     # or add permenantly in bashrc
-```
-
-* If you use python, install jupyter and some python packages, and run tests:
-```
-pip3 install --user jupyter matplotlib opencv-python
-jupyter-notebook tutorials/1-basics.ipynb
-jupyter-notebook course3-Simulation
-```
-
-* If you use C++, compile and run the tests:
-```
-cd course3-simulation/02-basics
-make
-./x.exe
-```
-
-* Alternative non-cmake build system (not recommended, but allows to configure config.mk):
-```
-cd $HOME/git/robotics-course
-rm -Rf build
-make -j4
-ln -s rai/lib build
-```
-
-* For a Docker with Ubuntu 18.04 and pre-compiled PhysX, in which this repo compiled, see [here](https://github.com/MarcToussaint/rai-maintenance/tree/master/docker/full18) 
-
-* When pulling updates for the repo, don't forget to also update the submodules:
-```
-git pull
-git submodule update
-```
 
 
-### Setup for the Robotics Practical with the real Baxter Robot Baxter
+### Setup for the Robotics Lab Course with the real Baxter Robot Baxter
 
 * Install [ROS Kinetic](http://wiki.ros.org/kinetic/Installation/Ubuntu)
 * Source and install
@@ -179,10 +184,6 @@ jupyter-notebook motion.ipynb
 
 
 # Further Documentation & Installation Pointers
-
-## Documentation
-
-* [Sphinx documentation of the python bindings (preliminary)](https://marctoussaint.github.io/robotics-course/)
 
 ## Installation
 

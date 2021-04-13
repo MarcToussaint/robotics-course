@@ -25,10 +25,10 @@ void basics(){
   obj->setShape(rai::ST_capsule, {.2, .02});
   obj->setColor({1., .0, 1.});
 
-  //-- using the viewer, you can view configurations or paths
+  //-- you can view configurations or paths
   C.watch(true, "model world start state");
 
-  //-- the following is the simulation loop
+  //-- the following is a typical simulation loop
   arr q;
   byteA rgb;
   floatA depth;
