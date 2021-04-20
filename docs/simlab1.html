@@ -1,48 +1,41 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>SimLab Exercise 1 - Basic Setup &mdash; Robotics Course  documentation</title>
   
 
   
-  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'./',
-              VERSION:'',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="SimLab Exercise 2 - Motion" href="simlab2.html" />
@@ -83,6 +76,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -95,21 +89,25 @@
 <li class="toctree-l1 current"><a class="reference internal" href="simlab.html">Lab Course in Simulation</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">SimLab Exercise 1 - Basic Setup</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#code-setup">Code Setup</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#basic-motion">Basic motion</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#git-setup">Git Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rough-familiarity-with-simulation-and-configuration">Rough familiarity with Simulation and Configuration</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="simlab2.html">SimLab Exercise 2 - Motion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="simlab3.html">SimLab Exercise 3 - OpenCV</a></li>
 <li class="toctree-l2"><a class="reference internal" href="simlab4.html">SimLab Exercise 4 - Grasp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="simlab5.html">SimLab Exercise 5 - Grasp Again</a></li>
+<li class="toctree-l2"><a class="reference internal" href="simlab6.html">SimLab Exercise 6 - Project Proposal and Final Presentation</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="rai.html">Core Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rai.html">Robotics Code Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="komoTutorial.html">Learning KOMO (K-Order Markov Optimization)</a></li>
 </ul>
 
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -144,11 +142,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="simlab.html">Lab Course in Simulation</a> &raquo;</li>
         
@@ -157,7 +157,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
         
       </li>
     
@@ -175,50 +175,58 @@
 <h2>Code Setup<a class="headerlink" href="#code-setup" title="Permalink to this headline">¶</a></h2>
 <p>Install and test
 <a class="reference external" href="https://github.com/MarcToussaint/robotics-course">https://github.com/MarcToussaint/robotics-course</a>. Follow the
-instructions in the README (<a class="reference external" href="https://github.com/MarcToussaint/robotics-course#setup-for-robotics-practical-in-simulation">Setup for Lab Course
+instructions in the README (<a class="reference external" href="https://github.com/MarcToussaint/robotics-course#setup-for-robotics-lab-course-in-simulation">Setup for Lab Course
 in Simulation</a>)</p>
-<p>The specific goals are</p>
+<p>Specific delivarables:</p>
 <ul class="simple">
-<li>to compile the repository</li>
-<li>to run your first tests in <code class="docutils literal"><span class="pre">course3-Simulation/01-</span></code> and <code class="docutils literal"><span class="pre">02-</span></code></li>
-<li>setup your coding environment in C++ (eg. qtcreator or VS Code) or python (pycharm, jupyter notebooks, VS Code)</li>
-<li>Have a concept how you use git! (See below.)</li>
-</ul>
-</div>
-<div class="section" id="basic-motion">
-<h2>Basic motion<a class="headerlink" href="#basic-motion" title="Permalink to this headline">¶</a></h2>
-<p>Revive what you’ve learned in the robotics course about computing
-poses and generating motion. In particular, think already about
-grasping. What would be a way to make the robot grasp a sphere,
-cylinder, box, or general shape?</p>
-<p>Specific goals to get started:</p>
-<ul class="simple">
-<li>In the examples <code class="docutils literal"><span class="pre">course3../02-</span></code> add a virtual object to the scene. Move the left arm towards that object.</li>
-<li>Be able to show, in the class, examples of more complex motion. Anything beyond the given example.</li>
-<li>Read the <code class="docutils literal"><span class="pre">tutorials/2-features.ipynb</span></code> to get an impression about what alternative features one can use to design motion.</li>
-<li>Think about how grasping could be realized (aligning the gripper, approach of the gripper)</li>
-<li>To be discussed in class: How open/close gripper is realized in simulation</li>
+<li><p>You have compiled the repository</p></li>
+<li><p>You can run the tests in <code class="docutils literal notranslate"><span class="pre">course3-Simulation/01-</span></code> and <code class="docutils literal notranslate"><span class="pre">02-</span></code></p></li>
+<li><p>You have setup your coding environment in C++ (eg. qtcreator or VS Code) or python (pycharm, jupyter notebooks, VS Code) - you need code browsing &amp; debugging support!</p></li>
 </ul>
 </div>
 <div class="section" id="git-setup">
 <h2>Git Setup<a class="headerlink" href="#git-setup" title="Permalink to this headline">¶</a></h2>
 <p>You definitely should use a separate git repo for your own code. You
 will also have to pull new versions of robotics-course in the
-future. I recomment to create your own repo on github (or university
-gitlab), and clone it next to the robotics-course repo in
-<code class="docutils literal"><span class="pre">$HOME/git</span></code>. There are two alternatives:</p>
-<ul class="simple">
-<li>Your repo only contains your own py or cpp code, with Makefiles pointing to the robotics-course repo (recommended for simplicity)</li>
-<li>Your repo has the robotics-course as submodule. This is more self-contained, but requires you to understand more about git</li>
+future. Please create your own repo on github or the university
+gitlab. There are two alternatives to organize your own repo:</p>
+<ul>
+<li><p>You fork the robotics-course repo and work directly in the fork (with your exercise solutions and own code in your own new folder usr/)</p></li>
+<li><p>You create your own fresh repository next to the robotics-course repo, which only includes subfolders with your code/solutions. You copy the 01-test/Makefiles to your working folder but simply change the first line to <code class="docutils literal notranslate"><span class="pre">BASE</span> <span class="pre">=</span> <span class="pre">${HOME}/git/robotics-course/rai</span></code></p></li>
+<li><p>You create your own fresh repository and set it up analogous to the robotics-course repo. This is not too difficult, as the important code is all in submodules. You’ll have to add the following submodules:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">submodule</span> <span class="n">add</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">pybind</span><span class="o">/</span><span class="n">pybind11</span><span class="o">.</span><span class="n">git</span>
+<span class="n">git</span> <span class="n">submodule</span> <span class="n">add</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">MarcToussaint</span><span class="o">/</span><span class="n">rai</span><span class="o">.</span><span class="n">git</span>
+<span class="n">git</span> <span class="n">submodule</span> <span class="n">add</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">MarcToussaint</span><span class="o">/</span><span class="n">rai</span><span class="o">-</span><span class="n">robotModels</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">rai</span><span class="p">;</span> <span class="n">git</span> <span class="n">checkout</span> <span class="n">robotics</span><span class="o">-</span><span class="n">course</span><span class="p">;</span> <span class="n">cd</span><span class="o">..</span> <span class="c1">#to get the submodule branch we work with</span>
+</pre></div>
+</div>
+</li>
 </ul>
-<p>Specific goals if you’re yet unfamiliar with git:</p>
+<p>Then add also the CMakeLists.txt, and that should be all you need.</p>
+<p>Specific deliverables:</p>
 <ul class="simple">
-<li>Read the git tutorial url{<a class="reference external" href="https://try.github.io/">https://try.github.io/</a>}</li>
-<li>Create your own group git repo somewhere</li>
-<li>Know how to create different branches, e.g.for parallel development of different group members</li>
-<li>Each group member should have made at least one commit, e.g.with a trivial hello text file</li>
-<li>Copy &amp; Paste example code from <code class="docutils literal"><span class="pre">course3-../02-</span></code> to your own repo and get it to compile there (C++: Have a look at the simple compile commands when you build the examples, or copy my Makefile and modify the BASE to point to robotics-course/rai.) (In python, set the sys path appropriately to robotics-course/build.)</li>
+<li><p>You have your git working repo setup</p></li>
+<li><p>You give us read access to your repo via the ISIS page</p></li>
 </ul>
+<p>If you’re yet unfamiliar with git,</p>
+<ul class="simple">
+<li><p>Read the git tutorial url{<a class="reference external" href="https://try.github.io/">https://try.github.io/</a>}</p></li>
+<li><p>Create your own group git repo somewhere</p></li>
+<li><p>Know how to create different branches, e.g.for parallel development of different group members</p></li>
+<li><p>Each group member should have made at least one commit, e.g.with a trivial hello text file</p></li>
+</ul>
+</div>
+<div class="section" id="rough-familiarity-with-simulation-and-configuration">
+<h2>Rough familiarity with Simulation and Configuration<a class="headerlink" href="#rough-familiarity-with-simulation-and-configuration" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">02-basics</span></code> example is your starting point for own code. Copy
+this to your own working repo.</p>
+<p>The <a class="reference internal" href="_Configuration.html#refconfiguration"><span class="std std-ref">Configuration</span></a> is THE core data structure to work with. Read its docs.</p>
+<p>The <a class="reference internal" href="_Simulation.html#refsimulation"><span class="std std-ref">Simulation</span></a> is really very rough (there is hardly code behind
+it). It simply attaches to a Configuration that is meant to represent
+the real world, and performs some simple operations such as moving the
+robot in that configuration, calling an external physics library to
+animate objects, rendering an RGB and depth image from the scene with
+plain OpenGL depending on the camera frame. Read the docs of _Simulation.</p>
 </div>
 </div>
 
@@ -227,29 +235,29 @@ gitlab), and clone it next to the robotics-course repo in
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="simlab2.html" class="btn btn-neutral float-right" title="SimLab Exercise 2 - Motion" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="simlab.html" class="btn btn-neutral float-left" title="Lab Course in Simulation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="simlab2.html" class="btn btn-neutral float-right" title="SimLab Exercise 2 - Motion" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="simlab.html" class="btn btn-neutral float-left" title="Lab Course in Simulation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, Marc Toussaint
+        &#169; Copyright 2020, Marc Toussaint.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -257,7 +265,6 @@ gitlab), and clone it next to the robotics-course repo in
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

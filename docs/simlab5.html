@@ -1,48 +1,41 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>SimLab Exercise 5 - Grasp Again &mdash; Robotics Course  documentation</title>
   
 
   
-  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'./',
-              VERSION:'',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="SimLab Exercise 6 - Project Proposal and Final Presentation" href="simlab6.html" />
@@ -83,6 +76,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -105,12 +99,14 @@
 <li class="toctree-l2"><a class="reference internal" href="simlab6.html">SimLab Exercise 6 - Project Proposal and Final Presentation</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="rai.html">Core Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rai.html">Robotics Code Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="komoTutorial.html">Learning KOMO (K-Order Markov Optimization)</a></li>
 </ul>
 
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -145,11 +141,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="simlab.html">Lab Course in Simulation</a> &raquo;</li>
         
@@ -158,7 +156,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
         
       </li>
     
@@ -173,7 +171,7 @@
   <div class="section" id="simlab-exercise-5-grasp-again">
 <h1>SimLab Exercise 5 - Grasp Again<a class="headerlink" href="#simlab-exercise-5-grasp-again" title="Permalink to this headline">¶</a></h1>
 <p>Before new exercises, always update the repo:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>cd $HOME/git/robotics-course
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd $HOME/git/robotics-course
 git pull
 git submodule update
 cd build
@@ -182,22 +180,22 @@ make -j4
 </div>
 <p>Memos from our discussion:</p>
 <ul class="simple">
-<li>This is the last formal exercise. After this you’re free to follow
-on with your projects. (Thanks for your creative ideas!)</li>
-<li>In that last exercise I’d like to push you once again to realize a
+<li><p>This is the last formal exercise. After this you’re free to follow
+on with your projects. (Thanks for your creative ideas!)</p></li>
+<li><p>In that last exercise I’d like to push you once again to realize a
 grasp in simulation, both, for a sphere and a box – using the
 simulation interface of open/closeGripper only. It is a constraint
 for your final project to involve at least some kine of object
-manipulation (grasping or pushing).</li>
-<li>I will add methods to shortcut perception to the Simulation
-interface, something like <code class="docutils literal"><span class="pre">getGroundTruthObjectPose(objectName)</span></code> and
+manipulation (grasping or pushing).</p></li>
+<li><p>I will add methods to shortcut perception to the Simulation
+interface, something like <code class="docutils literal notranslate"><span class="pre">getGroundTruthObjectPose(objectName)</span></code> and
 shape. Esp. for sequential manipulation of multiple objects (tower
 stacking challenge) it might make sense to using the shortcuts to
 get deeper into sequential manipulation problems. If you continue
 the hard way of including a perception pipeline in the system, you
-can use the shortcut to debug.</li>
+can use the shortcut to debug.</p></li>
 </ul>
-<p>In <code class="docutils literal"><span class="pre">05-grasp</span></code> you find tips to simplify the RealWorld
+<p>In <code class="docutils literal notranslate"><span class="pre">05-grasp</span></code> you find tips to simplify the RealWorld
 scene, allowing you to give arbitrary colors and shapes to the objects
 dropping. Thereby you can start first working on grasping simple
 (small) blocks, and then gradually tackle harder problems.</p>
@@ -208,34 +206,34 @@ KOMO), or exercise 1 (using plain IK with a pseudo inverse (you can
 stack the Jacobians and residuals for multiple objectives, see the
 motion slides)).</p>
 <ul class="simple">
-<li>Drop a single small (e.g. 3cm radius) sphere from the scene</li>
-<li>Continuously track the sphere using OpenCV or using the shortcut method</li>
-<li>First start a motion that aims to not occlude the camera: E.g., let the <code class="docutils literal"><span class="pre">R_gripper</span></code> x-axis be equal to world y-axis; and let the gripper-z be equal to (1/sqrt(2),0,1/sqrt(2)). Note: that fully specifies the orientation (you could also use a full quaternion task) to grasping from the right.</li>
-<li>Keeping this orientation, move the gripper towards the ball to align the position.</li>
-<li>Have a continuous control loop running to stabalize the position alignment</li>
-<li>If the positions are aligned well, call <code class="docutils literal"><span class="pre">closeGripper(&quot;R_gripper&quot;)</span></code> once, but keep the position control loop running</li>
-<li>Continuously test for the <code class="docutils literal"><span class="pre">getGripperIsGrasping(&quot;R_gripper&quot;)</span></code> boolean. If it turns true, exit this control loop – the ball is attached within simulation.</li>
+<li><p>Drop a single small (e.g. 3cm radius) sphere from the scene</p></li>
+<li><p>Continuously track the sphere using OpenCV or using the shortcut method</p></li>
+<li><p>First start a motion that aims to not occlude the camera: E.g., let the <code class="docutils literal notranslate"><span class="pre">R_gripper</span></code> x-axis be equal to world y-axis; and let the gripper-z be equal to (1/sqrt(2),0,1/sqrt(2)). Note: that fully specifies the orientation (you could also use a full quaternion task) to grasping from the right.</p></li>
+<li><p>Keeping this orientation, move the gripper towards the ball to align the position.</p></li>
+<li><p>Have a continuous control loop running to stabalize the position alignment</p></li>
+<li><p>If the positions are aligned well, call <code class="docutils literal notranslate"><span class="pre">closeGripper(&quot;R_gripper&quot;)</span></code> once, but keep the position control loop running</p></li>
+<li><p>Continuously test for the <code class="docutils literal notranslate"><span class="pre">getGripperIsGrasping(&quot;R_gripper&quot;)</span></code> boolean. If it turns true, exit this control loop – the ball is attached within simulation.</p></li>
 </ul>
 <p>After this, lift and drop:</p>
 <ul class="simple">
-<li>Use IK again to impose a upward velocity on the <code class="docutils literal"><span class="pre">R_gripper</span></code>, to lift it together with the ball</li>
-<li>After some time, stop lifting and call <code class="docutils literal"><span class="pre">openGripper(&quot;R_gripper&quot;)</span></code></li>
+<li><p>Use IK again to impose a upward velocity on the <code class="docutils literal notranslate"><span class="pre">R_gripper</span></code>, to lift it together with the ball</p></li>
+<li><p>After some time, stop lifting and call <code class="docutils literal notranslate"><span class="pre">openGripper(&quot;R_gripper&quot;)</span></code></p></li>
 </ul>
 <p>The ball should drop in simulation. Move the gripper out of occluding the view, and repeat the whole pipeline indefinitely (if the ball does not roll away too far).</p>
 </div>
 <div class="section" id="exercise-2">
 <h2>Exercise 2:<a class="headerlink" href="#exercise-2" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Repeat the above for a box</li>
-<li>Drop a single red box of size <code class="docutils literal"><span class="pre">[.06,</span> <span class="pre">.06,</span> <span class="pre">.15,</span> <span class="pre">.01]</span></code> into the scene</li>
+<li><p>Repeat the above for a box</p></li>
+<li><p>Drop a single red box of size <code class="docutils literal notranslate"><span class="pre">[.06,</span> <span class="pre">.06,</span> <span class="pre">.15,</span> <span class="pre">.01]</span></code> into the scene</p></li>
 </ul>
 <p>This time you will have to grasp the block from top – so you cannot avoid occlusion. Therefore follow a slightly different strategy:</p>
 <ul class="simple">
-<li>Track the box using perception or the shortcut – retrieve both, the center and the rotation matrix. Note that the third column in the rotation matrix is the unit vector which points into the direction where the box is 15cm long. Let A be this direction.</li>
-<li>Position your arm 10cm above the object, with the grippers z-axis equal to world z-axis; and the grippers y-axis equal to A.</li>
-<li>Move the gripper down to align with the box position, keeping the orientation tasks</li>
-<li>Close the gripper, lift, and open again.</li>
-<li>Move the gripper out of occluding the view and repeat the process indefinitely.</li>
+<li><p>Track the box using perception or the shortcut – retrieve both, the center and the rotation matrix. Note that the third column in the rotation matrix is the unit vector which points into the direction where the box is 15cm long. Let A be this direction.</p></li>
+<li><p>Position your arm 10cm above the object, with the grippers z-axis equal to world z-axis; and the grippers y-axis equal to A.</p></li>
+<li><p>Move the gripper down to align with the box position, keeping the orientation tasks</p></li>
+<li><p>Close the gripper, lift, and open again.</p></li>
+<li><p>Move the gripper out of occluding the view and repeat the process indefinitely.</p></li>
 </ul>
 </div>
 </div>
@@ -245,29 +243,29 @@ motion slides)).</p>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="simlab6.html" class="btn btn-neutral float-right" title="SimLab Exercise 6 - Project Proposal and Final Presentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="simlab4.html" class="btn btn-neutral float-left" title="SimLab Exercise 4 - Grasp" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="simlab6.html" class="btn btn-neutral float-right" title="SimLab Exercise 6 - Project Proposal and Final Presentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="simlab4.html" class="btn btn-neutral float-left" title="SimLab Exercise 4 - Grasp" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, Marc Toussaint
+        &#169; Copyright 2020, Marc Toussaint.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -275,7 +273,6 @@ motion slides)).</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

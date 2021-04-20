@@ -1,51 +1,44 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>SimLab Exercise 6 - Project Proposal and Final Presentation &mdash; Robotics Course  documentation</title>
   
 
   
-  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'./',
-              VERSION:'',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Core Data Structures" href="rai.html" />
+    <link rel="next" title="Robotics Code Overview" href="rai.html" />
     <link rel="prev" title="SimLab Exercise 5 - Grasp Again" href="simlab5.html" /> 
 </head>
 
@@ -83,6 +76,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -105,12 +99,14 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="rai.html">Core Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rai.html">Robotics Code Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="komoTutorial.html">Learning KOMO (K-Order Markov Optimization)</a></li>
 </ul>
 
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -145,11 +141,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="simlab.html">Lab Course in Simulation</a> &raquo;</li>
         
@@ -158,7 +156,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
         
       </li>
     
@@ -178,19 +176,19 @@
 by June 3rd, before our session. Try to use LaTeX. Brief 2 pages are enough.</p>
 <p>Please prepare a proposal with the following sections:</p>
 <ul class="simple">
-<li><strong>Objective</strong> (“what”, about 1/2 page): Describe in detail the
+<li><p><strong>Objective</strong> (“what”, about 1/2 page): Describe in detail the
 behavior you want so see on the robot. This section <em>must not</em> make
 any statements on what method you are using to create this
 behavior. E.g., saying “using Reinforcement Learning …” is not a
 goal description. Only describe the behavior we can eventually see
-on the robot, as detailed as possible.</li>
-<li><strong>Workplan</strong> (“how”, about 1 page): Describe how the goal can be
+on the robot, as detailed as possible.</p></li>
+<li><p><strong>Workplan</strong> (“how”, about 1 page): Describe how the goal can be
 achieved. The workplan should be organized in small work packages (or steps). In
 particular the first steps should be very clear and realistic. In
 each step, describe what you intend to achieve, and what methods you
 plan to use to achieve the sub-goal. For each step, try to estimate
 the work effort in terms of time. If you work in a team, mention if
-you split up work packages.</li>
+you split up work packages.</p></li>
 </ul>
 <p>On June 3 and 4 we will let you briefly talk through these documents
 in the sessions.</p>
@@ -200,37 +198,39 @@ in the sessions.</p>
 <p>To allow you better planning for the final presentation at the end of
 the course, here some details:</p>
 <ul class="simple">
-<li>Each presentation is max 25 minutes in total.</li>
-<li>Each presentation includes two parts:<ul>
-<li>A spotlight presentation with video and discussion (15 mins)</li>
-<li>A live demo during the virtual session (10 mins max) (In the
-offline course, this would be an interactive demo on the robot.)</li>
+<li><p>Each presentation is max 25 minutes in total.</p></li>
+<li><p>Each presentation includes two parts:</p>
+<ul>
+<li><p>A spotlight presentation with video and discussion (15 mins)</p></li>
+<li><p>A live demo during the virtual session (10 mins max) (In the
+offline course, this would be an interactive demo on the robot.)</p></li>
 </ul>
 </li>
-<li>In the spotlight presentation you should explain very briefly to us
+<li><p>In the spotlight presentation you should explain very briefly to us
 the goal (“what”), briefly the core problems and methods
 (“how”), and the rough system structure (on the software
-level). For this:<ul>
-<li>Prepare minimalistic, simple bullet point slides (make no efforts
+level). For this:</p>
+<ul>
+<li><p>Prepare minimalistic, simple bullet point slides (make no efforts
 here, no figures), only to help you talking to us. Copy from your
-project proposal. Maybe around 2-3 slides.</li>
-<li>But prepare a fancy video! This video is what persists from your
+project proposal. Maybe around 2-3 slides.</p></li>
+<li><p>But prepare a fancy video! This video is what persists from your
 project for later generations. Make an effort here. See details
 below. You may want to start with the video, and use the bullet
-point slides to give more explanations; or switch between them.</li>
-<li>If there were no interruptions, the total spotlight should be just
-5-8 minutes. But questions and discussions will make it 15.</li>
+point slides to give more explanations; or switch between them.</p></li>
+<li><p>If there were no interruptions, the total spotlight should be just
+5-8 minutes. But questions and discussions will make it 15.</p></li>
 </ul>
 </li>
-<li>In the demo, run the code live on your computer, perhaps show code
-or play with parameters.</li>
+<li><p>In the demo, run the code live on your computer, perhaps show code
+or play with parameters.</p></li>
 </ul>
 <p>The video should have:</p>
 <ul class="simple">
-<li>A proper title slide</li>
-<li>Some clips (possibly accelerated, like “x5”) cut together</li>
-<li>Ideally with text/captions explaining things</li>
-<li>In total perhaps 2 minutes.</li>
+<li><p>A proper title slide</p></li>
+<li><p>Some clips (possibly accelerated, like “x5”) cut together</p></li>
+<li><p>Ideally with text/captions explaining things</p></li>
+<li><p>In total perhaps 2 minutes.</p></li>
 </ul>
 <p>Here is an example:
 <a class="reference external" href="https://www.youtube.com/watch?v=1qymi-qon9M">https://www.youtube.com/watch?v=1qymi-qon9M</a></p>
@@ -247,29 +247,29 @@ kind of ok.</p>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="rai.html" class="btn btn-neutral float-right" title="Core Data Structures" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="simlab5.html" class="btn btn-neutral float-left" title="SimLab Exercise 5 - Grasp Again" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="rai.html" class="btn btn-neutral float-right" title="Robotics Code Overview" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="simlab5.html" class="btn btn-neutral float-left" title="SimLab Exercise 5 - Grasp Again" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, Marc Toussaint
+        &#169; Copyright 2020, Marc Toussaint.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -277,7 +277,6 @@ kind of ok.</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

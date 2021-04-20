@@ -1,48 +1,41 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>SimLab Exercise 3 - OpenCV &mdash; Robotics Course  documentation</title>
   
 
   
-  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'./',
-              VERSION:'',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="SimLab Exercise 4 - Grasp" href="simlab4.html" />
@@ -83,6 +76,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -106,14 +100,18 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="simlab4.html">SimLab Exercise 4 - Grasp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="simlab5.html">SimLab Exercise 5 - Grasp Again</a></li>
+<li class="toctree-l2"><a class="reference internal" href="simlab6.html">SimLab Exercise 6 - Project Proposal and Final Presentation</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="rai.html">Core Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rai.html">Robotics Code Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="komoTutorial.html">Learning KOMO (K-Order Markov Optimization)</a></li>
 </ul>
 
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -148,11 +146,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="simlab.html">Lab Course in Simulation</a> &raquo;</li>
         
@@ -161,7 +161,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
         
       </li>
     
@@ -176,7 +176,7 @@
   <div class="section" id="simlab-exercise-3-opencv">
 <h1>SimLab Exercise 3 - OpenCV<a class="headerlink" href="#simlab-exercise-3-opencv" title="Permalink to this headline">¶</a></h1>
 <p>Note: Before new exercises, always update the repo:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>cd $HOME/git/robotics-course
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd $HOME/git/robotics-course
 git pull
 git submodule update
 cd build
@@ -185,11 +185,11 @@ make -j4
 </div>
 <p>CODE CHANGES:</p>
 <ul class="simple">
-<li>The komo.optimize (in both, python and C++) does not get a Boolean argument anymore, only a double that specifies the initialization noise</li>
-<li>In python, playVideo now has a delay argument so slow down display (also a pathName argument to save video pics)</li>
-<li>The ‘simplex types 4 4 not handled’ bug is fixed</li>
-<li>The pandas now have named collision shapes panda_coll_[0..7] and panda_coll_hand, panda_coll_finger[1,2]</li>
-<li>(Can’t see why vectorXRel calls NIY – need to reproduce first.)</li>
+<li><p>The komo.optimize (in both, python and C++) does not get a Boolean argument anymore, only a double that specifies the initialization noise</p></li>
+<li><p>In python, playVideo now has a delay argument so slow down display (also a pathName argument to save video pics)</p></li>
+<li><p>The ‘simplex types 4 4 not handled’ bug is fixed</p></li>
+<li><p>The pandas now have named collision shapes panda_coll_[0..7] and panda_coll_hand, panda_coll_finger[1,2]</p></li>
+<li><p>(Can’t see why vectorXRel calls NIY – need to reproduce first.)</p></li>
 </ul>
 <p>Note: The librai.so (which is linked by both, our C++ and python code) links
 to the Ubuntu package libopencv-dev. However, python coders call
@@ -198,21 +198,21 @@ not lead to library version clashes.</p>
 <div class="section" id="opencv-usage">
 <h2>OpenCV usage<a class="headerlink" href="#opencv-usage" title="Permalink to this headline">¶</a></h2>
 <p>The goal of this session is to enable you using OpenCV within your code.</p>
-<p>The first example in <code class="docutils literal"><span class="pre">04-opencv</span></code> subscribes to a webcam and starts a
+<p>The first example in <code class="docutils literal notranslate"><span class="pre">04-opencv</span></code> subscribes to a webcam and starts a
 little loop that displays the image using opencv. The webcam is only
 to have more fun during coding – later your code has to run on the
-simulated camera. The second example in <code class="docutils literal"><span class="pre">04-opencv</span></code> does our standard
+simulated camera. The second example in <code class="docutils literal notranslate"><span class="pre">04-opencv</span></code> does our standard
 simulation loop, but in each iteration grabs the simulated RGB and
 depth image, displays them using opencv, converts them to a point
 cloud, and displays this point cloud in your model configuration. So
 this is your first example of bringing camera signals into your 3D
 model world.</p>
 <p>In this exercise you should add opencv code (directly operating on
-<code class="docutils literal"><span class="pre">cv::Mat</span></code>) to these examples to perform some basic image processing.</p>
+<code class="docutils literal notranslate"><span class="pre">cv::Mat</span></code>) to these examples to perform some basic image processing.</p>
 <p>There are many OpenCV tutorials, esp. see “Image Processing”:</p>
 <ul class="simple">
-<li>For python, see <a class="reference external" href="https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_tutorials.html">https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_tutorials.html</a></li>
-<li>In C++, see <a class="reference external" href="https://docs.opencv.org/3.2/doc/tutorials/tutorials.html">https://docs.opencv.org/3.2/doc/tutorials/tutorials.html</a> (perhaps change to another OpenCV version)</li>
+<li><p>For python, see <a class="reference external" href="https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_tutorials.html">https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_tutorials.html</a></p></li>
+<li><p>In C++, see <a class="reference external" href="https://docs.opencv.org/3.2/doc/tutorials/tutorials.html">https://docs.opencv.org/3.2/doc/tutorials/tutorials.html</a> (perhaps change to another OpenCV version)</p></li>
 </ul>
 </div>
 <div class="section" id="opencv-tutorials">
@@ -223,21 +223,21 @@ image loaded from file is also ok.</p>
 <div class="section" id="exercise-1">
 <h3>Exercise 1:<a class="headerlink" href="#exercise-1" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Filter the color of the image to find all pixels that are redish.</li>
-<li>Display the binary image that indicates red pixels.</li>
-<li>Fit contours to this binary image, which returns the segments.</li>
-<li>Display the contours by drawing them into the original RGB image</li>
+<li><p>Filter the color of the image to find all pixels that are redish.</p></li>
+<li><p>Display the binary image that indicates red pixels.</p></li>
+<li><p>Fit contours to this binary image, which returns the segments.</p></li>
+<li><p>Display the contours by drawing them into the original RGB image</p></li>
 </ul>
 </div>
 <div class="section" id="exercise-2">
 <h3>Exercise 2:<a class="headerlink" href="#exercise-2" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Store the first image as background image. (Or average over several first images.)</li>
-<li>For every new image filter those pixels, that are significantly different to the background.</li>
-<li>Display the binary image that indicates change pixels.</li>
-<li>Fit contours to this binary image, which returns the segments.</li>
-<li>Display the contours by drawing them into the original RGB image</li>
-<li>Test the same pipeline, but first smoothing/blurring the image</li>
+<li><p>Store the first image as background image. (Or average over several first images.)</p></li>
+<li><p>For every new image filter those pixels, that are significantly different to the background.</p></li>
+<li><p>Display the binary image that indicates change pixels.</p></li>
+<li><p>Fit contours to this binary image, which returns the segments.</p></li>
+<li><p>Display the contours by drawing them into the original RGB image</p></li>
+<li><p>Test the same pipeline, but first smoothing/blurring the image</p></li>
 </ul>
 </div>
 <div class="section" id="exercise-3-bonus">
@@ -257,29 +257,29 @@ access to depth.</p>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="simlab4.html" class="btn btn-neutral float-right" title="SimLab Exercise 4 - Grasp" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="simlab2.html" class="btn btn-neutral float-left" title="SimLab Exercise 2 - Motion" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="simlab4.html" class="btn btn-neutral float-right" title="SimLab Exercise 4 - Grasp" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="simlab2.html" class="btn btn-neutral float-left" title="SimLab Exercise 2 - Motion" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, Marc Toussaint
+        &#169; Copyright 2020, Marc Toussaint.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -287,7 +287,6 @@ access to depth.</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

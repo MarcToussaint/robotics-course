@@ -1,51 +1,44 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>SimLab Exercise 4 - Grasp &mdash; Robotics Course  documentation</title>
   
 
   
-  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'./',
-              VERSION:'',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Core Data Structures" href="rai.html" />
+    <link rel="next" title="SimLab Exercise 5 - Grasp Again" href="simlab5.html" />
     <link rel="prev" title="SimLab Exercise 3 - OpenCV" href="simlab3.html" /> 
 </head>
 
@@ -83,6 +76,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -102,14 +96,18 @@
 <li class="toctree-l3"><a class="reference internal" href="#exercise-3">Exercise 3:</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="simlab5.html">SimLab Exercise 5 - Grasp Again</a></li>
+<li class="toctree-l2"><a class="reference internal" href="simlab6.html">SimLab Exercise 6 - Project Proposal and Final Presentation</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="rai.html">Core Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rai.html">Robotics Code Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="komoTutorial.html">Learning KOMO (K-Order Markov Optimization)</a></li>
 </ul>
 
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -144,11 +142,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="simlab.html">Lab Course in Simulation</a> &raquo;</li>
         
@@ -157,7 +157,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
         
       </li>
     
@@ -172,7 +172,7 @@
   <div class="section" id="simlab-exercise-4-grasp">
 <h1>SimLab Exercise 4 - Grasp<a class="headerlink" href="#simlab-exercise-4-grasp" title="Permalink to this headline">¶</a></h1>
 <p>Before new exercises, always update the repo:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>cd $HOME/git/robotics-course
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd $HOME/git/robotics-course
 git pull
 git submodule update
 cd build
@@ -181,71 +181,73 @@ make -j4
 </div>
 <p>CODE CHANGES:</p>
 <ul class="simple">
-<li>Added <cite>tutorials/05-howto.ipynb</cite>, which demonstrates how to kinematically attach objects (fake grasp), also for attaching the camera to the endeff, and understand broadphase collision checking (enabling/disabling collisions)</li>
-<li>I added documentation – see the ‘Core Data Structure’ in the menu.</li>
-<li>SHIFT-mouse1 allows to move around the view (previous button2 didn’t seem to work for some of you); as before, mouse3 sets focus</li>
+<li><p>Added <cite>tutorials/05-howto.ipynb</cite>, which demonstrates how to kinematically attach objects (fake grasp), also for attaching the camera to the endeff, and understand broadphase collision checking (enabling/disabling collisions)</p></li>
+<li><p>I added documentation – see the ‘Core Data Structure’ in the menu.</p></li>
+<li><p>SHIFT-mouse1 allows to move around the view (previous button2 didn’t seem to work for some of you); as before, mouse3 sets focus</p></li>
 </ul>
 <p>The goal of this session is to combine</p>
 <ul class="simple">
-<li>Use OpenCV to localize/track an object</li>
-<li>Grasp and lift the object</li>
+<li><p>Use OpenCV to localize/track an object</p></li>
+<li><p>Grasp and lift the object</p></li>
 </ul>
 <p>The key difficulty here is in translating the perception into a
 representation (e.g. primitive shape) in your model that allows for
 grasping.</p>
-<p>In <code class="docutils literal"><span class="pre">05-grasp</span></code> you find tips to simplify the RealWorld
+<p>In <code class="docutils literal notranslate"><span class="pre">05-grasp</span></code> you find tips to simplify the RealWorld
 scene, allowing you to give arbitrary colors and shapes to the objects
 dropping. Thereby you can start first working on grasping simple
 (small) blocks, and then gradually tackle harder problems.</p>
 <div class="section" id="exercise-1">
 <h2>Exercise 1:<a class="headerlink" href="#exercise-1" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Drop a single small (e.g. 3cm radius) sphere from the scene</li>
-<li>Start developing your own perception pipeline that you will also use
-in the future: Here is just a suggestion:<ul>
-<li>Segment the object from the background (using color, or depth,
+<li><p>Drop a single small (e.g. 3cm radius) sphere from the scene</p></li>
+<li><p>Start developing your own perception pipeline that you will also use
+in the future: Here is just a suggestion:</p>
+<ul>
+<li><p>Segment the object from the background (using color, or depth,
 with or without background substraction), resulting in a binary
-mask</li>
-<li>collect all image points that belong to the object into a
+mask</p></li>
+<li><p>collect all image points that belong to the object into a
 n-times-3 matrix with rows (x-pixel-coordinate,
 y-pixel-coordinate, depth-meters) – this is the point cloud in
-image coordinates</li>
-<li>Transform that point could into meter coordinates (still relative
-to the camera frame) – resulting in a n-times-3 matrix</li>
-<li>Display this point could by attaching it as “shape” to the
+image coordinates</p></li>
+<li><p>Transform that point could into meter coordinates (still relative
+to the camera frame) – resulting in a n-times-3 matrix</p></li>
+<li><p>Display this point could by attaching it as “shape” to the
 cameraFrame (using cameraFrame.setPointCloud, see example
-04-opencv)</li>
+04-opencv)</p></li>
 </ul>
 </li>
-<li>Now you have the point cloud in the model - but that’s still not
+<li><p>Now you have the point cloud in the model - but that’s still not
 good for grasping. Since it is a ball, we can reduce it to just
-the mean point:<ul>
-<li>Compute the mean of the point cloud</li>
-<li>Ensure you have earlier created some frame/object in your model
+the mean point:</p>
+<ul>
+<li><p>Compute the mean of the point cloud</p></li>
+<li><p>Ensure you have earlier created some frame/object in your model
 that now becomes the representation of the percept: set the
-position of the model object to the point cloud center</li>
+position of the model object to the point cloud center</p></li>
 </ul>
 </li>
-<li>Generate a motion to grasp the ball from top down</li>
-<li>Close the gripper (see example in grasp test in <code class="docutils literal"><span class="pre">01-test</span></code>)</li>
-<li>Lift it!</li>
-<li>Open the gripper again</li>
+<li><p>Generate a motion to grasp the ball from top down</p></li>
+<li><p>Close the gripper (see example in grasp test in <code class="docutils literal notranslate"><span class="pre">01-test</span></code>)</p></li>
+<li><p>Lift it!</p></li>
+<li><p>Open the gripper again</p></li>
 </ul>
 </div>
 <div class="section" id="exercise-2">
 <h2>Exercise 2:<a class="headerlink" href="#exercise-2" title="Permalink to this headline">¶</a></h2>
 <p>Make the above as robust and reactive as possible.</p>
 <ul class="simple">
-<li>Regrasp the ball every time you drop it</li>
-<li>Does throwing work? (Can you drop it with significant velocity?)</li>
-<li>I’m implementing an “adversarial imp”, which can perturb the RealWorld randomly. With this imp, the ball will sometimes jump on the table. Still try to grasp it reactively</li>
+<li><p>Regrasp the ball every time you drop it</p></li>
+<li><p>Does throwing work? (Can you drop it with significant velocity?)</p></li>
+<li><p>I’m implementing an “adversarial imp”, which can perturb the RealWorld randomly. With this imp, the ball will sometimes jump on the table. Still try to grasp it reactively</p></li>
 </ul>
 </div>
 <div class="section" id="exercise-3">
 <h2>Exercise 3:<a class="headerlink" href="#exercise-3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Change the shape type from sphere to ssBox with size [.05 .05 .2 .01]</li>
-<li>How can you find the direction with which to align the gripper?</li>
+<li><p>Change the shape type from sphere to ssBox with size [.05 .05 .2 .01]</p></li>
+<li><p>How can you find the direction with which to align the gripper?</p></li>
 </ul>
 </div>
 </div>
@@ -255,29 +257,29 @@ position of the model object to the point cloud center</li>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="rai.html" class="btn btn-neutral float-right" title="Core Data Structures" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="simlab3.html" class="btn btn-neutral float-left" title="SimLab Exercise 3 - OpenCV" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="simlab5.html" class="btn btn-neutral float-right" title="SimLab Exercise 5 - Grasp Again" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="simlab3.html" class="btn btn-neutral float-left" title="SimLab Exercise 3 - OpenCV" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, Marc Toussaint
+        &#169; Copyright 2020, Marc Toussaint.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -285,7 +287,6 @@ position of the model object to the point cloud center</li>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

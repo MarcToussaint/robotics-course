@@ -1,48 +1,41 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>KOMO &mdash; Robotics Course  documentation</title>
   
 
   
-  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'./',
-              VERSION:'',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Enums" href="_Enums.html" />
@@ -83,6 +76,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -100,6 +94,9 @@
 <li class="toctree-l2"><a class="reference internal" href="_Simulation.html">Simulation</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">KOMO</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_Enums.html">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Graph.html">Graph and .g-files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_ConfigurationFiles.html">.g-files to describe robot configurations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Array.html">Array</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="komoTutorial.html">Learning KOMO (K-Order Markov Optimization)</a></li>
@@ -108,6 +105,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -142,11 +140,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="rai.html">Robotics Code Overview</a> &raquo;</li>
         
@@ -155,7 +155,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
         
       </li>
     
@@ -169,153 +169,139 @@
             
   <div class="section" id="komo">
 <h1>KOMO<a class="headerlink" href="#komo" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
+<dl class="py class">
 <dt id="libry.KOMO">
-<em class="property">class </em><code class="descclassname">libry.</code><code class="descname">KOMO</code><a class="headerlink" href="#libry.KOMO" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">libry.</span></code><code class="sig-name descname"><span class="pre">KOMO</span></code><a class="headerlink" href="#libry.KOMO" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constrained solver to optimize configurations or paths. (KOMO = k-order Markov Optimization)</p>
-<dl class="method">
-<dt id="libry.KOMO.activateCollisionPairs">
-<code class="descname">activateCollisionPairs</code><span class="sig-paren">(</span><em>self: libry.KOMO, arg0: List[Tuple[str, str]]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.activateCollisionPairs" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
+<dl class="py method">
 <dt id="libry.KOMO.addInteraction_elasticBounce">
-<code class="descname">addInteraction_elasticBounce</code><span class="sig-paren">(</span><em>self: libry.KOMO</em>, <em>time: float</em>, <em>from: str</em>, <em>to: str</em>, <em>elasticity: float = 0.8</em>, <em>stickiness: float = 0.0</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.addInteraction_elasticBounce" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">addInteraction_elasticBounce</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">libry.KOMO</span></em>, <em class="sig-param"><span class="pre">time:</span> <span class="pre">float</span></em>, <em class="sig-param"><span class="pre">from:</span> <span class="pre">str</span></em>, <em class="sig-param"><span class="pre">to:</span> <span class="pre">str</span></em>, <em class="sig-param"><span class="pre">elasticity:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0.8</span></em>, <em class="sig-param"><span class="pre">stickiness:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0.0</span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.KOMO.addInteraction_elasticBounce" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="libry.KOMO.addObjective">
-<code class="descname">addObjective</code><span class="sig-paren">(</span><em>self: libry.KOMO</em>, <em>time: List[float] = []</em>, <em>feature: libry.FS</em>, <em>frames: List[str] = []</em>, <em>type: ObjectiveType</em>, <em>scale: List[float] = []</em>, <em>scaleTrans: List[List[float]] = []</em>, <em>target: List[float] = []</em>, <em>order: int = -1</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.addObjective" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">addObjective</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">libry.KOMO</span></em>, <em class="sig-param"><span class="pre">times:</span> <span class="pre">rai::Array&lt;T&gt;</span></em>, <em class="sig-param"><span class="pre">feature:</span> <span class="pre">libry.FS</span></em>, <em class="sig-param"><span class="pre">frames:</span> <span class="pre">List[str]</span> <span class="pre">=</span> <span class="pre">[]</span></em>, <em class="sig-param"><span class="pre">type:</span> <span class="pre">ObjectiveType</span></em>, <em class="sig-param"><span class="pre">scale:</span> <span class="pre">rai::Array&lt;T&gt;</span> <span class="pre">=</span> <span class="pre">array(0.)</span></em>, <em class="sig-param"><span class="pre">target:</span> <span class="pre">rai::Array&lt;T&gt;</span> <span class="pre">=</span> <span class="pre">array(0.0078125)</span></em>, <em class="sig-param"><span class="pre">order:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">-1</span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.KOMO.addObjective" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="libry.KOMO.addSkeleton">
-<code class="descname">addSkeleton</code><span class="sig-paren">(</span><em>self: libry.KOMO</em>, <em>arg0: list</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.addSkeleton" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
+<dl class="py method">
 <dt id="libry.KOMO.addSquaredQuaternionNorms">
-<code class="descname">addSquaredQuaternionNorms</code><span class="sig-paren">(</span><em>self: libry.KOMO</em>, <em>arg0: float</em>, <em>arg1: float</em>, <em>arg2: float</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.addSquaredQuaternionNorms" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">addSquaredQuaternionNorms</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">libry.KOMO</span></em>, <em class="sig-param"><span class="pre">times:</span> <span class="pre">rai::Array&lt;T&gt;</span> <span class="pre">=</span> <span class="pre">array(0.0078125)</span></em>, <em class="sig-param"><span class="pre">scale:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">3.0</span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.KOMO.addSquaredQuaternionNorms" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="libry.KOMO.addSwitch_dynamicTrans">
-<code class="descname">addSwitch_dynamicTrans</code><span class="sig-paren">(</span><em>self: libry.KOMO</em>, <em>arg0: float</em>, <em>arg1: float</em>, <em>arg2: str</em>, <em>arg3: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.addSwitch_dynamicTrans" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">addSwitch_dynamicTrans</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#libry.KOMO" title="libry.KOMO"><span class="pre">libry.KOMO</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg3</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.KOMO.addSwitch_dynamicTrans" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="libry.KOMO.addSwitch_magic">
-<code class="descname">addSwitch_magic</code><span class="sig-paren">(</span><em>self: libry.KOMO</em>, <em>arg0: float</em>, <em>arg1: float</em>, <em>arg2: str</em>, <em>arg3: str</em>, <em>arg4: float</em>, <em>arg5: float</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.addSwitch_magic" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">addSwitch_magic</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#libry.KOMO" title="libry.KOMO"><span class="pre">libry.KOMO</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg3</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg4</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg5</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.KOMO.addSwitch_magic" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
+<dt id="libry.KOMO.addSwitch_stable">
+<code class="sig-name descname"><span class="pre">addSwitch_stable</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#libry.KOMO" title="libry.KOMO"><span class="pre">libry.KOMO</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">startTime</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endTime</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prevFromFrame</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fromFrame</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">toFrame</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">firstSwitch</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.KOMO.addSwitch_stable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt id="libry.KOMO.addTimeOptimization">
-<code class="descname">addTimeOptimization</code><span class="sig-paren">(</span><em>self: libry.KOMO</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.addTimeOptimization" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">addTimeOptimization</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#libry.KOMO" title="libry.KOMO"><span class="pre">libry.KOMO</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.KOMO.addTimeOptimization" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="libry.KOMO.add_StablePose">
-<code class="descname">add_StablePose</code><span class="sig-paren">(</span><em>self: libry.KOMO, confs: List[int], object: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.add_StablePose" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="libry.KOMO.add_StableRelativePose">
-<code class="descname">add_StableRelativePose</code><span class="sig-paren">(</span><em>self: libry.KOMO, confs: List[int], gripper: str, object: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.add_StableRelativePose" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="libry.KOMO.add_grasp">
-<code class="descname">add_grasp</code><span class="sig-paren">(</span><em>self: libry.KOMO</em>, <em>arg0: int</em>, <em>arg1: str</em>, <em>arg2: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.add_grasp" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="libry.KOMO.add_place">
-<code class="descname">add_place</code><span class="sig-paren">(</span><em>self: libry.KOMO</em>, <em>arg0: int</em>, <em>arg1: str</em>, <em>arg2: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.add_place" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
+<dl class="py method">
 <dt id="libry.KOMO.add_qControlObjective">
-<code class="descname">add_qControlObjective</code><span class="sig-paren">(</span><em>self: libry.KOMO</em>, <em>time: List[float] = []</em>, <em>order: int</em>, <em>scale: float = 1.0</em>, <em>target: List[float] = []</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.add_qControlObjective" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">add_qControlObjective</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">libry.KOMO</span></em>, <em class="sig-param"><span class="pre">times:</span> <span class="pre">rai::Array&lt;T&gt;</span></em>, <em class="sig-param"><span class="pre">order:</span> <span class="pre">int</span></em>, <em class="sig-param"><span class="pre">scale:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">1.0</span></em>, <em class="sig-param"><span class="pre">target:</span> <span class="pre">rai::Array&lt;T&gt;</span> <span class="pre">=</span> <span class="pre">array(0.0078125)</span></em>, <em class="sig-param"><span class="pre">deltaFromStep:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">0</span></em>, <em class="sig-param"><span class="pre">deltaToStep:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">0</span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Objective</span><a class="headerlink" href="#libry.KOMO.add_qControlObjective" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="libry.KOMO.add_resting">
-<code class="descname">add_resting</code><span class="sig-paren">(</span><em>self: libry.KOMO</em>, <em>arg0: int</em>, <em>arg1: int</em>, <em>arg2: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.add_resting" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="libry.KOMO.add_restingRelative">
-<code class="descname">add_restingRelative</code><span class="sig-paren">(</span><em>self: libry.KOMO</em>, <em>arg0: int</em>, <em>arg1: int</em>, <em>arg2: str</em>, <em>arg3: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.add_restingRelative" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
+<dl class="py method">
 <dt id="libry.KOMO.clearObjectives">
-<code class="descname">clearObjectives</code><span class="sig-paren">(</span><em>self: libry.KOMO</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.clearObjectives" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">clearObjectives</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#libry.KOMO" title="libry.KOMO"><span class="pre">libry.KOMO</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.KOMO.clearObjectives" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="libry.KOMO.deactivateCollisionPairs">
-<code class="descname">deactivateCollisionPairs</code><span class="sig-paren">(</span><em>self: libry.KOMO, arg0: List[Tuple[str, str]]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.deactivateCollisionPairs" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="libry.KOMO.getConfiguration">
-<code class="descname">getConfiguration</code><span class="sig-paren">(</span><em>self: libry.KOMO</em>, <em>arg0: int</em><span class="sig-paren">)</span> &#x2192; array<a class="headerlink" href="#libry.KOMO.getConfiguration" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
+<dl class="py method">
 <dt id="libry.KOMO.getConstraintViolations">
-<code class="descname">getConstraintViolations</code><span class="sig-paren">(</span><em>self: libry.KOMO</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libry.KOMO.getConstraintViolations" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">getConstraintViolations</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#libry.KOMO" title="libry.KOMO"><span class="pre">libry.KOMO</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">float</span><a class="headerlink" href="#libry.KOMO.getConstraintViolations" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="libry.KOMO.getCosts">
-<code class="descname">getCosts</code><span class="sig-paren">(</span><em>self: libry.KOMO</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libry.KOMO.getCosts" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">getCosts</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#libry.KOMO" title="libry.KOMO"><span class="pre">libry.KOMO</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">float</span><a class="headerlink" href="#libry.KOMO.getCosts" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="libry.KOMO.getForceInteractions">
-<code class="descname">getForceInteractions</code><span class="sig-paren">(</span><em>self: libry.KOMO</em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#libry.KOMO.getForceInteractions" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">getForceInteractions</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#libry.KOMO" title="libry.KOMO"><span class="pre">libry.KOMO</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">list</span><a class="headerlink" href="#libry.KOMO.getForceInteractions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
+<dt id="libry.KOMO.getFrameState">
+<code class="sig-name descname"><span class="pre">getFrameState</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#libry.KOMO" title="libry.KOMO"><span class="pre">libry.KOMO</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">rai::Array&lt;T&gt;</span><a class="headerlink" href="#libry.KOMO.getFrameState" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt id="libry.KOMO.getPathFrames">
-<code class="descname">getPathFrames</code><span class="sig-paren">(</span><em>self: libry.KOMO, arg0: List[str]</em><span class="sig-paren">)</span> &#x2192; array<a class="headerlink" href="#libry.KOMO.getPathFrames" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">getPathFrames</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#libry.KOMO" title="libry.KOMO"><span class="pre">libry.KOMO</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">rai::Array&lt;T&gt;</span><a class="headerlink" href="#libry.KOMO.getPathFrames" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="libry.KOMO.getPathTau">
-<code class="descname">getPathTau</code><span class="sig-paren">(</span><em>self: libry.KOMO</em><span class="sig-paren">)</span> &#x2192; array<a class="headerlink" href="#libry.KOMO.getPathTau" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">getPathTau</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#libry.KOMO" title="libry.KOMO"><span class="pre">libry.KOMO</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">array</span><a class="headerlink" href="#libry.KOMO.getPathTau" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="libry.KOMO.getReport">
-<code class="descname">getReport</code><span class="sig-paren">(</span><em>self: libry.KOMO</em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#libry.KOMO.getReport" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">getReport</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#libry.KOMO" title="libry.KOMO"><span class="pre">libry.KOMO</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">dict</span><a class="headerlink" href="#libry.KOMO.getReport" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="libry.KOMO.getT">
-<code class="descname">getT</code><span class="sig-paren">(</span><em>self: libry.KOMO</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#libry.KOMO.getT" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">getT</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#libry.KOMO" title="libry.KOMO"><span class="pre">libry.KOMO</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">int</span><a class="headerlink" href="#libry.KOMO.getT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="libry.KOMO.makeObjectsFree">
-<code class="descname">makeObjectsFree</code><span class="sig-paren">(</span><em>self: libry.KOMO, arg0: List[str]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.makeObjectsFree" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
+<dl class="py method">
 <dt id="libry.KOMO.optimize">
-<code class="descname">optimize</code><span class="sig-paren">(</span><em>self: libry.KOMO</em>, <em>addInitializationNoise: float = 0.01</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.optimize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">optimize</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#libry.KOMO" title="libry.KOMO"><span class="pre">libry.KOMO</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">addInitializationNoise</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0.01</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.KOMO.optimize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
+<dt id="libry.KOMO.reportProblem">
+<code class="sig-name descname"><span class="pre">reportProblem</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#libry.KOMO" title="libry.KOMO"><span class="pre">libry.KOMO</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#libry.KOMO.reportProblem" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt id="libry.KOMO.setConfigurations">
-<code class="descname">setConfigurations</code><span class="sig-paren">(</span><em>self: libry.KOMO</em>, <em>arg0: libry.Config</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libry.KOMO.setConfigurations" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">setConfigurations</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#libry.KOMO" title="libry.KOMO"><span class="pre">libry.KOMO</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Config</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.KOMO.setConfigurations" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
+<dt id="libry.KOMO.setModel">
+<code class="sig-name descname"><span class="pre">setModel</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#libry.KOMO" title="libry.KOMO"><span class="pre">libry.KOMO</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.KOMO.setModel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="libry.KOMO.setSkeleton">
+<code class="sig-name descname"><span class="pre">setSkeleton</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#libry.KOMO" title="libry.KOMO"><span class="pre">libry.KOMO</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.arg</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.KOMO.setSkeleton" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="libry.KOMO.setTiming">
+<code class="sig-name descname"><span class="pre">setTiming</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#libry.KOMO" title="libry.KOMO"><span class="pre">libry.KOMO</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg3</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.KOMO.setTiming" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt id="libry.KOMO.view">
-<code class="descname">view</code><span class="sig-paren">(</span><em>self: libry.KOMO</em><span class="sig-paren">)</span> &#x2192; libry.ConfigurationViewer<a class="headerlink" href="#libry.KOMO.view" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">view</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#libry.KOMO" title="libry.KOMO"><span class="pre">libry.KOMO</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">int</span><a class="headerlink" href="#libry.KOMO.view" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="libry.KOMO.view_close">
+<code class="sig-name descname"><span class="pre">view_close</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#libry.KOMO" title="libry.KOMO"><span class="pre">libry.KOMO</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.KOMO.view_close" title="Permalink to this definition">¶</a></dt>
+<dd><p>close the view</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="libry.KOMO.view_play">
+<code class="sig-name descname"><span class="pre">view_play</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#libry.KOMO" title="libry.KOMO"><span class="pre">libry.KOMO</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pause</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">saveVideoPath</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">int</span><a class="headerlink" href="#libry.KOMO.view_play" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -327,29 +313,29 @@
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="_Enums.html" class="btn btn-neutral float-right" title="Enums" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="_Simulation.html" class="btn btn-neutral float-left" title="Simulation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="_Enums.html" class="btn btn-neutral float-right" title="Enums" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="_Simulation.html" class="btn btn-neutral float-left" title="Simulation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, Marc Toussaint
+        &#169; Copyright 2020, Marc Toussaint.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -357,7 +343,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

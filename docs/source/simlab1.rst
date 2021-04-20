@@ -10,31 +10,14 @@ Install and test
 https://github.com/MarcToussaint/robotics-course. Follow the
 instructions in the README (`Setup for Lab Course
 in Simulation
-<https://github.com/MarcToussaint/robotics-course#setup-for-robotics-practical-in-simulation>`_)
+<https://github.com/MarcToussaint/robotics-course#setup-for-robotics-lab-course-in-simulation>`_)
    
-The specific goals are
+Specific delivarables:
 
-* to compile the repository
-* to run your first tests in ``course3-Simulation/01-`` and ``02-``
-* setup your coding environment in C++ (eg. qtcreator or VS Code) or python (pycharm, jupyter notebooks, VS Code)
-* Have a concept how you use git! (See below.)
+* You have compiled the repository
+* You can run the tests in ``course3-Simulation/01-`` and ``02-``
+* You have setup your coding environment in C++ (eg. qtcreator or VS Code) or python (pycharm, jupyter notebooks, VS Code) - you need code browsing & debugging support!
 
-
-Basic motion
-============
-
-Revive what you've learned in the robotics course about computing
-poses and generating motion. In particular, think already about
-grasping. What would be a way to make the robot grasp a sphere,
-cylinder, box, or general shape?
-
-Specific goals to get started:
-
-* In the examples ``course3../02-`` add a virtual object to the scene. Move the left arm towards that object.
-* Be able to show, in the class, examples of more complex motion. Anything beyond the given example.
-* Read the ``tutorials/2-features.ipynb`` to get an impression about what alternative features one can use to design motion.
-* Think about how grasping could be realized (aligning the gripper, approach of the gripper)
-* To be discussed in class: How open/close gripper is realized in simulation
 
 
 Git Setup
@@ -42,17 +25,46 @@ Git Setup
 
 You definitely should use a separate git repo for your own code. You
 will also have to pull new versions of robotics-course in the
-future. I recomment to create your own repo on github (or university
-gitlab), and clone it next to the robotics-course repo in
-``$HOME/git``. There are two alternatives:
+future. Please create your own repo on github or the university
+gitlab. There are two alternatives to organize your own repo:
 
-* Your repo only contains your own py or cpp code, with Makefiles pointing to the robotics-course repo (recommended for simplicity)
-* Your repo has the robotics-course as submodule. This is more self-contained, but requires you to understand more about git
+* You fork the robotics-course repo and work directly in the fork (with your exercise solutions and own code in your own new folder usr/)
+* You create your own fresh repository next to the robotics-course repo, which only includes subfolders with your code/solutions. You copy the 01-test/Makefiles to your working folder but simply change the first line to ``BASE = ${HOME}/git/robotics-course/rai``
+* You create your own fresh repository and set it up analogous to the robotics-course repo. This is not too difficult, as the important code is all in submodules. You'll have to add the following submodules::
+    
+   git submodule add https://github.com/pybind/pybind11.git
+   git submodule add https://github.com/MarcToussaint/rai.git
+   git submodule add https://github.com/MarcToussaint/rai-robotModels.git
+   cd rai; git checkout robotics-course; cd.. #to get the submodule branch we work with
 
-Specific goals if you're yet unfamiliar with git:
+Then add also the CMakeLists.txt, and that should be all you need.
+
+Specific deliverables:
+
+* You have your git working repo setup
+* You give us read access to your repo via the ISIS page
+
+If you're yet unfamiliar with git,
 
 * Read the git tutorial \url{https://try.github.io/}
 * Create your own group git repo somewhere
 * Know how to create different branches, e.g.\ for parallel development of different group members
 * Each group member should have made at least one commit, e.g.\ with a trivial hello text file
-* Copy & Paste example code from ``course3-../02-`` to your own repo and get it to compile there (C++: Have a look at the simple compile commands when you build the examples, or copy my Makefile and modify the BASE to point to robotics-course/rai.) (In python, set the sys path appropriately to robotics-course/build.)
+
+
+
+Rough familiarity with Simulation and Configuration
+===================================================
+
+The ``02-basics`` example is your starting point for own code. Copy
+this to your own working repo.
+
+The :ref:`refConfiguration` is THE core data structure to work with. Read its docs.
+
+The :ref:`refSimulation` is really very rough (there is hardly code behind
+it). It simply attaches to a Configuration that is meant to represent
+the real world, and performs some simple operations such as moving the
+robot in that configuration, calling an external physics library to
+animate objects, rendering an RGB and depth image from the scene with
+plain OpenGL depending on the camera frame. Read the docs of _Simulation.
+

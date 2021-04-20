@@ -19,6 +19,7 @@ void basics(){
   rai::Configuration C;
   C.addFile("../../scenarios/pandasTable.g");
 
+  //-- add an object representation to your model configuration
   rai::Frame* obj = C.addFrame("object");
   obj->setPosition({1., 0., 1.5});
   obj->setQuaternion({1., 0., 1., 0});

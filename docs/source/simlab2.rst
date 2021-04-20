@@ -11,7 +11,23 @@ Note: Before new exercises, always update the repo::
   make -j4
 
 
+Basic motion
+============
 
+Revive what you've learned in the robotics course about computing
+poses and generating motion. In particular, think already about
+grasping. What would be a way to make the robot grasp a sphere,
+cylinder, box, or general shape?
+
+Specific goals to get started:
+
+* In the examples ``course3../02-`` add a virtual object to the scene. Move the left arm towards that object.
+* Be able to show, in the class, examples of more complex motion. Anything beyond the given example.
+* Read the ``tutorials/2-features.ipynb`` to get an impression about what alternative features one can use to design motion.
+* Think about how grasping could be realized (aligning the gripper, approach of the gripper)
+* To be discussed in class: How open/close gripper is realized in simulation
+
+  
 Motion Generation using Optimization
 ====================================
 
