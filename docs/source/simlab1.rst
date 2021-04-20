@@ -46,7 +46,7 @@ Specific deliverables:
 
 If you're yet unfamiliar with git,
 
-* Read the git tutorial \url{https://try.github.io/}
+* Read the git tutorial https://try.github.io/
 * Create your own group git repo somewhere
 * Know how to create different branches, e.g.\ for parallel development of different group members
 * Each group member should have made at least one commit, e.g.\ with a trivial hello text file
@@ -68,3 +68,6 @@ robot in that configuration, calling an external physics library to
 animate objects, rendering an RGB and depth image from the scene with
 plain OpenGL depending on the camera frame. Read the docs of _Simulation.
 
+Specific deliverables:
+
+* Be able to walk through the Simulation.h (C++ header) and explain roughly each method.
