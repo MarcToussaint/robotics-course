@@ -15,6 +15,7 @@ void using_KOMO_for_IK(){
   C.addFile("../../scenarios/pandasTable.g");
   arr q0 = C.getJointState();
 
+  //-- add an object to the model configuration
   rai::Frame* obj = C.addFrame("object");
   obj->setPosition({1., 0., 1.5});
   obj->setQuaternion({1., 0., 1., 0});
@@ -25,7 +26,6 @@ void using_KOMO_for_IK(){
   C.watch(true, "model world start state");
 
   //-- optimize a single configuration using KOMO
-
   KOMO komo;                     //create a solver
   komo.setModel(C, true);        //tell it use C as the basic configuration (internally, it will create copies of C on which the actual optimization runs)
   komo.setTiming(1., 1, 1., 1);  //we want to optimize a single step (1 phase, 1 step/phase, duration=1, k_order=1)
