@@ -11,25 +11,24 @@ Note: Before new exercises, always update the repo::
   make -j4
 
 
-Basic motion
-============
+a) Basic IK
+===========
 
-Revive what you've learned in the robotics course about computing
-poses and generating motion. In particular, think already about
-grasping. What would be a way to make the robot grasp a sphere,
-cylinder, box, or general shape?
+The first example in ``course3-Simulation/03-motion`` demonstrates a
+minimalistic setup to use optimization for IK. The initial example
+creates a KOMO instance setup to solve a 1-time-step optimization
+problem (i.e., and IK problem). Start from this example to generate
+more interesting motion. The specific tasks are:
 
-Specific goals to get started:
-
-* In the examples ``course3../02-`` add a virtual object to the scene. Move the left arm towards that object.
-* Be able to show, in the class, examples of more complex motion. Anything beyond the given example.
-* Read the ``tutorials/2-features.ipynb`` to get an impression about what alternative features one can use to design motion.
-* Think about how grasping could be realized (aligning the gripper, approach of the gripper)
-* To be discussed in class: How open/close gripper is realized in simulation
+1. Vary between the left gripper and right gripper reaching for the object. Is there a difference to "the object reaching for the right gripper" vs.\ the other way around? And test the left gripper reaching for the right gripper.
+2. Also constrain the gripper orientation when reaching for the object. For a start, try to add a ``FS_quaternionDiff`` constraint. Why does this not work immediately? Try to change the object pose so that the constraint can be fulfilled. Be able to explain the result.
+3. There are (in my view better) alternatives to apriori fixing the gripper orientation (the full quaternion). Instead add a ``FS_scalarProductXZ`` constraint and try to understand. (Zoom into the little coordinate frame in the gripper center to understand conventions.) Play around with all combinations of ``scalarProduct??`` and understand the effect. Further, add one more argument ``target={.1}`` to the ``addObjective`` method, and understand the result. Using multiple scalar product features, how could you also impose a full orientation constraint, and how would this differ to constraining the quaternion directly?
+4. Think more holistically about grasping: How could it be realized properly? For example, think about optimizing a series of two or three poses, where the first might be a so-called *pre-grasp*, and the others model approach and final grap (from which the gripper-close command could be triggered). Create such a sequence. Note: Do all of this without yet explicitly using collision (``pairCollision``) features.
+5. For your information, ``tutorials/2-features.ipynb`` gives an impression about what alternative features one can use to design motion.
 
   
-Motion Generation using Optimization
-====================================
+b) Path Optimization
+====================
 
 In the first exercise you learnt created basi motion using direct
 Inverse Kinematics. This exercise is about using more general

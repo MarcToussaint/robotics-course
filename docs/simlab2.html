@@ -90,8 +90,8 @@
 <li class="toctree-l1 current"><a class="reference internal" href="simlab.html">Lab Course in Simulation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="simlab1.html">SimLab Exercise 1 - Basic Setup</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">SimLab Exercise 2 - Motion</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#basic-motion">Basic motion</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#motion-generation-using-optimization">Motion Generation using Optimization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#a-basic-ik">a) Basic IK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#b-path-optimization">b) Path Optimization</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#exercise-1">Exercise 1:</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#exercise-2">Exercise 2:</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#exercise-3-bonus">Exercise 3 (Bonus):</a></li>
@@ -184,23 +184,23 @@ cd build
 make -j4
 </pre></div>
 </div>
-<div class="section" id="basic-motion">
-<h2>Basic motion<a class="headerlink" href="#basic-motion" title="Permalink to this headline">¶</a></h2>
-<p>Revive what you’ve learned in the robotics course about computing
-poses and generating motion. In particular, think already about
-grasping. What would be a way to make the robot grasp a sphere,
-cylinder, box, or general shape?</p>
-<p>Specific goals to get started:</p>
-<ul class="simple">
-<li><p>In the examples <code class="docutils literal notranslate"><span class="pre">course3../02-</span></code> add a virtual object to the scene. Move the left arm towards that object.</p></li>
-<li><p>Be able to show, in the class, examples of more complex motion. Anything beyond the given example.</p></li>
-<li><p>Read the <code class="docutils literal notranslate"><span class="pre">tutorials/2-features.ipynb</span></code> to get an impression about what alternative features one can use to design motion.</p></li>
-<li><p>Think about how grasping could be realized (aligning the gripper, approach of the gripper)</p></li>
-<li><p>To be discussed in class: How open/close gripper is realized in simulation</p></li>
-</ul>
+<div class="section" id="a-basic-ik">
+<h2>a) Basic IK<a class="headerlink" href="#a-basic-ik" title="Permalink to this headline">¶</a></h2>
+<p>The first example in <code class="docutils literal notranslate"><span class="pre">course3-Simulation/03-motion</span></code> demonstrates a
+minimalistic setup to use optimization for IK. The initial example
+creates a KOMO instance setup to solve a 1-time-step optimization
+problem (i.e., and IK problem). Start from this example to generate
+more interesting motion. The specific tasks are:</p>
+<ol class="arabic simple">
+<li><p>Vary between the left gripper and right gripper reaching for the object. Is there a difference to “the object reaching for the right gripper” vs.the other way around? And test the left gripper reaching for the right gripper.</p></li>
+<li><p>Also constrain the gripper orientation when reaching for the object. For a start, try to add a <code class="docutils literal notranslate"><span class="pre">FS_quaternionDiff</span></code> constraint. Why does this not work immediately? Try to change the object pose so that the constraint can be fulfilled. Be able to explain the result.</p></li>
+<li><p>There are (in my view better) alternatives to apriori fixing the gripper orientation (the full quaternion). Instead add a <code class="docutils literal notranslate"><span class="pre">FS_scalarProductXZ</span></code> constraint and try to understand. (Zoom into the little coordinate frame in the gripper center to understand conventions.) Play around with all combinations of <code class="docutils literal notranslate"><span class="pre">scalarProduct??</span></code> and understand the effect. Further, add one more argument <code class="docutils literal notranslate"><span class="pre">target={.1}</span></code> to the <code class="docutils literal notranslate"><span class="pre">addObjective</span></code> method, and understand the result. Using multiple scalar product features, how could you also impose a full orientation constraint, and how would this differ to constraining the quaternion directly?</p></li>
+<li><p>Think more holistically about grasping: How could it be realized properly? For example, think about optimizing a series of two or three poses, where the first might be a so-called <em>pre-grasp</em>, and the others model approach and final grap (from which the gripper-close command could be triggered). Create such a sequence. Note: Do all of this without yet explicitly using collision (<code class="docutils literal notranslate"><span class="pre">pairCollision</span></code>) features.</p></li>
+<li><p>For your information, <code class="docutils literal notranslate"><span class="pre">tutorials/2-features.ipynb</span></code> gives an impression about what alternative features one can use to design motion.</p></li>
+</ol>
 </div>
-<div class="section" id="motion-generation-using-optimization">
-<h2>Motion Generation using Optimization<a class="headerlink" href="#motion-generation-using-optimization" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="b-path-optimization">
+<h2>b) Path Optimization<a class="headerlink" href="#b-path-optimization" title="Permalink to this headline">¶</a></h2>
 <p>In the first exercise you learnt created basi motion using direct
 Inverse Kinematics. This exercise is about using more general
 optimization methods to design motion.</p>

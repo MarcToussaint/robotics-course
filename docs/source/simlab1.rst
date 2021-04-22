@@ -3,8 +3,8 @@
 =================================
 
 
-Code Setup
-==========
+a) Code Setup
+=============
 
 Install and test
 https://github.com/MarcToussaint/robotics-course. Follow the
@@ -20,8 +20,8 @@ Specific delivarables:
 
 
 
-Git Setup
-=========
+b) Git Setup
+============
 
 You definitely should use a separate git repo for your own code. You
 will also have to pull new versions of robotics-course in the
@@ -53,8 +53,8 @@ If you're yet unfamiliar with git,
 
 
 
-Rough familiarity with Simulation and Configuration
-===================================================
+c) Rough familiarity with Simulation and Configuration
+======================================================
 
 The ``02-basics`` example is your starting point for own code. Copy
 this to your own working repo.
