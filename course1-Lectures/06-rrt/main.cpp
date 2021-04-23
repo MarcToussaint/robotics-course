@@ -5,6 +5,7 @@
 #include <Gui/opengl.h>
 #include <Kin/frame.h>
 #include <Kin/viewer.h>
+#include <Kin/F_collisions.h>
 
 struct RRT{
 private:
@@ -44,8 +45,8 @@ public:
     //But we can draw a projected edge in 3D endeffector position space:
     arr y_from,y_to;
     arr line;
-    K.setJointState(ann.X[nearest]);  K.kinematicsPos(y_from, NoArr, K.getFrameByName("peg"));
-    K.setJointState(q             );  K.kinematicsPos(y_to  , NoArr, K.getFrameByName("peg"));
+    K.setJointState(ann.X[nearest]);  K.kinematicsPos(y_from, NoArr, K.getFrame("peg"));
+    K.setJointState(q             );  K.kinematicsPos(y_to  , NoArr, K.getFrame("peg"));
     lines.V.append(y_from);
     lines.V.append(y_to);
     lines.V.reshape(lines.V.N/3, 3);
@@ -83,7 +84,8 @@ void RTTplan(){
   double stepsize = .1;
   RRT rrt0(q0, stepsize);
 
-  rai::Frame *f = C.addObject("lines0", NULL, rai::ST_mesh);  // Add a mesh for line drawing to the world
+  rai::Frame *f = C.addFrame("lines0");
+  f->setConvexMesh({});  // Add an empty mesh for line drawing to the world
   f->setContact(0);
   
   uint i;
@@ -97,8 +99,10 @@ void RTTplan(){
     
     // check if q is collision free
     C.stepSwift();
-    C.kinematicsProxyCost(y_col, NoArr);
-    if(y_col(0)<=1e-10){
+    Value col = F_AccumulatedCollisions()
+                .eval(C.frames);
+//    C.kinematicsProxyCost(y_col, NoArr);
+    if(col.y(0)<=1e-10){
       rrt0.add(q);
       rrt0.addLineDraw(q,C);
     }
@@ -108,7 +112,7 @@ void RTTplan(){
     if(!(i%100)){
       C["lines0"]->shape->mesh() = rrt0.lines;  // updates mesh lines0 with lines from rrt
       C.setJointState(q);
-      C.gl().recopyMeshes(C);
+      C.gl()->recopyMeshes(C);
       C.watch(true);
       cout <<"\rRRT samples=" <<i <<" tree sizes = " <<rrt0.getNumberNodes() << std::flush;
     }

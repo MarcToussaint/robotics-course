@@ -42,9 +42,7 @@ git clone --recursive https://github.com/MarcToussaint/robotics-course.git
 cd robotics-course
 
 make -j1 installUbuntuAll  # calls sudo apt-get install; you can always interrupt
-# If this fails, please try:
-# make -j1 printUbuntuAll
-# this prints all packages. Please try installing them manually and find naming variants (e.g. libfcl-0.5-dev)
+# If this fails, please try `make -j1 printUbuntuAll` to print all packages and install manually
 
 mkdir build
 cd build
@@ -56,7 +54,7 @@ make -j $(command nproc)
 
 * If you use python, install jupyter and some python packages, and run tests:
 ```
-# export PATH="${PATH}:/root/.local/bin"   #if not done already
+# export PATH="${PATH}:$HOME/.local/bin"   #if not done already
 pip3 install --user jupyter nbconvert matplotlib opencv-python
 jupyter-notebook tutorials/1-basics.ipynb
 jupyter-notebook course3-Simulation
@@ -74,7 +72,7 @@ make
 ```
 cd $HOME/git/robotics-course
 rm -Rf build
-make -j4
+make -j $(command nproc)
 ln -s rai/lib build
 ```
 
@@ -104,16 +102,14 @@ echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/opt/physx3.4/lib' >> ~/.bash
 
 This assumes a standard Ubuntu 18.04 machine.
 
-WE DIDN'T GET TO RUN THIS WITH ANACONDA PYTHON. If you have Anaconda
-installed, please remove it from the PATH in .bashrc. The setup below will
-install the standard Ubuntu python3 and jupyter notebook.
-
 In this course, check that in 'config.mk' we have (disabling lots of stuff)
 ```
 ROS=0
 OPENCV=0
 PHYSX=0
 BULLET=0
+CERES = 0
+NLOPT = 0
 ```
 
 ```
@@ -121,10 +117,10 @@ git clone --recursive https://github.com/MarcToussaint/robotics-course.git
 cd robotics-course
 
 make -j1 installUbuntuAll  # calls sudo apt-get install; you can always interrupt
-make -j4                   # builds libs and tests
+make -j $(command nproc)   # builds libs and tests
+ln -s rai/lib build
 
-pip3 install --user jupyter
-pip3 install --user matplotlib
+pip3 install --user jupyter nbconvert matplotlib
 
 jupyter-notebook tutorials/1-basics.ipynb 
 ```
