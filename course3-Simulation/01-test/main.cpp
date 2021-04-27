@@ -82,7 +82,7 @@ void testGrasp(){
     arr q = C.getJointState();
 
     //some good old fashioned IK
-    if(t<=300){
+    if(t>40 && t<=300){
       Value diff = C.feature(FS_oppose, {"finger1", "finger2", "ring4"})->eval(C);
       diff.y *= rai::MIN(.008/length(diff.y), 1.);
       q -= pseudoInverse(diff.J, NoArr, 1e-2) * diff.y;
