@@ -91,12 +91,10 @@
 <li class="toctree-l2"><a class="reference internal" href="simlab1.html">SimLab Exercise 1 - Basic Setup</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">SimLab Exercise 2 - Motion</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#a-basic-ik">a) Basic IK</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#b-path-optimization">b) Path Optimization</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#exercise-1">Exercise 1:</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#exercise-2">Exercise 2:</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#exercise-3-bonus">Exercise 3 (Bonus):</a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="#b-path-optimization-for-a-3-phase-handover">b) Path Optimization for a 3-phase handover</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#c-explore-collision-features-and-enforce-touch">c) Explore collision features, and enforce touch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#d-tricky-use-of-inequalities-scaling-and-target">d) Tricky use of inequalities, scaling, and target</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#e-advanced-reactive-operational-space-control">e) Advanced: Reactive Operational Space Control</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="simlab3.html">SimLab Exercise 3 - OpenCV</a></li>
@@ -192,55 +190,103 @@ creates a KOMO instance setup to solve a 1-time-step optimization
 problem (i.e., and IK problem). Start from this example to generate
 more interesting motion. The specific tasks are:</p>
 <ol class="arabic simple">
-<li><p>Vary between the left gripper and right gripper reaching for the object. Is there a difference to “the object reaching for the right gripper” vs.the other way around? And test the left gripper reaching for the right gripper.</p></li>
-<li><p>Also constrain the gripper orientation when reaching for the object. For a start, try to add a <code class="docutils literal notranslate"><span class="pre">FS_quaternionDiff</span></code> constraint. Why does this not work immediately? Try to change the object pose so that the constraint can be fulfilled. Be able to explain the result.</p></li>
-<li><p>There are (in my view better) alternatives to apriori fixing the gripper orientation (the full quaternion). Instead add a <code class="docutils literal notranslate"><span class="pre">FS_scalarProductXZ</span></code> constraint and try to understand. (Zoom into the little coordinate frame in the gripper center to understand conventions.) Play around with all combinations of <code class="docutils literal notranslate"><span class="pre">scalarProduct??</span></code> and understand the effect. Further, add one more argument <code class="docutils literal notranslate"><span class="pre">target={.1}</span></code> to the <code class="docutils literal notranslate"><span class="pre">addObjective</span></code> method, and understand the result. Using multiple scalar product features, how could you also impose a full orientation constraint, and how would this differ to constraining the quaternion directly?</p></li>
-<li><p>Think more holistically about grasping: How could it be realized properly? For example, think about optimizing a series of two or three poses, where the first might be a so-called <em>pre-grasp</em>, and the others model approach and final grap (from which the gripper-close command could be triggered). Create such a sequence. Note: Do all of this without yet explicitly using collision (<code class="docutils literal notranslate"><span class="pre">pairCollision</span></code>) features.</p></li>
-<li><p>For your information, <code class="docutils literal notranslate"><span class="pre">tutorials/2-features.ipynb</span></code> gives an impression about what alternative features one can use to design motion.</p></li>
+<li><p>Vary between the left gripper and right gripper reaching for the
+object. Is there a difference to “the object reaching for the right
+gripper” vs.the other way around? And test the left gripper
+reaching for the right gripper.</p></li>
+<li><p>Also constrain the gripper orientation when reaching for the
+object. For a start, try to add a <code class="docutils literal notranslate"><span class="pre">FS_quaternionDiff</span></code>
+constraint. Why does this not work immediately? Try to change the
+object pose so that the constraint can be fulfilled. Be able to
+explain the result.</p></li>
+<li><p>There are (in my view better) alternatives to apriori fixing the
+gripper orientation (the full quaternion). Instead add a
+<code class="docutils literal notranslate"><span class="pre">FS_scalarProductXZ</span></code> constraint and try to understand. (Zoom into
+the little coordinate frame in the gripper center to understand
+conventions.) Play around with all combinations of
+<code class="docutils literal notranslate"><span class="pre">scalarProduct??</span></code> and understand the effect. Further, add one
+more argument <code class="docutils literal notranslate"><span class="pre">target={.1}</span></code> to the <code class="docutils literal notranslate"><span class="pre">addObjective</span></code> method, and
+understand the result. Using multiple scalar product features, how
+could you also impose a full orientation constraint, and how would
+this differ to constraining the quaternion directly?</p></li>
+<li><p>Think more holistically about grasping: How could it be realized
+properly? For example, think about optimizing a series of two or
+three poses, where the first might be a so-called <em>pre-grasp</em>, and
+the others model approach and final grap (from which the
+gripper-close command could be triggered). Create such a
+sequence. Note: Do all of this without yet explicitly using
+collision (<code class="docutils literal notranslate"><span class="pre">pairCollision</span></code>) features.</p></li>
+<li><p>For your information, <code class="docutils literal notranslate"><span class="pre">tutorials/2-features.ipynb</span></code> gives an
+impression about what alternative features one can use to design
+motion.</p></li>
 </ol>
 </div>
-<div class="section" id="b-path-optimization">
-<h2>b) Path Optimization<a class="headerlink" href="#b-path-optimization" title="Permalink to this headline">¶</a></h2>
-<p>In the first exercise you learnt created basi motion using direct
-Inverse Kinematics. This exercise is about using more general
-optimization methods to design motion.</p>
-<p>To design grasps and for robot manipulation, the coordinate system of
-the endeffector is really important. In our convention, the
-<code class="docutils literal notranslate"><span class="pre">graspCenter</span></code> coordinate frame is attached to the endeffector, and
-is aligned similarly as if it were a camera looking at the object: the
-z-axis goes back, and the gripper open/closes along the x-axis. For
-instance, if you want to grasp a cylinder, you need to get the gripper
-x-axis orthogonal to the zylinder’s axis.</p>
-<p>To explore possible pre-defined features, check <a class="reference external" href="https://github.com/MarcToussaint/robotics-course/blob/master/tutorials/2-features.ipynb">https://github.com/MarcToussaint/robotics-course/blob/master/tutorials/2-features.ipynb</a> .</p>
-<div class="section" id="exercise-1">
-<h3>Exercise 1:<a class="headerlink" href="#exercise-1" title="Permalink to this headline">¶</a></h3>
-<p>Use the KOMO to compute configurations for various objectives.</p>
+<div class="section" id="b-path-optimization-for-a-3-phase-handover">
+<h2>b) Path Optimization for a 3-phase handover<a class="headerlink" href="#b-path-optimization-for-a-3-phase-handover" title="Permalink to this headline">¶</a></h2>
+<p>[details to come by Jung-Su]</p>
+<p>Essentially, use KOMO in full path optimization mode, with 3 phases
+and 20 steps per phase, to model a pick, hand-over, and target
+placement, as demonstrated by Jung-Su.</p>
 <ol class="loweralpha simple">
-<li><p>Compute a 2-arm robot configuration, where the graspCenter positions of both hands coincide, the two hands oppose, and their x-axes are orthogonal. (E.g., as if they would handover a little cube.)</p></li>
-<li><p>Add a box (shape type <code class="docutils literal notranslate"><span class="pre">ssBox</span></code>, see Tip2 below)  somewhere to the scene, compute a robot configuration where one of the grippers grasps the box (centered, along a particular axis), while avoiding collisions between the box and the two fingers and gripper.</p></li>
-<li><p>Propose alternatives for how to design grasps, based on any geometric feature you can think of. (Note that our collision code can compute normals and witness points for proximity queries, which can be used.)</p></li>
+<li><p>Compute a 2-arm robot configuration, where the graspCenter
+positions of both hands coincide, the two hands oppose, and their
+x-axes are orthogonal. (E.g., as if they would handover a little
+cube.)</p></li>
+<li><p>Add a box (shape type <code class="docutils literal notranslate"><span class="pre">ssBox</span></code>, see Tip2 below) somewhere to the
+scene, compute a robot configuration where one of the grippers
+grasps the box (centered, along a particular axis), while avoiding
+collisions between the box and the two fingers and gripper.</p></li>
+<li><p>Propose alternatives for how to design grasps, based on any
+geometric feature you can think of. (Note that our collision code
+can compute normals and witness points for proximity queries, which
+can be used.)</p></li>
 </ol>
-<p>Tip1: If you want to use hard equality objectives, introduce them first as SOS and tune their scaling so that the result is approximately ok. Then change their type to EQ.</p>
-<p>Tip2: <code class="docutils literal notranslate"><span class="pre">ssBox</span></code> means sphere-swept box. This is a box with rounded corners. This should be your default primitive shape. The shape is determined by 4 numbers: x-size, y-size, z-size, radius of corners. The 2nd most important shape type is <code class="docutils literal notranslate"><span class="pre">ssCvx</span></code> (sphere-swept convex), which is determined by a set of 3D points, and sphere radius that is added to the points’ convex hull. (E.g., a capsule can also be described as simple ssCvx: 2 points with a sweeping radius.) The sphere-swept shape primitives allow for well-defined Jacobians of collision features.</p>
 </div>
-<div class="section" id="exercise-2">
-<h3>Exercise 2:<a class="headerlink" href="#exercise-2" title="Permalink to this headline">¶</a></h3>
-<p>Generate nice paths between a  start configuration <span class="math notranslate nohighlight">\(q_0\)</span> and a goal configuration <span class="math notranslate nohighlight">\(q_1\)</span>.</p>
+<div class="section" id="c-explore-collision-features-and-enforce-touch">
+<h2>c) Explore collision features, and enforce touch<a class="headerlink" href="#c-explore-collision-features-and-enforce-touch" title="Permalink to this headline">¶</a></h2>
+<p>So far we neglected collisions – and it is generally a fair approach
+to first try to design motions that inherently stay away from
+collisions even without using collision features, as the latter imply
+local optima.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">distance</span></code> feature returns the <em>negative</em> distance between the
+given pair of frames (where the frames need to be convex shapes). You
+should impose an inequality (lower-equal zero) to force the solver to avoid
+penetrations. By changing the target you can also add a margin.</p>
+<p>Concretely:
+* Add an additional obstacle, e.g. a sphere, to the scene, with which your moving object (from exercise b) collides. Then add a <code class="docutils literal notranslate"><span class="pre">distance</span></code> feature between the new sphere and the moving object.
+* Completely independent from exercise b), generate a simple object reaching motion, where the goal objective is to make the <code class="docutils literal notranslate"><span class="pre">gripper</span></code> shape touch the object – by imposing an equality constraint on their distance.</p>
+<p>The latter is a typical ingredient in generating pushing interactions.</p>
+</div>
+<div class="section" id="d-tricky-use-of-inequalities-scaling-and-target">
+<h2>d) Tricky use of inequalities, scaling, and target<a class="headerlink" href="#d-tricky-use-of-inequalities-scaling-and-target" title="Permalink to this headline">¶</a></h2>
+<p>This is a bit tricky to figure out, but if you do, you really understood the use of the scaling, target and inequalities.</p>
+<p>As in a), consider IK for grasping a cylinder again. Let’s care only
+about the gripper position, not it’s orientation. The position needs
+to be in the interval <span class="math notranslate nohighlight">\([-l/2,l/2]\)</span> along the z-axis of the
+cylinder, if it has length <span class="math notranslate nohighlight">\(l\)</span>. We can model this with 4
+constraints:
+* The x-component of the <code class="docutils literal notranslate"><span class="pre">positionRel(gripperCenter,object)</span></code> needs to be equal 0
+* The y-component of the <code class="docutils literal notranslate"><span class="pre">positionRel(gripperCenter,object)</span></code> needs to be equal 0
+* The z-component of the <code class="docutils literal notranslate"><span class="pre">positionRel(gripperCenter,object)</span></code> needs to be lower-equal l/2
+* The z-component of the <code class="docutils literal notranslate"><span class="pre">positionRel(gripperCenter,object)</span></code> needs to be greater-equal l/2</p>
+<p>Can you figure out how to realize this? Tip: Choosing a scale
+<code class="docutils literal notranslate"><span class="pre">arr({1,</span> <span class="pre">3},</span> <span class="pre">{0,0,1})</span></code> picks out the z-component of a 3D feature (as
+it means multiplication with <span class="math notranslate nohighlight">\((0,0,1)^T\)</span>.) But note, the target
+always needs to live in the original 3D feature space!</p>
+</div>
+<div class="section" id="e-advanced-reactive-operational-space-control">
+<h2>e) Advanced: Reactive Operational Space Control<a class="headerlink" href="#e-advanced-reactive-operational-space-control" title="Permalink to this headline">¶</a></h2>
+<p>Realize a simplest possible instance of Operational Space Control
+using KOMO. [The python interfaces are not ready for this yet.]</p>
 <ol class="loweralpha simple">
-<li><p>Let <span class="math notranslate nohighlight">\(q_1\)</span> be the solution to Exercise 1a) above, and let <span class="math notranslate nohighlight">\(q_0\)</span> the robot start configuration. Generate a nice path from start to goal using direct joint space interpolation. Ideally, use a sine motion profile or some other means to ensure smooth acceleration and deceleration.</p></li>
-<li><p>Execute the path in simulation. (E.g., send it series of position references.)</p></li>
-<li><p>Use KOMO to compute an optimal path from start to goal. We have the SOS objective of minimizing sum of square accelerations, and the EQ objective on qItself to constrain the final configuration <span class="math notranslate nohighlight">\(q_1\)</span>.</p></li>
-<li><p>As c), but also add the <code class="docutils literal notranslate"><span class="pre">accumulatedCollisions</span></code> feature as inequality throughout. (Perhaps test by adding obstacles. Note that shapes need to have set <code class="docutils literal notranslate"><span class="pre">setContact(1)</span></code> before creating KOMO to enable their collision.)</p></li>
+<li><p>Setup a minimal KOMO problem of order <span class="math notranslate nohighlight">\(k=2\)</span>. Add a
+add_qControlObjective to penalize accelerations. Add another
+add_qControlObjective to penalize also velocities! Add a weak
+objective on the hand position. Solve and make a single step
+forward.</p></li>
+<li><p>Repeat the above, always recreating KOMO from the new current
+configuration.</p></li>
 </ol>
-</div>
-<div class="section" id="exercise-3-bonus">
-<h3>Exercise 3 (Bonus):<a class="headerlink" href="#exercise-3-bonus" title="Permalink to this headline">¶</a></h3>
-<p>Realize a simplest possible instance of Operational Space Control using KOMO. [The python interfaces are not ready for this yet.]</p>
-<ol class="loweralpha simple">
-<li><p>Setup a minimal KOMO problem of order <span class="math notranslate nohighlight">\(k=2\)</span>. Add a add_qControlObjective to penalize accelerations. Add another add_qControlObjective to penalize also velocities! Add a weak objective on the hand position. Solve and make a single step forward.</p></li>
-<li><p>Repeat the above, always recreating KOMO from the new current configuration. [Reuse of the KOMO instance is possible - needs nicer interface.]</p></li>
-</ol>
-</div>
 </div>
 </div>
 

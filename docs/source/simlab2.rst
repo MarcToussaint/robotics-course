@@ -20,62 +20,111 @@ creates a KOMO instance setup to solve a 1-time-step optimization
 problem (i.e., and IK problem). Start from this example to generate
 more interesting motion. The specific tasks are:
 
-1. Vary between the left gripper and right gripper reaching for the object. Is there a difference to "the object reaching for the right gripper" vs.\ the other way around? And test the left gripper reaching for the right gripper.
-2. Also constrain the gripper orientation when reaching for the object. For a start, try to add a ``FS_quaternionDiff`` constraint. Why does this not work immediately? Try to change the object pose so that the constraint can be fulfilled. Be able to explain the result.
-3. There are (in my view better) alternatives to apriori fixing the gripper orientation (the full quaternion). Instead add a ``FS_scalarProductXZ`` constraint and try to understand. (Zoom into the little coordinate frame in the gripper center to understand conventions.) Play around with all combinations of ``scalarProduct??`` and understand the effect. Further, add one more argument ``target={.1}`` to the ``addObjective`` method, and understand the result. Using multiple scalar product features, how could you also impose a full orientation constraint, and how would this differ to constraining the quaternion directly?
-4. Think more holistically about grasping: How could it be realized properly? For example, think about optimizing a series of two or three poses, where the first might be a so-called *pre-grasp*, and the others model approach and final grap (from which the gripper-close command could be triggered). Create such a sequence. Note: Do all of this without yet explicitly using collision (``pairCollision``) features.
-5. For your information, ``tutorials/2-features.ipynb`` gives an impression about what alternative features one can use to design motion.
+1. Vary between the left gripper and right gripper reaching for the
+   object. Is there a difference to "the object reaching for the right
+   gripper" vs.\ the other way around? And test the left gripper
+   reaching for the right gripper.
+2. Also constrain the gripper orientation when reaching for the
+   object. For a start, try to add a ``FS_quaternionDiff``
+   constraint. Why does this not work immediately? Try to change the
+   object pose so that the constraint can be fulfilled. Be able to
+   explain the result.
+3. There are (in my view better) alternatives to apriori fixing the
+   gripper orientation (the full quaternion). Instead add a
+   ``FS_scalarProductXZ`` constraint and try to understand. (Zoom into
+   the little coordinate frame in the gripper center to understand
+   conventions.) Play around with all combinations of
+   ``scalarProduct??`` and understand the effect. Further, add one
+   more argument ``target={.1}`` to the ``addObjective`` method, and
+   understand the result. Using multiple scalar product features, how
+   could you also impose a full orientation constraint, and how would
+   this differ to constraining the quaternion directly?
+4. Think more holistically about grasping: How could it be realized
+   properly? For example, think about optimizing a series of two or
+   three poses, where the first might be a so-called *pre-grasp*, and
+   the others model approach and final grap (from which the
+   gripper-close command could be triggered). Create such a
+   sequence. Note: Do all of this without yet explicitly using
+   collision (``pairCollision``) features.
+5. For your information, ``tutorials/2-features.ipynb`` gives an
+   impression about what alternative features one can use to design
+   motion.
 
   
-b) Path Optimization
-====================
+b) Path Optimization for a 3-phase handover
+===========================================
 
-In the first exercise you learnt created basi motion using direct
-Inverse Kinematics. This exercise is about using more general
-optimization methods to design motion.
+[details to come by Jung-Su]
 
-To design grasps and for robot manipulation, the coordinate system of
-the endeffector is really important. In our convention, the
-``graspCenter`` coordinate frame is attached to the endeffector, and
-is aligned similarly as if it were a camera looking at the object: the
-z-axis goes back, and the gripper open/closes along the x-axis. For
-instance, if you want to grasp a cylinder, you need to get the gripper
-x-axis orthogonal to the zylinder's axis.
-
-To explore possible pre-defined features, check https://github.com/MarcToussaint/robotics-course/blob/master/tutorials/2-features.ipynb .
+Essentially, use KOMO in full path optimization mode, with 3 phases
+and 20 steps per phase, to model a pick, hand-over, and target
+placement, as demonstrated by Jung-Su.
 
 
-Exercise 1:
------------
+a) Compute a 2-arm robot configuration, where the graspCenter
+   positions of both hands coincide, the two hands oppose, and their
+   x-axes are orthogonal. (E.g., as if they would handover a little
+   cube.)
+b) Add a box (shape type ``ssBox``, see Tip2 below) somewhere to the
+   scene, compute a robot configuration where one of the grippers
+   grasps the box (centered, along a particular axis), while avoiding
+   collisions between the box and the two fingers and gripper.
+c) Propose alternatives for how to design grasps, based on any
+   geometric feature you can think of. (Note that our collision code
+   can compute normals and witness points for proximity queries, which
+   can be used.)
 
-Use the KOMO to compute configurations for various objectives.
+c) Explore collision features, and enforce touch
+================================================
 
-a) Compute a 2-arm robot configuration, where the graspCenter positions of both hands coincide, the two hands oppose, and their x-axes are orthogonal. (E.g., as if they would handover a little cube.) 
-b) Add a box (shape type ``ssBox``, see Tip2 below)  somewhere to the scene, compute a robot configuration where one of the grippers grasps the box (centered, along a particular axis), while avoiding collisions between the box and the two fingers and gripper.
-c) Propose alternatives for how to design grasps, based on any geometric feature you can think of. (Note that our collision code can compute normals and witness points for proximity queries, which can be used.)
+So far we neglected collisions -- and it is generally a fair approach
+to first try to design motions that inherently stay away from
+collisions even without using collision features, as the latter imply
+local optima.
 
-Tip1: If you want to use hard equality objectives, introduce them first as SOS and tune their scaling so that the result is approximately ok. Then change their type to EQ.
+The ``distance`` feature returns the *negative* distance between the
+given pair of frames (where the frames need to be convex shapes). You
+should impose an inequality (lower-equal zero) to force the solver to avoid
+penetrations. By changing the target you can also add a margin.
 
-Tip2: ``ssBox`` means sphere-swept box. This is a box with rounded corners. This should be your default primitive shape. The shape is determined by 4 numbers: x-size, y-size, z-size, radius of corners. The 2nd most important shape type is ``ssCvx`` (sphere-swept convex), which is determined by a set of 3D points, and sphere radius that is added to the points' convex hull. (E.g., a capsule can also be described as simple ssCvx: 2 points with a sweeping radius.) The sphere-swept shape primitives allow for well-defined Jacobians of collision features.
+Concretely:
+* Add an additional obstacle, e.g. a sphere, to the scene, with which your moving object (from exercise b) collides. Then add a ``distance`` feature between the new sphere and the moving object.
+* Completely independent from exercise b), generate a simple object reaching motion, where the goal objective is to make the ``gripper`` shape touch the object -- by imposing an equality constraint on their distance.
 
-
-Exercise 2:
------------
-
-Generate nice paths between a  start configuration :math:`q_0` and a goal configuration :math:`q_1`.
-
-
-a) Let :math:`q_1` be the solution to Exercise 1a) above, and let :math:`q_0` the robot start configuration. Generate a nice path from start to goal using direct joint space interpolation. Ideally, use a sine motion profile or some other means to ensure smooth acceleration and deceleration.
-b) Execute the path in simulation. (E.g., send it series of position references.)
-c) Use KOMO to compute an optimal path from start to goal. We have the SOS objective of minimizing sum of square accelerations, and the EQ objective on qItself to constrain the final configuration :math:`q_1`.
-d) As c), but also add the ``accumulatedCollisions`` feature as inequality throughout. (Perhaps test by adding obstacles. Note that shapes need to have set ``setContact(1)`` before creating KOMO to enable their collision.)
+The latter is a typical ingredient in generating pushing interactions.
 
 
-Exercise 3 (Bonus):
--------------------
+d) Tricky use of inequalities, scaling, and target
+==================================================
 
-Realize a simplest possible instance of Operational Space Control using KOMO. [The python interfaces are not ready for this yet.]
+This is a bit tricky to figure out, but if you do, you really understood the use of the scaling, target and inequalities.
 
-a) Setup a minimal KOMO problem of order :math:`k=2`. Add a add_qControlObjective to penalize accelerations. Add another add_qControlObjective to penalize also velocities! Add a weak objective on the hand position. Solve and make a single step forward.
-b) Repeat the above, always recreating KOMO from the new current configuration. [Reuse of the KOMO instance is possible - needs nicer interface.]
+As in a), consider IK for grasping a cylinder again. Let's care only
+about the gripper position, not it's orientation. The position needs
+to be in the interval :math:`[-l/2,l/2]` along the z-axis of the
+cylinder, if it has length :math:`l`. We can model this with 4
+constraints:
+* The x-component of the ``positionRel(gripperCenter,object)`` needs to be equal 0
+* The y-component of the ``positionRel(gripperCenter,object)`` needs to be equal 0
+* The z-component of the ``positionRel(gripperCenter,object)`` needs to be lower-equal l/2
+* The z-component of the ``positionRel(gripperCenter,object)`` needs to be greater-equal l/2
 
+Can you figure out how to realize this? Tip: Choosing a scale
+``arr({1, 3}, {0,0,1})`` picks out the z-component of a 3D feature (as
+it means multiplication with :math:`(0,0,1)^T`.) But note, the target
+always needs to live in the original 3D feature space!
+
+
+e) Advanced: Reactive Operational Space Control
+===============================================
+
+Realize a simplest possible instance of Operational Space Control
+using KOMO. [The python interfaces are not ready for this yet.]
+
+a) Setup a minimal KOMO problem of order :math:`k=2`. Add a
+   add_qControlObjective to penalize accelerations. Add another
+   add_qControlObjective to penalize also velocities! Add a weak
+   objective on the hand position. Solve and make a single step
+   forward.
+b) Repeat the above, always recreating KOMO from the new current
+   configuration.

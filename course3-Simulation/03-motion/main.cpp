@@ -36,7 +36,8 @@ void using_KOMO_for_IK(){
   komo.add_qControlObjective({}, 1, 1.); //sos-penalize (with weight=1.) the finite difference joint velocity (k_order=1) between x[-1] (current configuration) and x[0] (to be optimized)
 
   //task objectives:
-  komo.addObjective({}, FS_positionDiff, {"R_gripperCenter", "object"}, OT_eq, {1e2});
+  komo.addObjective({}, FS_positionRel, {"object", "R_gripperCenter"}, OT_eq, {1e2}, {0.,0.,-.2});
+//  komo.addObjective({}, FS_scalarProductXZ, {"R_gripperCenter", "object"}, OT_eq, {1e2}, {0.});
 
   //initialize the solver
   komo.optimize();

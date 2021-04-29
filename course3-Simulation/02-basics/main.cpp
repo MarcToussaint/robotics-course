@@ -14,6 +14,10 @@ void basics(){
   rai::Simulation S(RealWorld, S._bullet, true);
   S.cameraview().addSensor("camera");
 
+  rai::Frame *marker = RealWorld.addFrame("myMarker", "obj1");
+  marker->setShape(rai::ST_marker, {1.});
+
+
   //-- MODEL WORLD configuration, this is the data structure on which you represent
   // what you know about the world and compute things (controls, contacts, etc)
   rai::Configuration C;
