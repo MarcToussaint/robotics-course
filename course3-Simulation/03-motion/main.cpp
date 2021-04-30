@@ -113,6 +113,7 @@ void using_KOMO_for_PathPlanning(){
   komo.addObjective({1.}, FS_positionDiff, {"R_gripperCenter", "object"}, OT_sos, {1e2});
 
   komo.addObjective({1.}, FS_qItself, {}, OT_eq, {1e2}, {}, 1);
+  komo.addObjective({}, FS_distance, {"R_gripper", "object"}, OT_ineq, {1e2}, {});
 
   //initialize the solver
   komo.optimize();
@@ -133,8 +134,8 @@ void using_KOMO_for_PathPlanning(){
 int main(int argc,char **argv){
   rai::initCmdLine(argc, argv);
 
-  using_KOMO_for_IK();
-//  using_KOMO_for_PathPlanning();
+//  using_KOMO_for_IK();
+  using_KOMO_for_PathPlanning();
 
   return 0;
 }

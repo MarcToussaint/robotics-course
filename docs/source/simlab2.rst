@@ -22,7 +22,7 @@ more interesting motion. The specific tasks are:
 
 1. Vary between the left gripper and right gripper reaching for the
    object. Is there a difference to "the object reaching for the right
-   gripper" vs.\ the other way around? And test the left gripper
+   gripper" vs. the other way around? And test the left gripper
    reaching for the right gripper.
 2. Also constrain the gripper orientation when reaching for the
    object. For a start, try to add a ``FS_quaternionDiff``
@@ -51,28 +51,21 @@ more interesting motion. The specific tasks are:
    motion.
 
   
-b) Path Optimization for a 3-phase handover
-===========================================
+b) Path Optimization & velocity/acceleration objectives
+=======================================================
 
-[details to come by Jung-Su]
+The second example in ``course3-Simulation/03-motion`` demonstrates a
+full path optimization example. Note the differences: We now specify the ``times`` argument when adding an objective, which is an single time slice or interval specified as a floating number. We defined the path to have 1 phase with 40 steps-per-phase; the ``times={1.}`` means the objective only holds at phase 1 (end of the path).
 
-Essentially, use KOMO in full path optimization mode, with 3 phases
-and 20 steps per phase, to model a pick, hand-over, and target
-placement, as demonstrated by Jung-Su.
+Further note the ``qItself`` objective with ``order=1``, which constrains the joint velocity to be zero at the end of the path.
 
-
-a) Compute a 2-arm robot configuration, where the graspCenter
-   positions of both hands coincide, the two hands oppose, and their
-   x-axes are orthogonal. (E.g., as if they would handover a little
-   cube.)
-b) Add a box (shape type ``ssBox``, see Tip2 below) somewhere to the
-   scene, compute a robot configuration where one of the grippers
-   grasps the box (centered, along a particular axis), while avoiding
-   collisions between the box and the two fingers and gripper.
-c) Propose alternatives for how to design grasps, based on any
-   geometric feature you can think of. (Note that our collision code
-   can compute normals and witness points for proximity queries, which
-   can be used.)
+1. Remove the qItself objective - why is the result optimal?
+2. Add the qItself objective again. Additionally, constrain the
+   gripper to have constant(!) acceleration (order=2) equal to
+   :math:`(0,0,.1)` during the interval [0.7,1.]. What is this
+   doing?
+3. Modify the previous to impose a reasonable grasp approach to the
+   object, that works for any orientation of the object.
 
 c) Explore collision features, and enforce touch
 ================================================
@@ -87,15 +80,47 @@ given pair of frames (where the frames need to be convex shapes). You
 should impose an inequality (lower-equal zero) to force the solver to avoid
 penetrations. By changing the target you can also add a margin.
 
-Concretely:
-* Add an additional obstacle, e.g. a sphere, to the scene, with which your moving object (from exercise b) collides. Then add a ``distance`` feature between the new sphere and the moving object.
-* Completely independent from exercise b), generate a simple object reaching motion, where the goal objective is to make the ``gripper`` shape touch the object -- by imposing an equality constraint on their distance.
+1. Add an additional obstacle, e.g. a sphere, to the scene, with which
+   your moving gripper (from exercise b) collides. Then add a
+   ``distance`` inequality objective between the new sphere and the
+   ``"R_gripper"`` object. In addition, also add the same between
+   ``R_gripper`` and ``object``, which should modify the grasp
+   approach. You can also try analogously for ``R_finger1`` and
+   ``R_finger2``.
+2. Now, remove previous grasp or collision objectives, and only add a
+   ``distance`` equal to zero objective on the ``R_finger1`` and
+   ``object`` as the goal constraint. This should generate a touching
+   motion. This is a typical ingredient in generating pushing
+   interactions.
 
-The latter is a typical ingredient in generating pushing interactions.
+d) Interacting with "real" objects
+==================================
+
+The two examples in ``course3-Simulation/03-motion`` do not really interact with the "real" world (Simulation, in our case), but only compute some motion in your model configuration. Let us change that:
+
+1. Add a new object named "myObj" of shape type ``ssBox`` (see note
+   below).
+2. Setup a "real" world loop, and shortcut perception by always
+   querying ``RealWorld["obj1"]->getPosition()`` to get the position
+   of the object "obj1". Set the position of "myObj" to the same
+   position.
+3. Try to use a finger of either of the arms to continuously touch the
+   falling object in the real world loop.
+
+Note: ``ssBox`` means sphere-swept box. This is a box with rounded
+corners. This should be your default primitive shape. The shape is
+determined by 4 numbers: x-size, y-size, z-size, radius of
+corners. The 2nd most important shape type is ``ssCvx`` (sphere-swept
+convex), which is determined by a set of 3D points, and sphere radius
+that is added to the points' convex hull. (E.g., a capsule can also be
+described as simple ssCvx: 2 points with a sweeping radius.) The
+sphere-swept shape primitives allow for well-defined Jacobians of
+collision features.
 
 
-d) Tricky use of inequalities, scaling, and target
-==================================================
+   
+e) Advanced: Tricky use of inequalities, scaling, and target
+============================================================
 
 This is a bit tricky to figure out, but if you do, you really understood the use of the scaling, target and inequalities.
 
@@ -121,10 +146,10 @@ e) Advanced: Reactive Operational Space Control
 Realize a simplest possible instance of Operational Space Control
 using KOMO. [The python interfaces are not ready for this yet.]
 
-a) Setup a minimal KOMO problem of order :math:`k=2`. Add a
+1. Setup a minimal KOMO problem of order :math:`k=2`. Add a
    add_qControlObjective to penalize accelerations. Add another
    add_qControlObjective to penalize also velocities! Add a weak
    objective on the hand position. Solve and make a single step
    forward.
-b) Repeat the above, always recreating KOMO from the new current
+2. Repeat the above, always recreating KOMO from the new current
    configuration.
