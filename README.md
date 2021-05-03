@@ -54,7 +54,7 @@ make -j $(command nproc)
 
 * If you use python, install jupyter and some python packages, and run tests:
 ```
-# export PATH="${PATH}:$HOME/.local/bin"   #if not done already
+# export PATH="${PATH}:$HOME/.local/bin"   #add this to your .bashrc, if not done already
 pip3 install --user jupyter nbconvert matplotlib opencv-python
 jupyter-notebook tutorials/1-basics.ipynb
 jupyter-notebook course3-Simulation
@@ -117,11 +117,16 @@ git clone --recursive https://github.com/MarcToussaint/robotics-course.git
 cd robotics-course
 
 make -j1 installUbuntuAll  # calls sudo apt-get install; you can always interrupt
+# If this fails, please try `make -j1 printUbuntuAll` to print all packages and install manually
+
 make -j $(command nproc)   # builds libs and tests
 ln -s rai/lib build
+```
 
+To test the python notebooks:
+```
+# export PATH="${PATH}:$HOME/.local/bin"   #add this to your .bashrc, if not done already
 pip3 install --user jupyter nbconvert matplotlib
-
 jupyter-notebook tutorials/1-basics.ipynb 
 ```
 After loading the pr2 and the kitchen (running first 3 cells in the notebook), the simulator window should look similar to:
