@@ -140,7 +140,7 @@ it means multiplication with :math:`(0,0,1)^T`.) But note, the target
 always needs to live in the original 3D feature space!
 
 
-e) Advanced: Reactive Operational Space Control
+f) Advanced: Reactive Operational Space Control
 ===============================================
 
 Realize a simplest possible instance of Operational Space Control

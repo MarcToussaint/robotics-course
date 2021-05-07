@@ -49,9 +49,7 @@ void use_within_simulation(){
 
   rai::Configuration C;
   C.addFile("../../scenarios/pandasTable.g");
-
-  rai::ConfigurationViewer V;
-  V.setConfiguration(C, "model world start state");
+  C.watch(false, "model world start state");
 
 
   // NEW: set the intrinsic camera parameters
@@ -87,8 +85,8 @@ void use_within_simulation(){
       // NEW
       depthData2pointCloud(points, _depth, Fxypxy);
       cameraFrame->setPointCloud(points, _rgb);
-      V.recopyMeshes(C); //update the model display!
-      V.setConfiguration(C);
+      C.gl()->recopyMeshes(C); //needed to recopy the pcl points into the display! awkward interface...
+      C.watch();
 
       //start working in CV, display the images there
       {
@@ -130,9 +128,7 @@ void multipleCameras(){
 
   rai::Configuration C;
   C.addFile("../../scenarios/pandasTable.g");
-
-  rai::ConfigurationViewer V;
-  V.setConfiguration(C, "model world start state");
+  C.watch(false, "model world start state");
 
   byteA _rgb;
   floatA _depth;
@@ -156,9 +152,9 @@ void multipleCameras(){
 int main(int argc,char **argv){
   rai::initCmdLine(argc,argv);
 
-//  minimal_use_with_webcam();
+  minimal_use_with_webcam();
 //  use_within_simulation();
-  multipleCameras();
+//  multipleCameras();
 
   return 0;
 }
