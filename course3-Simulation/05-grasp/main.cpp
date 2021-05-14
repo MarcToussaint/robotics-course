@@ -30,7 +30,7 @@ void grasp_the_hopping_ball(){
   S.cameraview().addSensor("camera");
 
   //add an imp!!
-//  S.addImp(S._objectImpulses, {"obj0"}, {});
+  S.addImp(S._objectImpulses, {"obj0"}, {});
 
   //-- setup your model world
   rai::Configuration C;
@@ -40,8 +40,7 @@ void grasp_the_hopping_ball(){
   obj->setColor({1.,1.,0}); //set the color of one objet to red!
   obj->setShape(rai::ST_sphere, {.03});
 
-  rai::ConfigurationViewer V;
-  V.setConfiguration(C, "model world start state");
+  C.watch(false, "model world start state");
 
   //set the intrinsic camera parameters
   double f = 0.895;
@@ -78,12 +77,11 @@ void grasp_the_hopping_ball(){
     obj->setPosition(objectPosition);
 
     C.setJointState(q); //set your robot model to match the real q
-    V.setConfiguration(C);
+    C.watch();
 
     //some good old fashioned IK
     auto diff = C.feature(FS_positionDiff, {"R_gripperCenter", "object"})->eval(C);
-    auto vecX = C.feature(FS_vectorX, {"R_gripperCenter"})->eval(C);
-    auto vecZ = C.feature(FS_vectorZ, {"R_gripperCenter"})->eval(C);
+    auto vecX = C.feature(FS_scalarProductXZ, {"R_gripperCenter", "world"})->eval(C);
 
     //stack them
     arr y, J;
@@ -91,15 +89,12 @@ void grasp_the_hopping_ball(){
     y.append(1e0*diff.y); //multiply, to make faster
     J.append(1e0*diff.J);
 
-    y.append(vecX.y-arr{0., 1., 0}); //subtract target
+    y.append(vecX.y-arr{0.}); //subtract target, here scalarProduct=0
     J.append(vecX.J);
-
-    y.append(vecZ.y-arr{1./sqrt(2.), 0., 1./sqrt(2.)});
-    J.append(vecZ.J);
 
     arr vel = 2.* pseudoInverse(J, NoArr, 1e-2) * (-y);
 
-    V.setConfiguration(C, "model world start state");
+    C.watch();
 
     if(!gripping && length(diff.y) < .02){
       S.closeGripper("R_gripper", .05, .3);

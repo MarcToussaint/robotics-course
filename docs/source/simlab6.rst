@@ -1,5 +1,5 @@
 ============================================================
- SimLab Exercise 6 - Project Proposal and Final Presentation
+ SimLab - Project Proposal and Final Presentation
 ============================================================
 
 

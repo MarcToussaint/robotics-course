@@ -41,5 +41,4 @@ Below are the specific instructions for the series of exercises:
    simlab2.rst
    simlab3.rst
    simlab4.rst
-   simlab5.rst
    simlab6.rst

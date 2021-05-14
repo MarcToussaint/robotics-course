@@ -10,77 +10,68 @@ Before new exercises, always update the repo::
   cd build
   make -j4
 
-
-  
-CODE CHANGES:
-
-* Added `tutorials/05-howto.ipynb`, which demonstrates how to kinematically attach objects (fake grasp), also for attaching the camera to the endeff, and understand broadphase collision checking (enabling/disabling collisions)
-* I added documentation -- see the 'Core Data Structure' in the menu.
-* SHIFT-mouse1 allows to move around the view (previous button2 didn't seem to work for some of you); as before, mouse3 sets focus
-
-
-
-The goal of this session is to combine
-
-* Use OpenCV to localize/track an object
-* Grasp and lift the object
-
-The key difficulty here is in translating the perception into a
-representation (e.g. primitive shape) in your model that allows for
-grasping.
-
-In ``05-grasp`` you find tips to simplify the RealWorld
-scene, allowing you to give arbitrary colors and shapes to the objects
-dropping. Thereby you can start first working on grasping simple
-(small) blocks, and then gradually tackle harder problems.
+* This is the last formal exercise. After this you're free to follow
+  on with your projects.
+* In this exercise you are allowed to either shortcut perception (use
+  the 'cheat perception' as described below and in the sample code),
+  or -- better -- to use the perception pipeline you developed in the
+  previous exercise. You can always use the cheat perception to debug
+  your perception pipeline.
 
 
-Exercise 1:
-===========
-
-* Drop a single small (e.g. 3cm radius) sphere from the scene
-* Start developing your own perception pipeline that you will also use
-  in the future: Here is just a suggestion:
-  
-  * Segment the object from the background (using color, or depth,
-    with or without background substraction), resulting in a binary
-    mask
-  * collect all image points that belong to the object into a
-    n-times-3 matrix with rows (x-pixel-coordinate,
-    y-pixel-coordinate, depth-meters) -- this is the point cloud in
-    image coordinates
-  * Transform that point could into meter coordinates (still relative
-    to the camera frame) -- resulting in a n-times-3 matrix
-  * Display this point could by attaching it as "shape" to the
-    cameraFrame (using cameraFrame.setPointCloud, see example
-    04-opencv)
-
-* Now you have the point cloud in the model - but that's still not
-  good for grasping. Since it is a ball, we can reduce it to just
-  the mean point:
-
-  * Compute the mean of the point cloud
-  * Ensure you have earlier created some frame/object in your model
-    that now becomes the representation of the percept: set the
-    position of the model object to the point cloud center
-
-* Generate a motion to grasp the ball from top down
-* Close the gripper (see example in grasp test in ``01-test``)
-* Lift it!
-* Open the gripper again
 
 
-Exercise 2:
-===========
+a) Grasp, lift & drop a hopping ball
+====================================
 
-Make the above as robust and reactive as possible.
+In ``05-grasp`` you already find a minimal setting where a dropping
+and hopping ball is grasped. The hopping is realized in simulation by
+an *imp* -- which is a little callback code that can perturb the state
+of the simulation after each simulation step. This helps simulating
+stochastic effects and failures.
 
-* Regrasp the ball every time you drop it
-* Does throwing work? (Can you drop it with significant velocity?)
-* I'm implementing an "adversarial imp", which can perturb the RealWorld randomly. With this imp, the ball will sometimes jump on the table. Still try to grasp it reactively
+The current implementation uses the 
 
-Exercise 3:
-===========
+1. Use your OpenCV code instead of cheat perception to continuously
+   track the sp here. Keep the your model object always tracking the
+   real red sphere.
+2. The current code uses plain IK with a pseudo inverse from exercise
+   1 to generate motion (you can stack the Jacobians and residuals for
+   multiple objectives, see the motion slides). Try to replace this by
+   a KOMO method that solves, in each iteration, for the optimal final
+   grasp pose, and then generate continuous motion by commanding a
+   small constant velocity towards that final grasp pose. Close the
+   gripper when the final grasp pose is reached.
+3. The current code sometimes makes the arm occlude the red ball. Can
+   you choose a better alignment to avoid ball occlusion?
+4. Optimize things to be fast enough (but still smooth) to actually
+   grasp the hopping ball reliably.
+5. After the successful grasp, lift the gripper (e.g., using KOMO to compute a good final lift/drop pose for the ball).
+6. Then call ``openGripper("R_gripper")`` to drop the ball again.
+7. Ideally, repeat grasp-lift-drop robustly in an endless loop.
 
-* Change the shape type from sphere to ssBox with size [.05 .05 .2 .01]
-* How can you find the direction with which to align the gripper?
+
+b) Throw the ball
+=================
+
+Do everything as above, but instead of just dropping the ball, throw
+it (far) using the robot. How can you design a motion that has a
+desired object velocity ad the point of ``openGripper``?
+
+
+c) Bonus: ...and for a box
+==========================
+
+Repeating the above exercise for a box is rather involved, esp. if you do not cheat perception and have to retrieve the box orientation (long axis) using opencv. Therefore, for this exercise it is fine for you to use cheat perception.
+
+1. Replace the red sphere by a sphere-swept box of size ``[.06, .06,
+   .15, .01]`` (in both, the RealWorld and your model world).
+2. When localizing the box, retrieve both, the center and the rotation
+   matrix. Note that the third column in the rotation matrix is the
+   unit vector which points into the direction where the box is 15cm
+   long. Let A be this direction.
+3. Design a box gripping final pose, where the gripper x-axis is
+   orthogonal to A, and orthogonal to world-z. Does this suffice to
+   design a good box grasp? (Cf. Exercise 2)
+
+

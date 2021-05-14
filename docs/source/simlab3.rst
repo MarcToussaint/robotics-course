@@ -11,7 +11,6 @@ Note: Before new exercises, always update the repo::
   make -j4
 
 
-
 The goal of this session is to enable you to use OpenCV within your code.
 
 The first example in ``04-opencv`` subscribes to a webcam and starts a
