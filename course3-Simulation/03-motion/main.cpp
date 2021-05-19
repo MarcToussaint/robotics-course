@@ -13,7 +13,7 @@ void using_KOMO_for_IK(){
   //-- MODEL WORLD configuration, this is the data structure on which you represent
   rai::Configuration C;
   C.addFile("../../scenarios/pandasTable.g");
-  arr q0 = C.getJointState();
+  arr qHome = C.getJointState();
 
   //-- add an object to the model configuration
   rai::Frame* obj = C.addFrame("object");
@@ -39,7 +39,7 @@ void using_KOMO_for_IK(){
   komo.addObjective({}, FS_positionRel, {"object", "R_gripperCenter"}, OT_eq, {1e2}, {0.,0.,-.2});
 //  komo.addObjective({}, FS_scalarProductXZ, {"R_gripperCenter", "object"}, OT_eq, {1e2}, {0.});
 
-  //initialize the solver
+  //run the solver
   komo.optimize();
 
   //get the joint vector from the optimized configuration
@@ -68,14 +68,14 @@ void using_KOMO_for_IK(){
   rai::Simulation S(RealWorld, S._bullet, true);
 
   S.step();
-  S.setMoveTo(q, 2.); //2 seconds to goal
-  S.setMoveTo(q0, 1.); //1 second back home
+  S.setMoveTo(q, 2.); //2 seconds to goal -- this call is non-blocking!
+  S.setMoveTo(qHome, 1.); //1 second back home -- the spline is appended, the call is non-blocking
   for(uint t=0;;t++){
     cout <<"time to move: " <<S.getTimeToMove() <<endl;
-    double tau=.001; //can set anything here time...
-    S.step({}, tau);
+    double tau=.001; //can set anything here...
+    S.step({}, tau); //this executes the send spline while iterating physics with fine time resolution
     rai::wait(tau);
-    if(S.getTimeToMove()<0.) break;
+    if(S.getTimeToMove()<0.) break; //this checks the end of the spline
   }
   rai::wait();
 }
@@ -88,6 +88,7 @@ void using_KOMO_for_PathPlanning(){
   //-- MODEL WORLD configuration, this is the data structure on which you represent
   rai::Configuration C;
   C.addFile("../../scenarios/pandasTable.g");
+  arr qHome = C.getJointState();
 
   rai::Frame* obj = C.addFrame("object");
   obj->setPosition({1., 0., 1.5});
@@ -115,18 +116,33 @@ void using_KOMO_for_PathPlanning(){
   komo.addObjective({1.}, FS_qItself, {}, OT_eq, {1e2}, {}, 1);
   komo.addObjective({}, FS_distance, {"R_gripper", "object"}, OT_ineq, {1e2}, {});
 
-  //initialize the solver
+  //run the solver
   komo.optimize();
 
-  //get the joint vector from the optimized configuration
+  //example to get the joint vector from the optimized configuration
   arr q = komo.getConfiguration_qOrg(komo.T-1);
-
   C.setJointState(q); //set your working config into the optimized state
 
   komo.view(true, "optimized configuration"); //display it
   komo.view_play();
 
-  rai::wait(.1); //TODO: otherwise the opengl gets hung up?
+  //-- execute this in simulation
+  rai::Configuration RealWorld;
+  RealWorld.addFile("../../scenarios/challenge.g");
+  rai::Simulation S(RealWorld, S._bullet, true);
+
+  S.step();
+  S.setMoveTo(komo.getPath_qOrg(), 2.); //append a 2 seconds spline -- this call is non-blocking!
+  S.setMoveTo(qHome, 1.); //1 second back home -- the spline is appended, the call is non-blocking
+  for(uint t=0;;t++){
+    cout <<"time to move: " <<S.getTimeToMove() <<endl;
+    double tau=.001; //can set anything here...
+    S.step({}, tau); //this executes the send spline while iterating physics with fine time resolution
+    rai::wait(tau);
+    if(S.getTimeToMove()<0.) break; //this checks the end of the spline
+  }
+  rai::wait();
+
 }
 
 //===========================================================================

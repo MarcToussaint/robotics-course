@@ -6,8 +6,7 @@
 Project Proposal
 ================
 
-Please submit your project proposal as pdf to jung-su.ha@tu-berlin.de
-by June 3rd, before our session. Try to use LaTeX. Brief 2 pages are enough.
+Please send your project proposal as pdf by email. Try to use LaTeX. Brief 2 pages are enough.
 
 Please prepare a proposal with the following sections:
 
@@ -18,21 +17,19 @@ Please prepare a proposal with the following sections:
   goal description. Only describe the behavior we can eventually see
   on the robot, as detailed as possible.
 * **Workplan** ("how", about 1 page): Describe how the goal can be
-  achieved. The workplan should be organized in small work packages (or steps). In
-  particular the first steps should be very clear and realistic. In
-  each step, describe what you intend to achieve, and what methods you
+  achieved. The workplan should be organized in small work packages
+  (or steps). In particular the first steps should be very clear and
+  realistic. In each step, describe what you intend to achieve,
+  e.g. demonstration of a simplified behavior, and what methods you
   plan to use to achieve the sub-goal. For each step, try to estimate
   the work effort in terms of time. If you work in a team, mention if
   you split up work packages.
 
-On June 3 and 4 we will let you briefly talk through these documents
-in the sessions.
 
 Presentation Details
 ====================
 
-To allow you better planning for the final presentation at the end of
-the course, here some details:
+Here are for the final presentation:
 
 * Each presentation is max 25 minutes in total.
 * Each presentation includes two parts:
@@ -41,7 +38,7 @@ the course, here some details:
   * A live demo during the virtual session (10 mins max) (In the
     offline course, this would be an interactive demo on the robot.)
     
-* In the spotlight presentation you should explain very briefly to us
+* In the spotlight presentation you should explain very briefly
   the goal ("what"), briefly the core problems and methods
   ("how"), and the rough system structure (on the software
   level). For this:
