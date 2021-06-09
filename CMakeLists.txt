@@ -71,7 +71,7 @@ add_library(rai SHARED
   ${SRC_Perception}
   ${SRC_Control}
   #${SRC_Operate}
-  #  ${SRC_ry}
+  #${SRC_ry}
   )
 
 target_link_libraries(rai
@@ -80,31 +80,15 @@ target_link_libraries(rai
   ${OpenCV_LIBS}
   ${BULLET_LIBRARIES}
   #PhysX3Extensions PhysX3_x64 PhysX3Cooking_x64 PhysX3Common_x64 PxFoundation_x64
-  #BulletSoftBody BulletDynamics BulletCollision LinearMath 
   )
 
 pybind11_add_module(libry SHARED
   ${SRC_ry}
-  #lgp-py.cpp
-  #ry-Bullet.cpp
-  #rai/rai/ry/ry-Optim.cpp
-  #rai/rai/ry/ry-Camera.cpp
-  #rai/rai/ry/ry-Config.cpp
-  #rai/rai/ry/ry.cpp
-  #rai/rai/ry/ry-Feature.cpp
-  #rai/rai/ry/ry-Frame.cpp
-  #rai/rai/ry/ry-KOMO.cpp
-  #ry-LGP_Tree.cpp
-  #ry-Operate.cpp
-  #ry-PhysX.cpp
-  #rai/rai/ry/ry-Simulation.cpp
-  #rai/rai/ry/types.cpp
   )
 
 target_link_libraries(libry PRIVATE
   rai
   )
-
 
 add_executable(kinEdit rai/bin/src_kinEdit/main.cpp)
 target_link_libraries(kinEdit rai)

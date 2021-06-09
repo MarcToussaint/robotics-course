@@ -117,11 +117,12 @@ world.
 Notation to specify transformations
 ===================================
 
-Transformation can always be specified as 7-vectors ``Q:[p1 p2 p3 q0 q1 q2 q3]`` (position,
-quaternion). But this is not intuitive for human editing. Therefore,
-the bracket notation ``<...>`` allows for another notation, namely as
-a chaining of little interpretable transformations, as in the old
-turtle language.
+Transformation can always be specified as 7-vectors ``Q:[p1 p2 p3 q0
+q1 q2 q3]`` (position, quaternion), or also 3- or 4-vectors if you
+only want to set position or orientation. But this is not always intuitive
+for human editing. Therefore, the bracket notation ``<...>`` allows
+for another notation, namely as a chaining of little interpretable
+transformations, as in the old turtle language.
 
 Specifically, you specify a transform by chaining::
   

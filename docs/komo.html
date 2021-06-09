@@ -1,0 +1,626 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Learning KOMO (K-Order Markov Optimization) &mdash; Robotics Course  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Array" href="_Array.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Robotics Course
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="simlab.html">Lab Course in Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rai.html">Robotics Code Overview</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Learning KOMO (K-Order Markov Optimization)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#no-dynamics-no-velocities-how-do-you-solve-for-dynamic-problems">No dynamics? No velocities? How do you solve for dynamic problems?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-komo">What is KOMO?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-komo-formally">What is KOMO – formally?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-are-the-main-steps-to-define-a-komo-problem">What are the main steps to define a KOMO problem?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#roughly-what-does-komo-do-with-these-specs">Roughly, what does KOMO do with these specs?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#can-komo-only-optimize-paths">Can KOMO only optimize paths?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#can-i-load-an-urdf">Can I load an URDF?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#first-practical-steps">First practical steps</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lesson-1-play-around-with-rai-test-komo-tutorial">Lesson 1: play around with $RAI/test/KOMO/tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lesson-2-learn-the-addobjective-method-and-the-language-of-features">Lesson 2: Learn the addObjective method and the “Language of Features”</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#features-are-at-the-core">Features are at the core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#varying-decision-variables-per-time-slice-kinematic-switches-force-contacts">Varying decision variables per time slice: kinematic switches &amp; force contacts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#summary-there-are-only-a-few-fundamental-methods-in-komo-the-rest-are-helpers">Summary: there are only a few fundamental methods in KOMO, the rest are helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#steps-phase-real-time-and-time-optimization">Steps, phase, real time, and time optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#links-to-more-documentation">LINKS to more documentation</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Robotics Course</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Learning KOMO (K-Order Markov Optimization)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="learning-komo-k-order-markov-optimization">
+<h1>Learning KOMO (K-Order Markov Optimization)<a class="headerlink" href="#learning-komo-k-order-markov-optimization" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="no-dynamics-no-velocities-how-do-you-solve-for-dynamic-problems">
+<h2>No dynamics? No velocities? How do you solve for dynamic problems?<a class="headerlink" href="#no-dynamics-no-velocities-how-do-you-solve-for-dynamic-problems" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="_Configuration.html#refconfiguration"><span class="std std-ref">Configuration</span></a> documentation describes the basic data
+structures: <code class="docutils literal notranslate"><span class="pre">Configuration</span></code>, <code class="docutils literal notranslate"><span class="pre">Frame</span></code>, and <code class="docutils literal notranslate"><span class="pre">Features</span></code>. But
+nothing about velocities or dynamics.</p>
+<p>In ealier versions of the code velocities where explicitly represented
+in configurations, and all transformations were also dynamic
+(representing also linear and angular velocities). However, influenced
+by experience with KOMO, I removed these representations of dynamics
+and now instead represent everything by thinking in terms of
+“k-order”.</p>
+<p>Quite trivially, instead of velocities, in KOMO you only represent two
+consecutive configurations. Then all velocities are implicit by the
+finite difference between these two configurations. In particular,
+this can be the finite difference of dofs (which represents joint
+velocities), or the finite difference of any feature over the
+configurations (which can represent linear or angular velocities of
+frames, or velocities of shape distances, or velocities of any
+numerical quantity we can compute from frames).</p>
+<p>Representing velocites by finite difference of two concecutive
+configurations might seem dull and inefficient. But it is inherently
+consistent with the time discretization needed to numerically solve
+dynamic problems, avoids redundancies in path optimization settings,
+and generalizes directly to higher-order systems, where we might
+optimize for jerk. To give a concrete example, setting up operational
+space control as optimization problem over configurations, you would
+instantiate 3 configurations: One for the current time <span class="math notranslate nohighlight">\(t\)</span>, one
+for the past time step <span class="math notranslate nohighlight">\(t-\tau\)</span>, and one for the next time step
+<span class="math notranslate nohighlight">\(t+\tau\)</span>. The first two configurations are fixed and represent
+the current dynamic state (via finite difference between <span class="math notranslate nohighlight">\(t\)</span> and
+<span class="math notranslate nohighlight">\(t-\tau\)</span>). The thrid configuration <span class="math notranslate nohighlight">\(t+\tau\)</span> is subject to
+optimization and you can impose any objectives on any features, or
+velocities of features, or accelerations of features, or anything
+derivable from these.</p>
+</div>
+<div class="section" id="what-is-komo">
+<h2>What is KOMO?<a class="headerlink" href="#what-is-komo" title="Permalink to this headline">¶</a></h2>
+<p>KOMO means k-order Markov optimization. KOMO is a way to formulate
+path optimization problems. Technically, this means it is a convention
+of how to specify the mathematical program, namely via the KOMO class.</p>
+<p>It assumes that the path is represented as a sequence of T
+configurations (we discretize time). The decision variable of the
+mathematical program are the DOFs of each configuration. Note that the
+decision variables are not velocities in time slices, but just the
+“joint angles” (and other potential DOFs in a time slice). But we
+can still optimize dynamical paths. The reason is that the optimizer
+always considers (k+1)-tuples of consecutive configurations and all
+objectives are functions of such (k+1)-tuples. This is similar to
+having a k-order differential equation, instead of an ODE; or to
+having a k-order Markov chain, instead of a Markov chain.</p>
+<p>I use the word <em>objective</em> to refer to cost terms as well as
+inequality and equality constraints of the mathematical program.</p>
+</div>
+<div class="section" id="what-is-komo-formally">
+<h2>What is KOMO – formally?<a class="headerlink" href="#what-is-komo-formally" title="Permalink to this headline">¶</a></h2>
+<p>As a convention of notation, we describe a non-linear mathematical program as a tuple <span class="math notranslate nohighlight">\((X, \phi, \rho)\)</span>, where <span class="math notranslate nohighlight">\(X\)</span> is the decision space, <span class="math notranslate nohighlight">\(\phi: X \to \mathbb{R}^K\)</span> a set of features, and <span class="math notranslate nohighlight">\(\rho:\{1,..,K\} \to \{\text{S},\text{C},\text{I},\text{E}\}\)</span> indicates for each feature whether it is a sum-of-squares, normal cost, inequality, or equality:</p>
+<div class="math notranslate nohighlight">
+\[\min_{x\in X}~ \phi_\text{S}(x)^\top \phi_\text{S}(x) + \textbf{1}^\top \phi_\text{C}(x)
+\quad\text{s.t.}\quad \phi_\text{I}(x) \le 0,~ \phi_\text{E}(x) = 0~,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\phi_\text{S} \equiv \phi_{\rho^{-1}(\text{S})}\)</span> is the feature
+vector containing only the set of sum-of-square features, and
+analogously for <span class="math notranslate nohighlight">\(\phi_\text{C}, \phi_\text{I}\)</span>, and <span class="math notranslate nohighlight">\(\phi_\text{E}\)</span>.</p>
+<p>In KOMO we additionally assume that <span class="math notranslate nohighlight">\(x=(x_1,..,x_T)\)</span> is a set of
+variables (“factored”), and each feature <span class="math notranslate nohighlight">\(\phi_j(x_{[j]})\)</span> depends
+only on a subset of at most <span class="math notranslate nohighlight">\(k+1\)</span> variables, where
+<span class="math notranslate nohighlight">\([j] \subseteq \{1,..,T\}\)</span> indicates which variables the <em>j</em>-th feature depends on.</p>
+</div>
+<div class="section" id="what-are-the-main-steps-to-define-a-komo-problem">
+<h2>What are the main steps to define a KOMO problem?<a class="headerlink" href="#what-are-the-main-steps-to-define-a-komo-problem" title="Permalink to this headline">¶</a></h2>
+<p>With KOMO, the steps to specify the mathematical program are
+as follows:</p>
+<ul class="simple">
+<li><p>First specify the basic configuration (setModel), and how many
+configurations (T) we have in this path problem. By convention, T is
+not set directly, but instead you specify a (double) number of
+phases, and steps-per-phase, the product of which gives T. The
+floating number <em>phase</em> provides you an alternative way to refer to
+time slices. In the simplest setting, you have one phase (phase is
+in [0,1]), and steps-per-phase equals T.</p></li>
+<li><p>Then you specify k. For smooth motions, k=2, which means we can
+define objectives on 3-tuples of consecutive configurations. For
+simple shortest path problems, we can choose k=1, where we can
+penalize the path length, but not accelerations.</p></li>
+<li><p>As an advanced feature (skip this first), you can then specify
+kinematic switches during the path. This means to specify operators
+that actually structurally change the kinematic tree(s) of the
+configuration at certain time slices. KOMO is designed to cope with
+such structural switches. In many kinematic reasoning settings
+these appear naturally, e.g. when an object is first considered a
+leaf of a robot arm (stable grasp), and later a leaf link of a
+tablet where it was placed on.</p></li>
+<li><p>Finally, and this is the main thing, you specify the list of
+objectives. KOMO has a single method for this: addObjective. The key
+to learning KOMO is to learn using this method.</p></li>
+</ul>
+</div>
+<div class="section" id="roughly-what-does-komo-do-with-these-specs">
+<h2>Roughly, what does KOMO do with these specs?<a class="headerlink" href="#roughly-what-does-komo-do-with-these-specs" title="Permalink to this headline">¶</a></h2>
+<p>A core of KOMO is to compile all the given information into a more
+abstract representation of a non-linear mathematical program. It does
+so by implementing different (virtual) problem abstractions, namely
+<cite>MathematicalProgram</cite>, or <cite>MathematicalProgram_Factored</cite>. Then, behind
+these problem abstractions, a solver is finding an optimal
+solution. While the KOMO code comes with a default solver, this solver
+should not necessarily be thought of as part of KOMO. One can
+plug-and-play replace it with other general NLP solvers (currently
+interfaced are NLOpt, IPOpt, and ceres).</p>
+<p>In all cases, the full path (vector of all DOFs in all configurations)
+becomes the decision variable of the solver. The difference in the
+abstractions is in how much structure of the Jacobians and feature
+dependencies is being exposed to the solver. In the default case (via
+the MathematicalProgram abstraction), the solver does not have
+detailed information about the problem structure, but gets sparse
+Jacobians for all features, which makes computing Newton steps etc
+computationally efficient. In the other casevia the
+<cite>MathematicalProgram_Factored</cite> abstraction), the solver gets
+information on individual variables and which objectives depend on
+which variables, much like in a factor graph.</p>
+</div>
+<div class="section" id="can-komo-only-optimize-paths">
+<h2>Can KOMO only optimize paths?<a class="headerlink" href="#can-komo-only-optimize-paths" title="Permalink to this headline">¶</a></h2>
+<p>Actually no. You can optimize any ‘network’ of configurations. That
+is, you can specify that there are T configurations, but they are not
+necessarily consecutive. Instead, you specify objectives, but each
+objective may depend only on maximally k+1 configurations - but these
+are arbitrary. Thereby the structure is a network of configurations,
+where the objectives define couplings or cliques of maximal size
+k+1. Such problems are handled exactly the same way as path problems,
+namely by exposing spare Jacobians and/or a sparse graph structure to
+the solver.</p>
+</div>
+<div class="section" id="can-i-load-an-urdf">
+<h2>Can I load an URDF?<a class="headerlink" href="#can-i-load-an-urdf" title="Permalink to this headline">¶</a></h2>
+<p>Yes. But currently it is only partially automatic. The easy part is to
+convert the urdf-file to a g-file using <code class="docutils literal notranslate"><span class="pre">$RAI/bin/urdf2rai.py</span></code>. The
+resulting g-file encodes the full kinematic structure. The part which
+usually requires manual fiddling are the mesh files. First, in the
+g-file, you have to change the path to their location in the file
+system (removing the ‘package’ part). Potentially that’s all you
+need. However, KOMO calls various collision libraries that need clean
+and correct (orientation, holes, etc) mesh files. Those that come with
+URDF files are typically not clean and correct. I typically use
+meshlab (the command line tool) to automatically clean and compress
+meshes into ply files. The best guide for this is the hubo/HOWTO.sh in
+the rai-robotModels repository.</p>
+<p>Also, you should check the results using the <code class="docutils literal notranslate"><span class="pre">$RAI/bin/kinEdit</span></code> tool
+to display g-files from command line. CMake automatically compiles it;
+otherwise call ‘make bin’ in $RAI to compile this. You can edit the
+file with any editor during watching it with kinEdit.</p>
+</div>
+<div class="section" id="first-practical-steps">
+<h2>First practical steps<a class="headerlink" href="#first-practical-steps" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="lesson-1-play-around-with-rai-test-komo-tutorial">
+<h3>Lesson 1: play around with $RAI/test/KOMO/tutorial<a class="headerlink" href="#lesson-1-play-around-with-rai-test-komo-tutorial" title="Permalink to this headline">¶</a></h3>
+<p>You can copy the folder <code class="docutils literal notranslate"><span class="pre">$RAI/test/KOMO/tutorial</span></code> to any place you want (e.g. your own sandbox repository). Just edit the BASE = ../.. declaration to the actual $RAI path and make will still work.</p>
+<p>Play around with the tutorialBasics() as follows:</p>
+<ul class="simple">
+<li><p>in setTiming, change the steps-per-phase from 20 to 40 - which will give a more fine grained trajectory</p></li>
+<li><p>in setTiming, change the last argument from k=2 to k=1 - this will lead to interesting problems! (UNDO this)</p></li>
+<li><p>set argument setSquaredQAccVelHoming(0., 1., 0.) - which will lead
+to a shortest path (penalizing velocities) instead of a smoothest
+path (penalizing accelerations). Note that typically shortest path
+problems (also with k=1) are harder for the solver than smoothest,
+because penalizing accelerations introduces more correlations
+between configuration and a better conditioned path Hessian which
+leads to better Newton steps.</p></li>
+<li><p>comment-out the FS_positionDiff objective</p></li>
+<li><p>comment-out the FS_quaternionDiff objective</p></li>
+<li><p>comment-out the setSlow objective</p></li>
+<li><p>Play with changing objective types from OT_eq (equality constraint) to OT_sos (sum-of-squares), and reducing the scaling number {1e0} to {1e-1} or {1e-2} – this will lead to approximate tasks only</p></li>
+<li><p>Play with the changing {1., -1.} to {.5, .8} for one of the objectives. This changes when the objective is active (using the phase coordinate). 0.=start, 1.=after 20 steps, 2.=after 40 steps. Specifying -1. as last entry means ‘until the end’.</p></li>
+</ul>
+</div>
+<div class="section" id="lesson-2-learn-the-addobjective-method-and-the-language-of-features">
+<h3>Lesson 2: Learn the addObjective method and the “Language of Features”<a class="headerlink" href="#lesson-2-learn-the-addobjective-method-and-the-language-of-features" title="Permalink to this headline">¶</a></h3>
+<p>The core of learning KOMO is to learn how to add objectives. The method declaration is</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">Objective</span><span class="o">*</span> <span class="n">addObjective</span><span class="p">(</span>
+   <span class="k">const</span> <span class="n">arr</span><span class="o">&amp;</span> <span class="n">times</span><span class="p">,</span>            <span class="c1">//when (in phase! time) is this objective active?</span>
+       <span class="n">FeatureSymbol</span> <span class="n">feat</span><span class="p">,</span>      <span class="c1">//what feature is this about?</span>
+       <span class="k">const</span> <span class="n">StringA</span><span class="o">&amp;</span> <span class="n">frames</span><span class="p">,</span>   <span class="c1">//which frames are input to the feature?</span>
+       <span class="n">ObjectiveType</span> <span class="n">type</span><span class="p">,</span>      <span class="c1">//is this a sos, eq, or ineq objective?</span>
+       <span class="k">const</span> <span class="n">arr</span><span class="o">&amp;</span> <span class="n">scale</span><span class="o">=</span><span class="n">NoArr</span><span class="p">,</span>  <span class="c1">//an optional scaling or linear transformation! of the feature</span>
+       <span class="k">const</span> <span class="n">arr</span><span class="o">&amp;</span> <span class="n">target</span><span class="o">=</span><span class="n">NoArr</span><span class="p">,</span> <span class="c1">//an optional translation (change of zero-point) of the feature</span>
+       <span class="kt">int</span> <span class="n">order</span><span class="o">=</span><span class="mi">-1</span><span class="p">,</span>            <span class="c1">//how many configurations are input to the feature (order=1: velocity; order=2: acceleration)</span>
+       <span class="kt">int</span> <span class="n">deltaFromStep</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>     <span class="c1">//modify when exactly the objective becomes active</span>
+       <span class="kt">int</span> <span class="n">deltaToStep</span><span class="o">=</span><span class="mi">0</span><span class="p">);</span>      <span class="c1">//modify when exactly the objective ends being active</span>
+</pre></div>
+</div>
+<p>Let’s explain this with a series of examples. The first example
+<code class="docutils literal notranslate"><span class="pre">addObjective({1.},</span> <span class="pre">FS_position,</span> <span class="pre">{&quot;endeff&quot;},</span> <span class="pre">OT_eq,</span> <span class="pre">{1e1},</span>
+<span class="pre">{1.,2.,3.});</span></code> creates a new objective for the configuration of phase
+time 1. This objective is about a feature that takes a single
+configuration as input and maps it to the 3D world position of the
+“endeff” frame. From the resulting 3D position vector it subtracts the
+vector <span class="math notranslate nohighlight">\((1,2,3)^T\)</span> (to change the zero-point to the target), and
+then multiplies the vector with the scalar 1e1. The result is added to
+the mathematical program as an equality constraint. As a result the
+endeffector moves to the target position <span class="math notranslate nohighlight">\((1,2,3)\)</span> at phase
+time 1.</p>
+<p>The second example <code class="docutils literal notranslate"><span class="pre">addObjective({1.},</span> <span class="pre">FS_position,</span> <span class="pre">{&quot;endeff&quot;},</span>
+<span class="pre">OT_eq,</span> <span class="pre">arr(2,3</span> <span class="pre">{1,0,0,</span> <span class="pre">0,1,0}),</span> <span class="pre">{1.,2.,3.});</span></code> is almost the same as
+the first, but we replaced the scalar scaling 1e1 by the
+<span class="math notranslate nohighlight">\(2\times 3\)</span>-matrix <span class="math notranslate nohighlight">\(\begin{pmatrix}1&amp;0&amp;0\\0&amp;1&amp;0\end{pmatrix}\)</span>. The effect
+is that after subtracting the target <span class="math notranslate nohighlight">\((1,2,3)^T\)</span> from the endeff
+position we map the resulting 3D vector onto only the
+<span class="math notranslate nohighlight">\(xy\)</span>-position. This means this is an equality constraint on the
+<span class="math notranslate nohighlight">\(xy\)</span>-position of the endeffector to be at position
+<span class="math notranslate nohighlight">\((1,2)\)</span>.</p>
+<p>The third example <code class="docutils literal notranslate"><span class="pre">addObjective({1.},</span> <span class="pre">FS_position,</span> <span class="pre">{&quot;endeff&quot;},</span> <span class="pre">OT_eq,</span>
+<span class="pre">{1e1},</span> <span class="pre">{1.,2.,3.},</span> <span class="pre">1);</span></code> is again almost the same as the first, but we
+added the order argument <span class="math notranslate nohighlight">\(k=1\)</span>. This small change is a big
+change of semantics: The objective does not concern the position
+feature directly, but rather its finite difference between two
+consecutive configuration. Therefore, this actually constrains the
+velocity of the endeffector to be equal to <span class="math notranslate nohighlight">\((1,2,3)\)</span>. Below we
+give more details on the semantics of time and velocities in the
+section on <a href="#id1"><span class="problematic" id="id2">*</span></a>steps, phase, and time/. When instead we would set the
+order argument to <span class="math notranslate nohighlight">\(k=2\)</span>, the objective would concern the
+acceleration of the endeffector position.</p>
+<p>The fourth example is a rare case, but we add it here to also explain
+the last arguments: <code class="docutils literal notranslate"><span class="pre">addObjective({1.},</span> <span class="pre">FS_position,</span> <span class="pre">{&quot;endeff&quot;},</span>
+<span class="pre">OT_eq,</span> <span class="pre">{1e1},</span> <span class="pre">{0,0,0},</span> <span class="pre">1,</span> <span class="pre">-2,</span> <span class="pre">+3);</span></code> The last two arguments are a
+refinement of when exactly the objective is active. In this case, the
+objective not only holds at phase time 1, but starts being active 2
+time discretization steps before phase time 1, and ends being active 3
+time discretization steps after phase time one. The use case for this
+specification is rare, but sometimes we need to be very precise in
+which time steps objectives hold, esp. when imposing constraints that
+relate to kinematic switches or transitions between different dynamic
+phases.</p>
+</div>
+</div>
+<div class="section" id="features-are-at-the-core">
+<h2>Features are at the core<a class="headerlink" href="#features-are-at-the-core" title="Permalink to this headline">¶</a></h2>
+<p>So far we explained all arguments of addObjective except for those
+that specify the feature. In the previous examples the feature was
+specified by an enum symbol (FS_position) and the frame name “endeff”
+to which the feature refers to. But the concept of a feature is much
+more general than that. There is a second declaration of the
+addObjective method,</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">Objective</span><span class="o">*</span> <span class="n">addObjective</span><span class="p">(</span><span class="k">const</span> <span class="n">arr</span><span class="o">&amp;</span> <span class="n">times</span><span class="p">,</span> <span class="k">const</span> <span class="n">ptr</span><span class="o">&lt;</span><span class="n">Feature</span><span class="o">&gt;&amp;</span> <span class="n">f</span><span class="p">,</span>
+              <span class="n">ObjectiveType</span> <span class="n">type</span><span class="p">,</span>
+              <span class="k">const</span> <span class="n">arr</span><span class="o">&amp;</span> <span class="n">scale</span><span class="o">=</span><span class="n">NoArr</span><span class="p">,</span> <span class="k">const</span> <span class="n">arr</span><span class="o">&amp;</span> <span class="n">target</span><span class="o">=</span><span class="n">NoArr</span><span class="p">,</span>
+              <span class="kt">int</span> <span class="n">order</span><span class="o">=</span><span class="mi">-1</span><span class="p">,</span>
+              <span class="kt">int</span> <span class="n">deltaFromStep</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="kt">int</span> <span class="n">deltaToStep</span><span class="o">=</span><span class="mi">0</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>which is identical to the
+previous declaration except that, as the 2nd argument, it receives an
+instance of the abstract Feature class. A Feature implements an
+arbitrary differentiable mapping (the virtual phi method) from any
+tuple of configurations to a vector (see the [Kin/feature.h](../blob/master/Kin/feature.h) header). In
+principle the user can implement any instances of this class to define
+own feature spaces in add objectives in these feature spaces to the
+mathematical program. However, the KOMO code includes a large set of
+predefined features, which can be referred to by the feature symbols
+(see [Kin/featureSylbols.h](../blob/master/Kin/featureSylbols.h)). Most of these features are uniquely
+defined by specifying which frames they refer to. Therefore, the
+default is that a feature is specified by a symbol and a set of
+frames. More complicated features have to be first created as a shared
+pointer and then added as objective to the mathematical program.</p>
+<p>The 3D position of a frame is one of the simplest examples of a
+feature. A more complicated example is the quaternion of the relative
+orientation of two frames. Another feature that is often useful is the
+scalar product of two vectors, which can be attached to any two
+frames. These scalar products measure alignment and are typically
+constrained to be equal to 0 or 1. These are examples for geometric
+features. These geometric features come in three versions: (1) the
+position, vector or quaternion directly; (2) the <em>relative</em>
+position of one frame as measured in another frame, the vector
+attached to one frame as measured in another frame, or the quaternion
+orientation of one frame as measured in another; and (3) the
+<em>difference</em> in position of one frame and another as measured in
+world coordinates, the difference of two vectors attached to two
+frames as measured in world coordinates, or the difference of
+quaternions of two frames as measured in world coordinates. Whenever
+quaternions are subtracted of course this is modulo sign flip to
+account for the double coverage of SO(3).</p>
+<p>Apart from these typical geometric features there are other features,
+esp. those that directly refer to the joint angles. The most
+important among those is the FS_qItself feature, which is nothing but
+the <span class="math notranslate nohighlight">\(q\)</span>-vector itself. So this feature is basically the identity map
+from DOFs to feature. The q-vector is often used as a feature, for
+instance to impose acceleration sum-of-square penalties, or velocity
+penalties. In fact, the high-level method setQAccVelHoming does nothing
+but add up to three objectives to the KOMO problem, which concern the
+joint space accelerations, joint space velocities, and a homing preference in
+joint space, always imposing squared penalties. Another important
+feature which refers to the joint space is the FS_qLimit feature,
+which maps to a <span class="math notranslate nohighlight">\(2n\)</span>-dimensional vector (for <span class="math notranslate nohighlight">\(n\)</span>-dimensional <span class="math notranslate nohighlight">\(q\)</span>)
+which refers to the slack of all joint limits. If all <span class="math notranslate nohighlight">\(2n\)</span> numbers are
+negative, all joint limits are met. If one number is positive, this
+means that a joint limit is violated. So the joint limit feature can
+directly be used to impose an inequality objective in the mathematical
+program.</p>
+<p>Another group of features is related to collisions and shape distances
+or penetrations. The FS_accumulatedCollision maps a configuration to a
+single scalar that indicates penetration in the scene when the scalar
+is positive. The FS_distance maps two frames to the <em>negative</em> signed
+distance between their convex shapes. Thereby, imposing an inequality
+on the FS_distance between two frames avoids their penetration, but
+they may touch (which is important for manipulation). If you want to
+avoid collision by a margin, you have to specify a negative target,
+e.g., a target {-0.1} will keep the shapes 10 cm apart.</p>
+<p>Finally, other features are related to imposing physics constraints,
+and internally there are a lot more advanced features implemented,
+which are not yet exposed via the simple feature symbols.</p>
+</div>
+<div class="section" id="varying-decision-variables-per-time-slice-kinematic-switches-force-contacts">
+<h2>Varying decision variables per time slice: kinematic switches &amp; force contacts<a class="headerlink" href="#varying-decision-variables-per-time-slice-kinematic-switches-force-contacts" title="Permalink to this headline">¶</a></h2>
+<p>KOMO is perhaps special among available trajectory optimization
+methods in that is allows to optimize over sequences in which the
+structure and degrees-of-freedom of configurations changes over
+time. This originated from work that aimed to model kinematic
+pick-and-place scenarios, where the object is initially a child of
+some table without any own DOFs, then, when picked up, becomes a child
+of the endeffector, with 7 <em>effective</em> DOFs that describe the constant
+relative pose of the object in hand, then, when placed, becomes again
+a child of a table, but now with 3 DOFs that describe the effective
+placement DOFs (literally an <span class="math notranslate nohighlight">\(xy\phi\)</span>-joint) between table and object.</p>
+<p>In KOMO such kinematic switches can be added to the problem
+specification equally to how objectives are added. Namely, the
+addSwitch method allows this. Internally, these switches are process
+quite differently to objectives: While the list of objectives defines
+what information is passed to the NLP solver in each solver iteration,
+the list of switches is being process <em>only once at the
+initialization</em> of the optimization problem. By initialization here I
+mean, the explicit creation of all the T configurations that represent
+all time slices. This happens in the komo.setupConfigurations()
+method, which is called in komo.reset() typically after all objectives
+have been defined and just before the optimizer is started. That is,
+the setupConfiguration methods accounts for all the kinematic switches
+when creating the explicit kinematic representations of each time
+slice.</p>
+<p>The mechanism of introducing particular decision variables only for
+certain time slides is more general than just kinematic switches. To
+enable physical reasoning KOMO allows you to introduce explicit
+decision variables for a potential force exchange between pairs of
+frames in particular time slices of phases. This is done with the
+addContact methods. While introducing new decision variables to the
+mathematical program (new DOFs of the configurations in certain time
+slides), these methods automatically also add a series of equality and
+inequality constraints to model different kinds of contacts.</p>
+</div>
+<div class="section" id="summary-there-are-only-a-few-fundamental-methods-in-komo-the-rest-are-helpers">
+<h2>Summary: there are only a few fundamental methods in KOMO, the rest are helpers<a class="headerlink" href="#summary-there-are-only-a-few-fundamental-methods-in-komo-the-rest-are-helpers" title="Permalink to this headline">¶</a></h2>
+<p>In summary, there are only a few fundamental methods to specify the optimization problem:</p>
+<ul class="simple">
+<li><p>setModel, to specify the blueprint configuration that is used to create configurations for all time slices (accounting for switches)</p></li>
+<li><p>setTiming, to specify the basic phase duration, steps, and k-order</p></li>
+<li><p>addObjective</p></li>
+<li><p>addSwitch</p></li>
+<li><p>addContact</p></li>
+</ul>
+<p>Many other methods are just for convenience and internally just call the following fundamental methods. Further methods are for running the default solver, or reading out results.</p>
+</div>
+<div class="section" id="steps-phase-real-time-and-time-optimization">
+<h2>Steps, phase, real time, and time optimization<a class="headerlink" href="#steps-phase-real-time-and-time-optimization" title="Permalink to this headline">¶</a></h2>
+<p>There are really <em>three</em> different quantities that relate to time in
+KOMO. First, we distinguish between step and phase, where steps
+enumerate the series of configurations from 0 to T-1, and phase is a
+floating number from 0 to T/steps-per-phase. The precise mapping
+between these is done by the conv_time2step and conv_step2time methods
+in [Kin/switch.h](../blob/master/Kin/switch.h). The purpose of this distinction is that you can
+design a scheme referring only to phase time, but then change your
+choice of time discretization. Ideally, the mathematical program
+should be almost invariant w.r.t. a change of steps-per-phase. This is
+accounted for especially in the default penalizations of accelerations
+and velocities in the setQAccVelHoming method: the scaling of these
+squared penalties is automatically multiplied with
+<span class="math notranslate nohighlight">\(\sqrt{1/\text{steps-per-phase}}\)</span>.</p>
+<p>In addition, one should distinguish between phase and real
+time. First, in most practical settings, there should be a
+post-processing of optimized paths to decide how fast the optimized
+path should be executed in real time, e.g. by analyzing the joint
+velocities in the path. Further, KOMO also allows to introduce the
+real time interval <span class="math notranslate nohighlight">\(\tau\)</span> between two consecutive configurations as a
+decision variable subject to optimization. In fact, the
+setTimeOptimization introduces a new DOFs to each configuration (a
+<a href="#id3"><span class="problematic" id="id4">``</span></a>0th joint’‘) which represents the <span class="math notranslate nohighlight">\(\tau\)</span> relative to the previous
+configuration. All of these are then also optimized. The
+setTimeOptimization automatically also adds objectives to the
+mathematical program which ensure that <span class="math notranslate nohighlight">\(\tau\)</span> is lower bounded and
+evolves smoothly. This tau is actually used to evaluate real time
+accelerations and velocities in the physics related features, in
+particular in the NewtonEuler equation constraint. And it is
+especially in physics applications where certain sub-motions cannot be
+aligned with a prefixed time schedule. In this case it is essential to
+allow KOMO to adapt the real time evolution so that dynamic
+motions can align with a prefixed phase schedule.</p>
+</div>
+<div class="section" id="links-to-more-documentation">
+<h2>LINKS to more documentation<a class="headerlink" href="#links-to-more-documentation" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>And old arxiv tech report: <a class="reference external" href="https://arxiv.org/abs/1407.0414">https://arxiv.org/abs/1407.0414</a></p></li>
+<li><p>docu links in rai-maintenance: <a class="reference external" href="https://github.com/MarcToussaint/rai-maintenance/tree/master/help">https://github.com/MarcToussaint/rai-maintenance/tree/master/help</a></p></li>
+<li><p>docu of features for the python bindings: <a class="reference external" href="https://github.com/MarcToussaint/rai-python/blob/master/docs/2-features.ipynb">https://github.com/MarcToussaint/rai-python/blob/master/docs/2-features.ipynb</a></p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="_Array.html" class="btn btn-neutral float-left" title="Array" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, Marc Toussaint.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

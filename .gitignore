@@ -1,8 +1,7 @@
-
 rai-python-teaching
 
 %% compile temporaries
-build
+/build
 *.o
 *.a
 *.so

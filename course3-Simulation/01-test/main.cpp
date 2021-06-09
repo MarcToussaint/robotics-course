@@ -209,9 +209,19 @@ void testFriction(){
     obj->addAttribute("friction", .02*i);
   }
 
+  for(int i=0;i<10;i++){
+    rai::Frame *obj = C.addFrame(STRING("ball" <<i));
+    arr size = {.05};
+    obj->setShape(rai::ST_sphere, size);
+    obj->setPosition({(i-5)*.2,.5,2.});
+    obj->setMass(.2);
+    obj->addAttribute("restitution", .1*i);
+  }
+
   C.addFile("../../scenarios/pandasTable.g");
 
   C["table"]->setQuaternion({1.,-.1,0.,0.}); //tilt the table!!
+  C["table"]->addAttribute("restitution", .5);
 
   rai::Simulation S(C, S._bullet, true);
 //  rai::Simulation S(C, S._physx, true);
@@ -267,15 +277,51 @@ void testStackOfBlocks(){
 
 //===========================================================================
 
+void testBlockOnMoving(){
+  rai::Configuration C;
+
+  rai::Frame *obj= C.addFrame("block");
+  obj->setShape(rai::ST_ssBox, {.2,.2,.2, .02});
+  obj->setPosition({0.,0.,1.});
+  obj->setMass(1.);
+  obj->setColor({7.,.3,.3});
+
+  C.addFrame("world");
+  rai::Frame *table = C.addFrame("table", "world");
+  table->setShape(rai::ST_ssBox, {2.,2.,.1, .02});
+  table->setPosition({0.,0.,.5});
+  table->setJoint(rai::JT_rigid); //COMMENT THIS LINE, AND YOU'LL SEE THE ISSUE
+
+  rai::Simulation S(C, S._bullet, 4);
+
+  double tau=.01;
+  Metronome tic(tau);
+
+  for(uint t=0;t<4./tau;t++){
+    tic.waitForTic();
+
+    S.step({}, tau, S._none);
+    arr pos = table->getPosition();
+    pos(0) += .01;
+    table->setPosition(pos);
+
+  }
+
+  rai::wait();
+}
+
+//===========================================================================
+
 int main(int argc,char **argv){
   rai::initCmdLine(argc, argv);
 
-  testStackOfBlocks();
-  testPushes();
-  testGrasp();
-  testOpenClose();
-  makeRndScene();
+//  testStackOfBlocks();
+//  testPushes();
+//  testGrasp();
+//  testOpenClose();
+//  makeRndScene();
   testFriction();
+//  testBlockOnMoving();
 
   return 0;
 }

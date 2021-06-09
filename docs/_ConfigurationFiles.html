@@ -105,7 +105,7 @@
 <li class="toctree-l2"><a class="reference internal" href="_Array.html">Array</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="komoTutorial.html">Learning KOMO (K-Order Markov Optimization)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="komo.html">Learning KOMO (K-Order Markov Optimization)</a></li>
 </ul>
 
             
@@ -274,11 +274,12 @@ world.</p>
 </div>
 <div class="section" id="notation-to-specify-transformations">
 <h2>Notation to specify transformations<a class="headerlink" href="#notation-to-specify-transformations" title="Permalink to this headline">¶</a></h2>
-<p>Transformation can always be specified as 7-vectors <code class="docutils literal notranslate"><span class="pre">Q:[p1</span> <span class="pre">p2</span> <span class="pre">p3</span> <span class="pre">q0</span> <span class="pre">q1</span> <span class="pre">q2</span> <span class="pre">q3]</span></code> (position,
-quaternion). But this is not intuitive for human editing. Therefore,
-the bracket notation <code class="docutils literal notranslate"><span class="pre">&lt;...&gt;</span></code> allows for another notation, namely as
-a chaining of little interpretable transformations, as in the old
-turtle language.</p>
+<p>Transformation can always be specified as 7-vectors <code class="docutils literal notranslate"><span class="pre">Q:[p1</span> <span class="pre">p2</span> <span class="pre">p3</span> <span class="pre">q0</span>
+<span class="pre">q1</span> <span class="pre">q2</span> <span class="pre">q3]</span></code> (position, quaternion), or also 3- or 4-vectors if you
+only want to set position or orientation. But this is not always intuitive
+for human editing. Therefore, the bracket notation <code class="docutils literal notranslate"><span class="pre">&lt;...&gt;</span></code> allows
+for another notation, namely as a chaining of little interpretable
+transformations, as in the old turtle language.</p>
 <p>Specifically, you specify a transform by chaining:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">t</span><span class="p">(</span><span class="n">x</span> <span class="n">y</span> <span class="n">z</span><span class="p">)</span>       <span class="c1"># translation by (x,y,z)</span>
 <span class="n">q</span><span class="p">(</span><span class="n">q0</span> <span class="n">q1</span> <span class="n">q2</span> <span class="n">q3</span><span class="p">)</span> <span class="c1"># rotation by a quaternion</span>

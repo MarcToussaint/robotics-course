@@ -13,8 +13,9 @@ nothing about velocities or dynamics.
 In ealier versions of the code velocities where explicitly represented
 in configurations, and all transformations were also dynamic
 (representing also linear and angular velocities). However, influenced
-by experience KOMO, I removed these representations of dynamics and
-now instead represent everything by thinking in terms of "k-order".
+by experience with KOMO, I removed these representations of dynamics
+and now instead represent everything by thinking in terms of
+"k-order".
 
 Quite trivially, instead of velocities, in KOMO you only represent two
 consecutive configurations. Then all velocities are implicit by the
@@ -27,30 +28,29 @@ numerical quantity we can compute from frames).
 
 Representing velocites by finite difference of two concecutive
 configurations might seem dull and inefficient. But it is inherently
-consistent with the time discretization always need to numerically
-solve dynamic problems, avoids redundancies in path optimization
-settings, and generalizes directly to higher-order systems, where we
-might optimize for jerk. To be concrete, setting up operational space
-control as optimization problem over configurations, you would
-instantiate 3 configurations: One for the current time :math:`t`, one for
-the past time step :math:`t-\tau`, and one for the next time step
-:math:`t+\tau`. The first two configurations are fixed and represent the
-current dynamic state (via finite difference between :math:`t` and
-:math:`t-\tau`). The thrid configuration :math:`t+\tau` is subject to optimization
-and you can impose any objectives on any features, or velocities of
-features, or accelerations of features, or anything derivable from
-these.
-
+consistent with the time discretization needed to numerically solve
+dynamic problems, avoids redundancies in path optimization settings,
+and generalizes directly to higher-order systems, where we might
+optimize for jerk. To give a concrete example, setting up operational
+space control as optimization problem over configurations, you would
+instantiate 3 configurations: One for the current time :math:`t`, one
+for the past time step :math:`t-\tau`, and one for the next time step
+:math:`t+\tau`. The first two configurations are fixed and represent
+the current dynamic state (via finite difference between :math:`t` and
+:math:`t-\tau`). The thrid configuration :math:`t+\tau` is subject to
+optimization and you can impose any objectives on any features, or
+velocities of features, or accelerations of features, or anything
+derivable from these.
 
 What is KOMO?
 =============
 
-KOMO means k-order markov optimization. KOMO is a way to formulate
+KOMO means k-order Markov optimization. KOMO is a way to formulate
 path optimization problems. Technically, this means it is a convention
 of how to specify the mathematical program, namely via the KOMO class.
 
 It assumes that the path is represented as a sequence of T
-configurations (we discretized time). The decision variable of the
+configurations (we discretize time). The decision variable of the
 mathematical program are the DOFs of each configuration. Note that the
 decision variables are not velocities in time slices, but just the
 "joint angles" (and other potential DOFs in a time slice). But we
@@ -62,6 +62,26 @@ having a k-order Markov chain, instead of a Markov chain.
 
 I use the word *objective* to refer to cost terms as well as
 inequality and equality constraints of the mathematical program.
+
+What is KOMO -- formally?
+=========================
+
+As a convention of notation, we describe a non-linear mathematical program as a tuple :math:`(X, \phi, \rho)`, where :math:`X` is the decision space, :math:`\phi: X \to \mathbb{R}^K` a set of features, and :math:`\rho:\{1,..,K\} \to \{\text{S},\text{C},\text{I},\text{E}\}` indicates for each feature whether it is a sum-of-squares, normal cost, inequality, or equality:
+
+.. math::
+
+  \min_{x\in X}~ \phi_\text{S}(x)^\top \phi_\text{S}(x) + \textbf{1}^\top \phi_\text{C}(x)
+  \quad\text{s.t.}\quad \phi_\text{I}(x) \le 0,~ \phi_\text{E}(x) = 0~,
+
+where :math:`\phi_\text{S} \equiv \phi_{\rho^{-1}(\text{S})}` is the feature
+vector containing only the set of sum-of-square features, and
+analogously for :math:`\phi_\text{C}, \phi_\text{I}`, and :math:`\phi_\text{E}`.
+
+In KOMO we additionally assume that :math:`x=(x_1,..,x_T)` is a set of
+variables ("factored"), and each feature :math:`\phi_j(x_{[j]})` depends
+only on a subset of at most :math:`k+1` variables, where
+:math:`[j] \subseteq \{1,..,T\}` indicates which variables the *j*-th feature depends on.
+
 
 What are the main steps to define a KOMO problem?
 =================================================
@@ -82,11 +102,11 @@ as follows:
   simple shortest path problems, we can choose k=1, where we can
   penalize the path length, but not accelerations.
 
-* As an advance feature (skip this first), you can then specify
+* As an advanced feature (skip this first), you can then specify
   kinematic switches during the path. This means to specify operators
   that actually structurally change the kinematic tree(s) of the
   configuration at certain time slices. KOMO is designed to cope with
-  such structural switches. In many kinematic reasoning settings,
+  such structural switches. In many kinematic reasoning settings
   these appear naturally, e.g. when an object is first considered a
   leaf of a robot arm (stable grasp), and later a leaf link of a
   tablet where it was placed on.
@@ -101,19 +121,24 @@ Roughly, what does KOMO do with these specs?
 A core of KOMO is to compile all the given information into a more
 abstract representation of a non-linear mathematical program. It does
 so by implementing different (virtual) problem abstractions, namely
-ConstrainedProblem, GraphProblem, or KOMOProblem. Then, behind these
-problem abstractions, a solver is finding an optimal solution. While
-the KOMO code comes with a default solver, this solver should not
-necessarily be thought of as part of KOMO. One could plug-and-play
-replace it with any other general NLP solver.
+`MathematicalProgram`, or `MathematicalProgram_Factored`. Then, behind
+these problem abstractions, a solver is finding an optimal
+solution. While the KOMO code comes with a default solver, this solver
+should not necessarily be thought of as part of KOMO. One can
+plug-and-play replace it with other general NLP solvers (currently
+interfaced are NLOpt, IPOpt, and ceres).
 
-In all cases, the full path (vector of all DOFs in all time slices)
+In all cases, the full path (vector of all DOFs in all configurations)
 becomes the decision variable of the solver. The difference in the
 abstractions is in how much structure of the Jacobians and feature
 dependencies is being exposed to the solver. In the default case (via
-the GraphProblem abstraction), the solver knows which objectives
-depend on which variables, and their Jacobians are represented
-sparsely.
+the MathematicalProgram abstraction), the solver does not have
+detailed information about the problem structure, but gets sparse
+Jacobians for all features, which makes computing Newton steps etc
+computationally efficient. In the other casevia the
+`MathematicalProgram_Factored` abstraction), the solver gets
+information on individual variables and which objectives depend on
+which variables, much like in a factor graph.
 
 Can KOMO only optimize paths?
 =============================
@@ -125,7 +150,8 @@ objective may depend only on maximally k+1 configurations - but these
 are arbitrary. Thereby the structure is a network of configurations,
 where the objectives define couplings or cliques of maximal size
 k+1. Such problems are handled exactly the same way as path problems,
-namely by exposing a sparse graph structure to the solver.
+namely by exposing spare Jacobians and/or a sparse graph structure to
+the solver.
 
 Can I load an URDF?
 ===================

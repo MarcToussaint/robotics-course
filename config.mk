@@ -10,7 +10,9 @@
 # (they are already set =1 in the components that need to them)
 
 #OPTIM=fast
-#OPTIM = fast_debug
+OPTIM = fast_debug
+
+RAI_CMAKE = 1
 
 #GL = 0
 #FCL = 0
@@ -25,4 +27,7 @@ GTK = 0
 ROS = 0
 ROS_VERSION = melodic
 #EIGEN = 0
+REALSENSE = 0
 CERES = 0
+NLOPT = 0
+IPOPT = 0

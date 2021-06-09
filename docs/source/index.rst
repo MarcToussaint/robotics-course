@@ -23,7 +23,7 @@ are almost identical to how users should use C++.
 
    simlab
    rai
-   komoTutorial
+   komo
 
 
 Indices and tables
