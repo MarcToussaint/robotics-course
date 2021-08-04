@@ -13,8 +13,8 @@ void testPushes(){
   C.addFile("model.g");
   C.watch(true);
 
-  rai::Simulation S(C, S._bullet, true);
-//  rai::Simulation S(C, S._physx, true);
+  rai::Simulation S(C, S._bullet);
+//  rai::Simulation S(C, S._physx);
 
   double tau=.01;
   Metronome tic(tau);
@@ -60,10 +60,8 @@ void testGrasp(){
   rai::Configuration C;
   C.addFile("model.g");
 
-  C.selectJointsByName({"finger1", "finger2"}, true);
-
-  rai::Simulation S(C, S._bullet, true);
-//  rai::Simulation S(C, S._physx, true);
+  rai::Simulation S(C, S._bullet);
+//  rai::Simulation S(C, S._physx);
 
   byteA rgb;
   floatA depth;
@@ -114,7 +112,7 @@ void testGrasp(){
 void testOpenClose(){
   rai::Configuration RealWorld;
   RealWorld.addFile("../../scenarios/challenge.g");
-  rai::Simulation S(RealWorld, S._bullet, true);
+  rai::Simulation S(RealWorld, S._bullet);
 
   rai::Configuration C;
   C.addFile("../../scenarios/pandasTable.g");
@@ -171,8 +169,8 @@ void makeRndScene(){
 
   C.addFile("../../scenarios/pandasTable.g");
 
-  rai::Simulation S(C, S._bullet, true);
-//  rai::Simulation S(C, S._physx, true);
+  rai::Simulation S(C, S._bullet);
+//  rai::Simulation S(C, S._physx);
   S.cameraview().addSensor("camera");
 
   byteA rgb;
@@ -223,8 +221,8 @@ void testFriction(){
   C["table"]->setQuaternion({1.,-.1,0.,0.}); //tilt the table!!
   C["table"]->addAttribute("restitution", .5);
 
-  rai::Simulation S(C, S._bullet, true);
-//  rai::Simulation S(C, S._physx, true);
+  rai::Simulation S(C, S._bullet);
+//  rai::Simulation S(C, S._physx);
   S.cameraview().addSensor("camera");
 
   double tau=.01;
@@ -260,8 +258,8 @@ void testStackOfBlocks(){
 
   C.addFile("../../scenarios/pandasTable.g");
 
-  rai::Simulation S(C, S._bullet, true);
-//  rai::Simulation S(C, S._physx, true);
+  rai::Simulation S(C, S._bullet);
+//  rai::Simulation S(C, S._physx);
 
   double tau=.01;  //jumps a bit for tau=.01
   Metronome tic(tau);
@@ -317,10 +315,10 @@ int main(int argc,char **argv){
 
 //  testStackOfBlocks();
 //  testPushes();
-//  testGrasp();
+  testGrasp();
 //  testOpenClose();
 //  makeRndScene();
-  testFriction();
+//  testFriction();
 //  testBlockOnMoving();
 
   return 0;

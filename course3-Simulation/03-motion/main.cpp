@@ -36,8 +36,8 @@ void using_KOMO_for_IK(){
   komo.add_qControlObjective({}, 1, 1.); //sos-penalize (with weight=1.) the finite difference joint velocity (k_order=1) between x[-1] (current configuration) and x[0] (to be optimized)
 
   //task objectives:
-  komo.addObjective({}, FS_positionRel, {"object", "R_gripperCenter"}, OT_eq, {1e2}, {0.,0.,-.2});
-//  komo.addObjective({}, FS_scalarProductXZ, {"R_gripperCenter", "object"}, OT_eq, {1e2}, {0.});
+  komo.addObjective({}, FS_positionRel, {"object", "R_gripper"}, OT_eq, {1e2}, {0.,0.,-.2});
+//  komo.addObjective({}, FS_scalarProductXZ, {"R_gripper", "object"}, OT_eq, {1e2}, {0.});
 
   //run the solver
   komo.optimize();
@@ -111,7 +111,7 @@ void using_KOMO_for_PathPlanning(){
   komo.add_qControlObjective({}, 2, 1.); //sos-penalize (with weight=1.) the finite difference joint velocity (k_order=1) between x[-1] (current configuration) and x[0] (to be optimized)
 
   //task objectives:
-  komo.addObjective({1.}, FS_positionDiff, {"R_gripperCenter", "object"}, OT_sos, {1e2});
+  komo.addObjective({1.}, FS_positionDiff, {"R_gripper", "object"}, OT_sos, {1e2});
 
   komo.addObjective({1.}, FS_qItself, {}, OT_eq, {1e2}, {}, 1);
   komo.addObjective({}, FS_distance, {"R_gripper", "object"}, OT_ineq, {1e2}, {});
@@ -150,7 +150,7 @@ void using_KOMO_for_PathPlanning(){
 int main(int argc,char **argv){
   rai::initCmdLine(argc, argv);
 
-//  using_KOMO_for_IK();
+  using_KOMO_for_IK();
   using_KOMO_for_PathPlanning();
 
   return 0;

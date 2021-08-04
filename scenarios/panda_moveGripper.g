@@ -11,16 +11,16 @@ Delete panda_link5_0
 Delete panda_link6_0
 Delete panda_link7_0
        
-frame (panda_link0)	{ shape:capsule color:[.9 .9 .9 .1] size:[.1 .1] Q:<t(-.04 .0 .03) d(90 0 1 0)>, noVisual, contact:-2  }
+(panda_link0)	{ shape:capsule color:[.9 .9 .9 .1] size:[.1 .1] Q:<t(-.04 .0 .03) d(90 0 1 0)>, noVisual, contact:-2  }
 
-frame (panda_joint1)	{ shape:capsule color:[.9 .9 .9 .1] size:[.2 .08] Q:<d(90 0 1 0) t(0 0 -.15)>, noVisual, contact:-2  }
-frame (panda_joint3)	{ shape:capsule color:[.9 .9 .9 .1] size:[.2 .08] Q:<d(90 0 1 0) t(0 0 -.15)>, noVisual, contact:-2  }
-frame (panda_joint5)	{ shape:capsule color:[.9 .9 .9 .1] size:[.22 .08] Q:<d(90 0 1 0) t(0 .02 -.2)>, noVisual, contact:-2  }
+(panda_joint1)	{ shape:capsule color:[.9 .9 .9 .1] size:[.2 .08] Q:<d(90 0 1 0) t(0 0 -.15)>, noVisual, contact:-2  }
+(panda_joint3)	{ shape:capsule color:[.9 .9 .9 .1] size:[.2 .08] Q:<d(90 0 1 0) t(0 0 -.15)>, noVisual, contact:-2  }
+(panda_joint5)	{ shape:capsule color:[.9 .9 .9 .1] size:[.22 .08] Q:<d(90 0 1 0) t(0 .02 -.2)>, noVisual, contact:-2  }
 
-frame (panda_joint2)	{ shape:capsule color:[.9 .9 .9 .1] size:[.12 .08] Q:<d(90 0 1 0) t(0 0 .0)>, noVisual, contact:-2  }
-frame (panda_joint4)	{ shape:capsule color:[.9 .9 .9 .1] size:[.12 .08] Q:<d(90 0 1 0) t(0 0 .0)>, noVisual, contact:-2  }
-frame (panda_joint6)	{ shape:capsule color:[.9 .9 .9 .1] size:[.1 .07] Q:<d(90 0 1 0) t(0 .0 -.04)>, noVisual, contact:-2  }
-frame panda_coll7(panda_joint7)	{ shape:capsule color:[.9 .9 .9 .1] size:[.1 .07] Q:<d(90 0 1 0) t(0 .0 .01)>, noVisual, contact:-2  }
+(panda_joint2)	{ shape:capsule color:[.9 .9 .9 .1] size:[.12 .08] Q:<d(90 0 1 0) t(0 0 .0)>, noVisual, contact:-2  }
+(panda_joint4)	{ shape:capsule color:[.9 .9 .9 .1] size:[.12 .08] Q:<d(90 0 1 0) t(0 0 .0)>, noVisual, contact:-2  }
+(panda_joint6)	{ shape:capsule color:[.9 .9 .9 .1] size:[.1 .07] Q:<d(90 0 1 0) t(0 .0 -.04)>, noVisual, contact:-2  }
+panda_coll7(panda_joint7)	{ shape:capsule color:[.9 .9 .9 .1] size:[.1 .07] Q:<d(90 0 1 0) t(0 .0 .01)>, noVisual, contact:-2  }
 
 ## zero position
 
@@ -52,5 +52,5 @@ Include: 'gripper.g'
 Edit gripper (panda_joint7){ Q:<d(-90 0 1 0) d(135 0 0 1) t(0 0 -.155)> }
        
 Edit finger1{ joint:transX Q:<> A:<t(+.07 0 -.05)> limits: [-.05 0.02], contact: -2, shape:capsule, size:[.02, .02] }
-Edit finger2{ joint:transX mimic:(finger1) Q:<> A:<d(180 0 0 1) t(+.07 0 -.05)>, contact: -2, shape:capsule, size:[.02, .02]}
+Edit finger2{ joint:transX mimic:(finger1) Q:<> A:<d(180 0 0 1) t(+.07 0 -.05)>, limits: [-.05 0.02], contact: -2, shape:capsule, size:[.02, .02]}
         

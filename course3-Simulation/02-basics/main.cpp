@@ -49,7 +49,7 @@ void basics(){
     //some good old fashioned IK
     C.setJointState(q); //set your robot model to match the real q
     C.watch();
-    Value diff = C.feature(FS_positionDiff, {"L_gripperCenter", "object"})->eval(C);
+    Value diff = C.feature(FS_positionDiff, {"R_gripper", "object"})->eval(C);
     arr vel = pseudoInverse(diff.J, NoArr, 1e-2) * (-diff.y);
 
     //send velocity controls to the simulation

@@ -38,5 +38,5 @@ target (table){
     shape:ssBox, Q:<t(-.2 0 .2)>, size:[.3 .3 .05 .02], color:[.3 .6 .3 1]
 }
 
-Include 'panda_moveGripper.g'
+Include '../rai-robotModels/scenarios/panda_fixGripper.g'
 joint (table panda_link0){ joint:rigid Q:<t(.3 .8 .05) d(-90 0 0 1)> }

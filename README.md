@@ -34,28 +34,33 @@ This assumes a standard Ubuntu 18.04 or 20.04 machine.
 
 * The following assumes $HOME/git as your git path, and $HOME/opt
 to install 3rd-party libs -- please stick to this (no system-wide installs)
+
+* If you'll use python:
+```
+sudo apt-get install python3 python3-dev python3-numpy python3-pip python3-distutils
+echo 'export PATH="${PATH}:$HOME/.local/bin"' >> ~/.bashrc   #add this to your .bashrc, if not done already
+pip3 install --user jupyter nbconvert matplotlib pybind11 opencv-python
+```
+
 * Clone and compile our robotics-course code:
 ```
 mkdir -p $HOME/git
 cd $HOME/git
 git clone --recursive https://github.com/MarcToussaint/robotics-course.git
-cd robotics-course
 
+cd robotics-course
 make -j1 installUbuntuAll  # calls sudo apt-get install; you can always interrupt
 # If this fails, please try `make -j1 printUbuntuAll` to print all packages and install manually
 
 mkdir build
 cd build
 cmake ..
-#cmake -DPYBIND11_PYTHON_VERSION=3.6 .. #if you have multiple python version installed!
+
 make -j $(command nproc)
 ```
 
-
-* If you use python, install jupyter and some python packages, and run tests:
+* If you use python, run tests:
 ```
-# export PATH="${PATH}:$HOME/.local/bin"   #add this to your .bashrc, if not done already
-pip3 install --user jupyter nbconvert matplotlib opencv-python
 jupyter-notebook tutorials/1-basics.ipynb
 jupyter-notebook course3-Simulation
 ```
