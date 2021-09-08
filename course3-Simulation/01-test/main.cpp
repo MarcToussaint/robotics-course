@@ -318,7 +318,7 @@ int main(int argc,char **argv){
   testGrasp();
 //  testOpenClose();
 //  makeRndScene();
-//  testFriction();
+  testFriction();
 //  testBlockOnMoving();
 
   return 0;

@@ -25,6 +25,7 @@ add_definitions(
 ################################################################################
 
 include_directories(
+  src/
   rai/rai
   /usr/include/eigen3
   $ENV{HOME}/opt/include
@@ -80,15 +81,6 @@ target_link_libraries(rai
 
 ################################################################################
 
-if(USE_PYBIND)
-  execute_process(
-    COMMAND bash "-c" "python3 -m pybind11 --cmakedir" 
-    OUTPUT_STRIP_TRAILING_WHITESPACE OUTPUT_VARIABLE pybind11_DIR
-  )
-  find_package(pybind11)
-  add_definitions(-DRAI_PYBIND)
-endif()
-
 if(USE_BULLET)
   find_package(Bullet REQUIRED)
   add_definitions(-DRAI_BULLET)
@@ -104,12 +96,21 @@ endif()
 
 ################################################################################
 
-pybind11_add_module(libry SHARED
-  ${SRC_ry}
+if(USE_PYBIND)
+  execute_process(
+    COMMAND bash "-c" "python3 -m pybind11 --cmakedir" 
+    OUTPUT_STRIP_TRAILING_WHITESPACE OUTPUT_VARIABLE pybind11_DIR
   )
-target_link_libraries(libry PRIVATE
-  rai
+  find_package(pybind11)
+  add_definitions(-DRAI_PYBIND)
+
+  pybind11_add_module(libry SHARED
+    ${SRC_ry}
   )
+  target_link_libraries(libry PRIVATE
+    rai
+  )
+endif()
 
 ################################################################################
 

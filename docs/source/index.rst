@@ -24,7 +24,8 @@ are almost identical to how users should use C++.
    simlab
    rai
    komo
-
+   skeleton
+   
 
 Indices and tables
 ==================
