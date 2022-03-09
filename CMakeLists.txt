@@ -9,7 +9,7 @@ option(USE_BULLET "link to bullet" ON)
 option(USE_OPENCV "link to opencv" ON)
 
 add_compile_options(
-  -O3 -g -Wall -fPIC -std=c++14 -Wno-terminate -Wno-pragmas
+  -O3 -g -Wall -Wpedantic -fPIC -std=c++14 -Wno-terminate
   )
 
 ################################################################################
@@ -97,6 +97,7 @@ endif()
 ################################################################################
 
 if(USE_PYBIND)
+  set(PYTHON_EXECUTABLE "python3")
   execute_process(
     COMMAND bash "-c" "python3 -m pybind11 --cmakedir" 
     OUTPUT_STRIP_TRAILING_WHITESPACE OUTPUT_VARIABLE pybind11_DIR
