@@ -11,46 +11,28 @@
 void testPushes(){
   rai::Configuration C;
   C.addFile("model.g");
-  C.watch(true);
 
   rai::Simulation S(C, S._bullet);
-//  rai::Simulation S(C, S._physx);
+  S.cameraview().addSensor("camera");
 
   double tau=.01;
   Metronome tic(tau);
   byteA rgb;
   floatA depth;
 
-  arr Xstart = C.getFrameState();
+  for(uint t=0;t<300;t++){
+    tic.waitForTic();
+    if(!(t%10)) S.getImageAndDepth(rgb, depth); //we don't need images with 100Hz, rendering is slow
 
-  for(uint k=0;k<5;k++){
-
-    //restart from the same state multiple times
-    S.setState(Xstart);
-
-    for(uint t=0;t<300;t++){
-      tic.waitForTic();
-      if(!(t%10)) S.getImageAndDepth(rgb, depth); //we don't need images with 100Hz, rendering is slow
-
-      //some good old fashioned IK
-      arr q = C.getJointState();
-      Value diff = C.feature(FS_positionDiff, {"gripper", "box"})->eval(C);
-      diff.y *= .005/length(diff.y);
-      q -= pseudoInverse(diff.J, NoArr, 1e-2) * diff.y;
-//      C.setJointState(q);
-
-      S.step(q, tau, S._position);
-
-      //a crazy disturbance, lifting the box suddenly
-      if(!(t%100)){
-        arr p = C["box"]->getPosition();
-        p(0) += .05;
-        p(2) += .2;
-        C["box"]->setPosition(p);
-
-        S.setState(C.getFrameState());
-      }
-    }
+    //some good old fashioned IK
+    arr q = C.getJointState();
+    arr diff = C.feature(FS_positionDiff, {"gripper", "box"})->eval(C);
+    arr J = *diff.jac;
+//    q -= 1e-1*inverse(~J*J+1e-2*eye(q.N))*~J*diff;
+    diff *= .01/length(diff);
+    q -= pseudoInverse(J, NoArr, 1e-2) * diff;
+    S.step(q, tau, S._position);
+//    S.step({}, tau, S._none);
   }
 }
 
@@ -60,17 +42,17 @@ void testGrasp(){
   rai::Configuration C;
   C.addFile("model.g");
 
+  arr q0 = C.getJointState();
+
   rai::Simulation S(C, S._bullet);
-//  rai::Simulation S(C, S._physx);
+  S.cameraview().addSensor("camera");
 
   byteA rgb;
   floatA depth;
   double tau=.01;
   Metronome tic(tau);
-
   for(uint t=0;;t++){
     tic.waitForTic();
-//    rai::wait(.05);
 
     C.stepSwift();
 //    C.reportProxies();
@@ -80,26 +62,90 @@ void testGrasp(){
     arr q = C.getJointState();
 
     //some good old fashioned IK
-    if(t>40 && t<=300){
-      Value diff = C.feature(FS_oppose, {"finger1", "finger2", "ring4"})->eval(C);
-      diff.y *= rai::MIN(.008/length(diff.y), 1.);
-      q -= pseudoInverse(diff.J, NoArr, 1e-2) * diff.y;
+    if(t>40 && t<=200){
+      arr diff = C.feature(FS_positionDiff, {"gripperCenter", "ring4"})->eval(C);
+      diff(1) -= 0.2;
+      diff(2) -= 0.2;
+      diff *= rai::MIN(.01/length(diff), 1.);
+
+      q -= pseudoInverse(*diff.jac, NoArr, 1e-2) * diff;
+    }
+    if(t>200 && t<=400){
+      arr diff = C.feature(FS_oppose, {"finger1", "finger2", "ring4"})->eval(C);
+//      arr diff = C.feature(FS_positionDiff, {"gripperCenter", "ring4"})->eval(C);
+      diff *= rai::MIN(.01/length(diff), 1.);
+
+      q -= pseudoInverse(*diff.jac, NoArr, 1e-2) * diff;
     }
 
-    if(t==300){
+    if(t==400){
       S.closeGripper("gripper");
     }
 
     if(S.getGripperIsGrasping("gripper")){
-      Value diff = C.feature(FS_position, {"gripper"})->eval(C);
-      q -= pseudoInverse(diff.J, NoArr, 1e-2) * ARR(0.,0.,-2e-4);
+      arr diff = C.feature(FS_position, {"gripper"})->eval(C);
+      q += pseudoInverse(*diff.jac, NoArr, 1e-2) * ARR(0.01,0.01,.005);
     }
 
-    if(t==900){
+    if(t==700){
       S.openGripper("gripper");
     }
 
-    if(t>1000 && S.getGripperWidth("gripper")>=.02){ //that's the upper limit of this gripper
+    if(t>700){
+      q += 0.01*(q0-q);
+    }
+
+    if(t>1000 && S.getGripperIsOpen("gripper")){
+      break;
+    }
+
+    S.step(q, tau, S._position);
+  }
+}
+
+//===========================================================================
+void testSliding(){
+  rai::Configuration C;
+  C.addFile("model.g");
+
+  arr q0 = C.getJointState();
+
+  rai::Simulation S(C, S._bullet);
+  S.cameraview().addSensor("camera");
+
+  byteA rgb;
+  floatA depth;
+  double tau=.01;
+  Metronome tic(tau);
+  for(uint t=0;;t++){
+    tic.waitForTic();
+
+
+    if(!(t%10)) S.getImageAndDepth(rgb, depth); //we don't need images with 100Hz, rendering is slow
+
+    arr q = C.getJointState();
+
+    //some good old fashioned IK
+    if(t<=500){
+      arr y = C.feature(FS_position, {"gripperCenter"})->eval(C);
+      if(t<=300) q += pseudoInverse(*y.jac, NoArr, 1e-2) * ARR(0,0,-.01);
+      else q += pseudoInverse(*y.jac, NoArr, 1e-2) * ARR(0.0,0.01,-.01);
+    } else if(t<800){
+      arr diff = C.feature(FS_positionDiff, {"gripperCenter", "stick"})->eval(C);
+      if(t<700) diff(2) -= 0.3;
+      diff *= rai::MIN(.02/length(diff), 1.);
+      q -= pseudoInverse(*diff.jac, NoArr, 1e-2) * diff;
+    } else if(t==800){
+      S.closeGripper("gripper");
+    }
+
+    if(S.getGripperIsGrasping("gripper")){
+      arr diff = C.feature(FS_positionDiff, {"stickTip", "target"})->eval(C);
+      diff *= rai::MIN(.01/length(diff), 1.);
+      q -= pseudoInverse(*diff.jac, NoArr, 1e-2) * diff;
+    }
+
+    if(t>1500){
       break;
     }
 
@@ -116,10 +162,11 @@ void testOpenClose(){
 
   rai::Configuration C;
   C.addFile("../../scenarios/pandasTable.g");
-  C.watch();
+  C.watch(true);
 
   double tau = .01;
 
+  rai::wait();
   S.closeGripper("R_gripper");
   for(uint t=0;;t++){
     rai::wait(tau);
@@ -133,6 +180,7 @@ void testOpenClose(){
     if(S.getGripperIsClose("R_gripper")) break;
   }
 
+  rai::wait();
   S.openGripper("R_gripper");
   for(uint t=0;;t++){
     rai::wait(tau);
@@ -145,6 +193,7 @@ void testOpenClose(){
     cout <<S.getGripperWidth("R_gripper") <<endl;
     if(S.getGripperIsOpen("R_gripper")) break;
   }
+  rai::wait();
 }
 
 //===========================================================================
@@ -178,7 +227,7 @@ void makeRndScene(){
   double tau=.01;
   Metronome tic(tau);
 
-  for(uint t=0;t<300;t++){
+  for(uint t=0;t<500;t++){
     tic.waitForTic();
     if(!(t%10)) S.getImageAndDepth(rgb, depth); //we don't need images with 100Hz, rendering is slow
 
@@ -203,7 +252,7 @@ void testFriction(){
     arr size = {.1,.1,.1, .01};
     obj->setShape(rai::ST_ssBox, size);
     obj->setPosition({(i-5)*.2,0.,1.});
-    obj->setMass(.2);
+    obj->setMass(.1);
     obj->addAttribute("friction", .02*i);
   }
 
@@ -211,19 +260,18 @@ void testFriction(){
     rai::Frame *obj = C.addFrame(STRING("ball" <<i));
     arr size = {.05};
     obj->setShape(rai::ST_sphere, size);
-    obj->setPosition({(i-5)*.2,.5,2.});
-    obj->setMass(.2);
+    obj->setPosition({(i-5)*.2,-.1,2.});
+    obj->setMass(.1);
     obj->addAttribute("restitution", .1*i);
   }
 
-  C.addFile("../../scenarios/pandasTable.g");
+  rai::Frame *table = C.addFrame("table");
+  table->setShape(rai::ST_ssBox, {3.,2.,.1, .02}).setColor({.3,.3,.3});
+  table->setPosition({0,0,.6}).setQuaternion({1.,-.1,0.,0.}); //tilt the table!!
+  table->addAttribute("friction", .1);
 
-  C["table"]->setQuaternion({1.,-.1,0.,0.}); //tilt the table!!
-  C["table"]->addAttribute("restitution", .5);
 
   rai::Simulation S(C, S._bullet);
-//  rai::Simulation S(C, S._physx);
-  S.cameraview().addSensor("camera");
 
   double tau=.01;
   Metronome tic(tau);
@@ -231,7 +279,7 @@ void testFriction(){
   int ppmCount=0;
   rai::system("mkdir -p z.vid/; rm -f z.vid/*.ppm");
 
-  for(uint t=0;t<300;t++){
+  for(uint t=0;t<500;t++){
     tic.waitForTic();
 
     S.step({}, tau, S._none);
@@ -241,30 +289,29 @@ void testFriction(){
   rai::wait();
 }
 
-//===========================================================================
+////===========================================================================
 
 void testStackOfBlocks(){
   rai::Configuration C;
 
-  for(int i=0;i<7;i++){
+  for(int i=0;i<15;i++){
     rai::Frame *obj = C.addFrame(STRING("obj" <<i));
     arr size = {.2,.2,.2, .02};
     obj->setShape(rai::ST_ssBox, size);
     obj->setPosition({0.,0.,1.+i*.25});
     obj->setMass(1.); //does not seem to have much effect?
-//    obj->addAttribute("friction", 1.);
-//    obj->addAttribute("restitution", .01);
+    obj->addAttribute("friction", 1.);
+    obj->addAttribute("restitution", .0);
   }
 
   C.addFile("../../scenarios/pandasTable.g");
 
   rai::Simulation S(C, S._bullet);
-//  rai::Simulation S(C, S._physx);
 
   double tau=.01;  //jumps a bit for tau=.01
   Metronome tic(tau);
 
-  for(uint t=0;t<4./tau;t++){
+  for(uint t=0;t<5./tau;t++){
     tic.waitForTic();
 
     S.step({}, tau, S._none);
@@ -273,36 +320,30 @@ void testStackOfBlocks(){
   rai::wait();
 }
 
-//===========================================================================
+////===========================================================================
 
-void testBlockOnMoving(){
+void testBallOnMovingTable(){
   rai::Configuration C;
 
-  rai::Frame *obj= C.addFrame("block");
-  obj->setShape(rai::ST_ssBox, {.2,.2,.2, .02});
-  obj->setPosition({0.,0.,1.});
-  obj->setMass(1.);
-  obj->setColor({7.,.3,.3});
+  rai::Frame *obj= C.addFrame("ball");
+  obj->setShape(rai::ST_sphere, {.1});
+  obj->setPosition({0.,0.1,1.});
+  obj->setMass(.1);
+  obj->setColor({.6,.4,.4});
 
-  C.addFrame("world");
-  rai::Frame *table = C.addFrame("table", "world");
+  C.addFrame("table_base")->setPosition({0.,0.0,.5});
+  rai::Frame *table = C.addFrame("table", "table_base");
   table->setShape(rai::ST_ssBox, {2.,2.,.1, .02});
-  table->setPosition({0.,0.,.5});
-  table->setJoint(rai::JT_rigid); //COMMENT THIS LINE, AND YOU'LL SEE THE ISSUE
+  table->setJoint(rai::JT_hingeX);
+  table->joint->limits = {-.5, .5};
 
   rai::Simulation S(C, S._bullet, 4);
 
   double tau=.01;
   Metronome tic(tau);
-
-  for(uint t=0;t<4./tau;t++){
+  for(uint t=0;t<5./tau;t++){
     tic.waitForTic();
-
     S.step({}, tau, S._none);
-    arr pos = table->getPosition();
-    pos(0) += .01;
-    table->setPosition(pos);
-
   }
 
   rai::wait();
@@ -313,13 +354,16 @@ void testBlockOnMoving(){
 int main(int argc,char **argv){
   rai::initCmdLine(argc, argv);
 
-//  testStackOfBlocks();
-//  testPushes();
-  testGrasp();
-//  testOpenClose();
-//  makeRndScene();
+  testStackOfBlocks();
+  testBallOnMovingTable();
+  makeRndScene();
   testFriction();
-//  testBlockOnMoving();
+  testPushes();
+
+  testOpenClose();
+  testGrasp();
+  testSliding();
+
 
   return 0;
 }

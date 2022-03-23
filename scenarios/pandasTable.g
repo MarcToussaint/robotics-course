@@ -13,15 +13,15 @@ table (world){
 #L_lift (table){ joint:transZ, limits:[0 .5] }
 
 Prefix: "L_"
-Include: '../rai-robotModels/scenarios/panda_fixGripper.g'
+Include: '../rai-robotModels/scenarios/panda_moveGripper.g'
 
 Prefix: "R_"
-Include: '../rai-robotModels/scenarios/panda_fixGripper.g'
+Include: '../rai-robotModels/scenarios/panda_moveGripper.g'
 
 Prefix!
         
-Edit L_panda_link0 (table) { Q:<t(-.4 -.4 .1) d(90 0 0 1)> }
-Edit R_panda_link0 (table)  { Q:<t( .4 -.4 .1) d(90 0 0 1)> }
+Edit L_panda_link0 (table) { joint:rigid Q:<t(-.4 -.4 .1) d(90 0 0 1)> motors}
+Edit R_panda_link0 (table)  { joint:rigid Q:<t( .4 -.4 .1) d(90 0 0 1)> motors}
 
 ### camera
 
