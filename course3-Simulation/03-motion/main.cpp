@@ -150,7 +150,7 @@ void using_KOMO_for_PathPlanning(){
 int main(int argc,char **argv){
   rai::initCmdLine(argc, argv);
 
-  using_KOMO_for_IK();
+//  using_KOMO_for_IK();
   using_KOMO_for_PathPlanning();
 
   return 0;

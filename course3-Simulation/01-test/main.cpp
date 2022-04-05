@@ -54,7 +54,7 @@ void testGrasp(){
   for(uint t=0;;t++){
     tic.waitForTic();
 
-    C.stepSwift();
+//    C.stepSwift();
 //    C.reportProxies();
 
     if(!(t%10)) S.getImageAndDepth(rgb, depth); //we don't need images with 100Hz, rendering is slow
@@ -354,14 +354,14 @@ void testBallOnMovingTable(){
 int main(int argc,char **argv){
   rai::initCmdLine(argc, argv);
 
-  testStackOfBlocks();
-  testBallOnMovingTable();
-  makeRndScene();
-  testFriction();
-  testPushes();
+//  testStackOfBlocks();
+//  testBallOnMovingTable();
+//  makeRndScene();
+//  testFriction();
+//  testPushes();
 
-  testOpenClose();
-  testGrasp();
+//  testOpenClose();
+//  testGrasp();
   testSliding();
 
 

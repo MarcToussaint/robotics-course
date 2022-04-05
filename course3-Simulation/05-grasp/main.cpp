@@ -86,17 +86,17 @@ void grasp_the_hopping_ball(){
     //stack them
     arr y, J;
 
-    y.append(1e0*diff.y); //multiply, to make faster
-    J.append(1e0*diff.J);
+    y.append(1e1*diff); //multiply, to make faster
+    J.append(1e1*(*diff.jac));
 
-    y.append(vecX.y-arr{0.}); //subtract target, here scalarProduct=0
-    J.append(vecX.J);
+    y.append(vecX-arr{0.}); //subtract target, here scalarProduct=0
+    J.append(*vecX.jac);
 
-    arr vel = 2.* pseudoInverse(J, NoArr, 1e-2) * (-y);
+    arr vel = 5.* pseudoInverse(J, NoArr, 1e-2) * (-y);
 
     C.watch();
 
-    if(!gripping && length(diff.y) < .02){
+    if(!gripping && length(diff) < .02){
       S.closeGripper("R_gripper", .05, .3);
       gripping = true;
     }
