@@ -46,6 +46,10 @@ core
 CORE
 *.log
 
+# qtcreator
+*.cflags
+*.cxxflags
+
 
 %% BACKUP/temporary files
 *.tmp
