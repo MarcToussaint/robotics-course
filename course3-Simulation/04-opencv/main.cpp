@@ -152,9 +152,9 @@ void multipleCameras(){
 int main(int argc,char **argv){
   rai::initCmdLine(argc,argv);
 
-  minimal_use_with_webcam();
+//  minimal_use_with_webcam();
 //  use_within_simulation();
-//  multipleCameras();
+  multipleCameras();
 
   return 0;
 }

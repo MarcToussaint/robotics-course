@@ -55,12 +55,13 @@ void grasp_the_hopping_ball(){
   byteA _rgb;
   floatA _depth;
   double tau = .01; //time step
+  Metronome tic(tau);
 
   bool gripping = false;
   bool grasped = false;
 
   for(uint t=0;t<1000;t++){
-    rai::wait(tau); //remove to go faster
+    tic.waitForTic();
 
     //grab sensor readings from the simulation
     q = S.get_q();
@@ -86,17 +87,17 @@ void grasp_the_hopping_ball(){
     //stack them
     arr y, J;
 
-    y.append(1e0*diff.y); //multiply, to make faster
-    J.append(1e0*diff.J);
+    y.append(1e0*diff); //multiply, to make faster
+    J.append(1e0*diff.J());
 
-    y.append(vecX.y-arr{0.}); //subtract target, here scalarProduct=0
-    J.append(vecX.J);
+    y.append(vecX-arr{0.}); //subtract target, here scalarProduct=0
+    J.append(vecX.J());
 
     arr vel = 2.* pseudoInverse(J, NoArr, 1e-2) * (-y);
 
     C.watch();
 
-    if(!gripping && length(diff.y) < .02){
+    if(!gripping && length(diff) < .02){
       S.closeGripper("R_gripper", .05, .3);
       gripping = true;
     }

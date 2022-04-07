@@ -11,10 +11,8 @@
 void testPushes(){
   rai::Configuration C;
   C.addFile("model.g");
-  C.watch(true);
 
   rai::Simulation S(C, S._bullet);
-//  rai::Simulation S(C, S._physx);
 
   double tau=.01;
   Metronome tic(tau);
@@ -34,10 +32,9 @@ void testPushes(){
 
       //some good old fashioned IK
       arr q = C.getJointState();
-      Value diff = C.feature(FS_positionDiff, {"gripper", "box"})->eval(C);
-      diff.y *= .005/length(diff.y);
-      q -= pseudoInverse(diff.J, NoArr, 1e-2) * diff.y;
-//      C.setJointState(q);
+      arr diff = C.feature(FS_positionDiff, {"gripper", "box"})->eval(C);
+      diff *= .008/length(diff);
+      q -= pseudoInverse(*diff.jac, NoArr, 1e-2) * diff;
 
       S.step(q, tau, S._position);
 
@@ -61,7 +58,6 @@ void testGrasp(){
   C.addFile("model.g");
 
   rai::Simulation S(C, S._bullet);
-//  rai::Simulation S(C, S._physx);
 
   byteA rgb;
   floatA depth;
@@ -70,9 +66,8 @@ void testGrasp(){
 
   for(uint t=0;;t++){
     tic.waitForTic();
-//    rai::wait(.05);
 
-    C.stepSwift();
+//    C.stepSwift();
 //    C.reportProxies();
 
     if(!(t%10)) S.getImageAndDepth(rgb, depth); //we don't need images with 100Hz, rendering is slow
@@ -81,9 +76,9 @@ void testGrasp(){
 
     //some good old fashioned IK
     if(t>40 && t<=300){
-      Value diff = C.feature(FS_oppose, {"finger1", "finger2", "ring4"})->eval(C);
-      diff.y *= rai::MIN(.008/length(diff.y), 1.);
-      q -= pseudoInverse(diff.J, NoArr, 1e-2) * diff.y;
+      arr diff = C.feature(FS_oppose, {"finger1", "finger2", "ring4"})->eval(C);
+      diff *= rai::MIN(.008/length(diff), 1.);
+      q -= pseudoInverse(diff.J(), NoArr, 1e-2) * diff;
     }
 
     if(t==300){
@@ -91,15 +86,15 @@ void testGrasp(){
     }
 
     if(S.getGripperIsGrasping("gripper")){
-      Value diff = C.feature(FS_position, {"gripper"})->eval(C);
-      q -= pseudoInverse(diff.J, NoArr, 1e-2) * ARR(0.,0.,-2e-4);
+      arr diff = C.feature(FS_position, {"gripper"})->eval(C);
+      q -= pseudoInverse(*diff.jac, NoArr, 1e-2) * ARR(0.,0.,-2e-3);
     }
 
-    if(t==900){
+    if(t==600){
       S.openGripper("gripper");
     }
 
-    if(t>1000 && S.getGripperWidth("gripper")>=.02){ //that's the upper limit of this gripper
+    if(t>1000 && S.getGripperIsOpen("gripper")){
       break;
     }
 
@@ -109,6 +104,56 @@ void testGrasp(){
 
 //===========================================================================
 
+void testGrasp2(){
+  rai::Configuration C;
+  C.addFile("../../scenarios/pandasTable.g");
+  C.addFrame("box")->setShape(rai::ST_ssBox, {.8, .05, .05, .01})\
+      .setPosition({0,0,1.}).setMass(1).setContact(1);
+
+  rai::Simulation S(C, S._bullet);
+
+  byteA rgb;
+  floatA depth;
+  double tau=.01;
+  Metronome tic(tau);
+
+  for(uint t=0;;t++){
+    tic.waitForTic();
+
+    if(!(t%10)) S.getImageAndDepth(rgb, depth); //we don't need images with 100Hz, rendering is slow
+
+    arr q = C.getJointState();
+
+    //some good old fashioned IK
+    if(t>40 && t<=300){
+      arr diff = C.feature(FS_positionRel, {"R_gripperCenter", "box"})->eval(C);
+      diff(2) -= 0.01;
+      diff *= rai::MIN(.01/length(diff), 1.);
+      q -= pseudoInverse(diff.J(), NoArr, 1e-2) * diff;
+    }
+
+    if(t==300){
+      S.closeGripper("R_gripper");
+    }
+
+    if(S.getGripperIsGrasping("R_gripper")){
+      arr diff = C.feature(FS_position, {"R_gripper"})->eval(C);
+      q -= pseudoInverse(diff.J(), NoArr, 1e-2) * ARR(0.,0.,-2e-3);
+    }
+
+    if(t==600){
+      S.openGripper("R_gripper");
+    }
+
+    if(t>1000 && S.getGripperIsOpen("R_gripper")){
+      break;
+    }
+
+    S.step(q, tau, S._position);
+  }
+}
+//===========================================================================
+
 void testOpenClose(){
   rai::Configuration RealWorld;
   RealWorld.addFile("../../scenarios/challenge.g");
@@ -116,7 +161,7 @@ void testOpenClose(){
 
   rai::Configuration C;
   C.addFile("../../scenarios/pandasTable.g");
-  C.watch();
+  C.watch(true);
 
   double tau = .01;
 
@@ -222,7 +267,6 @@ void testFriction(){
   C["table"]->addAttribute("restitution", .5);
 
   rai::Simulation S(C, S._bullet);
-//  rai::Simulation S(C, S._physx);
   S.cameraview().addSensor("camera");
 
   double tau=.01;
@@ -282,7 +326,7 @@ void testBlockOnMoving(){
   obj->setShape(rai::ST_ssBox, {.2,.2,.2, .02});
   obj->setPosition({0.,0.,1.});
   obj->setMass(1.);
-  obj->setColor({7.,.3,.3});
+  obj->setColor({.7,.3,.3});
 
   C.addFrame("world");
   rai::Frame *table = C.addFrame("table", "world");
@@ -313,13 +357,14 @@ void testBlockOnMoving(){
 int main(int argc,char **argv){
   rai::initCmdLine(argc, argv);
 
-//  testStackOfBlocks();
-//  testPushes();
+  testStackOfBlocks();
+  testPushes();
   testGrasp();
-//  testOpenClose();
-//  makeRndScene();
+  testGrasp2();
+  testOpenClose();
+  makeRndScene();
   testFriction();
-//  testBlockOnMoving();
+  testBlockOnMoving();
 
   return 0;
 }
