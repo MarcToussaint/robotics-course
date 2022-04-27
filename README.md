@@ -51,7 +51,7 @@ git clone --recursive https://github.com/MarcToussaint/robotics-course.git
 cd robotics-course
 make -j1 installUbuntuAll  # calls sudo apt-get install; you can always interrupt
 # If this fails, please try `make -j1 printUbuntuAll` to print all packages and install manually
-# if you are going to use opencv, ran also 
+# if you are going to use opencv, run also 
 # sudo apt install libopencv-dev
 
 mkdir build
