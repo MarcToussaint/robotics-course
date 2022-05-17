@@ -37,7 +37,7 @@ void grasp_the_hopping_ball(){
   C.addFile("../../scenarios/pandasTable.g");
 
   rai::Frame *obj = C.addFrame("object");
-  obj->setColor({1.,1.,0}); //set the color of one objet to red!
+  obj->setColor({1.,0,0}); //set the color of one objet to red!
   obj->setShape(rai::ST_sphere, {.03});
 
   C.watch(false, "model world start state");
