@@ -4,6 +4,8 @@
 #include <Kin/simulation.h>
 #include <Kin/viewer.h>
 
+#include <KOMO/komo.h>
+
 #include <iomanip>
 
 //===========================================================================
@@ -352,19 +354,80 @@ void testBlockOnMoving(){
   rai::wait();
 }
 
+void testNoPenetrationImp(){
+  rai::Configuration C0;
+  C0.addFile("../../scenarios/pandasTable.g");
+  rai::Frame* stick = C0.addFrame("stick");
+  stick->setShape(rai::ST_capsule, {0.5, 0.025});
+  stick->setPosition({0,0,.68}).set_X()->addRelativeRotationDeg(90.,0,1,0);
+  stick->setContact(1);
+  stick->setMass(0.1);
+
+  rai::Frame* tip = C0.addFrame("stickTip", "stick");
+  tip->setShape(rai::ST_marker, {0.1});
+  tip->setRelativePosition({0,0,-0.25});
+
+  KOMO komo;                     //create a solver
+  komo.setModel(C0);        //tell it use C as the basic configuration (internally, it will create copies of C on which the actual optimization runs)
+  komo.setTiming(1., 1, 1., 1);  //we want to optimize a single step (1 phase, 1 step/phase, duration=1, k_order=1)
+  komo.addObjective({}, FS_positionRel, {"R_gripperCenter", "stick"}, OT_eq, {1e2}, {0, 0, 0.2});
+  komo.addObjective({}, FS_scalarProductXZ, {"R_gripperCenter", "stick"}, OT_eq, {1e2});
+  komo.addObjective({}, FS_vectorZ, {"R_gripperCenter"}, OT_eq, {1e2}, {0,0,1});
+
+  komo.optimize();
+  komo.view(true);
+
+  C0.setJointState(komo.getConfiguration_qAll(0));
+
+  for(bool activate: {false, true}){
+    rai::Configuration C;
+    C.copy(C0);
+    rai::Simulation S(C, S._bullet);
+    if(activate) S.addImp(S._noPenetrations, {}, {});
+    double tau=.01;
+    Metronome tic(tau);
+
+    S.closeGripper("R_gripper");
+    while(!S.getGripperIsGrasping("R_gripper")){
+      tic.waitForTic();
+      S.step({}, tau, S._none);
+    }
+
+    for(uint t=0;t<1./tau;t++){
+      tic.waitForTic();
+      arr y = C.feature(FS_position, {"R_gripper"})->eval(C);
+
+      arr Jt = ~y.J();
+      arr vel = inverse(Jt*y.J()+eye(C.getJointStateDimension())) * Jt * ARR(0,0,1.);
+      S.step(vel, tau, S._velocity);
+    }
+
+
+    for(uint t=0;t<2./tau;t++){
+      tic.waitForTic();
+      arr y = C.feature(FS_position, {"stickTip"})->eval(C);
+
+      arr Jt = ~y.J();
+      arr vel = inverse(Jt*y.J()+eye(C.getJointStateDimension())) * Jt * ARR(0,0,-1.);
+      S.step(vel, tau, S._velocity);
+    }
+  }
+}
+
 //===========================================================================
 
 int main(int argc,char **argv){
   rai::initCmdLine(argc, argv);
 
-  testStackOfBlocks();
-  testPushes();
-  testGrasp();
-  testGrasp2();
-  testOpenClose();
-  makeRndScene();
-  testFriction();
-  testBlockOnMoving();
+//  testStackOfBlocks();
+//  testPushes();
+//  testGrasp();
+//  testGrasp2();
+//  testOpenClose();
+//  makeRndScene();
+//  testFriction();
+//  testBlockOnMoving();
+  testNoPenetrationImp();
 
   return 0;
 }
