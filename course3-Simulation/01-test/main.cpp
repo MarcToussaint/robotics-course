@@ -89,7 +89,7 @@ void testGrasp(){
 
     if(S.getGripperIsGrasping("gripper")){
       arr diff = C.feature(FS_position, {"gripper"})->eval(C);
-      q -= pseudoInverse(*diff.jac, NoArr, 1e-2) * ARR(0.,0.,-2e-3);
+      q -= pseudoInverse(*diff.jac, NoArr, 1e-2) * arr{0.,0.,-2e-3};
     }
 
     if(t==600){
@@ -128,7 +128,7 @@ void testGrasp2(){
 
     //some good old fashioned IK
     if(t>40 && t<=300){
-      arr diff = C.feature(FS_positionRel, {"R_gripperCenter", "box"})->eval(C);
+      arr diff = C.feature(FS_positionRel, {"R_gripper", "box"})->eval(C);
       diff(2) -= 0.01;
       diff *= rai::MIN(.01/length(diff), 1.);
       q -= pseudoInverse(diff.J(), NoArr, 1e-2) * diff;
@@ -140,7 +140,7 @@ void testGrasp2(){
 
     if(S.getGripperIsGrasping("R_gripper")){
       arr diff = C.feature(FS_position, {"R_gripper"})->eval(C);
-      q -= pseudoInverse(diff.J(), NoArr, 1e-2) * ARR(0.,0.,-2e-3);
+      q -= pseudoInverse(diff.J(), NoArr, 1e-2) * arr{0.,0.,-2e-3};
     }
 
     if(t==600){
@@ -230,8 +230,6 @@ void makeRndScene(){
     if(!(t%10)) S.getImageAndDepth(rgb, depth); //we don't need images with 100Hz, rendering is slow
 
     S.step({}, tau, S._none);
-
-    cout <<"depth in range: " <<depth.min() <<' ' <<depth.max() <<endl;
   }
 
   C.sortFrames();
@@ -370,9 +368,9 @@ void testNoPenetrationImp(){
   KOMO komo;                     //create a solver
   komo.setModel(C0);        //tell it use C as the basic configuration (internally, it will create copies of C on which the actual optimization runs)
   komo.setTiming(1., 1, 1., 1);  //we want to optimize a single step (1 phase, 1 step/phase, duration=1, k_order=1)
-  komo.addObjective({}, FS_positionRel, {"R_gripperCenter", "stick"}, OT_eq, {1e2}, {0, 0, 0.2});
-  komo.addObjective({}, FS_scalarProductXZ, {"R_gripperCenter", "stick"}, OT_eq, {1e2});
-  komo.addObjective({}, FS_vectorZ, {"R_gripperCenter"}, OT_eq, {1e2}, {0,0,1});
+  komo.addObjective({}, FS_positionRel, {"R_gripper", "stick"}, OT_eq, {1e2}, {0, 0, 0.2});
+  komo.addObjective({}, FS_scalarProductXZ, {"R_gripper", "stick"}, OT_eq, {1e2});
+  komo.addObjective({}, FS_vectorZ, {"R_gripper"}, OT_eq, {1e2}, {0,0,1});
 
   komo.optimize();
   komo.view(true);
@@ -395,10 +393,11 @@ void testNoPenetrationImp(){
 
     for(uint t=0;t<1./tau;t++){
       tic.waitForTic();
+      C.ensure_indexedJoints();
       arr y = C.feature(FS_position, {"R_gripper"})->eval(C);
 
       arr Jt = ~y.J();
-      arr vel = inverse(Jt*y.J()+eye(C.getJointStateDimension())) * Jt * ARR(0,0,1.);
+      arr vel = inverse(Jt*y.J()+eye(C.getJointStateDimension())) * Jt * arr{0,0,1.};
       S.step(vel, tau, S._velocity);
     }
 
@@ -408,7 +407,7 @@ void testNoPenetrationImp(){
       arr y = C.feature(FS_position, {"stickTip"})->eval(C);
 
       arr Jt = ~y.J();
-      arr vel = inverse(Jt*y.J()+eye(C.getJointStateDimension())) * Jt * ARR(0,0,-1.);
+      arr vel = inverse(Jt*y.J()+eye(C.getJointStateDimension())) * Jt * arr{0,0,-1.};
       S.step(vel, tau, S._velocity);
     }
   }
@@ -419,14 +418,14 @@ void testNoPenetrationImp(){
 int main(int argc,char **argv){
   rai::initCmdLine(argc, argv);
 
-//  testStackOfBlocks();
-//  testPushes();
-//  testGrasp();
-//  testGrasp2();
-//  testOpenClose();
-//  makeRndScene();
-//  testFriction();
-//  testBlockOnMoving();
+  testStackOfBlocks();
+  testPushes();
+  testGrasp();
+  testGrasp2();
+  testOpenClose();
+  makeRndScene();
+  testFriction();
+  testBlockOnMoving();
   testNoPenetrationImp();
 
   return 0;

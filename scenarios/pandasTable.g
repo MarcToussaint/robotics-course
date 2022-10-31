@@ -13,13 +13,11 @@ table (world){
 #L_lift (table){ joint:transZ, limits:[0 .5] }
 
 Prefix: "L_"
-#Include: '../rai-robotModels/scenarios/panda_fixGripper.g'
-Include '../rai-robotModels/panda_convexGripper/panda_convexGripper.g'
+Include: '../rai-robotModels/scenarios/panda_fixGripper.g'
 
 
 Prefix: "R_"
-#Include: '../rai-robotModels/scenarios/panda_fixGripper.g'
-Include '../rai-robotModels/panda_convexGripper/panda_convexGripper.g'
+Include: '../rai-robotModels/scenarios/panda_fixGripper.g'
 
 Prefix!
         
