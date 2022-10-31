@@ -107,6 +107,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="komo.html">Learning KOMO (K-Order Markov Optimization)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="skeleton.html">Learning about Skeletons &amp; LGP</a></li>
 </ul>
 
             
@@ -193,110 +194,20 @@ DOFs; its inertia; and its contact flag.</p>
 <div class="section" id="basic-properties-name-parent-position-orientation">
 <h2>Basic properties: Name, parent, position, orientation<a class="headerlink" href="#basic-properties-name-parent-position-orientation" title="Permalink to this headline">¶</a></h2>
 <p>TODO: setName, setParent</p>
-<dl class="py method">
-<dt id="libry.Frame.setPose">
-<code class="sig-prename descclassname"><span class="pre">Frame.</span></code><code class="sig-name descname"><span class="pre">setPose</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Frame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.Frame.setPose" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="libry.Frame.setPosition">
-<code class="sig-prename descclassname"><span class="pre">Frame.</span></code><code class="sig-name descname"><span class="pre">setPosition</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Frame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.Frame.setPosition" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="libry.Frame.setQuaternion">
-<code class="sig-prename descclassname"><span class="pre">Frame.</span></code><code class="sig-name descname"><span class="pre">setQuaternion</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Frame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.Frame.setQuaternion" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="libry.Frame.setRelativePosition">
-<code class="sig-prename descclassname"><span class="pre">Frame.</span></code><code class="sig-name descname"><span class="pre">setRelativePosition</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Frame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.Frame.setRelativePosition" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="libry.Frame.setRelativeQuaternion">
-<code class="sig-prename descclassname"><span class="pre">Frame.</span></code><code class="sig-name descname"><span class="pre">setRelativeQuaternion</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Frame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.Frame.setRelativeQuaternion" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <p>Getters:</p>
-<dl class="py method">
-<dt id="libry.Frame.getPosition">
-<code class="sig-prename descclassname"><span class="pre">Frame.</span></code><code class="sig-name descname"><span class="pre">getPosition</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Frame</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#libry.Frame.getPosition" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="libry.Frame.getQuaternion">
-<code class="sig-prename descclassname"><span class="pre">Frame.</span></code><code class="sig-name descname"><span class="pre">getQuaternion</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Frame</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#libry.Frame.getQuaternion" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="libry.Frame.getRotationMatrix">
-<code class="sig-prename descclassname"><span class="pre">Frame.</span></code><code class="sig-name descname"><span class="pre">getRotationMatrix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Frame</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#libry.Frame.getRotationMatrix" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="libry.Frame.getRelativePosition">
-<code class="sig-prename descclassname"><span class="pre">Frame.</span></code><code class="sig-name descname"><span class="pre">getRelativePosition</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Frame</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#libry.Frame.getRelativePosition" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="libry.Frame.getRelativeQuaternion">
-<code class="sig-prename descclassname"><span class="pre">Frame.</span></code><code class="sig-name descname"><span class="pre">getRelativeQuaternion</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Frame</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#libry.Frame.getRelativeQuaternion" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </div>
 <div class="section" id="shape-properties">
 <h2>Shape properties<a class="headerlink" href="#shape-properties" title="Permalink to this headline">¶</a></h2>
-<dl class="py method">
-<dt id="libry.Frame.setShape">
-<code class="sig-prename descclassname"><span class="pre">Frame.</span></code><code class="sig-name descname"><span class="pre">setShape</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Frame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="_Enums.html#libry.ST" title="libry.ST"><span class="pre">libry.ST</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.Frame.setShape" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="libry.Frame.setPointCloud">
-<code class="sig-prename descclassname"><span class="pre">Frame.</span></code><code class="sig-name descname"><span class="pre">setPointCloud</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Frame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.uint8</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.Frame.setPointCloud" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="libry.Frame.setMeshAsLines">
-<code class="sig-prename descclassname"><span class="pre">Frame.</span></code><code class="sig-name descname"><span class="pre">setMeshAsLines</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Frame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.Frame.setMeshAsLines" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="libry.Frame.setColor">
-<code class="sig-prename descclassname"><span class="pre">Frame.</span></code><code class="sig-name descname"><span class="pre">setColor</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Frame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.Frame.setColor" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <p>Getters:</p>
-<dl class="py method">
-<dt id="libry.Frame.getMeshPoints">
-<code class="sig-prename descclassname"><span class="pre">Frame.</span></code><code class="sig-name descname"><span class="pre">getMeshPoints</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Frame</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">rai::Array&lt;T&gt;</span><a class="headerlink" href="#libry.Frame.getMeshPoints" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </div>
 <div class="section" id="joint-properties">
 <h2>Joint properties<a class="headerlink" href="#joint-properties" title="Permalink to this headline">¶</a></h2>
-<dl class="py method">
-<dt id="libry.Frame.setJoint">
-<code class="sig-prename descclassname"><span class="pre">Frame.</span></code><code class="sig-name descname"><span class="pre">setJoint</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">libry.Frame</span></em>, <em class="sig-param"><span class="pre">arg0:</span> <span class="pre">rai::JointType</span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.Frame.setJoint" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </div>
 <div class="section" id="inertial-properties">
 <h2>Inertial properties<a class="headerlink" href="#inertial-properties" title="Permalink to this headline">¶</a></h2>
-<dl class="py method">
-<dt id="libry.Frame.setMass">
-<code class="sig-prename descclassname"><span class="pre">Frame.</span></code><code class="sig-name descname"><span class="pre">setMass</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Frame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.Frame.setMass" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </div>
 <div class="section" id="collision-properties">
 <h2>Collision properties<a class="headerlink" href="#collision-properties" title="Permalink to this headline">¶</a></h2>
-<dl class="py method">
-<dt id="libry.Frame.setContact">
-<code class="sig-prename descclassname"><span class="pre">Frame.</span></code><code class="sig-name descname"><span class="pre">setContact</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Frame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.Frame.setContact" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </div>
 </div>
 

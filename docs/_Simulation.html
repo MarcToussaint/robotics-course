@@ -108,6 +108,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="komo.html">Learning KOMO (K-Order Markov Optimization)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="skeleton.html">Learning about Skeletons &amp; LGP</a></li>
 </ul>
 
             
@@ -188,11 +189,6 @@ perturb the controls, configuration, or sensor signals in some way).</p>
 initializes it. The current choices for <code class="docutils literal notranslate"><span class="pre">engine</span></code> are PhysX, Bullet,
 and just kinematic (no physics engine). <code class="docutils literal notranslate"><span class="pre">verbose=1</span></code> will open a
 display.</p>
-<dl class="py method">
-<dt id="libry.Simulation.__init__">
-<code class="sig-prename descclassname"><span class="pre">Simulation.</span></code><code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Simulation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="_Enums.html#libry.SimulatorEngine" title="libry.SimulatorEngine"><span class="pre">libry.SimulatorEngine</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.Simulation.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </div>
 <div class="section" id="stepping-physics">
 <h2>Stepping physics<a class="headerlink" href="#stepping-physics" title="Permalink to this headline">¶</a></h2>
@@ -207,24 +203,9 @@ frames of all objects and updates the associated configuration with
 these. In addition, between each of these steps, an imp can introduce
 perturbations.</p>
 <p><code class="docutils literal notranslate"><span class="pre">u_mode</span></code> can be <code class="docutils literal notranslate"><span class="pre">none</span></code> for not sending control signals (in which case <code class="docutils literal notranslate"><span class="pre">u_control</span></code> can be <code class="docutils literal notranslate"><span class="pre">[]</span></code>). Otherwise <code class="docutils literal notranslate"><span class="pre">u_control</span></code> needs to contain joint positions, velocities or accelerations for all DOFs.</p>
-<dl class="py method">
-<dt id="libry.Simulation.step">
-<code class="sig-prename descclassname"><span class="pre">Simulation.</span></code><code class="sig-name descname"><span class="pre">step</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">libry.Simulation</span></em>, <em class="sig-param"><span class="pre">u_control:</span> <span class="pre">rai::Array&lt;T&gt;</span></em>, <em class="sig-param"><span class="pre">tau:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0.01</span></em>, <em class="sig-param"><span class="pre">u_mode:</span> <span class="pre">libry.ControlMode</span> <span class="pre">=</span> <span class="pre">&lt;ControlMode.velocity:</span> <span class="pre">2&gt;</span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.Simulation.step" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <p>As the robot is explicitly controlled, the joint state should be clear
 to the user. Still, for completeness two methods return the current
 joint positions and velocities:</p>
-<dl class="py method">
-<dt id="libry.Simulation.get_q">
-<code class="sig-prename descclassname"><span class="pre">Simulation.</span></code><code class="sig-name descname"><span class="pre">get_q</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Simulation</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">rai::Array&lt;T&gt;</span><a class="headerlink" href="#libry.Simulation.get_q" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="libry.Simulation.get_qDot">
-<code class="sig-prename descclassname"><span class="pre">Simulation.</span></code><code class="sig-name descname"><span class="pre">get_qDot</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Simulation</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">rai::Array&lt;T&gt;</span><a class="headerlink" href="#libry.Simulation.get_qDot" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </div>
 <div class="section" id="opening-closing-the-gripper-and-gripping-state">
 <h2>Opening &amp; closing the gripper, and gripping state<a class="headerlink" href="#opening-closing-the-gripper-and-gripping-state" title="Permalink to this headline">¶</a></h2>
@@ -234,28 +215,8 @@ is reached. Similarly for opening. Therefore also this simulation has
 separate methods to command grippers and also read out their state.</p>
 <p>The open/close methods need the name of the gripper. The
 speed/width/force are not yet implemented.</p>
-<dl class="py method">
-<dt id="id0">
-<code class="sig-prename descclassname"><span class="pre">Simulation.</span></code><code class="sig-name descname"><span class="pre">get_q</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Simulation</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">rai::Array&lt;T&gt;</span><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="id1">
-<code class="sig-prename descclassname"><span class="pre">Simulation.</span></code><code class="sig-name descname"><span class="pre">get_qDot</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Simulation</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">rai::Array&lt;T&gt;</span><a class="headerlink" href="#id1" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <p>The gripper width can always be queried. And typical grippers also
 tell you if they have an object in hand:</p>
-<dl class="py method">
-<dt id="libry.Simulation.getGripperWidth">
-<code class="sig-prename descclassname"><span class="pre">Simulation.</span></code><code class="sig-name descname"><span class="pre">getGripperWidth</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Simulation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gripperFrameName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">float</span><a class="headerlink" href="#libry.Simulation.getGripperWidth" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="libry.Simulation.getGripperIsGrasping">
-<code class="sig-prename descclassname"><span class="pre">Simulation.</span></code><code class="sig-name descname"><span class="pre">getGripperIsGrasping</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Simulation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gripperFrameName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">bool</span><a class="headerlink" href="#libry.Simulation.getGripperIsGrasping" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </div>
 <div class="section" id="getting-simulated-rgb-and-depth-images">
 <h2>Getting simulated RGB and depth images<a class="headerlink" href="#getting-simulated-rgb-and-depth-images" title="Permalink to this headline">¶</a></h2>
@@ -268,16 +229,6 @@ exposes more ways to add and define sensors. The following methods
 grabs RGB and depth from opengl, and properly transforms depth values
 to have values in meters. Optionally, imps can post-process these
 images to add noise and systematic errors.</p>
-<dl class="py method">
-<dt id="libry.Simulation.getImageAndDepth">
-<code class="sig-prename descclassname"><span class="pre">Simulation.</span></code><code class="sig-name descname"><span class="pre">getImageAndDepth</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Simulation</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">tuple</span><a class="headerlink" href="#libry.Simulation.getImageAndDepth" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="libry.Simulation.addSensor">
-<code class="sig-prename descclassname"><span class="pre">Simulation.</span></code><code class="sig-name descname"><span class="pre">addSensor</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">libry.Simulation</span></em>, <em class="sig-param"><span class="pre">sensorName:</span> <span class="pre">str</span></em>, <em class="sig-param"><span class="pre">frameAttached:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">''</span></em>, <em class="sig-param"><span class="pre">width:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">640</span></em>, <em class="sig-param"><span class="pre">height:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">360</span></em>, <em class="sig-param"><span class="pre">focalLength:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">-1.0</span></em>, <em class="sig-param"><span class="pre">orthoAbsHeight:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">-1.0</span></em>, <em class="sig-param"><span class="pre">zRange:</span> <span class="pre">rai::Array&lt;T&gt;</span> <span class="pre">=</span> <span class="pre">[]</span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">rai::CameraView::Sensor</span><a class="headerlink" href="#libry.Simulation.addSensor" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </div>
 <div class="section" id="simulation-states-restarting-the-simulation-in-previous-states">
 <h2>Simulation states: restarting the simulation in previous states<a class="headerlink" href="#simulation-states-restarting-the-simulation-in-previous-states" title="Permalink to this headline">¶</a></h2>
@@ -289,21 +240,6 @@ states of the engines’ internal numerical solvers. What they store and
 re-instantiate (<code class="docutils literal notranslate"><span class="pre">getState</span></code> and <code class="docutils literal notranslate"><span class="pre">restoreState</span></code>) is the exact poses
 and velocities of all frames of the scene. (TODO: Also discrete facts, such as which grippers hold objects, must be stored.) The <code class="docutils literal notranslate"><span class="pre">setState</span></code> method
 allows you to directly set arbitrary pose and velocity states.</p>
-<dl class="py method">
-<dt id="libry.Simulation.getState">
-<code class="sig-prename descclassname"><span class="pre">Simulation.</span></code><code class="sig-name descname"><span class="pre">getState</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Simulation</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">tuple</span><a class="headerlink" href="#libry.Simulation.getState" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="libry.Simulation.restoreState">
-<code class="sig-prename descclassname"><span class="pre">Simulation.</span></code><code class="sig-name descname"><span class="pre">restoreState</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">libry.Simulation</span></em>, <em class="sig-param"><span class="pre">arg0:</span> <span class="pre">rai::SimulationState</span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.Simulation.restoreState" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="libry.Simulation.setState">
-<code class="sig-prename descclassname"><span class="pre">Simulation.</span></code><code class="sig-name descname"><span class="pre">setState</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">libry.Simulation</span></em>, <em class="sig-param"><span class="pre">frameState:</span> <span class="pre">rai::Array&lt;T&gt;</span></em>, <em class="sig-param"><span class="pre">frameVelocities:</span> <span class="pre">rai::Array&lt;T&gt;</span> <span class="pre">=</span> <span class="pre">[]</span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.Simulation.setState" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </div>
 <div class="section" id="helper-depthdata2pointcloud">
 <h2>Helper: depthData2pointCloud<a class="headerlink" href="#helper-depthdata2pointcloud" title="Permalink to this headline">¶</a></h2>
@@ -313,11 +249,6 @@ method within the Perception code. A helper to convert a depth image
 argument <code class="docutils literal notranslate"><span class="pre">fxypxy</span></code> need to be four numbers: the focal length (in
 pixel/meters units!) in x and y direction, and the image center (in
 pixel units) in x and y direction.</p>
-<dl class="py method">
-<dt id="libry.Simulation.depthData2pointCloud">
-<code class="sig-prename descclassname"><span class="pre">Simulation.</span></code><code class="sig-name descname"><span class="pre">depthData2pointCloud</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Simulation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float32</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><a class="headerlink" href="#libry.Simulation.depthData2pointCloud" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </div>
 </div>
 

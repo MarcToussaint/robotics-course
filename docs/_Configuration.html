@@ -111,6 +111,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="komo.html">Learning KOMO (K-Order Markov Optimization)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="skeleton.html">Learning about Skeletons &amp; LGP</a></li>
 </ul>
 
             
@@ -225,207 +226,35 @@ to have as decision variable in a mathematical program should be dofs
 in configurations.</p>
 <div class="section" id="c-tor">
 <h2>C’tor<a class="headerlink" href="#c-tor" title="Permalink to this headline">¶</a></h2>
-<dl class="py method">
-<dt id="libry.Config.__init__">
-<code class="sig-prename descclassname"><span class="pre">Config.</span></code><code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Config</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.Config.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>initializes to an empty configuration, with no frames</p>
-</dd></dl>
-
 </div>
 <div class="section" id="adding-frames-to-the-configuration">
 <h2>Adding frames to the configuration<a class="headerlink" href="#adding-frames-to-the-configuration" title="Permalink to this headline">¶</a></h2>
 <p>A configuration is often initialized by reading it from a file. See
 <a class="reference internal" href="_ConfigurationFiles.html#refconfigurationfile"><span class="std std-ref">.g-files to describe robot configurations</span></a> for details on these files.</p>
-<dl class="py method">
-<dt id="libry.Config.addFile">
-<code class="sig-prename descclassname"><span class="pre">Config.</span></code><code class="sig-name descname"><span class="pre">addFile</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.Config.addFile" title="Permalink to this definition">¶</a></dt>
-<dd><p>add the contents of the file to C</p>
-</dd></dl>
-
 <p>Alternatively, a configuration can also be build up within the code by
 adding more and more frames. See <a class="reference internal" href="_Frame.html#refframe"><span class="std std-ref">Frame</span></a> on how to specify the
 properties of frames.</p>
-<dl class="py method">
-<dt id="libry.Config.addFrame">
-<code class="sig-prename descclassname"><span class="pre">Config.</span></code><code class="sig-name descname"><span class="pre">addFrame</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">rai::Frame</span><a class="headerlink" href="#libry.Config.addFrame" title="Permalink to this definition">¶</a></dt>
-<dd><p>add a new frame to C; optionally make this a child to the given parent; use the Frame methods to set properties of the new frame</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="libry.Config.delFrame">
-<code class="sig-prename descclassname"><span class="pre">Config.</span></code><code class="sig-name descname"><span class="pre">delFrame</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frameName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.Config.delFrame" title="Permalink to this definition">¶</a></dt>
-<dd><p>destroy and remove a frame from C</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="libry.Config.getFrame">
-<code class="sig-prename descclassname"><span class="pre">Config.</span></code><code class="sig-name descname"><span class="pre">getFrame</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frameName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">rai::Frame</span><a class="headerlink" href="#libry.Config.getFrame" title="Permalink to this definition">¶</a></dt>
-<dd><p>get access to a frame by name; use the Frame methods to set/get frame properties</p>
-</dd></dl>
-
 </div>
 <div class="section" id="copy-clear">
 <h2>Copy, clear<a class="headerlink" href="#copy-clear" title="Permalink to this headline">¶</a></h2>
-<dl class="py method">
-<dt id="libry.Config.copy">
-<code class="sig-prename descclassname"><span class="pre">Config.</span></code><code class="sig-name descname"><span class="pre">copy</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Config</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.Config.copy" title="Permalink to this definition">¶</a></dt>
-<dd><p>make C a (deep) copy of the given C2</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="libry.Config.clear">
-<code class="sig-prename descclassname"><span class="pre">Config.</span></code><code class="sig-name descname"><span class="pre">clear</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Config</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.Config.clear" title="Permalink to this definition">¶</a></dt>
-<dd><p>clear all frames and additional data; becomes the empty configuration, with no frames</p>
-</dd></dl>
-
 </div>
 <div class="section" id="joint-state-get-set-and-selecting-active-joints">
 <h2>Joint state: get/set, and selecting active joints<a class="headerlink" href="#joint-state-get-set-and-selecting-active-joints" title="Permalink to this headline">¶</a></h2>
-<dl class="py method">
-<dt id="libry.Config.setJointState">
-<code class="sig-prename descclassname"><span class="pre">Config.</span></code><code class="sig-name descname"><span class="pre">setJointState</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#libry.Config.setJointState" title="Permalink to this definition">¶</a></dt>
-<dd><p>Overloaded function.</p>
-<ol class="arabic simple">
-<li><p>setJointState(self: libry.Config, q: List[float], joints: rai::Array&lt;T&gt; = []) -&gt; None</p></li>
-</ol>
-<p>set the joint state, optionally only for a subset of joints specified as list of frameIDs</p>
-<ol class="arabic simple" start="2">
-<li><p>setJointState(self: libry.Config, q: rai::Array&lt;T&gt;, joints: List[str]) -&gt; None</p></li>
-</ol>
-<p>set the joint state, optionally only for a subset of joints specified as list of joint names</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="libry.Config.getJointNames">
-<code class="sig-prename descclassname"><span class="pre">Config.</span></code><code class="sig-name descname"><span class="pre">getJointNames</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Config</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#libry.Config.getJointNames" title="Permalink to this definition">¶</a></dt>
-<dd><p>get the list of joint names</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="libry.Config.getJointDimension">
-<code class="sig-prename descclassname"><span class="pre">Config.</span></code><code class="sig-name descname"><span class="pre">getJointDimension</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Config</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">int</span><a class="headerlink" href="#libry.Config.getJointDimension" title="Permalink to this definition">¶</a></dt>
-<dd><p>get the total number of degrees of freedom</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="libry.Config.getJointState">
-<code class="sig-prename descclassname"><span class="pre">Config.</span></code><code class="sig-name descname"><span class="pre">getJointState</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">libry.Config</span></em>, <em class="sig-param"><span class="pre">joints:</span> <span class="pre">rai::Array&lt;T&gt;</span> <span class="pre">=</span> <span class="pre">[]</span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">rai::Array&lt;T&gt;</span><a class="headerlink" href="#libry.Config.getJointState" title="Permalink to this definition">¶</a></dt>
-<dd><p>get the joint state as a numpy vector, optionally only for a subset of joints specified as list of joint names</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="libry.Config.selectJoints">
-<code class="sig-prename descclassname"><span class="pre">Config.</span></code><code class="sig-name descname"><span class="pre">selectJoints</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jointNames</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">notThose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.Config.selectJoints" title="Permalink to this definition">¶</a></dt>
-<dd><p>redefine what are considered the DOFs of this configuration: only joints listed in jointNames are considered part of the joint state and define the number of DOFs</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="libry.Config.selectJointsByTag">
-<code class="sig-prename descclassname"><span class="pre">Config.</span></code><code class="sig-name descname"><span class="pre">selectJointsByTag</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jointGroups</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.Config.selectJointsByTag" title="Permalink to this definition">¶</a></dt>
-<dd><p>redefine what are considered the DOFs of this configuration: only joint that have a tag listed in jointGroups are considered part of the joint state and define the number of DOFs</p>
-</dd></dl>
-
 </div>
 <div class="section" id="frame-state">
 <h2>Frame state<a class="headerlink" href="#frame-state" title="Permalink to this headline">¶</a></h2>
-<dl class="py method">
-<dt id="libry.Config.setFrameState">
-<code class="sig-prename descclassname"><span class="pre">Config.</span></code><code class="sig-name descname"><span class="pre">setFrameState</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#libry.Config.setFrameState" title="Permalink to this definition">¶</a></dt>
-<dd><p>Overloaded function.</p>
-<ol class="arabic simple">
-<li><p>setFrameState(self: libry.Config, X: List[float], frames: List[str] = []) -&gt; None</p></li>
-</ol>
-<p>set the frame state, optionally only for a subset of frames specified as list of frame names</p>
-<ol class="arabic simple" start="2">
-<li><p>setFrameState(self: libry.Config, X: numpy.ndarray, frames: List[str] = []) -&gt; None</p></li>
-</ol>
-<p>set the frame state, optionally only for a subset of frames specified as list of frame names</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="libry.Config.getFrameNames">
-<code class="sig-prename descclassname"><span class="pre">Config.</span></code><code class="sig-name descname"><span class="pre">getFrameNames</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Config</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#libry.Config.getFrameNames" title="Permalink to this definition">¶</a></dt>
-<dd><p>get the list of frame names</p>
-</dd></dl>
-
 </div>
 <div class="section" id="features-anything-you-might-want-to-compute-from-configurations">
 <h2>Features: Anything you might want to compute from Configurations<a class="headerlink" href="#features-anything-you-might-want-to-compute-from-configurations" title="Permalink to this headline">¶</a></h2>
-<dl class="py method">
-<dt id="libry.Config.feature">
-<code class="sig-prename descclassname"><span class="pre">Config.</span></code><code class="sig-name descname"><span class="pre">feature</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">featureSymbol</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">FeatureSymbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frameNames</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Feature</span><a class="headerlink" href="#libry.Config.feature" title="Permalink to this definition">¶</a></dt>
-<dd><p>create a feature (a differentiable map from joint state to a vector space), as they’re typically used for IK or optimization. See the dedicated tutorial for details. featureSymbol defines which mapping this is (position, vectors, collision distance, etc). many mapping refer to one or several frames, which need to be specified using frameNames</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="libry.Config.evalFeature">
-<code class="sig-prename descclassname"><span class="pre">Config.</span></code><code class="sig-name descname"><span class="pre">evalFeature</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">FeatureSymbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">tuple</span><a class="headerlink" href="#libry.Config.evalFeature" title="Permalink to this definition">¶</a></dt>
-<dd><p>TODO remove -&gt; use feature directly</p>
-</dd></dl>
-
 </div>
 <div class="section" id="structural-edits">
 <h2>Structural edits<a class="headerlink" href="#structural-edits" title="Permalink to this headline">¶</a></h2>
-<dl class="py method">
-<dt id="libry.Config.attach">
-<code class="sig-prename descclassname"><span class="pre">Config.</span></code><code class="sig-name descname"><span class="pre">attach</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.Config.attach" title="Permalink to this definition">¶</a></dt>
-<dd><p>change the configuration by creating a rigid joint from frame1 to frame2, adopting their current relative pose. This also breaks the first joint that is parental to frame2 and reverses the topological order from frame2 to the broken joint</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="libry.Config.sortFrames">
-<code class="sig-prename descclassname"><span class="pre">Config.</span></code><code class="sig-name descname"><span class="pre">sortFrames</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Config</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.Config.sortFrames" title="Permalink to this definition">¶</a></dt>
-<dd><p>resort the internal order of frames according to the tree topology. This is important before saving the configuration.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="libry.Config.edit">
-<code class="sig-prename descclassname"><span class="pre">Config.</span></code><code class="sig-name descname"><span class="pre">edit</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.Config.edit" title="Permalink to this definition">¶</a></dt>
-<dd><p>launch a viewer that listents (inode) to changes of a file (made by you in an editor), and reloads, displays and animates the configuration whenever the file is changed</p>
-</dd></dl>
-
 </div>
 <div class="section" id="collision-computations">
 <h2>Collision computations<a class="headerlink" href="#collision-computations" title="Permalink to this headline">¶</a></h2>
-<dl class="py method">
-<dt id="libry.Config.computeCollisions">
-<code class="sig-prename descclassname"><span class="pre">Config.</span></code><code class="sig-name descname"><span class="pre">computeCollisions</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Config</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#libry.Config.computeCollisions" title="Permalink to this definition">¶</a></dt>
-<dd><p>call the broadphase collision engine (SWIFT++ or FCL) to generate the list of collisions (or near proximities) between all frame shapes that have the collision tag set non-zero</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="libry.Config.getCollisions">
-<code class="sig-prename descclassname"><span class="pre">Config.</span></code><code class="sig-name descname"><span class="pre">getCollisions</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">belowMargin</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">list</span><a class="headerlink" href="#libry.Config.getCollisions" title="Permalink to this definition">¶</a></dt>
-<dd><p>return the results of collision computations: a list of 3 tuples with (frame1, frame2, distance). Optionally report only on distances below a margin To get really precise distances and penetrations use the FS.distance feature with the two frame names</p>
-</dd></dl>
-
 </div>
 <div class="section" id="functions-to-create-other-classes-komo-simulation-viewer-etc">
 <h2>Functions to create other classes (KOMO, Simulation, viewer, etc)<a class="headerlink" href="#functions-to-create-other-classes-komo-simulation-viewer-etc" title="Permalink to this headline">¶</a></h2>
-<dl class="py method">
-<dt id="libry.Config.komo_IK">
-<code class="sig-prename descclassname"><span class="pre">Config.</span></code><code class="sig-name descname"><span class="pre">komo_IK</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">useSwift</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">KOMO</span><a class="headerlink" href="#libry.Config.komo_IK" title="Permalink to this definition">¶</a></dt>
-<dd><p>create KOMO solver configured to IK, useSwift determine whether for each query the broadphase collision computations are done. (Necessary only when generic FS.accumulatedCollision feature is needed. The explicit distance feature is independent from broadphase collision computation)</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="libry.Config.komo_CGO">
-<code class="sig-prename descclassname"><span class="pre">Config.</span></code><code class="sig-name descname"><span class="pre">komo_CGO</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">libry.Config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numConfigs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">useSwift</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">KOMO</span><a class="headerlink" href="#libry.Config.komo_CGO" title="Permalink to this definition">¶</a></dt>
-<dd><p>create KOMO solver configured for dense graph optimization, numConfig gives the number of configurations optimized over, useSwift determine whether for each query the broadphase collision computations are done. (Necessary only when generic FS.accumulatedCollision feature is needed. The explicit distance feature is independent from broadphase collision computation)</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="libry.Config.komo_path">
-<code class="sig-prename descclassname"><span class="pre">Config.</span></code><code class="sig-name descname"><span class="pre">komo_path</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">libry.Config</span></em>, <em class="sig-param"><span class="pre">phases:</span> <span class="pre">float</span></em>, <em class="sig-param"><span class="pre">stepsPerPhase:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">20</span></em>, <em class="sig-param"><span class="pre">timePerPhase:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">5.0</span></em>, <em class="sig-param"><span class="pre">useSwift:</span> <span class="pre">bool</span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">KOMO</span><a class="headerlink" href="#libry.Config.komo_path" title="Permalink to this definition">¶</a></dt>
-<dd><p>create KOMO solver configured for sparse path optimization</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="libry.Config.simulation">
-<code class="sig-prename descclassname"><span class="pre">Config.</span></code><code class="sig-name descname"><span class="pre">simulation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">libry.Config</span></em>, <em class="sig-param"><span class="pre">engine:</span> <span class="pre">rai::Simulation::SimulatorEngine</span></em>, <em class="sig-param"><span class="pre">verbose:</span> <span class="pre">int</span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">rai::Simulation</span><a class="headerlink" href="#libry.Config.simulation" title="Permalink to this definition">¶</a></dt>
-<dd><p>create a generic Simulation engine, which can internally call PhysX, Bullet, or just kinematics to forward simulate, allows you to control robot motors by position, velocity, or accelerations,     and allows you go query camera images and depth</p>
-</dd></dl>
-
 </div>
 </div>
 
