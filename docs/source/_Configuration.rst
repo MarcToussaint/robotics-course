@@ -4,6 +4,106 @@
 Configuration
 =============
 
+Synopsis
+===
+
+A ``Configuration`` is the core data structure in ``rai`` to represent
+a scene with objects and robots, similar to a scene graph in
+graphics. Essentially it stores a set of (coordinate) ``Frames``, to
+each of which we can associate a ``Shape``, ``Inertia``, interaction
+forces, etc. Further, a configuration has ``DoFs``
+(degrees-of-freedom), e.g. robot joint angles, which together form a
+vector. This vector representation of a configuration allows to apply
+optimization, control, and path finding methods on a
+configuration. Finally, a configuration allows you to compute
+``Features``, which is any numerical quantity you might want to
+compute about a configuration. This could be basic things like the
+position or orientation of a frame, or the distance between shapes, or
+nearest points on two shapes, but also more involved things like the
+error of motion under Newtonian dynamics. Features are the interface
+between a configuration and optimization (or constraint solving)
+algorithms.
+
+A configuration can also represent a ``sequence of scenes'', i.e., a
+time discretized path. In this case, the configuration stores
+:math:`T` frames for a single objects, which all share the same shape
+and describe the motion of the object. Although the semantics of such
+a ``path configuration'' and normal configuration differ, in
+``rai`` we use exactly the same data structure ``Configuration`` for both,
+as all the methods and operations we want to perform on them are
+essentially the same: We can parameterize a path configuration
+(trajectory dofs), and compute features on a path configuration
+(including velocity/acceleration/physics-based features).
+
+A configuration is also an interface between various engines:
+Rendering (OpenGL), Physics engines (bullet, PhysX), and file formats
+(`rai`'s .g-file, URDF, collada).
+
+
+Formally
+===
+
+In a rigid body case we would define a configuration :math:`C \in
+\SE(3)^m` as :math:`m` coordinate frames. To each frame a shape and/or
+inertia may be associated. We assume a configuration has dofs
+:math:`x\in\mathbb{R}^n` and write :math:`C(x)`. Given a
+configuration, we can compute features :math:`\phi(C(x)) \in
+\mathbb{R}^d` and Jacobians :math:`\nabla_x \phi(x) \in
+\mathbb{R}^{d\times n}` of features. This is the role of the
+`Configuration` data structure.
+
+Example Uses
+===
+
+Scene loading, editing, generation
+---
+
+* Loading URDF -- use `ry.tool.urdf2rai()`; often requires manual fixes. See details here.
+* Editing .g-files -- use `ry.tool.kinEdit()`! See details here.
+* editing and generation by code
+  
+Example: Load 2 robots into a file, attach the root of one robot to the endeff of the other, add and attach an own object, animate it, store it as urdf and collada.
+
+
+Dofs, set/get state, seleting active dofs
+---
+
+Computing Features
+---
+
+Basic Inverse Kinematics
+---
+
+The frame state
+---
+While the dof state is :math:`x\in\mathbb{R}^n`, the frame state is :math:`C(x) \in SE(3)^m`. That is, the frame state is the pose (position+quaternion) of *all* frames of the configuration. It is set and returned as a (m,7)-matrix.
+
+Note the quirks in setting a frame state when we also have joints at the same time! Setting the frame state of all frames overwrites also all relative transformations, ignoring that a joint associated to the relative transformation might actually only parameterize a limited transformations (e.g. a hinge rotation). So setFrameState may easily set relative transforms to be inconsistent with joint constraints. A following setJointState would simply overwrite these relative transformations again. More interestingly, a getJointState following a setFrameState extracts the dofs along the joint dimensions from the the freely set relative transformation, and a following setJointState would result in a joint-consistent transformation as close as possible to the freely set relative transformation.
+
+
+
+Computing Collisions
+---
+Many features require computation of potential collisions between all shapes. `rai` uses collision engines (FCL for broadphase, and lower-level ccd/GJK calls for precise collision information) to this end. A setState does *not* automatically trigger calling the collision engines. Some features such as `F_accumulatedCollsions` automatically ensure that these collision engines were called. However, the user can also explicitly ensure updated collision information by calling `ensureProxies`, after which collisions can be reported. This can be used, e.g., to implement an interface for path finding algorithms (e.g., OMPL).
+
+Parents, Sub-Frames, & Links
+---
+Frames typically have parent frames. If a joint is associated to this parent relation, then this typically indicates that the relative transformation to the parent has DOFs (special case: A joint can also be rigid). If no joint is associated to the parent relation, then the child is really a sub-frame and part of the same `link`.
+
+A `link frame` is one that has no parent or a joint to its parent. For a link frame we can (recursively) collect all sub-frames, which together describe a `link` (e.g. an object with multiple sub-shapes or inertias with different relative transformations to the link frame).
+
+
+Activating/Filtering Collisions
+---
+Shapes have a ``cont`` property (TODO: change to int collide). If collide=0, collision evaluation is deactivated and it collides with no other shape; if collide=1 collision evaluation is activated; collisions of shapes within the same link are generally filtered out; if collide<0, then collision evaluation is activated *but* collisions are filtered out not only to other shapes in the same link, but also other shapes in the parent-link of order '-collide', e.g., the two *links* tree-upward for collide=-2.
+
+  
+
+  is only roughly supp
+
+the pose (position orientation) of $m$ objects, equally including environment or (multi-) robot parts. A shape or inertia may be associated to each obj
+
+
 Just as arrays (vectors, matrices) are the core data structure to code
 numerics, a ``Configuration`` is the core data structure to code
 robotics. A configuration represents objects in a 3D world and how
@@ -13,11 +113,6 @@ as the 3D position of an object, or the distance between two shapes),
 and formulate optimization problems over configurations to solve
 control or path finding problems.
 
-A ``Configuration`` is a set of ``Frames``, each of which can have a
-parent frame, can have degrees of freedom (dofs) to parameterize its
-relative pose to the parent, can have a ``Shape``, and can have
-``Inertia``. In advanced applications, a Configuration can also maintain
-a list of object interactions and their dofs (e.g., contact forces).
 
 ``Features`` are the core concept that relate configurations to
 numerics: Any numerical quantity you might want to compute for a
