@@ -25,6 +25,7 @@ are almost identical to how users should use C++.
    rai
    komo
    skeleton
+   script
    
 
 Indices and tables
