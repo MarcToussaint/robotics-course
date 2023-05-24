@@ -4,9 +4,6 @@
 # In[ ]:
 
 
-import sys, os
-#sys.path.append(os.path.expanduser('~/git/rai-python/build'))
-#import libry as ry
 from robotic import ry
 import time
 
@@ -89,13 +86,20 @@ bot.home(C)
 
 bot.moveAutoTimed(path, 1., 1.)
 while bot.getTimeToEnd()>0:
-    bot.sync(C, .1)
+   bot.sync(C, .1)
 
 
 # In[ ]:
 
 
 del bot
+
+
+# In[ ]:
+
+
+del komo
+del C
 
 
 # In[ ]:

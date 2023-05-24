@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+# # First time with real robot
+# This starts exactly as script3-BotOp, only switching from BotOp(C, useRealRobot=True) instead of False.
+
 # In[ ]:
 
 
@@ -12,6 +15,7 @@ import time
 # In[ ]:
 
 
+#in case you switch to simulation
 ry.params_add({'botsim/verbose': 1., 'physx/motorKp': 10000., 'physx/motorKd': 1000.})
 ry.params_print()
 
@@ -21,71 +25,36 @@ ry.params_print()
 
 C = ry.Config()
 C.addFile(ry.raiPath('../rai-robotModels/scenarios/pandaSingle.g'))
+pcl = C.addFrame('pcl', 'cameraWrist')
 C.view(False, 'this is your workspace data structure C -- NOT THE SIMULTATION')
 
 
 # In[ ]:
 
 
-bot = ry.BotOp(C, False)
-#note that in sim, arms are going down! free floating...
+# True = real robot!!
+bot = ry.BotOp(C, True)
 
 
 # In[ ]:
 
 
-# we need to control it somehow, e.g. to home
-bot.home(C)
+bot.hold(True, False)
 
 
 # In[ ]:
 
 
-qHome = bot.get_q()
-q = bot.get_q()
-print(q)
-q[1] = q[1] - .1
-print(q)
-
-
-# In[ ]:
-
-
-bot.moveTo(q, 2)
-
-while bot.getTimeToEnd()>0:
+while bot.getKeyPressed()!=ord('q'):
+    image, depth, points = bot.getImageDepthPcl("cameraWrist")
+    pcl.setPointCloud(points, image)
     bot.sync(C, .1)
 
 
 # In[ ]:
 
 
-bot.home(C)
-
-
-# In[ ]:
-
-
-bot.gripperClose(ry._left)
-
-
-# In[ ]:
-
-
-bot.gripperOpen(ry._left)
-
-
-# In[ ]:
-
-
-bot.sync(C, .0)
-
-
-# In[ ]:
-
-
 del bot
-del C
 
 
 # In[ ]:

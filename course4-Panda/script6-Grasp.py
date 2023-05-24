@@ -1,25 +1,22 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[ ]:
 
 
-import sys, os
-#sys.path.append(os.path.expanduser('~/git/rai-python/build'))
-#import libry as ry
 from robotic import ry
 import numpy as np
 import time
 
 
-# In[2]:
+# In[ ]:
 
 
 ry.params_add({'physx/motorKp': 10000., 'physx/motorKd': 1000.})
 ry.params_print()
 
 
-# In[3]:
+# In[ ]:
 
 
 C = ry.Config()
@@ -27,14 +24,14 @@ C.addFile(ry.raiPath('../rai-robotModels/scenarios/pandaSingle.g'))
 C.view(False)
 
 
-# In[4]:
+# In[ ]:
 
 
 C.addFrame('box')     .setPosition([-.25,.1,.675])     .setShape(ry.ST.ssBox, size=[.05,.05,.05,.005])     .setColor([1,.5,0])     .setMass(.1)     .setContact(True)
 C.view()
 
 
-# In[5]:
+# In[ ]:
 
 
 # WAYPOINT ENGINEERING:
@@ -43,7 +40,7 @@ way0 = C.addFrame('way0', 'box')
 way1 = C.addFrame('way1', 'box')
 
 
-# In[6]:
+# In[ ]:
 
 
 way0.setShape(ry.ST.marker, size=[.1])
@@ -55,7 +52,7 @@ way1.setRelativePose('d(90 0 0 1)')
 C.view()
 
 
-# In[7]:
+# In[ ]:
 
 
 # define a 2 waypoint problem in KOMO
@@ -69,40 +66,40 @@ komo.addObjective([1.], ry.FS.poseDiff, ['l_gripper', 'way0'], ry.OT.eq, [1e1]);
 komo.addObjective([2.], ry.FS.poseDiff, ['l_gripper', 'way1'], ry.OT.eq, [1e1]);
 
 
-# In[8]:
+# In[ ]:
 
 
 ret = ry.NLP_Solver()     .setProblem(komo.nlp())     .setOptions( stopTolerance=1e-2, verbose=4 )     .solve()
 print(ret)
 
 
-# In[9]:
+# In[ ]:
 
 
 komo.view(False, "waypoints solution")
 
 
-# In[10]:
+# In[ ]:
 
 
 komo.view_close()
 path = komo.getPath()
 
 
-# In[11]:
+# In[ ]:
 
 
 bot = ry.BotOp(C, False)
 bot.home(C)
 
 
-# In[12]:
+# In[ ]:
 
 
 bot.home(C)
 
 
-# In[17]:
+# In[ ]:
 
 
 bot.gripperOpen(ry._left)
@@ -110,7 +107,7 @@ while not bot.gripperDone(ry._left):
     bot.sync(C, .1)
 
 
-# In[18]:
+# In[ ]:
 
 
 bot.move(path, [2., 3.])
@@ -118,7 +115,7 @@ while bot.getTimeToEnd()>0:
     bot.sync(C, .1)
 
 
-# In[19]:
+# In[ ]:
 
 
 bot.gripperClose(ry._left)
@@ -126,13 +123,13 @@ while not bot.gripperDone(ry._left):
     bot.sync(C, .1)
 
 
-# In[21]:
+# In[ ]:
 
 
 bot.home(C)
 
 
-# In[23]:
+# In[ ]:
 
 
 bot.gripperOpen(ry._left)
@@ -140,13 +137,13 @@ while not bot.gripperDone(ry._left):
     bot.sync(C, .1)
 
 
-# In[24]:
+# In[ ]:
 
 
 del bot
 
 
-# In[25]:
+# In[ ]:
 
 
 del C

@@ -4,11 +4,7 @@
 # In[ ]:
 
 
-import sys, os
-#sys.path.append(os.path.expanduser('~/git/rai-python/build'))
-#import libry as ry
 from robotic import ry
-#ry.setRaiPath(os.path.expanduser('~/git/rai-python/rai-robotModels'))
 
 
 # In[ ]:
@@ -63,6 +59,13 @@ print(type(q), len(q))
 
 C.setJointState(q[0])
 C.view()
+
+
+# In[ ]:
+
+
+del komo
+del C
 
 
 # In[ ]:

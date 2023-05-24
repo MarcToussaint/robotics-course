@@ -4,15 +4,15 @@
 # In[ ]:
 
 
-import sys, os
-#sys.path.append(os.path.expanduser('~/git/rai-python/build'))
-#import libry as ry
 from robotic import ry
 
 
 # In[ ]:
 
 
+#import sys, os
+#sys.path.append(os.path.expanduser('~/git/rai-python/build'))
+#import libry as ry
 
 
 # In[ ]:
@@ -65,6 +65,25 @@ print('pos:', frameC.getPosition(), 'quat:', frameC.getQuaternion())
 [y,J] = C.eval(ry.FS.position, ['C'])
 print('position of C:', y, '\nJacobian:', J)
 type(J)
+
+
+# In[ ]:
+
+
+#only the z-position relative to target 0.5:
+C.eval(ry.FS.position, ['C'], [[0,0,1]], [0,0,0.5]) #the scaling is a 1x3 matrix
+
+
+# In[ ]:
+
+
+help(ry.FS)
+
+
+# In[ ]:
+
+
+del C
 
 
 # In[ ]:
