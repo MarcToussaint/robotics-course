@@ -1,36 +1,9 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[ ]:
-
-
 from robotic import ry
-
-
-# In[ ]:
-
-
-#import sys, os
-#sys.path.append(os.path.expanduser('~/git/rai-python/build'))
-#import libry as ry
-
-
-# In[ ]:
-
 
 C = ry.Config()
 C.addFile('mini.g')
-C.view()
-
-
-# In[ ]:
-
 
 C.watchFile('mini.g')
-
-
-# In[ ]:
-
 
 q = C.getJointState()
 print(q)
