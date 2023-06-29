@@ -18,14 +18,14 @@ are almost identical to how users should use C++.
 
   
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
 
-   simlab
-   rai
-   komo
-   skeleton
    script
+   rai
+   simlab
+..   komo
+..   skeleton
    
 
 Indices and tables

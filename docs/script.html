@@ -4,24 +4,24 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Introduction &mdash; Robotics Course  documentation</title>
+  <title>Script &mdash; Robotics Course  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
         <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Learning about Skeletons &amp; LGP" href="skeleton.html" /> 
+    <link rel="next" title="rai python API" href="rai.html" />
+    <link rel="prev" title="Welcome to the Robotics Course Repo" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,82 +45,78 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Script</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#reference-material">Reference material</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#coding-getting-started">Coding Getting Started</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#scene-robot-description">Scene &amp; Robot Description</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#transformations">Transformations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#coordinates-and-composition-of-transformations">Coordinates and Composition of Transformations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scene-tree-or-forest">Scene Tree or Forest</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#kinematics">Kinematics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#robots-as-parameterized-trees">Robots as Parameterized Trees</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration-joint-vector">Configuration &amp; Joint Vector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#forward-kinematics">Forward Kinematics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#jacobians">Jacobians</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#rotational-joint">Rotational Joint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#translational-joint">Translational Joint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#quaternion-joint">Quaternion Joint</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#implementing-a-kinematic-engine">Implementing a Kinematic Engine</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#features-in-rai">Features in rai</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#inverse-kinematics">Inverse Kinematics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#building-an-nlp-from-features">Building an NLP from features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#classical-derivation-of-pseudo-inverse-jacobian-solution">Classical Derivation of Pseudo-Inverse Jacobian Solution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#placeholder">Placeholder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#d-transformations-rotations-quaternions">3D Transformations, Rotations, Quaternions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#rotations">Rotations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Transformations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#static-transformations">Static transformations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dynamic-transformations">Dynamic transformations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#a-note-on-affine-coordinate-frames">A note on affine coordinate frames</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#rai-references">RAI references</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nlp-interface">NLP interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kinematic-features">Kinematic Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graph-yaml-files">Graph-Yaml Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yaml-style-files-to-describe-robot-configurations">yaml-style files to describe robot configurations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#editing-using-kinedit">Editing using <code class="docutils literal notranslate"><span class="pre">kinEdit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#import-from-urdf">Import from URDF</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#notation-to-specify-transformations">Notation to specify transformations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#joint-types">Joint types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#cameras">Cameras</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#image-camera-world-coordinates">Image, Camera, &amp; World Coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#homogeneous-coordinates-camera-matrix-p">Homogeneous coordinates &amp; Camera Matrix <span class="math notranslate nohighlight">\(P\)</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calibration-as-estimating-p-k-r-t-from-depth-data">Calibration as Estimating <span class="math notranslate nohighlight">\(P,K,R,t\)</span> from Depth Data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">Placeholder</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#shapes">Shapes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kinematics-formally">Kinematics formally</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rai.html">rai python API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="simlab.html">Lab Course in Simulation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rai.html">Robotics Code Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="komo.html">Learning KOMO (K-Order Markov Optimization)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="skeleton.html">Learning about Skeletons &amp; LGP</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#reference-material">Reference material</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#coding-getting-started">Coding Getting Started</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#scene-robot-description">Scene &amp; Robot Description</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#transformations">Transformations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#coordinates-and-composition-of-transformations">Coordinates and Composition of Transformations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#scene-tree-or-forest">Scene Tree or Forest</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#kinematics">Kinematics</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#robots-as-parameterized-trees">Robots as Parameterized Trees</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#configuration-joint-vector">Configuration &amp; Joint Vector</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#forward-kinematics">Forward Kinematics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#jacobians">Jacobians</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#rotational-joint">Rotational Joint</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#translational-joint">Translational Joint</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#quaternion-joint">Quaternion Joint</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#implementing-a-kinematic-engine">Implementing a Kinematic Engine</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#features-in-rai">Features in rai</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#inverse-kinematics">Inverse Kinematics</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#building-an-nlp-from-features">Building an NLP from features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#classical-derivation-of-pseudo-inverse-jacobian-solution">Classical Derivation of Pseudo-Inverse Jacobian Solution</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#pseudo-inverse-jacobian">Pseudo-inverse Jacobian.</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#on-the-fly-ik">On the fly IK.</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#singularity">Singularity.</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#placeholder">Placeholder</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#d-transformations-rotations-quaternions">3D Transformations, Rotations, Quaternions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#rotations">Rotations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">Transformations</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#static-transformations">Static transformations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#dynamic-transformations">Dynamic transformations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#a-note-on-affine-coordinate-frames">A note on affine coordinate frames</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#rai-references">RAI references</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#nlp-interface">NLP interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#kinematic-features">Kinematic Features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#graph-yaml-files">Graph-Yaml Files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#yaml-style-files-to-describe-robot-configurations">yaml-style files to describe robot configurations</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#editing-using-kinedit">Editing using <code class="docutils literal notranslate"><span class="pre">kinEdit</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#import-from-urdf">Import from URDF</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#notation-to-specify-transformations">Notation to specify transformations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#joint-types">Joint types</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#cameras">Cameras</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#image-camera-world-coordinates">Image, Camera, &amp; World Coordinates</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#homogeneous-coordinates-camera-matrix-p">Homogeneous coordinates &amp; Camera Matrix <span class="math notranslate nohighlight">\(P\)</span></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#calibration-as-estimating-p-k-r-t-from-depth-data">Calibration as Estimating <span class="math notranslate nohighlight">\(P,K,R,t\)</span> from Depth Data</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#id4">Placeholder</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#shapes">Shapes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#kinematics-formally">Kinematics formally</a></li>
-</ul>
-</li>
 </ul>
 
         </div>
@@ -137,7 +133,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Introduction</li>
+      <li class="breadcrumb-item active">Script</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -146,10 +142,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h1>
+  <section id="script">
+<h1>Script<a class="headerlink" href="#script" title="Permalink to this heading"></a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
 <section id="reference-material">
-<h2>Reference material<a class="headerlink" href="#reference-material" title="Permalink to this heading"></a></h2>
+<h3>Reference material<a class="headerlink" href="#reference-material" title="Permalink to this heading"></a></h3>
 <p>In terms of background, please refer to the <a class="reference external" href="https://www.user.tu-berlin.de/mtoussai/teaching/Lecture-Maths.pdf">Maths for Intelligent
 Systems</a>
 as well as the <a class="reference external" href="https://www.user.tu-berlin.de/mtoussai/teaching/Lecture-Robotics.pdf">Intro to
@@ -190,7 +188,7 @@ non-holonomic constraints)</p>
 </ul>
 </section>
 <section id="coding-getting-started">
-<h2>Coding Getting Started<a class="headerlink" href="#coding-getting-started" title="Permalink to this heading"></a></h2>
+<h3>Coding Getting Started<a class="headerlink" href="#coding-getting-started" title="Permalink to this heading"></a></h3>
 <p>The coding secitons use the &#64;robotic&#64; python package. Sources and
 dockers to build the wheel are found on
 <a class="reference external" href="https://github.com/MarcToussaint/rai-python">github/rai-python</a>.</p>
@@ -210,7 +208,7 @@ are available as part of the
 </section>
 </section>
 <section id="scene-robot-description">
-<h1>Scene &amp; Robot Description<a class="headerlink" href="#scene-robot-description" title="Permalink to this heading"></a></h1>
+<h2>Scene &amp; Robot Description<a class="headerlink" href="#scene-robot-description" title="Permalink to this heading"></a></h2>
 <p>Generally speaking, a scene is a collection of objects (including robot
 parts). We typically assume objects to be rigid bodies with fixed shape
 – which clearly is a simplification relative to real world. More about
@@ -222,7 +220,7 @@ frames. If a rigid shape and mass is associated to a frame, then it
 makes a typical rigid body. But frames can also be associated to robot
 joint locations or virtual landmarks.</p>
 <section id="transformations">
-<h2>Transformations<a class="headerlink" href="#transformations" title="Permalink to this heading"></a></h2>
+<h3>Transformations<a class="headerlink" href="#transformations" title="Permalink to this heading"></a></h3>
 <p>Let <span class="math notranslate nohighlight">\(i=1,..,m\)</span> enumerate <span class="math notranslate nohighlight">\(m\)</span> frames in a scene. Each frame
 has a <strong>pose</strong> <span class="math notranslate nohighlight">\(X_i\in SE(3)\)</span>, where
 <span class="math notranslate nohighlight">\(SE(3) = {{\mathbb{R}}}^3 \times SO(3)\)</span> is the group of 3D
@@ -285,7 +283,7 @@ To reload you can also try calling</p>
 file changes – but doesn’t always handle file syntax errors well.</p>
 </section>
 <section id="coordinates-and-composition-of-transformations">
-<h2>Coordinates and Composition of Transformations<a class="headerlink" href="#coordinates-and-composition-of-transformations" title="Permalink to this heading"></a></h2>
+<h3>Coordinates and Composition of Transformations<a class="headerlink" href="#coordinates-and-composition-of-transformations" title="Permalink to this heading"></a></h3>
 <figure class="align-default" id="id7">
 <img alt="[figTransforms] Composition of transforms." src="geo-transforms-2" />
 <figcaption>
@@ -340,7 +338,7 @@ the pose <span class="math notranslate nohighlight">\(X\)</span>, we now have to
 <span class="math notranslate nohighlight">\(Q\)</span>.</p>
 </section>
 <section id="scene-tree-or-forest">
-<h2>Scene Tree or Forest<a class="headerlink" href="#scene-tree-or-forest" title="Permalink to this heading"></a></h2>
+<h3>Scene Tree or Forest<a class="headerlink" href="#scene-tree-or-forest" title="Permalink to this heading"></a></h3>
 <p>Scenes are typically represented as trees, with the world origin as a
 root, and the pose of children specified by a <em>relative</em> transformation
 from the parent. For instance, a scene with a book on a table on the
@@ -359,9 +357,9 @@ trees, but include meaning forests.</p>
 </section>
 </section>
 <section id="kinematics">
-<h1>Kinematics<a class="headerlink" href="#kinematics" title="Permalink to this heading"></a></h1>
+<h2>Kinematics<a class="headerlink" href="#kinematics" title="Permalink to this heading"></a></h2>
 <section id="robots-as-parameterized-trees">
-<h2>Robots as Parameterized Trees<a class="headerlink" href="#robots-as-parameterized-trees" title="Permalink to this heading"></a></h2>
+<h3>Robots as Parameterized Trees<a class="headerlink" href="#robots-as-parameterized-trees" title="Permalink to this heading"></a></h3>
 <p>The key thing in robotics is that some relative transforms (between
 robot links) are “motorized” and can be moved. Formally, this means that
 <em>some</em> of the relative transforms <span class="math notranslate nohighlight">\(Q_i\)</span> in our scene have
@@ -446,7 +444,7 @@ specifications are inconsistent and we should remove the direct
 hinge joint, as well as limits.</p>
 </section>
 <section id="configuration-joint-vector">
-<h2>Configuration &amp; Joint Vector<a class="headerlink" href="#configuration-joint-vector" title="Permalink to this heading"></a></h2>
+<h3>Configuration &amp; Joint Vector<a class="headerlink" href="#configuration-joint-vector" title="Permalink to this heading"></a></h3>
 <p>We use the word <strong>configuration</strong> for an “articulated scene”, i.e.,
 where some relative transforms <span class="math notranslate nohighlight">\(Q_i(q_i)\)</span> are parameterized by
 dofs <span class="math notranslate nohighlight">\(q_i \in {{\mathbb{R}}}^{d_i}\)</span> (and also other dofs such as
@@ -460,7 +458,7 @@ the scene and thereby compute the absolute pose <span class="math notranslate no
 frame as a function of <span class="math notranslate nohighlight">\(q\)</span>.</p>
 </section>
 <section id="forward-kinematics">
-<h2>Forward Kinematics<a class="headerlink" href="#forward-kinematics" title="Permalink to this heading"></a></h2>
+<h3>Forward Kinematics<a class="headerlink" href="#forward-kinematics" title="Permalink to this heading"></a></h3>
 <p>This function <span class="math notranslate nohighlight">\(q \mapsto X_i(q)\)</span> is the core of <strong>forward
 kinematics</strong>. It describes how the joint vector <span class="math notranslate nohighlight">\(q\)</span> determines the
 pose of all frames in the configuration.</p>
@@ -527,7 +525,7 @@ However, below we introduce a more abstract way to access <em>features</em>
 that is more consistent to how constraint problems are formulated.</p>
 </section>
 <section id="jacobians">
-<h2>Jacobians<a class="headerlink" href="#jacobians" title="Permalink to this heading"></a></h2>
+<h3>Jacobians<a class="headerlink" href="#jacobians" title="Permalink to this heading"></a></h3>
 <p>We will use kinematic features <span class="math notranslate nohighlight">\(\phi\)</span> to formulate differentiable
 constraint and optimization problem. Therefore, we assume all kinematic
 features <span class="math notranslate nohighlight">\(\phi\)</span> are differentiable and we can efficiently compute
@@ -551,7 +549,7 @@ essentially need to figure out how the different joint types contribute
 to the Jacobians of the three basic features above. This is covered by
 considering the following cases:</p>
 <section id="rotational-joint">
-<h3>Rotational Joint<a class="headerlink" href="#rotational-joint" title="Permalink to this heading"></a></h3>
+<h4>Rotational Joint<a class="headerlink" href="#rotational-joint" title="Permalink to this heading"></a></h4>
 <p>Consider that somewhere on the path from world to frame <span class="math notranslate nohighlight">\(i\)</span> there
 is a rotational (hinge) joint <span class="math notranslate nohighlight">\(j\)</span> positioned at <span class="math notranslate nohighlight">\(p_j\)</span> and
 with unit axis vector <span class="math notranslate nohighlight">\(a_j\)</span> (both in world coordinates). Now
@@ -608,7 +606,7 @@ non-zero columns to our basic matrices
 of what we have to implement for rotational joints.</p>
 </section>
 <section id="translational-joint">
-<h3>Translational Joint<a class="headerlink" href="#translational-joint" title="Permalink to this heading"></a></h3>
+<h4>Translational Joint<a class="headerlink" href="#translational-joint" title="Permalink to this heading"></a></h4>
 <p>A translational (prismatic) joint on the path from world to frame
 <span class="math notranslate nohighlight">\(i\)</span> also contribute a column to the basic matrix
 <span class="math notranslate nohighlight">\(J^{{\textsf{pos}}}(p)\)</span>, but contributes notion to
@@ -621,7 +619,7 @@ J^{{\textsf{pos}}}_{:,j} = a_j ~.\end{aligned}\]</div>
 <p>That’s it for translational joints.</p>
 </section>
 <section id="quaternion-joint">
-<h3>Quaternion Joint<a class="headerlink" href="#quaternion-joint" title="Permalink to this heading"></a></h3>
+<h4>Quaternion Joint<a class="headerlink" href="#quaternion-joint" title="Permalink to this heading"></a></h4>
 <p>Trickier, but important for ball and free joints is to also know how a
 quaternion joint contributes columns to <span class="math notranslate nohighlight">\(J^{{\textsf{ang}}}\)</span> and
 <span class="math notranslate nohighlight">\(J^{{\textsf{pos}}}(p)\)</span>. Modifying a quaternion parameterization
@@ -668,7 +666,7 @@ flip of sign).</p>
 </section>
 </section>
 <section id="implementing-a-kinematic-engine">
-<h2>Implementing a Kinematic Engine<a class="headerlink" href="#implementing-a-kinematic-engine" title="Permalink to this heading"></a></h2>
+<h3>Implementing a Kinematic Engine<a class="headerlink" href="#implementing-a-kinematic-engine" title="Permalink to this heading"></a></h3>
 <p>The above provides all essentials necessary to implement a rather
 general kinematic engine. To summarize:</p>
 <ul class="simple">
@@ -738,7 +736,7 @@ relative to a target 0.5:</p>
 </pre></div>
 </div>
 <section id="features-in-rai">
-<h3>Features in rai<a class="headerlink" href="#features-in-rai" title="Permalink to this heading"></a></h3>
+<h4>Features in rai<a class="headerlink" href="#features-in-rai" title="Permalink to this heading"></a></h4>
 <p>[FUSE WITH ABOVE]</p>
 <p>We assume a single configuration <span class="math notranslate nohighlight">\(q\)</span>, or a whole set of
 configurations <span class="math notranslate nohighlight">\(\{q_1,..,q_T\}\)</span>, with each
@@ -787,7 +785,7 @@ order Markov), and redefines the feature to become the acceleration</p>
 </section>
 </section>
 <section id="inverse-kinematics">
-<h2>Inverse Kinematics<a class="headerlink" href="#inverse-kinematics" title="Permalink to this heading"></a></h2>
+<h3>Inverse Kinematics<a class="headerlink" href="#inverse-kinematics" title="Permalink to this heading"></a></h3>
 <p>We introduced forward kinematics as a mapping from an
 <span class="math notranslate nohighlight">\(n\)</span>-dimensional joint vector <span class="math notranslate nohighlight">\(q\in{{\mathbb{R}}}^n\)</span> to some
 <span class="math notranslate nohighlight">\(d\)</span>-dimensional kinematic feature
@@ -819,7 +817,7 @@ differentiable features.</p>
 <p>Only for educational purpose we will also derive the classical
 pseudo-inverse Jacobian solution to IK below.</p>
 <section id="building-an-nlp-from-features">
-<h3>Building an NLP from features<a class="headerlink" href="#building-an-nlp-from-features" title="Permalink to this heading"></a></h3>
+<h4>Building an NLP from features<a class="headerlink" href="#building-an-nlp-from-features" title="Permalink to this heading"></a></h4>
 <p>Eq. ([eqIKNLP]) describes IK as an NLP. Appendix [secNLP] provides a
 technical reference of how we define NLPs mathematically and in code. We
 summarize this here to enable us defining IK problems in the next coding
@@ -912,13 +910,13 @@ optimal joint vector:</p>
 </div>
 </section>
 <section id="classical-derivation-of-pseudo-inverse-jacobian-solution">
-<h3>Classical Derivation of Pseudo-Inverse Jacobian Solution<a class="headerlink" href="#classical-derivation-of-pseudo-inverse-jacobian-solution" title="Permalink to this heading"></a></h3>
+<h4>Classical Derivation of Pseudo-Inverse Jacobian Solution<a class="headerlink" href="#classical-derivation-of-pseudo-inverse-jacobian-solution" title="Permalink to this heading"></a></h4>
 <p>I strongly recommend using an NLP solver and general constraint and cost
 formulations to tackle IK problems – and you can skip over this section.
 However, for completeness I provide here also the basic derivation of
 classical pseudo-inverse Jacobian solutions.</p>
 <section id="pseudo-inverse-jacobian">
-<h4>Pseudo-inverse Jacobian.<a class="headerlink" href="#pseudo-inverse-jacobian" title="Permalink to this heading"></a></h4>
+<h5>Pseudo-inverse Jacobian.<a class="headerlink" href="#pseudo-inverse-jacobian" title="Permalink to this heading"></a></h5>
 <p>We first simplify the problem to minimize</p>
 <div class="math notranslate nohighlight">
 \[\begin{aligned}
@@ -971,7 +969,7 @@ directions to ensure convergence. If <span class="math notranslate nohighlight">
 converge to a local optimum that depends on the initialization.</p>
 </section>
 <section id="on-the-fly-ik">
-<h4>On the fly IK.<a class="headerlink" href="#on-the-fly-ik" title="Permalink to this heading"></a></h4>
+<h5>On the fly IK.<a class="headerlink" href="#on-the-fly-ik" title="Permalink to this heading"></a></h5>
 <p>Inverse kinematics is sometimes being used to generate robot motion on
 the fly. In a sense, rather than letting an optimization algorithm find
 an IK solution and then start moving the robot to it (we we’ll do it
@@ -993,7 +991,7 @@ eventually converge to – and sometimes this leads to undesired <em>drift in
 nullspace</em>. All not recommended.</p>
 </section>
 <section id="singularity">
-<h4>Singularity.<a class="headerlink" href="#singularity" title="Permalink to this heading"></a></h4>
+<h5>Singularity.<a class="headerlink" href="#singularity" title="Permalink to this heading"></a></h5>
 <p>The limit <span class="math notranslate nohighlight">\(C\to\infty\)</span> mentioned above is only robust when
 <span class="math notranslate nohighlight">\(\det (J
 J^{{\!\top\!}}) &gt; 0\)</span>, or equivalently, when <span class="math notranslate nohighlight">\(J\)</span> has full rank
@@ -1017,7 +1015,7 @@ leads to an approximate IK solution.</p>
 </section>
 </section>
 <section id="placeholder">
-<h1>Placeholder<a class="headerlink" href="#placeholder" title="Permalink to this heading"></a></h1>
+<h2>Placeholder<a class="headerlink" href="#placeholder" title="Permalink to this heading"></a></h2>
 <p>To come:</p>
 <p>Spline Motion and Control Levels</p>
 <p>Motion Planning: Path/Trajectory Optimization and Finding</p>
@@ -1027,9 +1025,9 @@ leads to an approximate IK solution.</p>
 <p>skipping here: Mobile Robotics slides</p>
 </section>
 <section id="d-transformations-rotations-quaternions">
-<h1>3D Transformations, Rotations, Quaternions<a class="headerlink" href="#d-transformations-rotations-quaternions" title="Permalink to this heading"></a></h1>
+<h2>3D Transformations, Rotations, Quaternions<a class="headerlink" href="#d-transformations-rotations-quaternions" title="Permalink to this heading"></a></h2>
 <section id="rotations">
-<h2>Rotations<a class="headerlink" href="#rotations" title="Permalink to this heading"></a></h2>
+<h3>Rotations<a class="headerlink" href="#rotations" title="Permalink to this heading"></a></h3>
 <p>There are many ways to represent rotations in <span class="math notranslate nohighlight">\(SO(3)\)</span>. We restrict
 ourselves to three basic ones: rotation matrix, rotation vector, and
 quaternion. The rotation vector is also the most natural representation
@@ -1244,14 +1242,14 @@ normalizations).</p>
 </dl>
 </section>
 <section id="id1">
-<h2>Transformations<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
+<h3>Transformations<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
 <p>We consider two types of transformations here: either static
 (translation+rotation), or dynamic
 (translation+velocity+rotation+angular velocity). The first maps between
 two static reference frames, the latter between moving reference frames,
 e.g. between reference frames attached to moving rigid bodies.</p>
 <section id="static-transformations">
-<h3>Static transformations<a class="headerlink" href="#static-transformations" title="Permalink to this heading"></a></h3>
+<h4>Static transformations<a class="headerlink" href="#static-transformations" title="Permalink to this heading"></a></h4>
 <p>Concerning the static transformations, again there are different
 representations:</p>
 <dl>
@@ -1291,7 +1289,7 @@ the concatenation is
 </dl>
 </section>
 <section id="dynamic-transformations">
-<h3>Dynamic transformations<a class="headerlink" href="#dynamic-transformations" title="Permalink to this heading"></a></h3>
+<h4>Dynamic transformations<a class="headerlink" href="#dynamic-transformations" title="Permalink to this heading"></a></h4>
 <p>Just as static transformations map between (static) coordinate frames,
 dynamic transformations map between moving (inertial) frames which are,
 e.g., attached to moving bodies. A dynamic transformation is described
@@ -1348,7 +1346,7 @@ p^A = T_{A\to B}~ p^B ~.\end{aligned}\]</div>
 </dl>
 </section>
 <section id="a-note-on-affine-coordinate-frames">
-<h3>A note on affine coordinate frames<a class="headerlink" href="#a-note-on-affine-coordinate-frames" title="Permalink to this heading"></a></h3>
+<h4>A note on affine coordinate frames<a class="headerlink" href="#a-note-on-affine-coordinate-frames" title="Permalink to this heading"></a></h4>
 <p>Instead of the notation <span class="math notranslate nohighlight">\(T_{A\to B}\)</span>, other text books often use
 notations such as <span class="math notranslate nohighlight">\(T_{AB}\)</span> or <span class="math notranslate nohighlight">\(T^A_B\)</span>. A common question
 regarding notation <span class="math notranslate nohighlight">\(T_{A\to B}\)</span> is the following:</p>
@@ -1420,9 +1418,9 @@ p &amp;= o^B + \sum_i p^B_i~ \boldsymbol e^B_i \\
 </section>
 </section>
 <section id="rai-references">
-<h1>RAI references<a class="headerlink" href="#rai-references" title="Permalink to this heading"></a></h1>
+<h2>RAI references<a class="headerlink" href="#rai-references" title="Permalink to this heading"></a></h2>
 <section id="nlp-interface">
-<h2>NLP interface<a class="headerlink" href="#nlp-interface" title="Permalink to this heading"></a></h2>
+<h3>NLP interface<a class="headerlink" href="#nlp-interface" title="Permalink to this heading"></a></h3>
 <p>A general non-linear mathematical program (NLP) is of the form</p>
 <div class="math notranslate nohighlight">
 \[\begin{aligned}
@@ -1484,7 +1482,7 @@ provides starting <span class="math notranslate nohighlight">\(x_0\)</span>.</p>
 </div>
 </section>
 <section id="kinematic-features">
-<h2>Kinematic Features<a class="headerlink" href="#kinematic-features" title="Permalink to this heading"></a></h2>
+<h3>Kinematic Features<a class="headerlink" href="#kinematic-features" title="Permalink to this heading"></a></h3>
 <p>The code has several kinematic features
 <span class="math notranslate nohighlight">\(\phi: q \mapsto \phi(q)\in{{\mathbb{R}}}^D\)</span> pre-defined – see
 Table [tabFeatures].</p>
@@ -1647,7 +1645,7 @@ Table [tabFeatures].</p>
 <p>Table: [tabFeatures]Features pre-defined in rai.</p>
 </section>
 <section id="graph-yaml-files">
-<h2>Graph-Yaml Files<a class="headerlink" href="#graph-yaml-files" title="Permalink to this heading"></a></h2>
+<h3>Graph-Yaml Files<a class="headerlink" href="#graph-yaml-files" title="Permalink to this heading"></a></h3>
 <p>We use yaml-style files throughout. These are the file representation of
 internal data structures such as dictionaries (anytype key-value maps)
 used for parameter files or other structure data, but esp. also graphs.
@@ -1733,7 +1731,7 @@ connectivity across (sub)-graphs e.g. allows to represent logic
 knowledge bases.</p>
 </section>
 <section id="yaml-style-files-to-describe-robot-configurations">
-<h2>yaml-style files to describe robot configurations<a class="headerlink" href="#yaml-style-files-to-describe-robot-configurations" title="Permalink to this heading"></a></h2>
+<h3>yaml-style files to describe robot configurations<a class="headerlink" href="#yaml-style-files-to-describe-robot-configurations" title="Permalink to this heading"></a></h3>
 <p>We use .g-files to represent robot/world configurations. .g-files
 describe a general graph data structure as explained in :ref:‘refGraph‘.
 But for robot configurations it is rather simple: Everly node describes
@@ -1791,7 +1789,7 @@ B. So this is a typical short hand to specify a joint (more similarly to
 how its done in URDF). But the generated underlying data structure is
 just a tree of frames.</p>
 <section id="editing-using-kinedit">
-<h3>Editing using <code class="docutils literal notranslate"><span class="pre">kinEdit</span></code><a class="headerlink" href="#editing-using-kinedit" title="Permalink to this heading"></a></h3>
+<h4>Editing using <code class="docutils literal notranslate"><span class="pre">kinEdit</span></code><a class="headerlink" href="#editing-using-kinedit" title="Permalink to this heading"></a></h4>
 <p>Whenever working with .g-files, you should try to display them using the
 <code class="docutils literal notranslate"><span class="pre">$RAI/bin/kinEdit</span></code> command line tool. CMake automatically compiles it;
 otherwise call ’make bin’ in <code class="docutils literal notranslate"><span class="pre">$RAI</span></code> to compile this. Then you can call
@@ -1809,7 +1807,7 @@ report on syntax errors and be robust, but it crashes on some syntax
 errors and then needs to be restarted manually.</p>
 </section>
 <section id="import-from-urdf">
-<h3>Import from URDF<a class="headerlink" href="#import-from-urdf" title="Permalink to this heading"></a></h3>
+<h4>Import from URDF<a class="headerlink" href="#import-from-urdf" title="Permalink to this heading"></a></h4>
 <p>You can convert URDF files to .g-files using the <code class="docutils literal notranslate"><span class="pre">rai/bin/urdf2rai.py</span></code>
 script. However, the overall conversion is only partially automatic. The
 resulting g-file encodes the full kinematic structure, but the mesh
@@ -1833,7 +1831,7 @@ extra information on joints to make this a properly articulated robot
 world.</p>
 </section>
 <section id="notation-to-specify-transformations">
-<h3>Notation to specify transformations<a class="headerlink" href="#notation-to-specify-transformations" title="Permalink to this heading"></a></h3>
+<h4>Notation to specify transformations<a class="headerlink" href="#notation-to-specify-transformations" title="Permalink to this heading"></a></h4>
 <p>Transformation can always be specified as 7-vectors
 <code class="docutils literal notranslate"><span class="pre">Q:[p1</span> <span class="pre">p2</span> <span class="pre">p3</span> <span class="pre">q0</span> <span class="pre">q1</span> <span class="pre">q2</span> <span class="pre">q3]</span></code> (position, quaternion), or also 3- or
 4-vectors if you only want to set position or orientation. But this is
@@ -1850,7 +1848,7 @@ interpretable transformations, as in the old turtle language.</p>
 </div>
 </section>
 <section id="joint-types">
-<h3>Joint types<a class="headerlink" href="#joint-types" title="Permalink to this heading"></a></h3>
+<h4>Joint types<a class="headerlink" href="#joint-types" title="Permalink to this heading"></a></h4>
 <p>The <code class="docutils literal notranslate"><span class="pre">libry.JT</span></code> enum (in python; or rai::JointType in C++) lists all
 available joint type. Currently these are:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hingeX</span><span class="p">,</span> <span class="n">hingeY</span><span class="p">,</span> <span class="n">hingeZ</span><span class="p">,</span> <span class="n">transX</span><span class="p">,</span> <span class="n">transY</span><span class="p">,</span> <span class="n">transZ</span><span class="p">,</span> <span class="n">transXY</span><span class="p">,</span> <span class="n">trans3</span><span class="p">,</span> <span class="n">transXYPhi</span><span class="p">,</span> <span class="n">universal</span><span class="p">,</span> <span class="n">rigid</span><span class="p">,</span> <span class="n">quatBall</span><span class="p">,</span> <span class="n">phiTransXY</span><span class="p">,</span> <span class="n">XBall</span><span class="p">,</span> <span class="n">free</span><span class="p">,</span> <span class="n">tau</span>
@@ -1868,9 +1866,9 @@ resulting relative transformation generated by the joint).</p>
 </section>
 </section>
 <section id="cameras">
-<h1>Cameras<a class="headerlink" href="#cameras" title="Permalink to this heading"></a></h1>
+<h2>Cameras<a class="headerlink" href="#cameras" title="Permalink to this heading"></a></h2>
 <section id="image-camera-world-coordinates">
-<h2>Image, Camera, &amp; World Coordinates<a class="headerlink" href="#image-camera-world-coordinates" title="Permalink to this heading"></a></h2>
+<h3>Image, Camera, &amp; World Coordinates<a class="headerlink" href="#image-camera-world-coordinates" title="Permalink to this heading"></a></h3>
 <p>In this section, we use the following notation for coordinates of a 3D
 point:</p>
 <ul class="simple">
@@ -1924,7 +1922,7 @@ x
 &amp;= { \left(\begin{array}{c}(u_x - c_x) u_z / f_x\\ (u_y - c_y) u_z / f_y \\ u_z\end{array}\right) } ~.\end{aligned}\end{split}\]</div>
 </section>
 <section id="homogeneous-coordinates-camera-matrix-p">
-<h2>Homogeneous coordinates &amp; Camera Matrix <span class="math notranslate nohighlight">\(P\)</span><a class="headerlink" href="#homogeneous-coordinates-camera-matrix-p" title="Permalink to this heading"></a></h2>
+<h3>Homogeneous coordinates &amp; Camera Matrix <span class="math notranslate nohighlight">\(P\)</span><a class="headerlink" href="#homogeneous-coordinates-camera-matrix-p" title="Permalink to this heading"></a></h3>
 <p>First a brief definition: <em>A homogeneous coordinate
 :math:`boldsymbol x=(x_1,..,x_n,w)` is a (redundant) description of the
 :math:`n`-dim point</em></p>
@@ -1972,7 +1970,7 @@ parameters. Except for absolute scaling (the 1 in the definition of
 <span class="math notranslate nohighlight">\(K\)</span>), this fully parameterizes a general affine transform.</p>
 </section>
 <section id="calibration-as-estimating-p-k-r-t-from-depth-data">
-<h2>Calibration as Estimating <span class="math notranslate nohighlight">\(P,K,R,t\)</span> from Depth Data<a class="headerlink" href="#calibration-as-estimating-p-k-r-t-from-depth-data" title="Permalink to this heading"></a></h2>
+<h3>Calibration as Estimating <span class="math notranslate nohighlight">\(P,K,R,t\)</span> from Depth Data<a class="headerlink" href="#calibration-as-estimating-p-k-r-t-from-depth-data" title="Permalink to this heading"></a></h3>
 <p>Assuming we have data of pairs <span class="math notranslate nohighlight">\((\boldsymbol u, \boldsymbol X)\)</span>,
 we can use the basic equation <span class="math notranslate nohighlight">\(\boldsymbol u = P \boldsymbol X\)</span> to
 retrieve <span class="math notranslate nohighlight">\(P\)</span> in closed from, and in a second step retrieve the
@@ -2015,12 +2013,12 @@ We can decompose it using</p>
 </section>
 </section>
 <section id="id4">
-<h1>Placeholder<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h1>
+<h2>Placeholder<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h2>
 <section id="shapes">
-<h2>Shapes<a class="headerlink" href="#shapes" title="Permalink to this heading"></a></h2>
+<h3>Shapes<a class="headerlink" href="#shapes" title="Permalink to this heading"></a></h3>
 </section>
 <section id="kinematics-formally">
-<h2>Kinematics formally<a class="headerlink" href="#kinematics-formally" title="Permalink to this heading"></a></h2>
+<h3>Kinematics formally<a class="headerlink" href="#kinematics-formally" title="Permalink to this heading"></a></h3>
 <p>– Switching Kinematics?</p>
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="id5" role="note">
@@ -2053,18 +2051,20 @@ properly.</p>
 </aside>
 </section>
 </section>
+</section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="skeleton.html" class="btn btn-neutral float-left" title="Learning about Skeletons &amp; LGP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to the Robotics Course Repo" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="rai.html" class="btn btn-neutral float-right" title="rai python API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2020, Marc Toussaint.</p>
+    <p>&#169; Copyright 2023, Marc Toussaint.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

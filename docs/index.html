@@ -11,16 +11,15 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Lab Course in Simulation" href="simlab.html" /> 
+    <link rel="next" title="Script" href="script.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -44,18 +43,9 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="script.html">Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rai.html">rai python API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="simlab.html">Lab Course in Simulation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rai.html">Robotics Code Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="komo.html">Learning KOMO (K-Order Markov Optimization)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="skeleton.html">Learning about Skeletons &amp; LGP</a></li>
-<li class="toctree-l1"><a class="reference internal" href="script.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="script.html#scene-robot-description">Scene &amp; Robot Description</a></li>
-<li class="toctree-l1"><a class="reference internal" href="script.html#kinematics">Kinematics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="script.html#placeholder">Placeholder</a></li>
-<li class="toctree-l1"><a class="reference internal" href="script.html#d-transformations-rotations-quaternions">3D Transformations, Rotations, Quaternions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="script.html#rai-references">RAI references</a></li>
-<li class="toctree-l1"><a class="reference internal" href="script.html#cameras">Cameras</a></li>
-<li class="toctree-l1"><a class="reference internal" href="script.html#id4">Placeholder</a></li>
 </ul>
 
         </div>
@@ -98,89 +88,364 @@ are almost identical to how users should use C++.</p>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="script.html">Script</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="script.html#introduction">Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="script.html#reference-material">Reference material</a></li>
+<li class="toctree-l3"><a class="reference internal" href="script.html#coding-getting-started">Coding Getting Started</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="script.html#scene-robot-description">Scene &amp; Robot Description</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="script.html#transformations">Transformations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="script.html#coordinates-and-composition-of-transformations">Coordinates and Composition of Transformations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="script.html#scene-tree-or-forest">Scene Tree or Forest</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="script.html#kinematics">Kinematics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="script.html#robots-as-parameterized-trees">Robots as Parameterized Trees</a></li>
+<li class="toctree-l3"><a class="reference internal" href="script.html#configuration-joint-vector">Configuration &amp; Joint Vector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="script.html#forward-kinematics">Forward Kinematics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="script.html#jacobians">Jacobians</a></li>
+<li class="toctree-l3"><a class="reference internal" href="script.html#implementing-a-kinematic-engine">Implementing a Kinematic Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="script.html#inverse-kinematics">Inverse Kinematics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="script.html#placeholder">Placeholder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="script.html#d-transformations-rotations-quaternions">3D Transformations, Rotations, Quaternions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="script.html#rotations">Rotations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="script.html#id1">Transformations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="script.html#rai-references">RAI references</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="script.html#nlp-interface">NLP interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="script.html#kinematic-features">Kinematic Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="script.html#graph-yaml-files">Graph-Yaml Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="script.html#yaml-style-files-to-describe-robot-configurations">yaml-style files to describe robot configurations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="script.html#cameras">Cameras</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="script.html#image-camera-world-coordinates">Image, Camera, &amp; World Coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="script.html#homogeneous-coordinates-camera-matrix-p">Homogeneous coordinates &amp; Camera Matrix <span class="math notranslate nohighlight">\(P\)</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="script.html#calibration-as-estimating-p-k-r-t-from-depth-data">Calibration as Estimating <span class="math notranslate nohighlight">\(P,K,R,t\)</span> from Depth Data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="script.html#id4">Placeholder</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="script.html#shapes">Shapes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="script.html#kinematics-formally">Kinematics formally</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rai.html">rai python API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rai.html#libry.ArgWord"><code class="docutils literal notranslate"><span class="pre">ArgWord</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.ArgWord.name"><code class="docutils literal notranslate"><span class="pre">ArgWord.name</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rai.html#libry.BotOp"><code class="docutils literal notranslate"><span class="pre">BotOp</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.BotOp.getCameraFxypxy"><code class="docutils literal notranslate"><span class="pre">BotOp.getCameraFxypxy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.BotOp.getImageAndDepth"><code class="docutils literal notranslate"><span class="pre">BotOp.getImageAndDepth()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.BotOp.getImageDepthPcl"><code class="docutils literal notranslate"><span class="pre">BotOp.getImageDepthPcl()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.BotOp.getKeyPressed"><code class="docutils literal notranslate"><span class="pre">BotOp.getKeyPressed()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.BotOp.getTimeToEnd"><code class="docutils literal notranslate"><span class="pre">BotOp.getTimeToEnd()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.BotOp.get_q"><code class="docutils literal notranslate"><span class="pre">BotOp.get_q()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.BotOp.get_qDot"><code class="docutils literal notranslate"><span class="pre">BotOp.get_qDot()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.BotOp.get_qHome"><code class="docutils literal notranslate"><span class="pre">BotOp.get_qHome()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.BotOp.get_t"><code class="docutils literal notranslate"><span class="pre">BotOp.get_t()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.BotOp.get_tauExternal"><code class="docutils literal notranslate"><span class="pre">BotOp.get_tauExternal()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.BotOp.gripperClose"><code class="docutils literal notranslate"><span class="pre">BotOp.gripperClose()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.BotOp.gripperCloseGrasp"><code class="docutils literal notranslate"><span class="pre">BotOp.gripperCloseGrasp()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.BotOp.gripperDone"><code class="docutils literal notranslate"><span class="pre">BotOp.gripperDone()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.BotOp.gripperOpen"><code class="docutils literal notranslate"><span class="pre">BotOp.gripperOpen()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.BotOp.gripperPos"><code class="docutils literal notranslate"><span class="pre">BotOp.gripperPos()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.BotOp.hold"><code class="docutils literal notranslate"><span class="pre">BotOp.hold()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.BotOp.home"><code class="docutils literal notranslate"><span class="pre">BotOp.home()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.BotOp.move"><code class="docutils literal notranslate"><span class="pre">BotOp.move()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.BotOp.moveAutoTimed"><code class="docutils literal notranslate"><span class="pre">BotOp.moveAutoTimed()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.BotOp.moveTo"><code class="docutils literal notranslate"><span class="pre">BotOp.moveTo()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.BotOp.setCompliance"><code class="docutils literal notranslate"><span class="pre">BotOp.setCompliance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.BotOp.setControllerWriteData"><code class="docutils literal notranslate"><span class="pre">BotOp.setControllerWriteData()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.BotOp.sync"><code class="docutils literal notranslate"><span class="pre">BotOp.sync()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rai.html#libry.Config"><code class="docutils literal notranslate"><span class="pre">Config</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.addConfigurationCopy"><code class="docutils literal notranslate"><span class="pre">Config.addConfigurationCopy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.addFile"><code class="docutils literal notranslate"><span class="pre">Config.addFile()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.addFrame"><code class="docutils literal notranslate"><span class="pre">Config.addFrame()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.addObject"><code class="docutils literal notranslate"><span class="pre">Config.addObject()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.attach"><code class="docutils literal notranslate"><span class="pre">Config.attach()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.cameraView"><code class="docutils literal notranslate"><span class="pre">Config.cameraView()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.clear"><code class="docutils literal notranslate"><span class="pre">Config.clear()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.computeCollisions"><code class="docutils literal notranslate"><span class="pre">Config.computeCollisions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.copy"><code class="docutils literal notranslate"><span class="pre">Config.copy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.delFrame"><code class="docutils literal notranslate"><span class="pre">Config.delFrame()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.equationOfMotion"><code class="docutils literal notranslate"><span class="pre">Config.equationOfMotion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.eval"><code class="docutils literal notranslate"><span class="pre">Config.eval()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.feature"><code class="docutils literal notranslate"><span class="pre">Config.feature()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.frame"><code class="docutils literal notranslate"><span class="pre">Config.frame()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.frames"><code class="docutils literal notranslate"><span class="pre">Config.frames()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.getCollisions"><code class="docutils literal notranslate"><span class="pre">Config.getCollisions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.getDofIDs"><code class="docutils literal notranslate"><span class="pre">Config.getDofIDs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.getFrame"><code class="docutils literal notranslate"><span class="pre">Config.getFrame()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.getFrameDimension"><code class="docutils literal notranslate"><span class="pre">Config.getFrameDimension()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.getFrameNames"><code class="docutils literal notranslate"><span class="pre">Config.getFrameNames()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.getFrameState"><code class="docutils literal notranslate"><span class="pre">Config.getFrameState()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.getJointDimension"><code class="docutils literal notranslate"><span class="pre">Config.getJointDimension()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.getJointNames"><code class="docutils literal notranslate"><span class="pre">Config.getJointNames()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.getJointState"><code class="docutils literal notranslate"><span class="pre">Config.getJointState()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.makeObjectsConvex"><code class="docutils literal notranslate"><span class="pre">Config.makeObjectsConvex()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.makeObjectsFree"><code class="docutils literal notranslate"><span class="pre">Config.makeObjectsFree()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.report"><code class="docutils literal notranslate"><span class="pre">Config.report()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.selectJoints"><code class="docutils literal notranslate"><span class="pre">Config.selectJoints()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.selectJointsByTag"><code class="docutils literal notranslate"><span class="pre">Config.selectJointsByTag()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.setFrameState"><code class="docutils literal notranslate"><span class="pre">Config.setFrameState()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.setJointState"><code class="docutils literal notranslate"><span class="pre">Config.setJointState()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.setJointStateSlice"><code class="docutils literal notranslate"><span class="pre">Config.setJointStateSlice()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.simulation"><code class="docutils literal notranslate"><span class="pre">Config.simulation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.sortFrames"><code class="docutils literal notranslate"><span class="pre">Config.sortFrames()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.stepDynamics"><code class="docutils literal notranslate"><span class="pre">Config.stepDynamics()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.view"><code class="docutils literal notranslate"><span class="pre">Config.view()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.view_close"><code class="docutils literal notranslate"><span class="pre">Config.view_close()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.view_getScreenshot"><code class="docutils literal notranslate"><span class="pre">Config.view_getScreenshot()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.view_playVideo"><code class="docutils literal notranslate"><span class="pre">Config.view_playVideo()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.view_recopyMeshes"><code class="docutils literal notranslate"><span class="pre">Config.view_recopyMeshes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Config.watchFile"><code class="docutils literal notranslate"><span class="pre">Config.watchFile()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rai.html#libry.ControlMode"><code class="docutils literal notranslate"><span class="pre">ControlMode</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.ControlMode.name"><code class="docutils literal notranslate"><span class="pre">ControlMode.name</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rai.html#libry.FS"><code class="docutils literal notranslate"><span class="pre">FS</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.FS.name"><code class="docutils literal notranslate"><span class="pre">FS.name</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rai.html#libry.Feature"><code class="docutils literal notranslate"><span class="pre">Feature</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Feature.description"><code class="docutils literal notranslate"><span class="pre">Feature.description()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Feature.eval"><code class="docutils literal notranslate"><span class="pre">Feature.eval()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Feature.setOrder"><code class="docutils literal notranslate"><span class="pre">Feature.setOrder()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Feature.setScale"><code class="docutils literal notranslate"><span class="pre">Feature.setScale()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Feature.setTarget"><code class="docutils literal notranslate"><span class="pre">Feature.setTarget()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rai.html#libry.Frame"><code class="docutils literal notranslate"><span class="pre">Frame</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Frame.addAttribute"><code class="docutils literal notranslate"><span class="pre">Frame.addAttribute()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Frame.addAttributes"><code class="docutils literal notranslate"><span class="pre">Frame.addAttributes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Frame.getAttributes"><code class="docutils literal notranslate"><span class="pre">Frame.getAttributes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Frame.getJointState"><code class="docutils literal notranslate"><span class="pre">Frame.getJointState()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Frame.getMeshPoints"><code class="docutils literal notranslate"><span class="pre">Frame.getMeshPoints()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Frame.getMeshTriangles"><code class="docutils literal notranslate"><span class="pre">Frame.getMeshTriangles()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Frame.getPosition"><code class="docutils literal notranslate"><span class="pre">Frame.getPosition()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Frame.getQuaternion"><code class="docutils literal notranslate"><span class="pre">Frame.getQuaternion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Frame.getRelativePosition"><code class="docutils literal notranslate"><span class="pre">Frame.getRelativePosition()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Frame.getRelativeQuaternion"><code class="docutils literal notranslate"><span class="pre">Frame.getRelativeQuaternion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Frame.getRotationMatrix"><code class="docutils literal notranslate"><span class="pre">Frame.getRotationMatrix()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Frame.getSize"><code class="docutils literal notranslate"><span class="pre">Frame.getSize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Frame.info"><code class="docutils literal notranslate"><span class="pre">Frame.info()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Frame.setColor"><code class="docutils literal notranslate"><span class="pre">Frame.setColor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Frame.setContact"><code class="docutils literal notranslate"><span class="pre">Frame.setContact()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Frame.setJoint"><code class="docutils literal notranslate"><span class="pre">Frame.setJoint()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Frame.setJointState"><code class="docutils literal notranslate"><span class="pre">Frame.setJointState()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Frame.setMass"><code class="docutils literal notranslate"><span class="pre">Frame.setMass()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Frame.setMeshAsLines"><code class="docutils literal notranslate"><span class="pre">Frame.setMeshAsLines()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Frame.setParent"><code class="docutils literal notranslate"><span class="pre">Frame.setParent()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Frame.setPointCloud"><code class="docutils literal notranslate"><span class="pre">Frame.setPointCloud()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Frame.setPose"><code class="docutils literal notranslate"><span class="pre">Frame.setPose()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Frame.setPosition"><code class="docutils literal notranslate"><span class="pre">Frame.setPosition()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Frame.setQuaternion"><code class="docutils literal notranslate"><span class="pre">Frame.setQuaternion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Frame.setRelativePose"><code class="docutils literal notranslate"><span class="pre">Frame.setRelativePose()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Frame.setRelativePosition"><code class="docutils literal notranslate"><span class="pre">Frame.setRelativePosition()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Frame.setRelativeQuaternion"><code class="docutils literal notranslate"><span class="pre">Frame.setRelativeQuaternion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Frame.setShape"><code class="docutils literal notranslate"><span class="pre">Frame.setShape()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Frame.unLink"><code class="docutils literal notranslate"><span class="pre">Frame.unLink()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rai.html#libry.ImpType"><code class="docutils literal notranslate"><span class="pre">ImpType</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.ImpType.name"><code class="docutils literal notranslate"><span class="pre">ImpType.name</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rai.html#libry.JT"><code class="docutils literal notranslate"><span class="pre">JT</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.JT.name"><code class="docutils literal notranslate"><span class="pre">JT.name</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rai.html#libry.KOMO"><code class="docutils literal notranslate"><span class="pre">KOMO</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.KOMO.addControlObjective"><code class="docutils literal notranslate"><span class="pre">KOMO.addControlObjective()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.KOMO.addInteraction_elasticBounce"><code class="docutils literal notranslate"><span class="pre">KOMO.addInteraction_elasticBounce()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.KOMO.addModeSwitch"><code class="docutils literal notranslate"><span class="pre">KOMO.addModeSwitch()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.KOMO.addObjective"><code class="docutils literal notranslate"><span class="pre">KOMO.addObjective()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.KOMO.addQuaternionNorms"><code class="docutils literal notranslate"><span class="pre">KOMO.addQuaternionNorms()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.KOMO.addTimeOptimization"><code class="docutils literal notranslate"><span class="pre">KOMO.addTimeOptimization()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.KOMO.clearObjectives"><code class="docutils literal notranslate"><span class="pre">KOMO.clearObjectives()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.KOMO.getConstraintViolations"><code class="docutils literal notranslate"><span class="pre">KOMO.getConstraintViolations()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.KOMO.getCosts"><code class="docutils literal notranslate"><span class="pre">KOMO.getCosts()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.KOMO.getForceInteractions"><code class="docutils literal notranslate"><span class="pre">KOMO.getForceInteractions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.KOMO.getFrameState"><code class="docutils literal notranslate"><span class="pre">KOMO.getFrameState()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.KOMO.getPath"><code class="docutils literal notranslate"><span class="pre">KOMO.getPath()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.KOMO.getPathFrames"><code class="docutils literal notranslate"><span class="pre">KOMO.getPathFrames()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.KOMO.getPathTau"><code class="docutils literal notranslate"><span class="pre">KOMO.getPathTau()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.KOMO.getPath_qAll"><code class="docutils literal notranslate"><span class="pre">KOMO.getPath_qAll()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.KOMO.getReport"><code class="docutils literal notranslate"><span class="pre">KOMO.getReport()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.KOMO.getT"><code class="docutils literal notranslate"><span class="pre">KOMO.getT()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.KOMO.initOrg"><code class="docutils literal notranslate"><span class="pre">KOMO.initOrg()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.KOMO.initPhaseWithDofsPath"><code class="docutils literal notranslate"><span class="pre">KOMO.initPhaseWithDofsPath()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.KOMO.initRandom"><code class="docutils literal notranslate"><span class="pre">KOMO.initRandom()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.KOMO.initWithConstant"><code class="docutils literal notranslate"><span class="pre">KOMO.initWithConstant()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.KOMO.initWithPath_qOrg"><code class="docutils literal notranslate"><span class="pre">KOMO.initWithPath_qOrg()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.KOMO.initWithWaypoints"><code class="docutils literal notranslate"><span class="pre">KOMO.initWithWaypoints()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.KOMO.nlp"><code class="docutils literal notranslate"><span class="pre">KOMO.nlp()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.KOMO.reportProblem"><code class="docutils literal notranslate"><span class="pre">KOMO.reportProblem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.KOMO.setConfig"><code class="docutils literal notranslate"><span class="pre">KOMO.setConfig()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.KOMO.setTiming"><code class="docutils literal notranslate"><span class="pre">KOMO.setTiming()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.KOMO.view"><code class="docutils literal notranslate"><span class="pre">KOMO.view()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.KOMO.view_close"><code class="docutils literal notranslate"><span class="pre">KOMO.view_close()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.KOMO.view_play"><code class="docutils literal notranslate"><span class="pre">KOMO.view_play()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rai.html#libry.NLP"><code class="docutils literal notranslate"><span class="pre">NLP</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP.evaluate"><code class="docutils literal notranslate"><span class="pre">NLP.evaluate()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP.getBounds"><code class="docutils literal notranslate"><span class="pre">NLP.getBounds()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP.getDimension"><code class="docutils literal notranslate"><span class="pre">NLP.getDimension()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP.getFHessian"><code class="docutils literal notranslate"><span class="pre">NLP.getFHessian()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP.getFeatureTypes"><code class="docutils literal notranslate"><span class="pre">NLP.getFeatureTypes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP.getInitializationSample"><code class="docutils literal notranslate"><span class="pre">NLP.getInitializationSample()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP.report"><code class="docutils literal notranslate"><span class="pre">NLP.report()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rai.html#libry.NLP_Factory"><code class="docutils literal notranslate"><span class="pre">NLP_Factory</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP_Factory.setBounds"><code class="docutils literal notranslate"><span class="pre">NLP_Factory.setBounds()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP_Factory.setDimension"><code class="docutils literal notranslate"><span class="pre">NLP_Factory.setDimension()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP_Factory.setEvalCallback"><code class="docutils literal notranslate"><span class="pre">NLP_Factory.setEvalCallback()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP_Factory.setFeatureTypes"><code class="docutils literal notranslate"><span class="pre">NLP_Factory.setFeatureTypes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP_Factory.testCallingEvalCallback"><code class="docutils literal notranslate"><span class="pre">NLP_Factory.testCallingEvalCallback()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rai.html#libry.NLP_Solver"><code class="docutils literal notranslate"><span class="pre">NLP_Solver</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP_Solver.getOptions"><code class="docutils literal notranslate"><span class="pre">NLP_Solver.getOptions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP_Solver.getTrace_J"><code class="docutils literal notranslate"><span class="pre">NLP_Solver.getTrace_J()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP_Solver.getTrace_costs"><code class="docutils literal notranslate"><span class="pre">NLP_Solver.getTrace_costs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP_Solver.getTrace_phi"><code class="docutils literal notranslate"><span class="pre">NLP_Solver.getTrace_phi()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP_Solver.getTrace_x"><code class="docutils literal notranslate"><span class="pre">NLP_Solver.getTrace_x()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP_Solver.setOptions"><code class="docutils literal notranslate"><span class="pre">NLP_Solver.setOptions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP_Solver.setProblem"><code class="docutils literal notranslate"><span class="pre">NLP_Solver.setProblem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP_Solver.setSolver"><code class="docutils literal notranslate"><span class="pre">NLP_Solver.setSolver()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP_Solver.setTracing"><code class="docutils literal notranslate"><span class="pre">NLP_Solver.setTracing()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP_Solver.solve"><code class="docutils literal notranslate"><span class="pre">NLP_Solver.solve()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rai.html#libry.NLP_SolverID"><code class="docutils literal notranslate"><span class="pre">NLP_SolverID</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP_SolverID.name"><code class="docutils literal notranslate"><span class="pre">NLP_SolverID.name</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rai.html#libry.NLP_SolverOptions"><code class="docutils literal notranslate"><span class="pre">NLP_SolverOptions</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP_SolverOptions.dict"><code class="docutils literal notranslate"><span class="pre">NLP_SolverOptions.dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP_SolverOptions.set_damping"><code class="docutils literal notranslate"><span class="pre">NLP_SolverOptions.set_damping()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP_SolverOptions.set_maxStep"><code class="docutils literal notranslate"><span class="pre">NLP_SolverOptions.set_maxStep()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP_SolverOptions.set_muInc"><code class="docutils literal notranslate"><span class="pre">NLP_SolverOptions.set_muInc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP_SolverOptions.set_muInit"><code class="docutils literal notranslate"><span class="pre">NLP_SolverOptions.set_muInit()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP_SolverOptions.set_muLBDec"><code class="docutils literal notranslate"><span class="pre">NLP_SolverOptions.set_muLBDec()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP_SolverOptions.set_muLBInit"><code class="docutils literal notranslate"><span class="pre">NLP_SolverOptions.set_muLBInit()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP_SolverOptions.set_muMax"><code class="docutils literal notranslate"><span class="pre">NLP_SolverOptions.set_muMax()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP_SolverOptions.set_stepDec"><code class="docutils literal notranslate"><span class="pre">NLP_SolverOptions.set_stepDec()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP_SolverOptions.set_stepInc"><code class="docutils literal notranslate"><span class="pre">NLP_SolverOptions.set_stepInc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP_SolverOptions.set_stopEvals"><code class="docutils literal notranslate"><span class="pre">NLP_SolverOptions.set_stopEvals()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP_SolverOptions.set_stopFTolerance"><code class="docutils literal notranslate"><span class="pre">NLP_SolverOptions.set_stopFTolerance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP_SolverOptions.set_stopGTolerance"><code class="docutils literal notranslate"><span class="pre">NLP_SolverOptions.set_stopGTolerance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP_SolverOptions.set_stopTolerance"><code class="docutils literal notranslate"><span class="pre">NLP_SolverOptions.set_stopTolerance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP_SolverOptions.set_verbose"><code class="docutils literal notranslate"><span class="pre">NLP_SolverOptions.set_verbose()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.NLP_SolverOptions.set_wolfe"><code class="docutils literal notranslate"><span class="pre">NLP_SolverOptions.set_wolfe()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rai.html#libry.OT"><code class="docutils literal notranslate"><span class="pre">OT</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.OT.name"><code class="docutils literal notranslate"><span class="pre">OT.name</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rai.html#libry.PathFinder"><code class="docutils literal notranslate"><span class="pre">PathFinder</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.PathFinder.setExplicitCollisionPairs"><code class="docutils literal notranslate"><span class="pre">PathFinder.setExplicitCollisionPairs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.PathFinder.setProblem"><code class="docutils literal notranslate"><span class="pre">PathFinder.setProblem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.PathFinder.solve"><code class="docutils literal notranslate"><span class="pre">PathFinder.solve()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.PathFinder.step"><code class="docutils literal notranslate"><span class="pre">PathFinder.step()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rai.html#libry.ST"><code class="docutils literal notranslate"><span class="pre">ST</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.ST.name"><code class="docutils literal notranslate"><span class="pre">ST.name</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rai.html#libry.SY"><code class="docutils literal notranslate"><span class="pre">SY</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.SY.name"><code class="docutils literal notranslate"><span class="pre">SY.name</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rai.html#libry.Simulation"><code class="docutils literal notranslate"><span class="pre">Simulation</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Simulation.addImp"><code class="docutils literal notranslate"><span class="pre">Simulation.addImp()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Simulation.addSensor"><code class="docutils literal notranslate"><span class="pre">Simulation.addSensor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Simulation.closeGripper"><code class="docutils literal notranslate"><span class="pre">Simulation.closeGripper()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Simulation.depthData2pointCloud"><code class="docutils literal notranslate"><span class="pre">Simulation.depthData2pointCloud()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Simulation.getGripperIsGrasping"><code class="docutils literal notranslate"><span class="pre">Simulation.getGripperIsGrasping()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Simulation.getGripperWidth"><code class="docutils literal notranslate"><span class="pre">Simulation.getGripperWidth()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Simulation.getGroundTruthPosition"><code class="docutils literal notranslate"><span class="pre">Simulation.getGroundTruthPosition()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Simulation.getGroundTruthRotationMatrix"><code class="docutils literal notranslate"><span class="pre">Simulation.getGroundTruthRotationMatrix()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Simulation.getGroundTruthSize"><code class="docutils literal notranslate"><span class="pre">Simulation.getGroundTruthSize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Simulation.getImageAndDepth"><code class="docutils literal notranslate"><span class="pre">Simulation.getImageAndDepth()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Simulation.getScreenshot"><code class="docutils literal notranslate"><span class="pre">Simulation.getScreenshot()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Simulation.getState"><code class="docutils literal notranslate"><span class="pre">Simulation.getState()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Simulation.getTimeToMove"><code class="docutils literal notranslate"><span class="pre">Simulation.getTimeToMove()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Simulation.get_q"><code class="docutils literal notranslate"><span class="pre">Simulation.get_q()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Simulation.get_qDot"><code class="docutils literal notranslate"><span class="pre">Simulation.get_qDot()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Simulation.loadTeleopCallbacks"><code class="docutils literal notranslate"><span class="pre">Simulation.loadTeleopCallbacks()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Simulation.openGripper"><code class="docutils literal notranslate"><span class="pre">Simulation.openGripper()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Simulation.pushConfigurationToSimulator"><code class="docutils literal notranslate"><span class="pre">Simulation.pushConfigurationToSimulator()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Simulation.restoreState"><code class="docutils literal notranslate"><span class="pre">Simulation.restoreState()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Simulation.selectSensor"><code class="docutils literal notranslate"><span class="pre">Simulation.selectSensor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Simulation.setMoveto"><code class="docutils literal notranslate"><span class="pre">Simulation.setMoveto()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Simulation.setState"><code class="docutils literal notranslate"><span class="pre">Simulation.setState()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.Simulation.step"><code class="docutils literal notranslate"><span class="pre">Simulation.step()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rai.html#libry.SimulationEngine"><code class="docutils literal notranslate"><span class="pre">SimulationEngine</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.SimulationEngine.name"><code class="docutils literal notranslate"><span class="pre">SimulationEngine.name</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rai.html#libry.SolverReturn"><code class="docutils literal notranslate"><span class="pre">SolverReturn</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#libry.SolverReturn.dict"><code class="docutils literal notranslate"><span class="pre">SolverReturn.dict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rai.html#libry.getStartGoalPath"><code class="docutils literal notranslate"><span class="pre">getStartGoalPath()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="rai.html#libry.params_add"><code class="docutils literal notranslate"><span class="pre">params_add()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="rai.html#libry.params_file"><code class="docutils literal notranslate"><span class="pre">params_file()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="rai.html#libry.params_print"><code class="docutils literal notranslate"><span class="pre">params_print()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="rai.html#libry.raiPath"><code class="docutils literal notranslate"><span class="pre">raiPath()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="rai.html#libry.setRaiPath"><code class="docutils literal notranslate"><span class="pre">setRaiPath()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="simlab.html">Lab Course in Simulation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="simlab1.html">SimLab Exercise 1 - Basic Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="simlab2.html">SimLab Exercise 2 - Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="simlab3.html">SimLab Exercise 3 - OpenCV</a></li>
-<li class="toctree-l2"><a class="reference internal" href="simlab4.html">SimLab Exercise 4 - Grasp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="simlab5.html">SimLab - Project Proposal and Final Presentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="simlab1.html">SimLab Exercise 1 - Basic Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="simlab1.html#a-code-setup">a) Code Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simlab1.html#b-git-setup">b) Git Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simlab1.html#c-rough-familiarity-with-simulation-and-configuration">c) Rough familiarity with Simulation and Configuration</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="rai.html">Robotics Code Overview</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="_Configuration.html">Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_Frame.html">Frame</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_Feature.html">Feature</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_Simulation.html">Simulation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_KOMO.html">KOMO</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_Enums.html">Enums</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_Graph.html">Graph and .g-files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_ConfigurationFiles.html">.g-files to describe robot configurations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_Array.html">Array</a></li>
+<li class="toctree-l2"><a class="reference internal" href="simlab2.html">SimLab Exercise 2 - Motion</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="simlab2.html#a-basic-ik">a) Basic IK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simlab2.html#b-path-optimization-velocity-acceleration-objectives">b) Path Optimization &amp; velocity/acceleration objectives</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simlab2.html#c-explore-collision-features-and-enforce-touch">c) Explore collision features, and enforce touch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simlab2.html#d-interacting-with-real-objects">d) Interacting with “real” objects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simlab2.html#e-advanced-tricky-use-of-inequalities-scaling-and-target">e) Advanced: Tricky use of inequalities, scaling, and target</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simlab2.html#f-advanced-reactive-operational-space-control">f) Advanced: Reactive Operational Space Control</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="komo.html">Learning KOMO (K-Order Markov Optimization)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="komo.html#no-dynamics-no-velocities-how-do-you-solve-for-dynamic-problems">No dynamics? No velocities? How do you solve for dynamic problems?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="komo.html#what-is-komo">What is KOMO?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="komo.html#what-is-komo-formally">What is KOMO – formally?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="komo.html#what-are-the-main-steps-to-define-a-komo-problem">What are the main steps to define a KOMO problem?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="komo.html#roughly-what-does-komo-do-with-these-specs">Roughly, what does KOMO do with these specs?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="komo.html#can-komo-only-optimize-paths">Can KOMO only optimize paths?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="komo.html#can-i-load-an-urdf">Can I load an URDF?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="komo.html#first-practical-steps">First practical steps</a></li>
-<li class="toctree-l2"><a class="reference internal" href="komo.html#features-are-at-the-core">Features are at the core</a></li>
-<li class="toctree-l2"><a class="reference internal" href="komo.html#varying-decision-variables-per-time-slice-kinematic-switches-force-contacts">Varying decision variables per time slice: kinematic switches &amp; force contacts</a></li>
-<li class="toctree-l2"><a class="reference internal" href="komo.html#summary-there-are-only-a-few-fundamental-methods-in-komo-the-rest-are-helpers">Summary: there are only a few fundamental methods in KOMO, the rest are helpers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="komo.html#steps-phase-real-time-and-time-optimization">Steps, phase, real time, and time optimization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="komo.html#links-to-more-documentation">LINKS to more documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="simlab3.html">SimLab Exercise 3 - OpenCV</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="simlab3.html#a-opencv-color-based-tracking">a) OpenCV - color-based tracking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simlab3.html#b-opencv-background-substraction">b) OpenCV - background substraction</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="skeleton.html">Learning about Skeletons &amp; LGP</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="skeleton.html#what-is-lgp">What is LGP?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="skeleton.html#example-skeletons">Example Skeletons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="simlab4.html">SimLab Exercise 4 - Grasp</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="simlab4.html#a-grasp-lift-drop-a-hopping-ball">a) Grasp, lift &amp; drop a hopping ball</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simlab4.html#b-throw-the-ball">b) Throw the ball</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simlab4.html#c-bonus-and-for-a-box">c) Bonus: …and for a box</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="script.html">Introduction</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="script.html#reference-material">Reference material</a></li>
-<li class="toctree-l2"><a class="reference internal" href="script.html#coding-getting-started">Coding Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="simlab5.html">SimLab - Project Proposal and Final Presentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="simlab5.html#project-proposal">Project Proposal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simlab5.html#presentation-details">Presentation Details</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="script.html#scene-robot-description">Scene &amp; Robot Description</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="script.html#transformations">Transformations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="script.html#coordinates-and-composition-of-transformations">Coordinates and Composition of Transformations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="script.html#scene-tree-or-forest">Scene Tree or Forest</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="script.html#kinematics">Kinematics</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="script.html#robots-as-parameterized-trees">Robots as Parameterized Trees</a></li>
-<li class="toctree-l2"><a class="reference internal" href="script.html#configuration-joint-vector">Configuration &amp; Joint Vector</a></li>
-<li class="toctree-l2"><a class="reference internal" href="script.html#forward-kinematics">Forward Kinematics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="script.html#jacobians">Jacobians</a></li>
-<li class="toctree-l2"><a class="reference internal" href="script.html#implementing-a-kinematic-engine">Implementing a Kinematic Engine</a></li>
-<li class="toctree-l2"><a class="reference internal" href="script.html#inverse-kinematics">Inverse Kinematics</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="script.html#placeholder">Placeholder</a></li>
-<li class="toctree-l1"><a class="reference internal" href="script.html#d-transformations-rotations-quaternions">3D Transformations, Rotations, Quaternions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="script.html#rotations">Rotations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="script.html#id1">Transformations</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="script.html#rai-references">RAI references</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="script.html#nlp-interface">NLP interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="script.html#kinematic-features">Kinematic Features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="script.html#graph-yaml-files">Graph-Yaml Files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="script.html#yaml-style-files-to-describe-robot-configurations">yaml-style files to describe robot configurations</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="script.html#cameras">Cameras</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="script.html#image-camera-world-coordinates">Image, Camera, &amp; World Coordinates</a></li>
-<li class="toctree-l2"><a class="reference internal" href="script.html#homogeneous-coordinates-camera-matrix-p">Homogeneous coordinates &amp; Camera Matrix <span class="math notranslate nohighlight">\(P\)</span></a></li>
-<li class="toctree-l2"><a class="reference internal" href="script.html#calibration-as-estimating-p-k-r-t-from-depth-data">Calibration as Estimating <span class="math notranslate nohighlight">\(P,K,R,t\)</span> from Depth Data</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="script.html#id4">Placeholder</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="script.html#shapes">Shapes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="script.html#kinematics-formally">Kinematics formally</a></li>
 </ul>
 </li>
 </ul>
@@ -199,13 +464,13 @@ are almost identical to how users should use C++.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="simlab.html" class="btn btn-neutral float-right" title="Lab Course in Simulation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="script.html" class="btn btn-neutral float-right" title="Script" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2020, Marc Toussaint.</p>
+    <p>&#169; Copyright 2023, Marc Toussaint.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
