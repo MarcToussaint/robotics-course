@@ -2,5 +2,5 @@
 rai python API
 ==============
 
-.. automodule:: libry
+.. automodule:: ry
    :members:

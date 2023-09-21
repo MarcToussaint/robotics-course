@@ -1,15 +1,16 @@
 
-ipynb_paths =  $(shell find . -type f -name '*.ipynb' -not -name '*checkpoint*' -printf "%f ")
+ipynb_paths =  $(shell find . -maxdepth 1 -type f -name '*.ipynb' -not -name '*checkpoint*' -not -name '*nbconvert*' -printf "%f ")
 
 #run:
 #	@for p in $(ipynb_paths); do jupyter-nbconvert --to notebook --execute $$p; done
 
-clean: $(ipynb_paths:%=clean/%)
 run: $(ipynb_paths:%=run/%)
+clean: $(ipynb_paths:%=clean/%)
 convert: $(ipynb_paths:%=convert/%)
 
 clean/%.ipynb: %.ipynb
 	+@-jupyter-nbconvert --clear-output --inplace $<
+	rm -f *.nbconvert.ipynb
 
 convert/%.ipynb: %.ipynb
 	+@-jupyter-nbconvert --to python $<
@@ -17,3 +18,4 @@ convert/%.ipynb: %.ipynb
 run/%.ipynb: %.ipynb
 	+@-echo "=========== run $< ======="
 	+@-jupyter-nbconvert --to notebook --execute $<
+	rm -f *.nbconvert.ipynb

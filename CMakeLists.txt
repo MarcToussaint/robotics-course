@@ -4,6 +4,10 @@ project(RaiRoboticsCourse)
 
 set(CMAKE_CXX_STANDARD 14 CACHE STRING "C++ version selection")
 
+if(NOT DEFINED CMAKE_CACHE_MAJOR_VERSION)
+  message(STATUS "======== first time =============")
+endif()
+
 option(USE_PYBIND "build python bindings" ON)
 option(USE_BULLET "link to bullet" ON)
 option(USE_OPENCV "link to opencv" ON)

@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2.3.4. Example for grasping in Sim &mdash; Robotics Course  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2.4.1. Direct simulation interface" href="sim1-physics.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="botop3-vision-toBeMerged.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Robotics Course
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">1. Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="notebooks.html">2. Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="notebooks.html#basics-configurations-features-etc">2.1. Basics: Configurations, Features, etc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks.html#komo-optimization-problems-to-design-motion">2.2. KOMO: Optimization Problems to design motion</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="notebooks.html#botop-interface-to-sim-real">2.3. BotOp: Interface to Sim/Real</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="botop1-motion.html">2.3.1. Interacting with a Sim/Real: Setting spline references</a></li>
+<li class="toctree-l3"><a class="reference internal" href="botop2-realRobotStarters.html">2.3.2. Starting with a real robot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="botop3-vision.html">2.3.3. First example to grap images from a webcam</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">2.3.4. Example for grasping in Sim</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Example-for-pushing-in-sim">2.3.4.1. Example for pushing in sim</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks.html#more">2.4. More</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../script/script.html">3. Lecture Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../old/old.html">4. Old Material</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rai.html">5. rai python API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Robotics Course</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="notebooks.html"><span class="section-number">2. </span>Tutorials</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">2.3.4. </span>Example for grasping in Sim</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Example-for-grasping-in-Sim">
+<h1><span class="section-number">2.3.4. </span>Example for grasping in Sim<a class="headerlink" href="#Example-for-grasping-in-Sim" title="Permalink to this heading"></a></h1>
+<ul class="simple">
+<li><p>A grasp motion is designed using KOMO, where the 2-waypoint IK problem defines constraints over a sequence of two configurations, one for each waypoint.</p></li>
+<li><p>Each waypoint is here quite rigidly constrained by 6D endeff pose. For convenience, both endeff poses have been defined as ‘marker’ frames in the configuration. This is a common pattern: Define some convenient reference frames in the configuration, then define NLP constraints relative to these.</p></li>
+<li><p>The solver returns a sequence of two joint positions.</p></li>
+<li><p>Both are added to the BotOp spline pipeline (with hard timings 2 and 3 sec for them). They define a spline transitioning smoothly through both waypoints.</p></li>
+<li><p>The gripper is closed. (In simulation, a hard kinematic link is created!)</p></li>
+<li><p>After homing, the gripper is opened. (In simulation, the hard kinematic link is broken again; the object falls.)</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">robotic</span> <span class="kn">import</span> <span class="n">ry</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">time</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ry</span><span class="o">.</span><span class="n">params_add</span><span class="p">({</span><span class="s1">&#39;physx/motorKp&#39;</span><span class="p">:</span> <span class="mf">10000.</span><span class="p">,</span> <span class="s1">&#39;physx/motorKd&#39;</span><span class="p">:</span> <span class="mf">1000.</span><span class="p">,</span> <span class="s1">&#39;physx/angularDamping&#39;</span><span class="p">:</span> <span class="mf">10.</span><span class="p">,</span> <span class="s1">&#39;physx/defaultFriction&#39;</span><span class="p">:</span> <span class="mf">100.</span><span class="p">})</span>
+<span class="n">ry</span><span class="o">.</span><span class="n">params_print</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+-- ry.cpp:operator():101(0) python,
+message: &#34;Hello, this is been loaded&#34;,
+LGP/cameraFocus: [1, 0.5, 1],
+LGP/collisions: 1,
+LGP/stopTime: 300,
+LGP/stopSol: 6,
+opt/maxStep: 0.1,
+opt/verbose: 6,
+opt/boundedNewton!,
+botsim/engine: physx,
+physx/multiBody!,
+physx/motorKp: 10000,
+physx/motorKd: 1000,
+physx/angularDamping: 10,
+physx/defaultFriction: 100
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span>
+<span class="n">C</span><span class="o">.</span><span class="n">addFile</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">raiPath</span><span class="p">(</span><span class="s1">&#39;../rai-robotModels/scenarios/pandaSingle.g&#39;</span><span class="p">))</span>
+<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#   .setShape(ry.ST.sphere, size=[.025]) \</span>
+<span class="n">C</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="s1">&#39;box&#39;</span><span class="p">)</span> \
+    <span class="o">.</span><span class="n">setPosition</span><span class="p">([</span><span class="o">-</span><span class="mf">.25</span><span class="p">,</span><span class="mf">.1</span><span class="p">,</span><span class="mf">.675</span><span class="p">])</span> \
+    <span class="o">.</span><span class="n">setShape</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">ST</span><span class="o">.</span><span class="n">ssBox</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">[</span><span class="mf">.05</span><span class="p">,</span><span class="mf">.05</span><span class="p">,</span><span class="mf">.05</span><span class="p">,</span><span class="mf">.005</span><span class="p">])</span> \
+    <span class="o">.</span><span class="n">setColor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mf">.5</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span> \
+    <span class="o">.</span><span class="n">setMass</span><span class="p">(</span><span class="mf">.1</span><span class="p">)</span> \
+    <span class="o">.</span><span class="n">setContact</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># WAYPOINT ENGINEERING:</span>
+<span class="c1"># manually define frames as an endeff waypoints, relative to box:</span>
+<span class="n">way0</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="s1">&#39;way0&#39;</span><span class="p">,</span> <span class="s1">&#39;box&#39;</span><span class="p">)</span>
+<span class="n">way1</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="s1">&#39;way1&#39;</span><span class="p">,</span> <span class="s1">&#39;box&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">way0</span><span class="o">.</span><span class="n">setShape</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">ST</span><span class="o">.</span><span class="n">marker</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">[</span><span class="mf">.1</span><span class="p">])</span>
+<span class="n">way0</span><span class="o">.</span><span class="n">setRelativePose</span><span class="p">(</span><span class="s1">&#39;t(0 0 .1) d(90 0 0 1)&#39;</span><span class="p">)</span>
+
+<span class="n">way1</span><span class="o">.</span><span class="n">setShape</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">ST</span><span class="o">.</span><span class="n">marker</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">[</span><span class="mf">.1</span><span class="p">])</span>
+<span class="n">way1</span><span class="o">.</span><span class="n">setRelativePose</span><span class="p">(</span><span class="s1">&#39;d(90 0 0 1)&#39;</span><span class="p">)</span>
+
+<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+86
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define a 2 waypoint problem in KOMO</span>
+<span class="n">komo</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">KOMO</span><span class="p">()</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">setConfig</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">setTiming</span><span class="p">(</span><span class="mf">2.</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">5.</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addControlObjective</span><span class="p">([],</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1e-0</span><span class="p">)</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addObjective</span><span class="p">([],</span> <span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">accumulatedCollisions</span><span class="p">,</span> <span class="p">[],</span> <span class="n">ry</span><span class="o">.</span><span class="n">OT</span><span class="o">.</span><span class="n">eq</span><span class="p">);</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addObjective</span><span class="p">([],</span> <span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">jointLimits</span><span class="p">,</span> <span class="p">[],</span> <span class="n">ry</span><span class="o">.</span><span class="n">OT</span><span class="o">.</span><span class="n">ineq</span><span class="p">);</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addObjective</span><span class="p">([</span><span class="mf">1.</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">poseDiff</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;l_gripper&#39;</span><span class="p">,</span> <span class="s1">&#39;way0&#39;</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">OT</span><span class="o">.</span><span class="n">eq</span><span class="p">,</span> <span class="p">[</span><span class="mf">1e1</span><span class="p">]);</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addObjective</span><span class="p">([</span><span class="mf">2.</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">poseDiff</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;l_gripper&#39;</span><span class="p">,</span> <span class="s1">&#39;way1&#39;</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">OT</span><span class="o">.</span><span class="n">eq</span><span class="p">,</span> <span class="p">[</span><span class="mf">1e1</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ret</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">NLP_Solver</span><span class="p">()</span> \
+    <span class="o">.</span><span class="n">setProblem</span><span class="p">(</span><span class="n">komo</span><span class="o">.</span><span class="n">nlp</span><span class="p">())</span> \
+    <span class="o">.</span><span class="n">setOptions</span><span class="p">(</span> <span class="n">stopTolerance</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">4</span> <span class="p">)</span> \
+    <span class="o">.</span><span class="n">solve</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+====nlp==== method:AugmentedLagrangian bounded: no
+==nlp== it:0 evals:0 mu:1 nu:1 muLB:0.1
+----newton---- initial point f(x):93.1593 alpha:1 beta:1
+--newton-- it:   1  |Delta|:        0.2  alpha:          1  evals:   2  f(y):    69.6169  ACCEPT
+--newton-- it:   2  |Delta|:        0.2  alpha:          1  evals:   3  f(y):    47.7566  ACCEPT
+--newton-- it:   3  |Delta|:        0.2  alpha:          1  evals:   4  f(y):    28.1096  ACCEPT
+--newton-- it:   4  |Delta|:        0.2  alpha:          1  evals:   5  f(y):    11.4588  ACCEPT
+--newton-- it:   5  |Delta|:        0.2  alpha:          1  evals:   6  f(y):    6.02281  ACCEPT
+--newton-- it:   6  |Delta|:        0.2  alpha:          1  evals:   7  f(y):     4.0943  ACCEPT
+--newton-- it:   7  |Delta|:   0.170104  alpha:          1  evals:   8  f(y):    3.57494  ACCEPT
+--newton-- it:   8  |Delta|:  0.0579509  alpha:          1  evals:   9  f(y):    3.52862  ACCEPT
+--newton-- it:   9  |Delta|:  0.0238862  alpha:          1  evals:  10  f(y):    3.52229  ACCEPT
+--newton-- stopping: &#39;absMax(D{ time: 0.016744, evals: 18, done: 1, feasible: 1, sos: 4.37426, f: 0, ineq: 0, eq: 0.000145596 }
+elta)&lt;options.stopTolerance&#39;
+==nlp== it:   0  evals:  10  A(x):    3.52229  f:    2.94215  g:          0  h:    2.24621  |x-x&#39;|:   0.750159      stop:DeltaConverge
+==nlp== it:   1  evals:  10  A(x):    7.00314  mu:5
+--newton-- it:  10  |Delta|:        0.2  alpha:          1  evals:  11  f(y):     4.5031  ACCEPT
+--newton-- it:  11  |Delta|:    0.10763  alpha:          1  evals:  12  f(y):    4.34517  ACCEPT
+--newton-- it:  12  |Delta|:  0.0250832  alpha:          1  evals:  13  f(y):    4.33636  ACCEPT
+--newton-- it:  13  |Delta|:  0.0132012  alpha:          1  evals:  14  f(y):    4.33499  ACCEPT
+--newton-- it:  14  |Delta|: 0.00671988  alpha:          1  evals:  15  f(y):    4.33466  ACCEPT
+--newton-- stopping: &#39;absMax(Delta)&lt;options.stopTolerance&#39;
+==nlp== it:   1  evals:  15  A(x):    4.33466  f:    4.20162  g:          0  h:   0.211307  |x-x&#39;|:   0.219168      stop:DeltaConverge
+==nlp== it:   2  evals:  15  A(x):    4.53258  mu:25
+--newton-- it:  15  |Delta|:  0.0376555  alpha:          1  evals:  16  f(y):    4.37467  ACCEPT
+--newton-- it:  16  |Delta|: 0.00825317  alpha:          1  evals:  17  f(y):    4.37395  ACCEPT
+--newton-- stopping: &#39;absMax(Delta)&lt;options.stopTolerance&#39;
+==nlp== it:   2  evals:  17  A(x):    4.37395  f:    4.36729  g:          0  h: 0.00768814  |x-x&#39;|:  0.0459086      stop:DeltaConverge
+==nlp== it:   3  evals:  17  A(x):    4.37595  mu:125
+--newton-- it:  17  |Delta|: 0.00476621  alpha:          1  evals:  18  f(y):     4.3742  ACCEPT
+--newton-- stopping: &#39;absMax(Delta)&lt;options.stopTolerance&#39;
+==nlp== it:   3  evals:  18  A(x):     4.3742  f:    4.37426  g:          0  h:0.000145596  |x-x&#39;|: 0.00476621      stop:DeltaConverge
+==nlp== StoppingCriterion Delta&lt;0.01
+----newton---- final f(x):4.3742
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">komo</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;waypoints solution&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">komo</span><span class="o">.</span><span class="n">view_close</span><span class="p">()</span>
+<span class="n">path</span> <span class="o">=</span> <span class="n">komo</span><span class="o">.</span><span class="n">getPath</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bot</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">BotOp</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">bot</span><span class="o">.</span><span class="n">home</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bot</span><span class="o">.</span><span class="n">home</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bot</span><span class="o">.</span><span class="n">gripperOpen</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">_left</span><span class="p">)</span>
+<span class="k">while</span> <span class="ow">not</span> <span class="n">bot</span><span class="o">.</span><span class="n">gripperDone</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">_left</span><span class="p">):</span>
+    <span class="n">bot</span><span class="o">.</span><span class="n">sync</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="mf">.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bot</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="p">[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">])</span>
+<span class="k">while</span> <span class="n">bot</span><span class="o">.</span><span class="n">getTimeToEnd</span><span class="p">()</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+    <span class="n">bot</span><span class="o">.</span><span class="n">sync</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="mf">.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bot</span><span class="o">.</span><span class="n">gripperCloseGrasp</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">_left</span><span class="p">,</span> <span class="s1">&#39;box&#39;</span><span class="p">)</span>
+<span class="k">while</span> <span class="ow">not</span> <span class="n">bot</span><span class="o">.</span><span class="n">gripperDone</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">_left</span><span class="p">):</span>
+    <span class="n">bot</span><span class="o">.</span><span class="n">sync</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="mf">.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bot</span><span class="o">.</span><span class="n">home</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bot</span><span class="o">.</span><span class="n">gripperOpen</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">_left</span><span class="p">)</span>
+<span class="k">while</span> <span class="ow">not</span> <span class="n">bot</span><span class="o">.</span><span class="n">gripperDone</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">_left</span><span class="p">):</span>
+    <span class="n">bot</span><span class="o">.</span><span class="n">sync</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="mf">.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">bot</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">C</span>
+</pre></div>
+</div>
+</div>
+<section id="Example-for-pushing-in-sim">
+<h2><span class="section-number">2.3.4.1. </span>Example for pushing in sim<a class="headerlink" href="#Example-for-pushing-in-sim" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p>A push motion is designed using KOMO, there the 2-waypoint IK problem defines constraints over a sequence of two configurations, one for each waypoint.</p></li>
+<li><p>Each waypoint is here quite rigidly constrained by 6D endeff pose. For convenience, both endeff poses have been defined as ‘marker’ frames in the configuration. This is a common pattern: Define some convenient reference frames in the configuration, then define NLP constraints relative to these.</p></li>
+<li><p>The solver returns a sequence of two joint positions.</p></li>
+<li><p>Both are added to the BotOp spline pipeline. They define a linear spline interpolation with zero end velocity for both waypoints.</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">robotic</span> <span class="kn">import</span> <span class="n">ry</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">time</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ry version&#39;</span><span class="p">,</span> <span class="n">ry</span><span class="o">.</span><span class="n">__version__</span><span class="p">,</span> <span class="n">ry</span><span class="o">.</span><span class="n">compiled</span><span class="p">())</span>
+<span class="n">ry</span><span class="o">.</span><span class="n">params_add</span><span class="p">({</span><span class="s1">&#39;physx/motorKp&#39;</span><span class="p">:</span> <span class="mf">10000.</span><span class="p">,</span> <span class="s1">&#39;physx/motorKd&#39;</span><span class="p">:</span> <span class="mf">1000.</span><span class="p">})</span>
+<span class="n">ry</span><span class="o">.</span><span class="n">params_print</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span>
+<span class="n">C</span><span class="o">.</span><span class="n">addFile</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">raiPath</span><span class="p">(</span><span class="s1">&#39;../rai-robotModels/scenarios/pandaSingle.g&#39;</span><span class="p">))</span>
+<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="s1">&#39;box&#39;</span><span class="p">)</span> \
+    <span class="o">.</span><span class="n">setPosition</span><span class="p">([</span><span class="o">-</span><span class="mf">.25</span><span class="p">,</span><span class="mf">.1</span><span class="p">,</span><span class="mf">.675</span><span class="p">])</span> \
+    <span class="o">.</span><span class="n">setShape</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">ST</span><span class="o">.</span><span class="n">ssBox</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">[</span><span class="mf">.05</span><span class="p">,</span><span class="mf">.05</span><span class="p">,</span><span class="mf">.05</span><span class="p">,</span><span class="mf">.005</span><span class="p">])</span> \
+    <span class="o">.</span><span class="n">setColor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mf">.5</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span> \
+    <span class="o">.</span><span class="n">setMass</span><span class="p">(</span><span class="mf">.1</span><span class="p">)</span> \
+    <span class="o">.</span><span class="n">setContact</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># WAYPOINT ENGINEERING:</span>
+<span class="c1"># manually define frames as an endeff waypoints, relative to box:</span>
+<span class="n">way0</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="s1">&#39;way0&#39;</span><span class="p">,</span> <span class="s1">&#39;box&#39;</span><span class="p">)</span>
+<span class="n">way1</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="s1">&#39;way1&#39;</span><span class="p">,</span> <span class="s1">&#39;box&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">way0</span><span class="o">.</span><span class="n">setShape</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">ST</span><span class="o">.</span><span class="n">marker</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">[</span><span class="mf">.1</span><span class="p">])</span>
+<span class="n">way0</span><span class="o">.</span><span class="n">setRelativePose</span><span class="p">(</span><span class="s1">&#39;t(-.07 0 0) d(90 0 0 1)&#39;</span><span class="p">)</span>
+
+<span class="n">way1</span><span class="o">.</span><span class="n">setShape</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">ST</span><span class="o">.</span><span class="n">marker</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">[</span><span class="mf">.1</span><span class="p">])</span>
+<span class="n">way1</span><span class="o">.</span><span class="n">setRelativePose</span><span class="p">(</span><span class="s1">&#39;t(.2 0 0) d(90 0 0 1)&#39;</span><span class="p">)</span>
+
+<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define a 2 waypoint problem in KOMO</span>
+<span class="n">komo</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">KOMO</span><span class="p">()</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">setConfig</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">setTiming</span><span class="p">(</span><span class="mf">2.</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">5.</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addControlObjective</span><span class="p">([],</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1e-0</span><span class="p">)</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addObjective</span><span class="p">([],</span> <span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">accumulatedCollisions</span><span class="p">,</span> <span class="p">[],</span> <span class="n">ry</span><span class="o">.</span><span class="n">OT</span><span class="o">.</span><span class="n">eq</span><span class="p">);</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addObjective</span><span class="p">([],</span> <span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">jointLimits</span><span class="p">,</span> <span class="p">[],</span> <span class="n">ry</span><span class="o">.</span><span class="n">OT</span><span class="o">.</span><span class="n">ineq</span><span class="p">);</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addObjective</span><span class="p">([</span><span class="mf">1.</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">poseDiff</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;l_gripper&#39;</span><span class="p">,</span> <span class="s1">&#39;way0&#39;</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">OT</span><span class="o">.</span><span class="n">eq</span><span class="p">,</span> <span class="p">[</span><span class="mf">1e1</span><span class="p">]);</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addObjective</span><span class="p">([</span><span class="mf">2.</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">poseDiff</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;l_gripper&#39;</span><span class="p">,</span> <span class="s1">&#39;way1&#39;</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">OT</span><span class="o">.</span><span class="n">eq</span><span class="p">,</span> <span class="p">[</span><span class="mf">1e1</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ret</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">NLP_Solver</span><span class="p">()</span> \
+    <span class="o">.</span><span class="n">setProblem</span><span class="p">(</span><span class="n">komo</span><span class="o">.</span><span class="n">nlp</span><span class="p">())</span> \
+    <span class="o">.</span><span class="n">setOptions</span><span class="p">(</span> <span class="n">stopTolerance</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">4</span> <span class="p">)</span> \
+    <span class="o">.</span><span class="n">solve</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">komo</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;waypoints solution&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">komo</span><span class="o">.</span><span class="n">view_close</span><span class="p">()</span>
+<span class="n">path</span> <span class="o">=</span> <span class="n">komo</span><span class="o">.</span><span class="n">getPath</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bot</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">BotOp</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">bot</span><span class="o">.</span><span class="n">home</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bot</span><span class="o">.</span><span class="n">home</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bot</span><span class="o">.</span><span class="n">gripperClose</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">_left</span><span class="p">)</span>
+<span class="k">while</span> <span class="ow">not</span> <span class="n">bot</span><span class="o">.</span><span class="n">gripperDone</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">_left</span><span class="p">):</span>
+    <span class="n">bot</span><span class="o">.</span><span class="n">sync</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="mf">.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bot</span><span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">bot</span><span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="k">while</span> <span class="n">bot</span><span class="o">.</span><span class="n">getTimeToEnd</span><span class="p">()</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+    <span class="n">bot</span><span class="o">.</span><span class="n">sync</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="mf">.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bot</span><span class="o">.</span><span class="n">home</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bot</span><span class="o">.</span><span class="n">gripperOpen</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">_left</span><span class="p">)</span>
+<span class="k">while</span> <span class="ow">not</span> <span class="n">bot</span><span class="o">.</span><span class="n">gripperDone</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">_left</span><span class="p">):</span>
+    <span class="n">bot</span><span class="o">.</span><span class="n">sync</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="mf">.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">bot</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">C</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="botop3-vision-toBeMerged.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sim1-physics.html" class="btn btn-neutral float-right" title="2.4.1. Direct simulation interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Marc Toussaint.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

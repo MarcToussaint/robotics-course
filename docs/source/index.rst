@@ -15,15 +15,23 @@ installation setups and exercises. Embedded below are exercises for
 the lab course in simulation, and generic documentation of the
 code. The code documentation refers to python interfaces -- but these
 are almost identical to how users should use C++.
-
   
 .. toctree::
    :maxdepth: 3
+   :numbered:
    :caption: Contents:
 
-   script
+   getting_started
+   notebooks/notebooks
+   script/script
+   old/old
    rai
-   simlab
+
+..   tut/tutorials
+..   tut/appendices
+..   tut/t0*
+..   script
+..   notebooks/script1-Scene.ipynb
 ..   komo
 ..   skeleton
    

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2. Tutorials &mdash; Robotics Course  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2.1.1. Configuration &amp; Frames" href="core1-config-and-frames.html" />
+    <link rel="prev" title="1. Getting Started" href="../getting_started.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Robotics Course
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">1. Getting Started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#basics-configurations-features-etc">2.1. Basics: Configurations, Features, etc</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="core1-config-and-frames.html">2.1.1. Configuration &amp; Frames</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core2-features.html">2.1.2. Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core3-configurations.html">2.1.3. Importing, Editing &amp; Manipulating Configurations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#komo-optimization-problems-to-design-motion">2.2. KOMO: Optimization Problems to design motion</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="komo1-IK.html">2.2.1. Inverse Kinematics as Optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="komo1-IK-toBeMerged.html">2.2.2. Inverse Kinematics as Optimization (to be merged)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="komo2-PathOptimization.html">2.2.3. Path optimization example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="komo2-PathOptimization-toBeMerged.html">2.2.4. Path Optimization (to be merged)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="komo3-switches-skeletons.html">2.2.5. Advanced: Switches &amp; Skeletons</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#botop-interface-to-sim-real">2.3. BotOp: Interface to Sim/Real</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="botop1-motion.html">2.3.1. Interacting with a Sim/Real: Setting spline references</a></li>
+<li class="toctree-l3"><a class="reference internal" href="botop2-realRobotStarters.html">2.3.2. Starting with a real robot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="botop3-vision.html">2.3.3. First example to grap images from a webcam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="botop4-examples.html">2.3.4. Example for grasping in Sim</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#more">2.4. More</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sim1-physics.html">2.4.1. Direct simulation interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="opt1-basics.html">2.4.2. Optimization (NLP formulation and solving)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="script5-PathFind.html">2.4.3. Path finding example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../script/script.html">3. Lecture Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../old/old.html">4. Old Material</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rai.html">5. rai python API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Robotics Course</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">2. </span>Tutorials</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tutorials">
+<h1><span class="section-number">2. </span>Tutorials<a class="headerlink" href="#tutorials" title="Permalink to this heading"></a></h1>
+<p>All tutorials are jupyter notebooks, downloadable from <a class="reference external" href="https://github.com/MarcToussaint/rai-python/tree/master/notebooks">https://github.com/MarcToussaint/rai-python/tree/master/notebooks</a>
+(TODO: own github)</p>
+<section id="basics-configurations-features-etc">
+<h2><span class="section-number">2.1. </span>Basics: Configurations, Features, etc<a class="headerlink" href="#basics-configurations-features-etc" title="Permalink to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="core1-config-and-frames.html">2.1.1. Configuration &amp; Frames</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core2-features.html">2.1.2. Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core3-configurations.html">2.1.3. Importing, Editing &amp; Manipulating Configurations</a></li>
+</ul>
+</div>
+</section>
+<section id="komo-optimization-problems-to-design-motion">
+<h2><span class="section-number">2.2. </span>KOMO: Optimization Problems to design motion<a class="headerlink" href="#komo-optimization-problems-to-design-motion" title="Permalink to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="komo1-IK.html">2.2.1. Inverse Kinematics as Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="komo1-IK-toBeMerged.html">2.2.2. Inverse Kinematics as Optimization (to be merged)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="komo2-PathOptimization.html">2.2.3. Path optimization example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="komo2-PathOptimization-toBeMerged.html">2.2.4. Path Optimization (to be merged)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="komo3-switches-skeletons.html">2.2.5. Advanced: Switches &amp; Skeletons</a></li>
+</ul>
+</div>
+</section>
+<section id="botop-interface-to-sim-real">
+<h2><span class="section-number">2.3. </span>BotOp: Interface to Sim/Real<a class="headerlink" href="#botop-interface-to-sim-real" title="Permalink to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="botop1-motion.html">2.3.1. Interacting with a Sim/Real: Setting spline references</a></li>
+<li class="toctree-l1"><a class="reference internal" href="botop2-realRobotStarters.html">2.3.2. Starting with a real robot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="botop3-vision.html">2.3.3. First example to grap images from a webcam</a></li>
+<li class="toctree-l1"><a class="reference internal" href="botop4-examples.html">2.3.4. Example for grasping in Sim</a></li>
+</ul>
+</div>
+</section>
+<section id="more">
+<h2><span class="section-number">2.4. </span>More<a class="headerlink" href="#more" title="Permalink to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="sim1-physics.html">2.4.1. Direct simulation interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="opt1-basics.html">2.4.2. Optimization (NLP formulation and solving)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="script5-PathFind.html">2.4.3. Path finding example</a></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../getting_started.html" class="btn btn-neutral float-left" title="1. Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="core1-config-and-frames.html" class="btn btn-neutral float-right" title="2.1.1. Configuration &amp; Frames" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Marc Toussaint.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

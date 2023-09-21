@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4.5. Graph and .g-files &mdash; Robotics Course  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.6. Simulation" href="_Simulation.html" />
+    <link rel="prev" title="4.4. .g-files to describe robot configurations" href="_ConfigurationFiles.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Robotics Course
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">1. Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/notebooks.html">2. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../script/script.html">3. Lecture Script</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="old.html">4. Old Material</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="simlab.html">4.1. Lab Course in Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="komo.html">4.2. Learning KOMO (K-Order Markov Optimization)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Configuration.html">4.3. Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_ConfigurationFiles.html">4.4. .g-files to describe robot configurations</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.5. Graph and .g-files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Simulation.html">4.6. Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Array.html">4.7. Array</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../rai.html">5. rai python API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Robotics Course</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="old.html"><span class="section-number">4. </span>Old Material</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4.5. </span>Graph and .g-files</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="graph-and-g-files">
+<span id="refgraph"></span><h1><span class="section-number">4.5. </span>Graph and .g-files<a class="headerlink" href="#graph-and-g-files" title="Permalink to this heading"></a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">Graph</span></code> data structure started out rather normal, as a typical
+graph data structure where nodes are any-type (their value can be of
+any C++ type). As nodes also have a <code class="docutils literal notranslate"><span class="pre">key</span></code>, the data structure was
+also an any-type dictionary (as in Python). This turned out so useful
+that it is now used equally as dictionary, as graph, or a mix of
+both. Further, a node can have a sub-graph (or sub-dictionary) as
+value, making the data structure hierarchical and ideal to represent
+XML or YAML kind of data. I use this data structure to read XML, YAML,
+JSON. The <code class="docutils literal notranslate"><span class="pre">.g</span></code> file format is one-to-one with the Graph data
+structure and is the only structured file format used in <code class="docutils literal notranslate"><span class="pre">rai</span></code> (for
+configuration files, kinematic model descriptions, logic, factor
+graphs, optimization problems, etc).</p>
+<p>The best way to understand the <code class="docutils literal notranslate"><span class="pre">Graph</span></code> class is to first understand
+the file format, which clarifies what is actually represented. Here is
+the <code class="docutils literal notranslate"><span class="pre">example.g</span></code> from <code class="docutils literal notranslate"><span class="pre">test/Core/graph</span></code>, hopefully the comments are
+self-explanatory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>## a trivial graph (all boolean-valued nodes)
+x            # a vertex: key=x, value=true, parents=none
+y            # another vertex: key=y, value=true, parents=none
+(x y)        # an edge: key=none, value=true, parents=x y
+(-1 -2)      # a hyperedge: key=none, value=true, parents=the previous edge and the y-node
+
+## nodes with subgraphs as value
+A { color:blue }         # key=A, value=&lt;Graph&gt;, parents=none
+B { color:red, value:5 } # key=B, value=&lt;Graph&gt;, parents=none
+C(A,B) { width:2 }       # key=C, value=&lt;Graph&gt;, parents=A B
+hyperedge(A B C) : 5     # key=hyperedge, value=5, parents=A B C
+
+## standard value types
+a:string      # MT::String (except for keywords &#39;true&#39; and &#39;false&#39; and &#39;Mod&#39; and &#39;Include&#39;)
+b:&quot;STRING&quot;    # MT::String (does not require a &#39;:&#39;)
+c:&#39;file.txt&#39;  # MT::FileToken (does not require a &#39;:&#39;)
+d:-0.1234     # double
+e:[1 2 3 0.5] # MT::arr (does not require a &#39;:&#39;)
+#f:(c d e)    # DEPRECATED!! MT::Array&lt;*Node&gt; (list of other nodes in the Graph)
+g!            # bool (default: true, !means false)
+h:true        # bool
+i:false       # bool
+j:{ a:0 }     # sub-Graph (special: does not require a &#39;:&#39;)
+
+## parsing: : {..} (..) , and \n are separators for parsing key-value-pairs
+b0:false b1, b2() b3    # 4 boolean nodes with keys &#39;b0&#39;, &#39;b1&#39;, &#39;b2&#39;, &#39;b3&#39;
+k:{ a, b:0.2 x:&quot;hallo&quot;     # sub-Graph with 6 nodes
+  y
+  z():filename.org x }
+
+## special Node Keys
+
+# editing: after reading all nodes, the Graph takes all Edit nodes, deletes the Edit tag, and calls a edit()
+# this example will modify/append the respective attributes of k
+Edit k { y:false, z:otherString, b:7, c:newAttribute }
+
+# including
+Include: &#39;example_include.g&#39;   # first creates a normal FileToken node then opens and includes the file directly
+
+## strange notations
+a()       # key=a, value=true, parents=none
+()        # key=none, value=true, parents=none
+[1 2 3 4] # key=none, value=MT::arr, parents=none
+</pre></div>
+</div>
+<p>Subgraphs may contain nodes that have parents from the containing
+graph, or from other subgraphs of the containing graph. Some methods
+of the <code class="docutils literal notranslate"><span class="pre">Graph</span></code> class (to find nodes by key or type) allow to specify
+whether also nodes in subgraphs or parentgraphs are to be
+searched. This connectivity across (sub)-graphs e.g. allows to
+represent logic knowledge bases.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="_ConfigurationFiles.html" class="btn btn-neutral float-left" title="4.4. .g-files to describe robot configurations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="_Simulation.html" class="btn btn-neutral float-right" title="4.6. Simulation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Marc Toussaint.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4.3. Configuration &mdash; Robotics Course  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.4. .g-files to describe robot configurations" href="_ConfigurationFiles.html" />
+    <link rel="prev" title="4.2. Learning KOMO (K-Order Markov Optimization)" href="komo.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Robotics Course
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">1. Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/notebooks.html">2. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../script/script.html">3. Lecture Script</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="old.html">4. Old Material</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="simlab.html">4.1. Lab Course in Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="komo.html">4.2. Learning KOMO (K-Order Markov Optimization)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.3. Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#c-tor">4.3.1. C’tor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adding-frames-to-the-configuration">4.3.2. Adding frames to the configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#copy-clear">4.3.3. Copy, clear</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#joint-state-get-set-and-selecting-active-joints">4.3.4. Joint state: get/set, and selecting active joints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#frame-state">4.3.5. Frame state</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#features-anything-you-might-want-to-compute-from-configurations">4.3.6. Features: Anything you might want to compute from Configurations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#structural-edits">4.3.7. Structural edits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#collision-computations">4.3.8. Collision computations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#functions-to-create-other-classes-komo-simulation-viewer-etc">4.3.9. Functions to create other classes (KOMO, Simulation, viewer, etc)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="_ConfigurationFiles.html">4.4. .g-files to describe robot configurations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Graph.html">4.5. Graph and .g-files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Simulation.html">4.6. Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Array.html">4.7. Array</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../rai.html">5. rai python API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Robotics Course</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="old.html"><span class="section-number">4. </span>Old Material</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4.3. </span>Configuration</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="configuration">
+<span id="refconfiguration"></span><h1><span class="section-number">4.3. </span>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading"></a></h1>
+<p>Synopsis
+===</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">Configuration</span></code> is the core data structure in <code class="docutils literal notranslate"><span class="pre">rai</span></code> to represent
+a scene with objects and robots, similar to a scene graph in
+graphics. Essentially it stores a set of (coordinate) <code class="docutils literal notranslate"><span class="pre">Frames</span></code>, to
+each of which we can associate a <code class="docutils literal notranslate"><span class="pre">Shape</span></code>, <code class="docutils literal notranslate"><span class="pre">Inertia</span></code>, interaction
+forces, etc. Further, a configuration has <code class="docutils literal notranslate"><span class="pre">DoFs</span></code>
+(degrees-of-freedom), e.g. robot joint angles, which together form a
+vector. This vector representation of a configuration allows to apply
+optimization, control, and path finding methods on a
+configuration. Finally, a configuration allows you to compute
+<code class="docutils literal notranslate"><span class="pre">Features</span></code>, which is any numerical quantity you might want to
+compute about a configuration. This could be basic things like the
+position or orientation of a frame, or the distance between shapes, or
+nearest points on two shapes, but also more involved things like the
+error of motion under Newtonian dynamics. Features are the interface
+between a configuration and optimization (or constraint solving)
+algorithms.</p>
+<p>A configuration can also represent a <code class="docutils literal notranslate"><span class="pre">sequence</span> <span class="pre">of</span> <span class="pre">scenes'',</span> <span class="pre">i.e.,</span> <span class="pre">a</span>
+<span class="pre">time</span> <span class="pre">discretized</span> <span class="pre">path.</span> <span class="pre">In</span> <span class="pre">this</span> <span class="pre">case,</span> <span class="pre">the</span> <span class="pre">configuration</span> <span class="pre">stores</span>
+<span class="pre">:math:`T`</span> <span class="pre">frames</span> <span class="pre">for</span> <span class="pre">a</span> <span class="pre">single</span> <span class="pre">objects,</span> <span class="pre">which</span> <span class="pre">all</span> <span class="pre">share</span> <span class="pre">the</span> <span class="pre">same</span> <span class="pre">shape</span>
+<span class="pre">and</span> <span class="pre">describe</span> <span class="pre">the</span> <span class="pre">motion</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">object.</span> <span class="pre">Although</span> <span class="pre">the</span> <span class="pre">semantics</span> <span class="pre">of</span> <span class="pre">such</span>
+<span class="pre">a</span> <span class="pre">``path</span> <span class="pre">configuration''</span> <span class="pre">and</span> <span class="pre">normal</span> <span class="pre">configuration</span> <span class="pre">differ,</span> <span class="pre">in</span>
+<span class="pre">``rai</span></code> we use exactly the same data structure <code class="docutils literal notranslate"><span class="pre">Configuration</span></code> for both,
+as all the methods and operations we want to perform on them are
+essentially the same: We can parameterize a path configuration
+(trajectory dofs), and compute features on a path configuration
+(including velocity/acceleration/physics-based features).</p>
+<p>A configuration is also an interface between various engines:
+Rendering (OpenGL), Physics engines (bullet, PhysX), and file formats
+(<cite>rai</cite>’s .g-file, URDF, collada).</p>
+<p>Formally
+===</p>
+<p>In a rigid body case we would define a configuration <span class="math notranslate nohighlight">\(C \in
+\SE(3)^m\)</span> as <span class="math notranslate nohighlight">\(m\)</span> coordinate frames. To each frame a shape and/or
+inertia may be associated. We assume a configuration has dofs
+<span class="math notranslate nohighlight">\(x\in\mathbb{R}^n\)</span> and write <span class="math notranslate nohighlight">\(C(x)\)</span>. Given a
+configuration, we can compute features <span class="math notranslate nohighlight">\(\phi(C(x)) \in
+\mathbb{R}^d\)</span> and Jacobians <span class="math notranslate nohighlight">\(\nabla_x \phi(x) \in
+\mathbb{R}^{d\times n}\)</span> of features. This is the role of the
+<cite>Configuration</cite> data structure.</p>
+<p>Example Uses
+===</p>
+<p>Scene loading, editing, generation
+—</p>
+<ul class="simple">
+<li><p>Loading URDF – use <cite>ry.tool.urdf2rai()</cite>; often requires manual fixes. See details here.</p></li>
+<li><p>Editing .g-files – use <cite>ry.tool.kinEdit()</cite>! See details here.</p></li>
+<li><p>editing and generation by code</p></li>
+</ul>
+<p>Example: Load 2 robots into a file, attach the root of one robot to the endeff of the other, add and attach an own object, animate it, store it as urdf and collada.</p>
+<p>Dofs, set/get state, seleting active dofs
+—</p>
+<p>Computing Features
+—</p>
+<p>Basic Inverse Kinematics
+—</p>
+<p>The frame state
+—
+While the dof state is <span class="math notranslate nohighlight">\(x\in\mathbb{R}^n\)</span>, the frame state is <span class="math notranslate nohighlight">\(C(x) \in SE(3)^m\)</span>. That is, the frame state is the pose (position+quaternion) of <em>all</em> frames of the configuration. It is set and returned as a (m,7)-matrix.</p>
+<p>Note the quirks in setting a frame state when we also have joints at the same time! Setting the frame state of all frames overwrites also all relative transformations, ignoring that a joint associated to the relative transformation might actually only parameterize a limited transformations (e.g. a hinge rotation). So setFrameState may easily set relative transforms to be inconsistent with joint constraints. A following setJointState would simply overwrite these relative transformations again. More interestingly, a getJointState following a setFrameState extracts the dofs along the joint dimensions from the the freely set relative transformation, and a following setJointState would result in a joint-consistent transformation as close as possible to the freely set relative transformation.</p>
+<p>Computing Collisions
+—
+Many features require computation of potential collisions between all shapes. <cite>rai</cite> uses collision engines (FCL for broadphase, and lower-level ccd/GJK calls for precise collision information) to this end. A setState does <em>not</em> automatically trigger calling the collision engines. Some features such as <cite>F_accumulatedCollsions</cite> automatically ensure that these collision engines were called. However, the user can also explicitly ensure updated collision information by calling <cite>ensureProxies</cite>, after which collisions can be reported. This can be used, e.g., to implement an interface for path finding algorithms (e.g., OMPL).</p>
+<p>Parents, Sub-Frames, &amp; Links
+—
+Frames typically have parent frames. If a joint is associated to this parent relation, then this typically indicates that the relative transformation to the parent has DOFs (special case: A joint can also be rigid). If no joint is associated to the parent relation, then the child is really a sub-frame and part of the same <cite>link</cite>.</p>
+<p>A <cite>link frame</cite> is one that has no parent or a joint to its parent. For a link frame we can (recursively) collect all sub-frames, which together describe a <cite>link</cite> (e.g. an object with multiple sub-shapes or inertias with different relative transformations to the link frame).</p>
+<p>Activating/Filtering Collisions
+—
+Shapes have a <code class="docutils literal notranslate"><span class="pre">cont</span></code> property (TODO: change to int collide). If collide=0, collision evaluation is deactivated and it collides with no other shape; if collide=1 collision evaluation is activated; collisions of shapes within the same link are generally filtered out; if collide&lt;0, then collision evaluation is activated <em>but</em> collisions are filtered out not only to other shapes in the same link, but also other shapes in the parent-link of order ‘-collide’, e.g., the two <em>links</em> tree-upward for collide=-2.</p>
+<blockquote>
+<div><p>is only roughly supp</p>
+</div></blockquote>
+<p>the pose (position orientation) of $m$ objects, equally including environment or (multi-) robot parts. A shape or inertia may be associated to each obj</p>
+<p>Just as arrays (vectors, matrices) are the core data structure to code
+numerics, a <code class="docutils literal notranslate"><span class="pre">Configuration</span></code> is the core data structure to code
+robotics. A configuration represents objects in a 3D world and how
+they are kinematically linked. When coding robotics, you create
+configurations, edit them, compute numerical features from them (such
+as the 3D position of an object, or the distance between two shapes),
+and formulate optimization problems over configurations to solve
+control or path finding problems.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Features</span></code> are the core concept that relate configurations to
+numerics: Any numerical quantity you might want to compute for a
+configuration is a <code class="docutils literal notranslate"><span class="pre">Feature</span></code>. This could be basic things like the
+position or orientation of a frame, or the distance between shapes,
+or nearest points on two shapes. But also more involved things like
+the total engergy in the configuration (if velocities are also
+represented). Often features represent errors or residuals
+of equation systems. For instance, you would often define a feature to
+be the residual between an object 3D position and a desired 3D
+position, rather than the absolute object position. Or a feature can
+be the residual of equations for force propagation or the residual of
+closed kinematic loops. In that way it is convenient to formulate
+optimization problems that aim to bring all features to zero (or lower
+equal to zero). Such optimization problems can solve control and path
+problems for you. Features are the interface between a configuration
+and numerics.</p>
+<p>The relative transformations in configurations can have <em>degrees of
+freedom</em> (dofs), thereby modelling kinematic <code class="docutils literal notranslate"><span class="pre">Joints</span></code>. The vector of all
+these dofs is also called joint state. A fundamental operation is to
+“set the joint state” of a configuration, and then computing all
+relative and absolute transformations of all frames, which is called
+forward kinematics. The classical joint state is the main example for
+dofs – but in general we may want to introduce also other dofs,
+namely dofs that represent the force interaction between objects, or
+variables that indicate the time interval between two consecutive
+configurations. The reason is that these dofs can then become the
+decision variables in a mathematical program that solves for these
+quantities. Therefore, the general view is that whatever we might want
+to have as decision variable in a mathematical program should be dofs
+in configurations.</p>
+<section id="c-tor">
+<h2><span class="section-number">4.3.1. </span>C’tor<a class="headerlink" href="#c-tor" title="Permalink to this heading"></a></h2>
+</section>
+<section id="adding-frames-to-the-configuration">
+<h2><span class="section-number">4.3.2. </span>Adding frames to the configuration<a class="headerlink" href="#adding-frames-to-the-configuration" title="Permalink to this heading"></a></h2>
+<p>A configuration is often initialized by reading it from a file. See
+<a class="reference internal" href="_ConfigurationFiles.html#refconfigurationfile"><span class="std std-ref">.g-files to describe robot configurations</span></a> for details on these files.</p>
+<p>Alternatively, a configuration can also be build up within the code by
+adding more and more frames. See <span class="xref std std-ref">refFrame</span> on how to specify the
+properties of frames.</p>
+</section>
+<section id="copy-clear">
+<h2><span class="section-number">4.3.3. </span>Copy, clear<a class="headerlink" href="#copy-clear" title="Permalink to this heading"></a></h2>
+</section>
+<section id="joint-state-get-set-and-selecting-active-joints">
+<h2><span class="section-number">4.3.4. </span>Joint state: get/set, and selecting active joints<a class="headerlink" href="#joint-state-get-set-and-selecting-active-joints" title="Permalink to this heading"></a></h2>
+</section>
+<section id="frame-state">
+<h2><span class="section-number">4.3.5. </span>Frame state<a class="headerlink" href="#frame-state" title="Permalink to this heading"></a></h2>
+</section>
+<section id="features-anything-you-might-want-to-compute-from-configurations">
+<h2><span class="section-number">4.3.6. </span>Features: Anything you might want to compute from Configurations<a class="headerlink" href="#features-anything-you-might-want-to-compute-from-configurations" title="Permalink to this heading"></a></h2>
+</section>
+<section id="structural-edits">
+<h2><span class="section-number">4.3.7. </span>Structural edits<a class="headerlink" href="#structural-edits" title="Permalink to this heading"></a></h2>
+</section>
+<section id="collision-computations">
+<h2><span class="section-number">4.3.8. </span>Collision computations<a class="headerlink" href="#collision-computations" title="Permalink to this heading"></a></h2>
+</section>
+<section id="functions-to-create-other-classes-komo-simulation-viewer-etc">
+<h2><span class="section-number">4.3.9. </span>Functions to create other classes (KOMO, Simulation, viewer, etc)<a class="headerlink" href="#functions-to-create-other-classes-komo-simulation-viewer-etc" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="komo.html" class="btn btn-neutral float-left" title="4.2. Learning KOMO (K-Order Markov Optimization)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="_ConfigurationFiles.html" class="btn btn-neutral float-right" title="4.4. .g-files to describe robot configurations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Marc Toussaint.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

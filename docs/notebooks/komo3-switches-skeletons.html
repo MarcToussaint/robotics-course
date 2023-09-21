@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2.2.5. Advanced: Switches &amp; Skeletons &mdash; Robotics Course  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2.3.1. Interacting with a Sim/Real: Setting spline references" href="botop1-motion.html" />
+    <link rel="prev" title="2.2.4. Path Optimization (to be merged)" href="komo2-PathOptimization-toBeMerged.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Robotics Course
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">1. Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="notebooks.html">2. Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="notebooks.html#basics-configurations-features-etc">2.1. Basics: Configurations, Features, etc</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="notebooks.html#komo-optimization-problems-to-design-motion">2.2. KOMO: Optimization Problems to design motion</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="komo1-IK.html">2.2.1. Inverse Kinematics as Optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="komo1-IK-toBeMerged.html">2.2.2. Inverse Kinematics as Optimization (to be merged)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="komo2-PathOptimization.html">2.2.3. Path optimization example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="komo2-PathOptimization-toBeMerged.html">2.2.4. Path Optimization (to be merged)</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">2.2.5. Advanced: Switches &amp; Skeletons</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Same-again,-but-only-the-keyframes:">2.2.5.1. Same again, but only the keyframes:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Skeletons">2.2.5.2. Skeletons</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks.html#botop-interface-to-sim-real">2.3. BotOp: Interface to Sim/Real</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks.html#more">2.4. More</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../script/script.html">3. Lecture Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../old/old.html">4. Old Material</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rai.html">5. rai python API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Robotics Course</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="notebooks.html"><span class="section-number">2. </span>Tutorials</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">2.2.5. </span>Advanced: Switches &amp; Skeletons</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Advanced:-Switches-&amp;-Skeletons">
+<h1><span class="section-number">2.2.5. </span>Advanced: Switches &amp; Skeletons<a class="headerlink" href="#Advanced:-Switches-&-Skeletons" title="Permalink to this heading"></a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span> <span class="o">+=</span> <span class="p">[</span><span class="s1">&#39;../../lib&#39;</span><span class="p">,</span> <span class="s1">&#39;../../build&#39;</span><span class="p">,</span> <span class="s1">&#39;../../../build&#39;</span><span class="p">]</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">libry</span> <span class="k">as</span> <span class="nn">ry</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span>
+
+<span class="n">C</span><span class="o">.</span><span class="n">addFile</span><span class="p">(</span><span class="s2">&quot;../KOMO/switches/model2.g&quot;</span><span class="p">)</span>
+<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">komo</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">KOMO</span><span class="p">()</span>
+
+<span class="n">komo</span><span class="o">.</span><span class="n">setModel</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">setTiming</span><span class="p">(</span><span class="mf">2.5</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mf">5.</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">komo</span><span class="o">.</span><span class="n">add_qControlObjective</span><span class="p">([],</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">komo</span><span class="o">.</span><span class="n">addQuaternionNorms</span><span class="p">([],</span> <span class="mf">3.</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#grasp</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addModeSwitch</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">SY</span><span class="o">.</span><span class="n">stable</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;gripper&quot;</span><span class="p">,</span> <span class="s2">&quot;box&quot;</span><span class="p">])</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addObjective</span><span class="p">([</span><span class="mf">1.</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">positionDiff</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;gripper&quot;</span><span class="p">,</span> <span class="s2">&quot;box&quot;</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">OT</span><span class="o">.</span><span class="n">eq</span><span class="p">,</span> <span class="p">[</span><span class="mf">1e2</span><span class="p">])</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addObjective</span><span class="p">([</span><span class="mf">1.</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">scalarProductXX</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;gripper&quot;</span><span class="p">,</span> <span class="s2">&quot;box&quot;</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">OT</span><span class="o">.</span><span class="n">eq</span><span class="p">,</span> <span class="p">[</span><span class="mf">1e2</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">])</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addObjective</span><span class="p">([</span><span class="mf">1.</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">vectorZ</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;gripper&quot;</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">OT</span><span class="o">.</span><span class="n">eq</span><span class="p">,</span> <span class="p">[</span><span class="mf">1e2</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">])</span>
+
+<span class="c1">#slow - down - up</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addObjective</span><span class="p">([</span><span class="mf">1.</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">qItself</span><span class="p">,</span> <span class="p">[],</span> <span class="n">ry</span><span class="o">.</span><span class="n">OT</span><span class="o">.</span><span class="n">eq</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[],</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addObjective</span><span class="p">([</span><span class="mf">.9</span><span class="p">,</span><span class="mf">1.1</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;gripper&quot;</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">OT</span><span class="o">.</span><span class="n">eq</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span><span class="mf">0.</span><span class="p">,</span><span class="mf">.1</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1">#place</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addModeSwitch</span><span class="p">([</span><span class="mf">2.</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">SY</span><span class="o">.</span><span class="n">stable</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;table&quot;</span><span class="p">,</span> <span class="s2">&quot;box&quot;</span><span class="p">])</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addObjective</span><span class="p">([</span><span class="mf">2.</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">positionDiff</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;box&quot;</span><span class="p">,</span> <span class="s2">&quot;table&quot;</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">OT</span><span class="o">.</span><span class="n">eq</span><span class="p">,</span> <span class="p">[</span><span class="mf">1e2</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">.08</span><span class="p">])</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addObjective</span><span class="p">([</span><span class="mf">2.</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">vectorZ</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;gripper&quot;</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">OT</span><span class="o">.</span><span class="n">eq</span><span class="p">,</span> <span class="p">[</span><span class="mf">1e2</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">])</span>
+
+<span class="c1">#slow - down - up</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addObjective</span><span class="p">([</span><span class="mf">2.</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">qItself</span><span class="p">,</span> <span class="p">[],</span> <span class="n">ry</span><span class="o">.</span><span class="n">OT</span><span class="o">.</span><span class="n">eq</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[],</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addObjective</span><span class="p">([</span><span class="mf">1.9</span><span class="p">,</span><span class="mf">2.2</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;gripper&quot;</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">OT</span><span class="o">.</span><span class="n">eq</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span><span class="mf">0.</span><span class="p">,</span><span class="mf">.1</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#komo.verbose = 4;</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">optimize</span><span class="p">();</span>
+<span class="c1">#/  komo.checkGradients();</span>
+
+<span class="n">komo</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;result&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">komo</span><span class="o">.</span><span class="n">view_play</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="mf">.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<section id="Same-again,-but-only-the-keyframes:">
+<h2><span class="section-number">2.2.5.1. </span>Same again, but only the keyframes:<a class="headerlink" href="#Same-again,-but-only-the-keyframes:" title="Permalink to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">komo</span><span class="o">=</span><span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">komo</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">KOMO</span><span class="p">()</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">setModel</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">setTiming</span><span class="p">(</span><span class="mf">3.</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">5.</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1">#DIFFERENT</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">komo</span><span class="o">.</span><span class="n">add_qControlObjective</span><span class="p">([],</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">1e-1</span><span class="p">)</span> <span class="c1">#DIFFERENT</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addQuaternionNorms</span><span class="p">([],</span> <span class="mf">3.</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#grasp</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addModeSwitch</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">SY</span><span class="o">.</span><span class="n">stable</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;gripper&quot;</span><span class="p">,</span> <span class="s2">&quot;box&quot;</span><span class="p">])</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addObjective</span><span class="p">([</span><span class="mf">1.</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">positionDiff</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;gripper&quot;</span><span class="p">,</span> <span class="s2">&quot;box&quot;</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">OT</span><span class="o">.</span><span class="n">eq</span><span class="p">,</span> <span class="p">[</span><span class="mf">1e2</span><span class="p">])</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addObjective</span><span class="p">([</span><span class="mf">1.</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">scalarProductXX</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;gripper&quot;</span><span class="p">,</span> <span class="s2">&quot;box&quot;</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">OT</span><span class="o">.</span><span class="n">eq</span><span class="p">,</span> <span class="p">[</span><span class="mf">1e2</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">])</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addObjective</span><span class="p">([</span><span class="mf">1.</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">vectorZ</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;gripper&quot;</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">OT</span><span class="o">.</span><span class="n">eq</span><span class="p">,</span> <span class="p">[</span><span class="mf">1e2</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">])</span>
+
+<span class="c1">#DIFFERENT: UP-DOWN MISSING</span>
+
+<span class="c1">#place</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addModeSwitch</span><span class="p">([</span><span class="mf">2.</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">SY</span><span class="o">.</span><span class="n">stable</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;table&quot;</span><span class="p">,</span> <span class="s2">&quot;box&quot;</span><span class="p">])</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addObjective</span><span class="p">([</span><span class="mf">2.</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">positionDiff</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;box&quot;</span><span class="p">,</span> <span class="s2">&quot;table&quot;</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">OT</span><span class="o">.</span><span class="n">eq</span><span class="p">,</span> <span class="p">[</span><span class="mf">1e2</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">.08</span><span class="p">])</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addObjective</span><span class="p">([</span><span class="mf">2.</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">vectorZ</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;gripper&quot;</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">OT</span><span class="o">.</span><span class="n">eq</span><span class="p">,</span> <span class="p">[</span><span class="mf">1e2</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">komo</span><span class="o">.</span><span class="n">optimize</span><span class="p">();</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;result&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;constraints:&quot;</span><span class="p">,</span> <span class="n">komo</span><span class="o">.</span><span class="n">getConstraintViolations</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;costs:&quot;</span><span class="p">,</span> <span class="n">komo</span><span class="o">.</span><span class="n">getCosts</span><span class="p">())</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">getReport</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">komo</span><span class="o">.</span><span class="n">view_play</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="mf">.2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Skeletons">
+<h2><span class="section-number">2.2.5.2. </span>Skeletons<a class="headerlink" href="#Skeletons" title="Permalink to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span> <span class="o">+=</span> <span class="p">[</span><span class="s1">&#39;../../lib&#39;</span><span class="p">,</span> <span class="s1">&#39;../../build&#39;</span><span class="p">,</span> <span class="s1">&#39;../../../build&#39;</span><span class="p">]</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">libry</span> <span class="k">as</span> <span class="nn">ry</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span>
+<span class="n">C</span><span class="o">.</span><span class="n">addFile</span><span class="p">(</span><span class="s2">&quot;../KOMO/skeleton/model.g&quot;</span><span class="p">)</span>
+<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">S</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="mf">1.</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">SY</span><span class="o">.</span><span class="n">topBoxGrasp</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;gripper&quot;</span><span class="p">,</span> <span class="s2">&quot;box2&quot;</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">SY</span><span class="o">.</span><span class="n">stable</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;gripper&quot;</span><span class="p">,</span> <span class="s2">&quot;box2&quot;</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">1.9</span><span class="p">,</span><span class="mf">2.1</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">SY</span><span class="o">.</span><span class="n">downUp</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;gripper&quot;</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">2.</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">SY</span><span class="o">.</span><span class="n">poseEq</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;box2&quot;</span><span class="p">,</span> <span class="s2">&quot;target2&quot;</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">SY</span><span class="o">.</span><span class="n">stable</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;table&quot;</span><span class="p">,</span> <span class="s2">&quot;box2&quot;</span><span class="p">],</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">komo</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">KOMO</span><span class="p">()</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">setModel</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">setSkeleton</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">ry</span><span class="o">.</span><span class="n">arg</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">komo</span><span class="o">.</span><span class="n">reportProblem</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#komo.verbose = 4;</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">optimize</span><span class="p">();</span>
+<span class="c1">#/  komo.checkGradients();</span>
+
+<span class="n">komo</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;result&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">komo</span><span class="o">.</span><span class="n">view_play</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="mf">.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">komo</span><span class="o">.</span><span class="n">getReport</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="komo2-PathOptimization-toBeMerged.html" class="btn btn-neutral float-left" title="2.2.4. Path Optimization (to be merged)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="botop1-motion.html" class="btn btn-neutral float-right" title="2.3.1. Interacting with a Sim/Real: Setting spline references" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Marc Toussaint.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

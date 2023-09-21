@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4.1.5. SimLab - Project Proposal and Final Presentation &mdash; Robotics Course  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.2. Learning KOMO (K-Order Markov Optimization)" href="komo.html" />
+    <link rel="prev" title="4.1.4. SimLab Exercise 4 - Grasp" href="simlab4.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Robotics Course
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">1. Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/notebooks.html">2. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../script/script.html">3. Lecture Script</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="old.html">4. Old Material</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="simlab.html">4.1. Lab Course in Simulation</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="simlab1.html">4.1.1. SimLab Exercise 1 - Basic Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simlab2.html">4.1.2. SimLab Exercise 2 - Motion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simlab3.html">4.1.3. SimLab Exercise 3 - OpenCV</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simlab4.html">4.1.4. SimLab Exercise 4 - Grasp</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">4.1.5. SimLab - Project Proposal and Final Presentation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#project-proposal">4.1.5.1. Project Proposal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#presentation-details">4.1.5.2. Presentation Details</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="komo.html">4.2. Learning KOMO (K-Order Markov Optimization)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Configuration.html">4.3. Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_ConfigurationFiles.html">4.4. .g-files to describe robot configurations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Graph.html">4.5. Graph and .g-files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Simulation.html">4.6. Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Array.html">4.7. Array</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../rai.html">5. rai python API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Robotics Course</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="old.html"><span class="section-number">4. </span>Old Material</a></li>
+          <li class="breadcrumb-item"><a href="simlab.html"><span class="section-number">4.1. </span>Lab Course in Simulation</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4.1.5. </span>SimLab - Project Proposal and Final Presentation</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="simlab-project-proposal-and-final-presentation">
+<h1><span class="section-number">4.1.5. </span>SimLab - Project Proposal and Final Presentation<a class="headerlink" href="#simlab-project-proposal-and-final-presentation" title="Permalink to this heading"></a></h1>
+<section id="project-proposal">
+<h2><span class="section-number">4.1.5.1. </span>Project Proposal<a class="headerlink" href="#project-proposal" title="Permalink to this heading"></a></h2>
+<p>Please send your project proposal as pdf by email. Try to use LaTeX. Brief 2 pages are enough.</p>
+<p>Please prepare a proposal with the following sections:</p>
+<ul class="simple">
+<li><p><strong>Objective</strong> (“what”, about 1/2 page): Describe in detail the
+behavior you want so see on the robot. This section <em>must not</em> make
+any statements on what method you are using to create this
+behavior. E.g., saying “using Reinforcement Learning …” is not a
+goal description. Only describe the behavior we can eventually see
+on the robot, as detailed as possible.</p></li>
+<li><p><strong>Workplan</strong> (“how”, about 1 page): Describe how the goal can be
+achieved. The workplan should be organized in small work packages
+(or steps). In particular the first steps should be very clear and
+realistic. In each step, describe what you intend to achieve,
+e.g. demonstration of a simplified behavior, and what methods you
+plan to use to achieve the sub-goal. For each step, try to estimate
+the work effort in terms of time. If you work in a team, mention if
+you split up work packages.</p></li>
+</ul>
+</section>
+<section id="presentation-details">
+<h2><span class="section-number">4.1.5.2. </span>Presentation Details<a class="headerlink" href="#presentation-details" title="Permalink to this heading"></a></h2>
+<p>Here are for the final presentation:</p>
+<ul class="simple">
+<li><p>Each presentation is max 25 minutes in total.</p></li>
+<li><p>Each presentation includes two parts:</p>
+<ul>
+<li><p>A spotlight presentation with video and discussion (15 mins)</p></li>
+<li><p>A live demo during the virtual session (10 mins max) (In the
+offline course, this would be an interactive demo on the robot.)</p></li>
+</ul>
+</li>
+<li><p>In the spotlight presentation you should explain very briefly
+the goal (“what”), briefly the core problems and methods
+(“how”), and the rough system structure (on the software
+level). For this:</p>
+<ul>
+<li><p>Prepare minimalistic, simple bullet point slides (make no efforts
+here, no figures), only to help you talking to us. Copy from your
+project proposal. Maybe around 2-3 slides.</p></li>
+<li><p>But prepare a fancy video! This video is what persists from your
+project for later generations. Make an effort here. See details
+below. You may want to start with the video, and use the bullet
+point slides to give more explanations; or switch between them.</p></li>
+<li><p>If there were no interruptions, the total spotlight should be just
+5-8 minutes. But questions and discussions will make it 15.</p></li>
+</ul>
+</li>
+<li><p>In the demo, run the code live on your computer, perhaps show code
+or play with parameters.</p></li>
+</ul>
+<p>The video should have:</p>
+<ul class="simple">
+<li><p>A proper title slide</p></li>
+<li><p>Some clips (possibly accelerated, like “x5”) cut together</p></li>
+<li><p>Ideally with text/captions explaining things</p></li>
+<li><p>In total perhaps 2 minutes.</p></li>
+</ul>
+<p>Here is an example:
+<a class="reference external" href="https://www.youtube.com/watch?v=1qymi-qon9M">https://www.youtube.com/watch?v=1qymi-qon9M</a></p>
+<p>Preparing a video can be a lot of work. Don’t sink too much time in
+it, but try to generate something that could be submitted to a
+conference. Most Linux/Ubuntu video editing tools are super
+bad. DaVinci Resolve is good, but might crash on Linux. Kdenlive is
+kind of ok.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="simlab4.html" class="btn btn-neutral float-left" title="4.1.4. SimLab Exercise 4 - Grasp" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="komo.html" class="btn btn-neutral float-right" title="4.2. Learning KOMO (K-Order Markov Optimization)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Marc Toussaint.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

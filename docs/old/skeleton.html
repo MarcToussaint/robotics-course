@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning about Skeletons &amp; LGP &mdash; Robotics Course  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Robotics Course
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">1. Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/notebooks.html">2. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../script/script.html">3. Lecture Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="old.html">4. Old Material</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rai.html">5. rai python API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Robotics Course</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Learning about Skeletons &amp; LGP</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="learning-about-skeletons-lgp">
+<h1>Learning about Skeletons &amp; LGP<a class="headerlink" href="#learning-about-skeletons-lgp" title="Permalink to this heading"></a></h1>
+<section id="what-is-lgp">
+<h2>What is LGP?<a class="headerlink" href="#what-is-lgp" title="Permalink to this heading"></a></h2>
+<p>LGP means Logic-Geometric Programming, which means a Mathematical
+Program (=Optimization Problem) which optimizes over both, logic
+decisions and continuous (“geometric”) decisions.</p>
+<p>The logic decisions determine a <em>Skeleton</em>, which basically describes
+in which phases (time intervals) which constraints hold. That Skeleton
+is then translated to a Mathematical Program, either over keyframes
+only or the full smooth path.</p>
+<p>To practically insight to how LGP works, there are two entry points:
+* Use the lgpPlayer to explore what logical decisions are actually possible in a given scene and for given logic. The lgpPlayer (in rai/bin) takes two arguments: the folFile (first-order-logic file, g-file syntax), which describes the generic action operators (1-to-1 to PDDL), and the confFile, which describes the scene (a rai::Configuration, g-file syntax). Note that the frames in the scene description also need logical attributes so that they can appear as constants (objects) in the first order logic.
+* Use the skeletonSolver to explore how a manually defined skeleton translates to a MathematicalProblem and its solution. The skeletonSolver (in rai/bin) takes two arguments: the sktFile (also of g-file syntax), which defines a skeleton in a simplified manner, where you only define a sequence of skeleton predicates that are automatically translated to phase intervals on when the predicates hold, and a confFile, which describes the scene. The skeleton symbols you use here to script a manipulation are exactly the symbols that are produced by effects of action operators in LGP.</p>
+</section>
+<section id="example-skeletons">
+<h2>Example Skeletons<a class="headerlink" href="#example-skeletons" title="Permalink to this heading"></a></h2>
+<p>Let’s start bottom up and consider some example skeletons. From rai/bin/src_skeletonSolver call <code class="docutils literal notranslate"><span class="pre">x.exe</span></code>. The skeleton executed here is</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"> </span><span class="p">[</span><span class="n">touch</span><span class="p">,</span><span class="w"> </span><span class="n">r_gripper</span><span class="p">,</span><span class="w"> </span><span class="n">block1</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="n">stable_</span><span class="p">,</span><span class="w"> </span><span class="n">r_gripper</span><span class="p">,</span><span class="w"> </span><span class="n">block1</span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+<span class="p">{</span><span class="w"> </span><span class="p">[</span><span class="n">above</span><span class="p">,</span><span class="w"> </span><span class="n">block1</span><span class="p">,</span><span class="w"> </span><span class="n">block2</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="n">stableOn_</span><span class="p">,</span><span class="w"> </span><span class="n">block2</span><span class="p">,</span><span class="w"> </span><span class="n">block1</span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+
+<span class="p">{</span><span class="w"> </span><span class="p">[</span><span class="n">touch</span><span class="p">,</span><span class="w"> </span><span class="n">r_gripper</span><span class="p">,</span><span class="w"> </span><span class="n">block2</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="n">stable_</span><span class="p">,</span><span class="w"> </span><span class="n">r_gripper</span><span class="p">,</span><span class="w"> </span><span class="n">block2</span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+<span class="p">{</span><span class="w"> </span><span class="p">[</span><span class="n">above</span><span class="p">,</span><span class="w"> </span><span class="n">block2</span><span class="p">,</span><span class="w"> </span><span class="n">block3</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="n">stableOn_</span><span class="p">,</span><span class="w"> </span><span class="n">block3</span><span class="p">,</span><span class="w"> </span><span class="n">block2</span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+
+<span class="p">{</span><span class="w"> </span><span class="p">[</span><span class="n">touch</span><span class="p">,</span><span class="w"> </span><span class="n">r_gripper</span><span class="p">,</span><span class="w"> </span><span class="n">block3</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="n">stable_</span><span class="p">,</span><span class="w"> </span><span class="n">r_gripper</span><span class="p">,</span><span class="w"> </span><span class="n">block3</span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+<span class="p">{</span><span class="w"> </span><span class="p">[</span><span class="n">above</span><span class="p">,</span><span class="w"> </span><span class="n">block3</span><span class="p">,</span><span class="w"> </span><span class="n">block4</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="n">stableOn_</span><span class="p">,</span><span class="w"> </span><span class="n">block4</span><span class="p">,</span><span class="w"> </span><span class="n">block3</span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+
+<span class="p">{</span><span class="w"> </span><span class="p">[</span><span class="n">touch</span><span class="p">,</span><span class="w"> </span><span class="n">r_gripper</span><span class="p">,</span><span class="w"> </span><span class="n">block4</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="n">stable_</span><span class="p">,</span><span class="w"> </span><span class="n">r_gripper</span><span class="p">,</span><span class="w"> </span><span class="n">block4</span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+<span class="p">{</span><span class="w"> </span><span class="p">[</span><span class="n">above</span><span class="p">,</span><span class="w"> </span><span class="n">block4</span><span class="p">,</span><span class="w"> </span><span class="n">block5</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="n">stableOn_</span><span class="p">,</span><span class="w"> </span><span class="n">block5</span><span class="p">,</span><span class="w"> </span><span class="n">block4</span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+
+<span class="p">{</span><span class="w"> </span><span class="p">[</span><span class="n">touch</span><span class="p">,</span><span class="w"> </span><span class="n">r_gripper</span><span class="p">,</span><span class="w"> </span><span class="n">block5</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="n">stable_</span><span class="p">,</span><span class="w"> </span><span class="n">r_gripper</span><span class="p">,</span><span class="w"> </span><span class="n">block5</span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+<span class="p">{</span><span class="w"> </span><span class="p">[</span><span class="n">above</span><span class="p">,</span><span class="w"> </span><span class="n">block5</span><span class="p">,</span><span class="w"> </span><span class="n">box1</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="n">stableOn_</span><span class="p">,</span><span class="w"> </span><span class="n">box1</span><span class="p">,</span><span class="w"> </span><span class="n">block5</span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+
+<span class="p">{</span><span class="w"> </span><span class="p">[</span><span class="n">end</span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Each list {…} is a time step and lists literals that an action operator might produce in that time step. The first argument of each literal is the symbol. Note that mode switch symbols end with _, which means that are persistent and hold until another mode symbol overwrite the mode for the object. The other symbols are geometric constraints that only hold in that time step.</p>
+<p>This particular skeleton is very repetitive: the robot picks and places five blocks. Note that you could realize concurrent action by adding also geometric constraints and mode switches that concern the left robot in time steps.</p>
+<p>Many things can be explore in the workshop scene: Try to let the left robot pick a stick and let it touch an object picked by the right one.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Marc Toussaint.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
