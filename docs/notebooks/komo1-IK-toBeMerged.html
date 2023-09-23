@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>2.2.2. Inverse Kinematics as Optimization (to be merged) &mdash; Robotics Course  documentation</title>
+  <title>2.2.3. Inverse Kinematics as Optimization (to be merged) &mdash; Robotics Course  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
@@ -23,8 +23,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="2.2.3. Path optimization example" href="komo2-PathOptimization.html" />
-    <link rel="prev" title="2.2.1. Inverse Kinematics as Optimization" href="komo1-IK.html" /> 
+    <link rel="next" title="2.2.4. Path optimization example" href="komo2-PathOptimization.html" />
+    <link rel="prev" title="2.2.2. Importing, Editing &amp; Manipulating Configurations" href="core3-configurations.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -50,21 +50,26 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../getting_started.html">1. Getting Started</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="notebooks.html">2. Tutorials</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="notebooks.html#basics-configurations-features-etc">2.1. Basics: Configurations, Features, etc</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="notebooks.html#komo-optimization-problems-to-design-motion">2.2. KOMO: Optimization Problems to design motion</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="komo1-IK.html">2.2.1. Inverse Kinematics as Optimization</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">2.2.2. Inverse Kinematics as Optimization (to be merged)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#Demo-of-features-in-Inverse-Kinematics">2.2.2.1. Demo of features in Inverse Kinematics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#More-explanations">2.2.2.2. More explanations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks.html#st-round-basics-on-configurations-botop-komo">2.1. 1st Round: Basics on Configurations, BotOp &amp; KOMO</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="notebooks.html#more-in-depth">2.2. More in depth</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="core2-features.html">2.2.1. Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core3-configurations.html">2.2.2. Importing, Editing &amp; Manipulating Configurations</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">2.2.3. Inverse Kinematics as Optimization (to be merged)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Demo-of-features-in-Inverse-Kinematics">2.2.3.1. Demo of features in Inverse Kinematics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#More-explanations">2.2.3.2. More explanations</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="komo2-PathOptimization.html">2.2.3. Path optimization example</a></li>
-<li class="toctree-l3"><a class="reference internal" href="komo2-PathOptimization-toBeMerged.html">2.2.4. Path Optimization (to be merged)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="komo3-switches-skeletons.html">2.2.5. Advanced: Switches &amp; Skeletons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="komo2-PathOptimization.html">2.2.4. Path optimization example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="komo2-PathOptimization-toBeMerged.html">2.2.5. Path Optimization (to be merged)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="komo3-switches-skeletons.html">2.2.6. Advanced: Switches &amp; Skeletons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="botop2-realRobotStarters.html">2.2.7. Starting with a real robot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="botop3-vision.html">2.2.8. First example to grap images from a webcam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="botop4-examples.html">2.2.9. Example for grasping in Sim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sim1-physics.html">2.2.10. Direct simulation interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="opt1-basics.html">2.2.11. Optimization (NLP formulation and solving)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="script5-PathFind.html">2.2.12. Path finding example</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="notebooks.html#botop-interface-to-sim-real">2.3. BotOp: Interface to Sim/Real</a></li>
-<li class="toctree-l2"><a class="reference internal" href="notebooks.html#more">2.4. More</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../script/script.html">3. Lecture Script</a></li>
@@ -87,7 +92,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="notebooks.html"><span class="section-number">2. </span>Tutorials</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">2.2.2. </span>Inverse Kinematics as Optimization (to be merged)</li>
+      <li class="breadcrumb-item active"><span class="section-number">2.2.3. </span>Inverse Kinematics as Optimization (to be merged)</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -97,11 +102,11 @@
            <div itemprop="articleBody">
              
   <section id="Inverse-Kinematics-as-Optimization-(to-be-merged)">
-<h1><span class="section-number">2.2.2. </span>Inverse Kinematics as Optimization (to be merged)<a class="headerlink" href="#Inverse-Kinematics-as-Optimization-(to-be-merged)" title="Permalink to this heading"></a></h1>
+<h1><span class="section-number">2.2.3. </span>Inverse Kinematics as Optimization (to be merged)<a class="headerlink" href="#Inverse-Kinematics-as-Optimization-(to-be-merged)" title="Permalink to this heading"></a></h1>
 <p>TODO: merge with previous. The previous doc explained features and how they define objectives of a constrained optimization problem. Here we show how to use this to solve IK optimization problems.</p>
 <p>At the bottom there is more general text explaining the basic concepts.</p>
 <section id="Demo-of-features-in-Inverse-Kinematics">
-<h2><span class="section-number">2.2.2.1. </span>Demo of features in Inverse Kinematics<a class="headerlink" href="#Demo-of-features-in-Inverse-Kinematics" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">2.2.3.1. </span>Demo of features in Inverse Kinematics<a class="headerlink" href="#Demo-of-features-in-Inverse-Kinematics" title="Permalink to this heading"></a></h2>
 <p>Let’s setup a standard configuration. (Lock the window with “Always on Top”.)</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -249,7 +254,7 @@
 <p>etc etc</p>
 </section>
 <section id="More-explanations">
-<h2><span class="section-number">2.2.2.2. </span>More explanations<a class="headerlink" href="#More-explanations" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">2.2.3.2. </span>More explanations<a class="headerlink" href="#More-explanations" title="Permalink to this heading"></a></h2>
 <p>TODO: check redundancy with script. Rather add more pointers to script! Remove here….</p>
 <p>All methods to compute paths or configurations solve constrained optimization problems. To use them, you need to learn to define constrained optimization problems. Some definitions:</p>
 <ul class="simple">
@@ -338,8 +343,8 @@ constraints.</p></li>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="komo1-IK.html" class="btn btn-neutral float-left" title="2.2.1. Inverse Kinematics as Optimization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="komo2-PathOptimization.html" class="btn btn-neutral float-right" title="2.2.3. Path optimization example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="core3-configurations.html" class="btn btn-neutral float-left" title="2.2.2. Importing, Editing &amp; Manipulating Configurations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="komo2-PathOptimization.html" class="btn btn-neutral float-right" title="2.2.4. Path optimization example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

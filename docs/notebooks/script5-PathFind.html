@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>2.4.3. Path finding example &mdash; Robotics Course  documentation</title>
+  <title>2.2.12. Path finding example &mdash; Robotics Course  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
@@ -24,7 +24,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="3. Lecture Script" href="../script/script.html" />
-    <link rel="prev" title="2.4.2. Optimization (NLP formulation and solving)" href="opt1-basics.html" /> 
+    <link rel="prev" title="2.2.11. Optimization (NLP formulation and solving)" href="opt1-basics.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -50,13 +50,20 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../getting_started.html">1. Getting Started</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="notebooks.html">2. Tutorials</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="notebooks.html#basics-configurations-features-etc">2.1. Basics: Configurations, Features, etc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="notebooks.html#komo-optimization-problems-to-design-motion">2.2. KOMO: Optimization Problems to design motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="notebooks.html#botop-interface-to-sim-real">2.3. BotOp: Interface to Sim/Real</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="notebooks.html#more">2.4. More</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="sim1-physics.html">2.4.1. Direct simulation interface</a></li>
-<li class="toctree-l3"><a class="reference internal" href="opt1-basics.html">2.4.2. Optimization (NLP formulation and solving)</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">2.4.3. Path finding example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks.html#st-round-basics-on-configurations-botop-komo">2.1. 1st Round: Basics on Configurations, BotOp &amp; KOMO</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="notebooks.html#more-in-depth">2.2. More in depth</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="core2-features.html">2.2.1. Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core3-configurations.html">2.2.2. Importing, Editing &amp; Manipulating Configurations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="komo1-IK-toBeMerged.html">2.2.3. Inverse Kinematics as Optimization (to be merged)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="komo2-PathOptimization.html">2.2.4. Path optimization example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="komo2-PathOptimization-toBeMerged.html">2.2.5. Path Optimization (to be merged)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="komo3-switches-skeletons.html">2.2.6. Advanced: Switches &amp; Skeletons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="botop2-realRobotStarters.html">2.2.7. Starting with a real robot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="botop3-vision.html">2.2.8. First example to grap images from a webcam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="botop4-examples.html">2.2.9. Example for grasping in Sim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sim1-physics.html">2.2.10. Direct simulation interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="opt1-basics.html">2.2.11. Optimization (NLP formulation and solving)</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">2.2.12. Path finding example</a></li>
 </ul>
 </li>
 </ul>
@@ -81,7 +88,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="notebooks.html"><span class="section-number">2. </span>Tutorials</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">2.4.3. </span>Path finding example</li>
+      <li class="breadcrumb-item active"><span class="section-number">2.2.12. </span>Path finding example</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -91,7 +98,7 @@
            <div itemprop="articleBody">
              
   <section id="Path-finding-example">
-<h1><span class="section-number">2.4.3. </span>Path finding example<a class="headerlink" href="#Path-finding-example" title="Permalink to this heading"></a></h1>
+<h1><span class="section-number">2.2.12. </span>Path finding example<a class="headerlink" href="#Path-finding-example" title="Permalink to this heading"></a></h1>
 <ul class="simple">
 <li><p>Path finding is using sample-based (RRT) methods rather than constrained optimization to find a collision free path</p></li>
 <li><p>Path finding is much easier if a final robot pose is given. We here use IK (formulated as KOMO problem) to first compute a final configuration ‘qT’. (Path optimization does this jointly with optimizing the path.)</p></li>
@@ -266,7 +273,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="opt1-basics.html" class="btn btn-neutral float-left" title="2.4.2. Optimization (NLP formulation and solving)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="opt1-basics.html" class="btn btn-neutral float-left" title="2.2.11. Optimization (NLP formulation and solving)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="../script/script.html" class="btn btn-neutral float-right" title="3. Lecture Script" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
