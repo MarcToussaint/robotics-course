@@ -149,7 +149,7 @@ in configurations.
 C'tor
 =====
 
-.. automethod:: libry.Config.__init__
+.. automethod:: ry.Config.__init__
 
 Adding frames to the configuration
 ===================================
@@ -157,66 +157,66 @@ Adding frames to the configuration
 A configuration is often initialized by reading it from a file. See
 :ref:`refConfigurationFile` for details on these files.
 
-.. automethod:: libry.Config.addFile
+.. automethod:: ry.Config.addFile
 
 Alternatively, a configuration can also be build up within the code by
 adding more and more frames. See :ref:`refFrame` on how to specify the
 properties of frames.
 
-.. automethod:: libry.Config.addFrame
-.. automethod:: libry.Config.delFrame
-.. automethod:: libry.Config.getFrame
+.. automethod:: ry.Config.addFrame
+.. automethod:: ry.Config.delFrame
+.. automethod:: ry.Config.getFrame
 
 Copy, clear
 ===========
 
-.. automethod:: libry.Config.copy
-.. automethod:: libry.Config.clear
+.. automethod:: ry.Config.copy
+.. automethod:: ry.Config.clear
 
 Joint state: get/set, and selecting active joints
 =================================================
 
-.. automethod:: libry.Config.setJointState
-.. automethod:: libry.Config.getJointNames
-.. automethod:: libry.Config.getJointDimension
-.. automethod:: libry.Config.getJointState
+.. automethod:: ry.Config.setJointState
+.. automethod:: ry.Config.getJointNames
+.. automethod:: ry.Config.getJointDimension
+.. automethod:: ry.Config.getJointState
 		
-.. automethod:: libry.Config.selectJoints
-.. automethod:: libry.Config.selectJointsByTag
+.. automethod:: ry.Config.selectJoints
+.. automethod:: ry.Config.selectJointsByTag
 
 Frame state
 ===========
 
-.. automethod:: libry.Config.setFrameState
-.. automethod:: libry.Config.getFrameNames
+.. automethod:: ry.Config.setFrameState
+.. automethod:: ry.Config.getFrameNames
 
 Features: Anything you might want to compute from Configurations
 ================================================================
 
-.. automethod:: libry.Config.feature
-.. automethod:: libry.Config.evalFeature
+.. automethod:: ry.Config.feature
+.. automethod:: ry.Config.evalFeature
 
 Structural edits
 ================
 
-.. automethod:: libry.Config.attach
-.. automethod:: libry.Config.sortFrames
-.. automethod:: libry.Config.edit
+.. automethod:: ry.Config.attach
+.. automethod:: ry.Config.sortFrames
+.. automethod:: ry.Config.edit
 
 Collision computations
 ======================
 
-.. automethod:: libry.Config.computeCollisions
-.. automethod:: libry.Config.getCollisions
+.. automethod:: ry.Config.computeCollisions
+.. automethod:: ry.Config.getCollisions
 
 
 Functions to create other classes (KOMO, Simulation, viewer, etc)
 =========================================================================
 
-.. automethod:: libry.Config.komo_IK
-.. automethod:: libry.Config.komo_CGO
-.. automethod:: libry.Config.komo_path
-.. libry.Config.bullet
-.. libry.Config.physx
-.. automethod:: libry.Config.simulation
+.. automethod:: ry.Config.komo_IK
+.. automethod:: ry.Config.komo_CGO
+.. automethod:: ry.Config.komo_path
+.. ry.Config.bullet
+.. ry.Config.physx
+.. automethod:: ry.Config.simulation
 

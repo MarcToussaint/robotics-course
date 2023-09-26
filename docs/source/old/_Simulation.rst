@@ -18,7 +18,7 @@ initializes it. The current choices for ``engine`` are PhysX, Bullet,
 and just kinematic (no physics engine). ``verbose=1`` will open a
 display.
 
-.. automethod:: libry.Simulation.__init__
+.. automethod:: ry.Simulation.__init__
 
 Stepping physics
 ================
@@ -36,14 +36,14 @@ perturbations.
 
 ``u_mode`` can be ``none`` for not sending control signals (in which case ``u_control`` can be ``[]``). Otherwise ``u_control`` needs to contain joint positions, velocities or accelerations for all DOFs.
 
-.. automethod:: libry.Simulation.step
+.. automethod:: ry.Simulation.step
 
 As the robot is explicitly controlled, the joint state should be clear
 to the user. Still, for completeness two methods return the current
 joint positions and velocities:
 
-.. automethod:: libry.Simulation.get_q
-.. automethod:: libry.Simulation.get_qDot
+.. automethod:: ry.Simulation.get_q
+.. automethod:: ry.Simulation.get_qDot
 
 		
 Opening & closing the gripper, and gripping state
@@ -57,14 +57,14 @@ separate methods to command grippers and also read out their state.
 The open/close methods need the name of the gripper. The
 speed/width/force are not yet implemented.
 
-.. automethod:: libry.Simulation.get_q
-.. automethod:: libry.Simulation.get_qDot
+.. automethod:: ry.Simulation.get_q
+.. automethod:: ry.Simulation.get_qDot
 
 The gripper width can always be queried. And typical grippers also
 tell you if they have an object in hand:
 
-.. automethod:: libry.Simulation.getGripperWidth
-.. automethod:: libry.Simulation.getGripperIsGrasping
+.. automethod:: ry.Simulation.getGripperWidth
+.. automethod:: ry.Simulation.getGripperIsGrasping
 
 Getting simulated RGB and depth images
 ======================================
@@ -79,8 +79,8 @@ grabs RGB and depth from opengl, and properly transforms depth values
 to have values in meters. Optionally, imps can post-process these
 images to add noise and systematic errors.
 
-.. automethod:: libry.Simulation.getImageAndDepth
-.. automethod:: libry.Simulation.addSensor
+.. automethod:: ry.Simulation.getImageAndDepth
+.. automethod:: ry.Simulation.addSensor
 
 Simulation states: restarting the simulation in previous states
 ===============================================================
@@ -94,9 +94,9 @@ re-instantiate (``getState`` and ``restoreState``) is the exact poses
 and velocities of all frames of the scene. (TODO: Also discrete facts, such as which grippers hold objects, must be stored.) The ``setState`` method
 allows you to directly set arbitrary pose and velocity states.
 
-.. automethod:: libry.Simulation.getState
-.. automethod:: libry.Simulation.restoreState
-.. automethod:: libry.Simulation.setState
+.. automethod:: ry.Simulation.getState
+.. automethod:: ry.Simulation.restoreState
+.. automethod:: ry.Simulation.setState
 
 Helper: depthData2pointCloud
 ============================
@@ -108,4 +108,4 @@ argument ``fxypxy`` need to be four numbers: the focal length (in
 pixel/meters units!) in x and y direction, and the image center (in
 pixel units) in x and y direction.
 
-.. automethod:: libry.Simulation.depthData2pointCloud
+.. automethod:: ry.Simulation.depthData2pointCloud

@@ -2,5 +2,5 @@
 rai python API
 ==============
 
-.. automodule:: ry
+.. automodule:: robotic.ry
    :members:

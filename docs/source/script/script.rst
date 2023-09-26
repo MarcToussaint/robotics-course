@@ -1960,7 +1960,7 @@ Specifically, you specify a transform by chaining:
 Joint types
 ~~~~~~~~~~~
 
-The ``libry.JT`` enum (in python; or rai::JointType in C++) lists all
+The ``ry.JT`` enum (in python; or rai::JointType in C++) lists all
 available joint type. Currently these are:
 
 ::

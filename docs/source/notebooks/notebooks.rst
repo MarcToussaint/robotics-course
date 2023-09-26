@@ -17,6 +17,8 @@ All tutorials are jupyter notebooks, downloadable from https://github.com/MarcTo
 More in depth
 =============
 
+These need consolidation, cleaning, and merging with the 'old material'.
+
 .. toctree::
    :glob:
    :maxdepth: 1

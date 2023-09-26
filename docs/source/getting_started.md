@@ -43,8 +43,9 @@ A standard test is
 
 ## Installing the tutorial notebooks
 
-    git clone <https://github.com/MarcToussaint/rai-python.git> cd
-	rai-python/notebooks jupyter-notebook .
+    git clone https://github.com/MarcToussaint/rai-python.git
+	cd rai-python/notebooks
+	jupyter-notebook .
 
 If you don't have jupyter installed yet:
 
