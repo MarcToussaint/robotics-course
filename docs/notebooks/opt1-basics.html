@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>2.2.11. Optimization (NLP formulation and solving) &mdash; Robotics Course  documentation</title>
+  <title>2.2.8. Optimization (NLP formulation and solving) &mdash; Robotics Python Library  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
@@ -23,8 +23,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="2.2.12. Path finding example" href="script5-PathFind.html" />
-    <link rel="prev" title="2.2.10. Direct simulation interface" href="sim1-physics.html" /> 
+    <link rel="next" title="2.2.9. Path finding example" href="script5-PathFind.html" />
+    <link rel="prev" title="2.2.7. Direct simulation interface" href="sim1-physics.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -36,7 +36,7 @@
           
           
           <a href="../index.html" class="icon icon-home">
-            Robotics Course
+            Robotics Python Library
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -49,21 +49,18 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../getting_started.html">1. Getting Started</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="notebooks.html">2. Tutorials</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="notebooks.html#st-round-basics-on-configurations-botop-komo">2.1. 1st Round: Basics on Configurations, BotOp &amp; KOMO</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="notebooks.html#more-in-depth">2.2. More in depth</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../notebooks.html">2. Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../notebooks.html#st-round-basics-on-configurations-botop-komo">2.1. 1st Round: Basics on Configurations, BotOp &amp; KOMO</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../notebooks.html#more-in-depth">2.2. More in depth</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="core2-features.html">2.2.1. Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="core3-configurations.html">2.2.2. Importing, Editing &amp; Manipulating Configurations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="komo1-IK-toBeMerged.html">2.2.3. Inverse Kinematics as Optimization (to be merged)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="komo2-PathOptimization.html">2.2.4. Path optimization example</a></li>
-<li class="toctree-l3"><a class="reference internal" href="komo2-PathOptimization-toBeMerged.html">2.2.5. Path Optimization (to be merged)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="komo3-switches-skeletons.html">2.2.6. Advanced: Switches &amp; Skeletons</a></li>
-<li class="toctree-l3"><a class="reference internal" href="botop2-realRobotStarters.html">2.2.7. Starting with a real robot</a></li>
-<li class="toctree-l3"><a class="reference internal" href="botop3-vision.html">2.2.8. First example to grap images from a webcam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="botop4-examples.html">2.2.9. Example for grasping in Sim</a></li>
-<li class="toctree-l3"><a class="reference internal" href="sim1-physics.html">2.2.10. Direct simulation interface</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">2.2.11. Optimization (NLP formulation and solving)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="script5-PathFind.html">2.2.12. Path finding example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="komo2-PathOptimization.html">2.2.3. Path optimization example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="komo3-switches-skeletons.html">2.2.4. Advanced: Switches &amp; Skeletons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="botop3-vision.html">2.2.5. First example to grap images from a webcam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="botop4-examples.html">2.2.6. Example for grasping in Sim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sim1-physics.html">2.2.7. Direct simulation interface</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">2.2.8. Optimization (NLP formulation and solving)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="script5-PathFind.html">2.2.9. Path finding example</a></li>
 </ul>
 </li>
 </ul>
@@ -79,7 +76,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Robotics Course</a>
+          <a href="../index.html">Robotics Python Library</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -87,8 +84,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="notebooks.html"><span class="section-number">2. </span>Tutorials</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">2.2.11. </span>Optimization (NLP formulation and solving)</li>
+          <li class="breadcrumb-item"><a href="../notebooks.html"><span class="section-number">2. </span>Tutorials</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">2.2.8. </span>Optimization (NLP formulation and solving)</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -98,7 +95,7 @@
            <div itemprop="articleBody">
              
   <section id="Optimization-(NLP-formulation-and-solving)">
-<h1><span class="section-number">2.2.11. </span>Optimization (NLP formulation and solving)<a class="headerlink" href="#Optimization-(NLP-formulation-and-solving)" title="Permalink to this heading"></a></h1>
+<h1><span class="section-number">2.2.8. </span>Optimization (NLP formulation and solving)<a class="headerlink" href="#Optimization-(NLP-formulation-and-solving)" title="Permalink to this heading"></a></h1>
 <p>This is completely independent from all robotics code. Provides a generic interface to NLP formulation and calling various solvers.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -187,8 +184,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="sim1-physics.html" class="btn btn-neutral float-left" title="2.2.10. Direct simulation interface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="script5-PathFind.html" class="btn btn-neutral float-right" title="2.2.12. Path finding example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="sim1-physics.html" class="btn btn-neutral float-left" title="2.2.7. Direct simulation interface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="script5-PathFind.html" class="btn btn-neutral float-right" title="2.2.9. Path finding example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

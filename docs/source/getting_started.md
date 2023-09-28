@@ -1,6 +1,6 @@
 # Getting Started
 
-## Quick install
+## Quick Install
 
 Install the `robotic` python package. On a standard Ubuntu, the
 following should be sufficient:
@@ -13,7 +13,7 @@ A standard test is
     python3 -c 'from robotic import ry; print("ry version:", ry.__version__, ry.compiled());'
     python3 -c 'from robotic import ry; ry.test.RndScene()'
 
-## Avanced info
+## Compiling from Source & Docstrings
 
 * **Compiling for the real robot:** The `robotic` pip package does not
   have the real robot drivers (for the Panda robot) included, and

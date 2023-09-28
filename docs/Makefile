@@ -16,7 +16,7 @@ help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 clean:
-	rm -Rf notebooks tut script old *.html _static _sources searchindex.js objects.inv .doctrees/
+	rm -Rf notebooks tut script old *.html _static _sources searchindex.js objects.inv _images/ .doctrees/
 
 .PHONY: help Makefile
 

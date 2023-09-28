@@ -1,28 +1,25 @@
-=====================================
- Welcome to the Robotics Course Repo
-=====================================
+=========================================================
+Robotic Control Interface & Manipulation Planning Library
+=========================================================
 
-Github repo: https://github.com/MarcToussaint/robotics-course
+A python library to operate a real or simulated robot, work with
+robot/world configurations, compute differentiable features, formulate
+and solve constrained optimization problems (for inverse kinematics,
+path optimization, and manipulation planning), and interfacing to
+various physical simulation engines.
 
-This repository is used in three lectures:
-
-* The Introduction To Robotics lecture at `U Stuttgart <https://www.user.tu-berlin.de/mtoussai/teaching/14-Robotics/>`_
-* The Lab Course with the Real Baxter we offered for some years at `U Stuttgart <https://ipvs.informatik.uni-stuttgart.de/mlr/teaching/practical-course-robotics-ss-19/>`_
-* And now the Lab Course using simulation at both, TU Berlin and U Stuttgart
-
-They all share the same core code, but have quite different
-installation setups and exercises. Embedded below are exercises for
-the lab course in simulation, and generic documentation of the
-code. The code documentation refers to python interfaces -- but these
-are almost identical to how users should use C++.
-  
+These python bindings were developed for easier access to the underlying
+[C++](https://github.com/MarcToussaint/rai) code base, esp. for teaching and students. This code base is how we, in
+the (Learning & Intelligent Systems
+Lab)[https://argmin.lis.tu-berlin.de/], operate our robots.
+ 
 .. toctree::
    :maxdepth: 3
    :numbered:
    :caption: Contents:
 
    getting_started
-   notebooks/notebooks
+   notebooks
    script/script
    old/old
    rai

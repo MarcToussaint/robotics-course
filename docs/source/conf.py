@@ -51,7 +51,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'Robotics Course'
+project = 'Robotics Python Library'
 copyright = '2023, Marc Toussaint'
 author = 'Marc Toussaint'
 
