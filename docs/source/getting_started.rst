@@ -1,7 +1,7 @@
 Getting Started
 ===============
 
-Quick install
+Quick Install
 -------------
 
 Install the ``robotic`` python package. On a standard Ubuntu, the
@@ -19,21 +19,24 @@ A standard test is
    python3 -c 'from robotic import ry; print("ry version:", ry.__version__, ry.compiled());'
    python3 -c 'from robotic import ry; ry.test.RndScene()'
 
-Avanced info
-------------
+Compiling from Source & Docstrings
+----------------------------------
 
 -  **Compiling for the real robot:** The ``robotic`` pip package does
-   not have the real robot drivers (for the Panda robot) included, and
-   therefore only supports simulation mode. However, the interface and
-   code is designed so that everything directly transfers to the real
-   robot: All you have to do is re-compile the python package on your
-   machine, including the libfranka and librealsense drivers. This is
-   done by installing the USE PDFLATEX! package.
--  **Sources for the wheel:** The pip package is created with the
-   following repo: USE PDFLATEX!. The hardest part was to create a
-   Docker that compiles ALL the many dependencies as static libraries in
-   a CentOS - once that’s done, the botop lib can be compiled in a
-   compatible manner, not depending on shared libs.
+   not have the real robot drivers (for the Franka Panda robot)
+   included, and therefore only supports simulation mode. However, the
+   interface and code is designed so that everything directly transfers
+   to the real robot: All you have to do is re-compile the python
+   package on your machine, including the libfranka and librealsense
+   drivers. This is done by installing the
+   `rai-python <https://github.com/MarcToussaint/rai-python>`__ package.
+-  **Sources for the wheel:** The pip package is created also created
+   with the
+   `rai-python <https://github.com/MarcToussaint/rai-python>`__. The
+   hardest part was to create a Docker that compiles ALL the many
+   dependencies as static libraries in a CentOS - once that’s done, the
+   lib can be compiled in a compatible manner, not depending on shared
+   libs.
 -  **Docstrings and tab completion for ry:** When you code in an IDE
    (e.g. VS code), you definitely want to have tab completion and
    docstrings for the methods. The ry module is compiled using pybind11
@@ -46,7 +49,7 @@ Avanced info
    completion for ry classes and methods.
 
    If tab-autocomplete for jupyter does not work, try
-   ``pip3 install   --user jedi==0.17.2``
+   ``python3 -m pip install --user jedi==0.17.2``
 
 Installing the tutorial notebooks
 ---------------------------------

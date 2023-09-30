@@ -50,7 +50,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../getting_started.html">1. Getting Started</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../notebooks.html">2. Tutorials</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../notebooks.html#st-round-basics-on-configurations-botop-komo">2.1. 1st Round: Basics on Configurations, BotOp &amp; KOMO</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../notebooks.html#basics-on-configurations-botop-komo">2.1. Basics on Configurations, BotOp &amp; KOMO</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">2.1.1. Configurations</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#Adding-frames-to-a-configuration">2.1.1.1. Adding frames to a configuration</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#Loading-existing-configurations">2.1.1.2. Loading existing configurations</a></li>
@@ -64,7 +64,7 @@
 <li class="toctree-l3"><a class="reference internal" href="1d-real.html">2.1.4. Starting with a real robot</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../notebooks.html#more-in-depth">2.2. More in depth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks.html#in-depth">2.2. In Depth</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../script/script.html">3. Lecture Script</a></li>
@@ -396,6 +396,28 @@ joint state: [0.1]
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">setFrameState</span><span class="p">(</span><span class="n">X0</span><span class="p">)</span>
 <span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>## Selecting joints</p>
+<p>Often one would like to choose which joints are actually active, that is, which joints are referred to in q. This allows one to sub-select joints and work only with projections of the full configuration state. This changes the joint state dimensionality, including ordering of entries in q. The frame state is not affected by such a selection of active joints.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">selectJoints</span><span class="p">([</span><span class="s1">&#39;panda_joint1&#39;</span><span class="p">,</span> <span class="s1">&#39;panda_joint1&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;joint state: &#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">getJointState</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;joint names: &#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">getJointNames</span><span class="p">()</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">selectJoints</span><span class="p">([],</span> <span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;joint state: &#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">getJointState</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;joint names: &#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">getJointNames</span><span class="p">()</span> <span class="p">)</span>
 </pre></div>
 </div>
 </div>

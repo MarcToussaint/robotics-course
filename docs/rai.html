@@ -106,11 +106,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.getJointDimension"><code class="docutils literal notranslate"><span class="pre">Config.getJointDimension()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.getJointNames"><code class="docutils literal notranslate"><span class="pre">Config.getJointNames()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.getJointState"><code class="docutils literal notranslate"><span class="pre">Config.getJointState()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.getTotalPenetration"><code class="docutils literal notranslate"><span class="pre">Config.getTotalPenetration()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.makeObjectsConvex"><code class="docutils literal notranslate"><span class="pre">Config.makeObjectsConvex()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.makeObjectsFree"><code class="docutils literal notranslate"><span class="pre">Config.makeObjectsFree()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.report"><code class="docutils literal notranslate"><span class="pre">Config.report()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.selectJoints"><code class="docutils literal notranslate"><span class="pre">Config.selectJoints()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.selectJointsByTag"><code class="docutils literal notranslate"><span class="pre">Config.selectJointsByTag()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.setFrameState"><code class="docutils literal notranslate"><span class="pre">Config.setFrameState()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.setJointState"><code class="docutils literal notranslate"><span class="pre">Config.setJointState()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.setJointStateSlice"><code class="docutils literal notranslate"><span class="pre">Config.setJointStateSlice()</span></code></a></li>
@@ -684,6 +684,12 @@
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="robotic.ry.Config.getTotalPenetration">
+<span class="sig-name descname"><span class="pre">getTotalPenetration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.Config" title="robotic.ry.Config"><span class="pre">robotic.ry.Config</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#robotic.ry.Config.getTotalPenetration" title="Permalink to this definition"></a></dt>
+<dd><p>returns the sum of all penetrations</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="robotic.ry.Config.makeObjectsConvex">
 <span class="sig-name descname"><span class="pre">makeObjectsConvex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.Config" title="robotic.ry.Config"><span class="pre">robotic.ry.Config</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#robotic.ry.Config.makeObjectsConvex" title="Permalink to this definition"></a></dt>
 <dd><p>remake all meshes associated with all frames to become their convex hull</p>
@@ -704,12 +710,6 @@
 <dt class="sig sig-object py" id="robotic.ry.Config.selectJoints">
 <span class="sig-name descname"><span class="pre">selectJoints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.Config" title="robotic.ry.Config"><span class="pre">robotic.ry.Config</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">jointNames</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">notThose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#robotic.ry.Config.selectJoints" title="Permalink to this definition"></a></dt>
 <dd><p>redefine what are considered the DOFs of this configuration: only joints listed in jointNames are considered part of the joint state and define the number of DOFs</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="robotic.ry.Config.selectJointsByTag">
-<span class="sig-name descname"><span class="pre">selectJointsByTag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.Config" title="robotic.ry.Config"><span class="pre">robotic.ry.Config</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">jointGroups</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#robotic.ry.Config.selectJointsByTag" title="Permalink to this definition"></a></dt>
-<dd><p>redefine what are considered the DOFs of this configuration: only joint that have a tag listed in jointGroups are considered part of the joint state and define the number of DOFs</p>
 </dd></dl>
 
 <dl class="py method">

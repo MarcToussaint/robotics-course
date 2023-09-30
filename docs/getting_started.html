@@ -46,8 +46,8 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">1. Getting Started</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#quick-install">1.1. Quick install</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#avanced-info">1.2. Avanced info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#quick-install">1.1. Quick Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#compiling-from-source-docstrings">1.2. Compiling from Source &amp; Docstrings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#installing-the-tutorial-notebooks">1.3. Installing the tutorial notebooks</a></li>
 </ul>
 </li>
@@ -83,7 +83,7 @@
   <section id="getting-started">
 <h1><span class="section-number">1. </span>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading"></a></h1>
 <section id="quick-install">
-<h2><span class="section-number">1.1. </span>Quick install<a class="headerlink" href="#quick-install" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">1.1. </span>Quick Install<a class="headerlink" href="#quick-install" title="Permalink to this heading"></a></h2>
 <p>Install the <code class="docutils literal notranslate"><span class="pre">robotic</span></code> python package. On a standard Ubuntu, the
 following should be sufficient:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">liblapack3</span> <span class="n">freeglut3</span> <span class="n">libglew</span><span class="o">-</span><span class="n">dev</span> <span class="n">python3</span> <span class="n">python3</span><span class="o">-</span><span class="n">pip</span>
@@ -96,21 +96,24 @@ following should be sufficient:</p>
 </pre></div>
 </div>
 </section>
-<section id="avanced-info">
-<h2><span class="section-number">1.2. </span>Avanced info<a class="headerlink" href="#avanced-info" title="Permalink to this heading"></a></h2>
+<section id="compiling-from-source-docstrings">
+<h2><span class="section-number">1.2. </span>Compiling from Source &amp; Docstrings<a class="headerlink" href="#compiling-from-source-docstrings" title="Permalink to this heading"></a></h2>
 <ul>
 <li><p><strong>Compiling for the real robot:</strong> The <code class="docutils literal notranslate"><span class="pre">robotic</span></code> pip package does
-not have the real robot drivers (for the Panda robot) included, and
-therefore only supports simulation mode. However, the interface and
-code is designed so that everything directly transfers to the real
-robot: All you have to do is re-compile the python package on your
-machine, including the libfranka and librealsense drivers. This is
-done by installing the USE PDFLATEX! package.</p></li>
-<li><p><strong>Sources for the wheel:</strong> The pip package is created with the
-following repo: USE PDFLATEX!. The hardest part was to create a
-Docker that compiles ALL the many dependencies as static libraries in
-a CentOS - once that’s done, the botop lib can be compiled in a
-compatible manner, not depending on shared libs.</p></li>
+not have the real robot drivers (for the Franka Panda robot)
+included, and therefore only supports simulation mode. However, the
+interface and code is designed so that everything directly transfers
+to the real robot: All you have to do is re-compile the python
+package on your machine, including the libfranka and librealsense
+drivers. This is done by installing the
+<a class="reference external" href="https://github.com/MarcToussaint/rai-python">rai-python</a> package.</p></li>
+<li><p><strong>Sources for the wheel:</strong> The pip package is created also created
+with the
+<a class="reference external" href="https://github.com/MarcToussaint/rai-python">rai-python</a>. The
+hardest part was to create a Docker that compiles ALL the many
+dependencies as static libraries in a CentOS - once that’s done, the
+lib can be compiled in a compatible manner, not depending on shared
+libs.</p></li>
 <li><p><strong>Docstrings and tab completion for ry:</strong> When you code in an IDE
 (e.g. VS code), you definitely want to have tab completion and
 docstrings for the methods. The ry module is compiled using pybind11
@@ -122,7 +125,7 @@ to the <code class="docutils literal notranslate"><span class="pre">ry.py</span>
 Ensure that after installing <code class="docutils literal notranslate"><span class="pre">robotic</span></code>, your IDE supports tab
 completion for ry classes and methods.</p>
 <p>If tab-autocomplete for jupyter does not work, try
-<code class="docutils literal notranslate"><span class="pre">pip3</span> <span class="pre">install</span>&#160;&#160; <span class="pre">--user</span> <span class="pre">jedi==0.17.2</span></code></p>
+<code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--user</span> <span class="pre">jedi==0.17.2</span></code></p>
 </li>
 </ul>
 </section>

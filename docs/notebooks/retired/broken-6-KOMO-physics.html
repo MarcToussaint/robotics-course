@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>&lt;no title&gt; &mdash; Robotics Python Library  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/nbsphinx-code-cells.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Robotics Python Library
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">1. Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks.html">2. Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../script/script.html">3. Lecture Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../old/old.html">4. Old Material</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rai.html">5. rai python API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Robotics Python Library</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">&lt;no title&gt;</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../build&#39;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">libry</span> <span class="k">as</span> <span class="nn">ry</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># load and display a configuration</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span>
+<span class="n">C</span><span class="o">.</span><span class="n">addFile</span><span class="p">(</span><span class="s1">&#39;../test/boxProblem.g&#39;</span><span class="p">)</span>
+<span class="n">D</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+<span class="n">C</span><span class="o">.</span><span class="n">getFrameNames</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a standard path optimization problem with 4 phases, each of .2 seconds, and 10 steps</span>
+<span class="n">komo</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">komo_path</span><span class="p">(</span><span class="mf">5.</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">.2</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create tau-DOFs (time intervals) in the optimization problem and add respective constraints</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addTimeOptimization</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># take one object, and first &#39;switch&#39; it to become freely movable without costs,</span>
+<span class="c1"># then, starting at phase .7, make it dynamic (imposing NE equations)</span>
+<span class="n">obj</span> <span class="o">=</span> <span class="s1">&#39;ballR&#39;</span>
+<span class="c1">#komo.addSwitch_magic(.0, &#39;base&#39;, obj)</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">makeObjectsFree</span><span class="p">([</span><span class="s2">&quot;ballR&quot;</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># (old) a way to constrain the object position to be &#39;before&#39; the box before phase 0.2</span>
+<span class="c1">#komo.addObjective(time=[0., .2], type=OT.ineq, feature=FS.position, frames=[obj], scaleTrans=[[0.,1.,0.]], target=[1.])</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># objectives for collision (permanent) and target (at phase-time 4.)</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addObjective</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">ry</span><span class="o">.</span><span class="n">OT</span><span class="o">.</span><span class="n">sos</span><span class="p">,</span> <span class="n">feature</span><span class="o">=</span><span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">accumulatedCollisions</span><span class="p">)</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addObjective</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="p">[</span><span class="mf">5.</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="n">ry</span><span class="o">.</span><span class="n">OT</span><span class="o">.</span><span class="n">eq</span><span class="p">,</span> <span class="n">feature</span><span class="o">=</span><span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">distance</span><span class="p">,</span> <span class="n">frames</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">,</span> <span class="n">obj</span><span class="p">],</span> <span class="n">scale</span><span class="o">=</span><span class="p">[</span><span class="mf">3e1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># simple structure of this solution: bounce on the bottom of the box at times 1, 2, and 3</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addSwitch_dynamicTrans</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.</span><span class="p">,</span> <span class="s1">&#39;base&#39;</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addInteraction_elasticBounce</span><span class="p">(</span><span class="mf">2.</span><span class="p">,</span> <span class="s2">&quot;boxBo&quot;</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="mf">.8</span><span class="p">)</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addInteraction_elasticBounce</span><span class="p">(</span><span class="mf">3.</span><span class="p">,</span> <span class="s2">&quot;boxBo&quot;</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="mf">.8</span><span class="p">)</span>
+<span class="n">komo</span><span class="o">.</span><span class="n">addInteraction_elasticBounce</span><span class="p">(</span><span class="mf">4.</span><span class="p">,</span> <span class="s2">&quot;boxBo&quot;</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="mf">.8</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">komo</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">komoView</span> <span class="o">=</span> <span class="n">komo</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">komo</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># read out solution: the full frame path, the tau path (time optimization), list of interaction forces</span>
+<span class="n">obj_path</span> <span class="o">=</span> <span class="n">komo</span><span class="o">.</span><span class="n">getPathFrames</span><span class="p">([</span><span class="n">obj</span><span class="p">])</span>
+<span class="n">tau_path</span> <span class="o">=</span> <span class="n">komo</span><span class="o">.</span><span class="n">getPathTau</span><span class="p">()</span>
+<span class="n">forces</span> <span class="o">=</span> <span class="n">komo</span><span class="o">.</span><span class="n">getForceInteractions</span><span class="p">()</span>
+<span class="n">forces</span>
+</pre></div>
+</div>
+</div>
+<p>Conversion from steps to phase and time:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>phase=0 is the FIXED initial configuration and corresponds to step=-1
+step=0 is the first configuration s.t. optimization
+\tau(s) gives the time between step s-1 and step s
+phase(step s) = (s+1)/stepsPerPhase
+time(step s) = sum i=0:s tau(i)
+</pre></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">D</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">komoView</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">komo</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">C</span><span class="o">=</span><span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Marc Toussaint.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
