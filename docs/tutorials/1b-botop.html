@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Robot Operation (BotOp) interface &mdash; Robotics Python Library  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="KOMO: Motion Optimization" href="1c-komo.html" />
+    <link rel="prev" title="Configurations" href="1a-configurations.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Robotics Python Library
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../tutorials.html#basics-on-configurations-botop-komo">Basics on Configurations, BotOp &amp; KOMO</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="1a-configurations.html">Configurations</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Robot Operation (BotOp) interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1c-komo.html">KOMO: Motion Optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1d-real.html">Starting with a real robot</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#in-depth">In Depth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#preliminary">Preliminary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../script/script.html">Lecture Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../old/old.html">Old Material</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rai.html">rai python API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Robotics Python Library</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../tutorials.html">Tutorials</a></li>
+      <li class="breadcrumb-item active">Robot Operation (BotOp) interface</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Robot-Operation-(BotOp)-interface">
+<h1>Robot Operation (BotOp) interface<a class="headerlink" href="#Robot-Operation-(BotOp)-interface" title="Permalink to this heading"></a></h1>
+<p>This describes basics to interact with a real or simulated robot. The BotOp (=robot operation) interface is very narrow. The move methods set/overwrite a spline reference for the robot. (Also compliance around the reference can be set.) The gripper methods operate grippers. The getImage.. methods grab images or point clouds from the camera.</p>
+<p>This interface different to a more <em>generic physical simulation</em> interface. If you’re interested in the latter (e.g. to implement a gym environment) look at the <code class="docutils literal notranslate"><span class="pre">Simulation</span></code> tutorial. The simulation used here is a real-time threaded process that mimics the specific BotOp interface – to make it swappable with a real robot.</p>
+<p>The simulation can be run in many different modes: pure kinematic (no physics for objects), a physics simulator with physics for objects but still kinematic robot, a physic simulator with PD motors for the robot.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">robotic</span> <span class="kn">import</span> <span class="n">ry</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">time</span>
+</pre></div>
+</div>
+</div>
+<p>ry has global parameters, that can be defined in <code class="docutils literal notranslate"><span class="pre">rai.cfg</span></code> or with the following calls. The simulation behaves very differently depending on <code class="docutils literal notranslate"><span class="pre">botim/engine</span></code> [physx or kinematic] and <code class="docutils literal notranslate"><span class="pre">multibody</span></code></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ry</span><span class="o">.</span><span class="n">params_add</span><span class="p">({</span><span class="s1">&#39;botsim/verbose&#39;</span><span class="p">:</span> <span class="mf">2.</span><span class="p">,</span> <span class="s1">&#39;physx/motorKp&#39;</span><span class="p">:</span> <span class="mf">10000.</span><span class="p">,</span> <span class="s1">&#39;physx/motorKd&#39;</span><span class="p">:</span> <span class="mf">1000.</span><span class="p">})</span>
+<span class="n">ry</span><span class="o">.</span><span class="n">params_add</span><span class="p">({</span><span class="s1">&#39;botsim/engine&#39;</span><span class="p">:</span> <span class="s1">&#39;physx&#39;</span><span class="p">})</span> <span class="c1">#makes a big difference!</span>
+<span class="n">ry</span><span class="o">.</span><span class="n">params_add</span><span class="p">({</span><span class="s1">&#39;physx/multibody&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span> <span class="c1">#makes a big difference!</span>
+<span class="n">ry</span><span class="o">.</span><span class="n">params_print</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+-- ry.cpp:operator():99(0) python,
+message: &#34;Hello, the local &#39;rai.cfg&#39; was loaded&#34;,
+botsim/verbose: 2,
+physx/motorKp: 10000,
+physx/motorKd: 1000,
+botsim/engine: physx,
+physx/multibody: 1
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span>
+<span class="n">C</span><span class="o">.</span><span class="n">addFile</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">raiPath</span><span class="p">(</span><span class="s1">&#39;../rai-robotModels/scenarios/pandaSingle.g&#39;</span><span class="p">))</span>
+<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;this is your workspace data structure C -- NOT THE SIMULTATION&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
+</div>
+<p>We open a robot interface in simulation (False). True would directly open communication to one or two pandas (depending no how many are defined in C). The <code class="docutils literal notranslate"><span class="pre">botsim/verbose</span></code> above leads to the explicit verbosity when creating the simulator interface.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bot</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">BotOp</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="c1">#note that in sim, when physx multibody is activated, arms are going down! free floating...</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+-- kin_physx.cpp:PhysXInterface:768(0) starting PhysX engine ...
+-- kin_physx.cpp:addGround:238(0) ... done starting PhysX engine
+-- kin_physx.cpp:addGround:239(0) creating Configuration within PhysX ...
+-- kin_physx.cpp:addLink:254(0) adding link &#39;world&#39; as static with 1 shapes
+ table
+-- kin_physx.cpp:addMultiBody:466(0) adding multibody with base &#39;l_panda_base&#39; with the following links ...
+-- kin_physx.cpp:addMultiBody:486(0) adding multibody link &#39;l_panda_base&#39; as kinematic with 1 shapes
+ l_panda_link0_0
+-- kin_physx.cpp:addMultiBody:486(0) adding multibody link &#39;l_panda_joint1&#39; as dynamic with 1 shapes
+ l_panda_link1_0
+-- kin_physx.cpp:addMultiBody:486(0) adding multibody link &#39;l_panda_joint2&#39; as dynamic with 2 shapes
+ l_panda_link2_0 bellybutton
+-- kin_physx.cpp:addMultiBody:486(0) adding multibody link &#39;l_panda_joint3&#39; as dynamic with 1 shapes
+ l_panda_link3_0
+-- kin_physx.cpp:addMultiBody:486(0) adding multibody link &#39;l_panda_joint4&#39; as dynamic with 1 shapes
+ l_panda_link4_0
+-- kin_physx.cpp:addMultiBody:486(0) adding multibody link &#39;l_panda_joint5&#39; as dynamic with 1 shapes
+ l_panda_link5_0
+-- kin_physx.cpp:addMultiBody:486(0) adding multibody link &#39;l_panda_joint6&#39; as dynamic with 1 shapes
+ l_panda_link6_0
+-- kin_physx.cpp:addMultiBody:486(0) adding multibody link &#39;l_panda_joint7&#39; as dynamic with 2 shapes
+ l_panda_link7_0 l_panda_hand_0
+-- kin_physx.cpp:addMultiBody:486(0) adding multibody link &#39;l_panda_finger_joint1&#39; as dynamic with 1 shapes
+ l_panda_leftfinger_0
+-- kin_physx.cpp:addMultiBody:486(0) adding multibody link &#39;l_panda_finger_joint2&#39; as dynamic with 1 shapes
+ l_panda_rightfinger_0
+-- kin_physx.cpp:addMultiBody:592(0) ... done with multibody with base &#39;l_panda_base&#39;
+-- kin_physx.cpp:PhysXInterface:805(0) ... done creating Configuration within PhysX
+</pre></div></div>
+</div>
+<p>We define 2 reference poses, q0=home and q1=(2nd joint bend), so that we can move back and forth between them</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qHome</span> <span class="o">=</span> <span class="n">bot</span><span class="o">.</span><span class="n">get_qHome</span><span class="p">()</span>
+<span class="n">q0</span> <span class="o">=</span> <span class="n">qHome</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">q1</span> <span class="o">=</span> <span class="n">q0</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">q1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">q1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">.2</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">q0</span><span class="p">,</span> <span class="n">q1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[ 0.  -0.5  0.  -2.   0.   2.  -0.5] [ 0.  -0.3  0.  -2.   0.   2.  -0.5]
+</pre></div></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">moveTo</span></code> is the simplest way to move the robot from current to target. It internally creates a spline to the target with optimal timing and follows it. The call is <em>non-blocking</em>. Also, your workspace config C is not kept in sync with the real/sim. If you want to wait till the motion is finished, you need to do manually checking the /time_til_end_of_reference_spline/, and meanwhile staying sync’ed.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bot</span><span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="n">q1</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="n">bot</span><span class="o">.</span><span class="n">getTimeToEnd</span><span class="p">()</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+    <span class="n">bot</span><span class="o">.</span><span class="n">sync</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="mf">.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The internal spline reference can be appended: As <code class="docutils literal notranslate"><span class="pre">moveTo</span></code> is non-blocking, you can append several moves like this:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;timeToEnd:&#39;</span><span class="p">,</span> <span class="n">bot</span><span class="o">.</span><span class="n">getTimeToEnd</span><span class="p">())</span>
+<span class="n">bot</span><span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="n">q0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;timeToEnd:&#39;</span><span class="p">,</span> <span class="n">bot</span><span class="o">.</span><span class="n">getTimeToEnd</span><span class="p">())</span>
+<span class="n">bot</span><span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="n">q1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;timeToEnd:&#39;</span><span class="p">,</span> <span class="n">bot</span><span class="o">.</span><span class="n">getTimeToEnd</span><span class="p">())</span>
+<span class="n">bot</span><span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="n">q0</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="n">bot</span><span class="o">.</span><span class="n">getTimeToEnd</span><span class="p">()</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+    <span class="n">bot</span><span class="o">.</span><span class="n">sync</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="mf">.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+timeToEnd: -0.073524058876411
+timeToEnd: 1.0957189420649807
+timeToEnd: 2.191437884129961
+</pre></div></div>
+</div>
+<p>Setting splines becomes reactive, when we can smoothly overwrite the spline reference with high frequency. Let’s create a randomly moving target object and track it.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#this reference frame only appears in your workspace C - not the simulation!</span>
+<span class="n">target</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="s1">&#39;target&#39;</span><span class="p">,</span> <span class="s1">&#39;table&#39;</span><span class="p">)</span>
+<span class="n">target</span><span class="o">.</span><span class="n">setShape</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">ST</span><span class="o">.</span><span class="n">marker</span><span class="p">,</span> <span class="p">[</span><span class="mf">.1</span><span class="p">])</span>
+<span class="n">target</span><span class="o">.</span><span class="n">setRelativePosition</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">.3</span><span class="p">,</span> <span class="mf">.3</span><span class="p">])</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">getPosition</span><span class="p">()</span>
+<span class="n">cen</span> <span class="o">=</span> <span class="n">pos</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># you&#39;ll learn about KOMO later - this defines a basic Inverse Kinematics method</span>
+<span class="k">def</span> <span class="nf">IK</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">pos</span><span class="p">):</span>
+    <span class="n">q0</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">getJointState</span><span class="p">()</span>
+    <span class="n">komo</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">KOMO</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="c1">#one phase one time slice problem, with &#39;delta_t=1&#39;, order=0</span>
+    <span class="n">komo</span><span class="o">.</span><span class="n">addObjective</span><span class="p">([],</span> <span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">jointState</span><span class="p">,</span> <span class="p">[],</span> <span class="n">ry</span><span class="o">.</span><span class="n">OT</span><span class="o">.</span><span class="n">sos</span><span class="p">,</span> <span class="p">[</span><span class="mf">1e-1</span><span class="p">],</span> <span class="n">q0</span><span class="p">)</span> <span class="c1">#cost: close to &#39;current state&#39;</span>
+    <span class="n">komo</span><span class="o">.</span><span class="n">addObjective</span><span class="p">([],</span> <span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">jointState</span><span class="p">,</span> <span class="p">[],</span> <span class="n">ry</span><span class="o">.</span><span class="n">OT</span><span class="o">.</span><span class="n">sos</span><span class="p">,</span> <span class="p">[</span><span class="mf">1e-1</span><span class="p">],</span> <span class="n">qHome</span><span class="p">)</span> <span class="c1">#cost: close to qHome</span>
+    <span class="n">komo</span><span class="o">.</span><span class="n">addObjective</span><span class="p">([],</span> <span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">positionDiff</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;l_gripper&#39;</span><span class="p">,</span> <span class="s1">&#39;target&#39;</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">OT</span><span class="o">.</span><span class="n">eq</span><span class="p">,</span> <span class="p">[</span><span class="mf">1e1</span><span class="p">])</span> <span class="c1">#constraint: gripper position</span>
+
+    <span class="n">ret</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">NLP_Solver</span><span class="p">(</span><span class="n">komo</span><span class="o">.</span><span class="n">nlp</span><span class="p">(),</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">.</span><span class="n">solve</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="p">[</span><span class="n">komo</span><span class="o">.</span><span class="n">getPath</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ret</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<p>The following is just ‘setting’ the workspace C to the IK solution - no motion send to the real/robot:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">.1</span><span class="p">)</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">cen</span> <span class="o">+</span> <span class="mf">.98</span> <span class="o">*</span> <span class="p">(</span><span class="n">pos</span><span class="o">-</span><span class="n">cen</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.02</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">target</span><span class="o">.</span><span class="n">setPosition</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+
+    <span class="n">q_target</span><span class="p">,</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">IK</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span>
+    <span class="n">C</span><span class="o">.</span><span class="n">setJointState</span><span class="p">(</span><span class="n">q_target</span><span class="p">)</span>
+    <span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{ time: 0.005057, evals: 6, done: 1, feasible: 1, sos: 0.00789171, f: 0, ineq: 0, eq: 0.00138392 }
+{ time: 0.001435, evals: 4, done: 1, feasible: 1, sos: 0.0055078, f: 0, ineq: 0, eq: 0.00038073 }
+{ time: 0.001453, evals: 3, done: 1, feasible: 1, sos: 0.00485786, f: 0, ineq: 0, eq: 0.0031066 }
+{ time: 0.000382, evals: 3, done: 1, feasible: 1, sos: 0.00552496, f: 0, ineq: 0, eq: 0.00285066 }
+{ time: 0.000871, evals: 4, done: 1, feasible: 1, sos: 0.00481289, f: 0, ineq: 0, eq: 0.000176548 }
+{ time: 0.000181, evals: 3, done: 1, feasible: 1, sos: 0.00416384, f: 0, ineq: 0, eq: 0.00404598 }
+{ time: 0.001811, evals: 3, done: 1, feasible: 1, sos: 0.00394648, f: 0, ineq: 0, eq: 0.00118522 }
+{ time: 0.000637, evals: 3, done: 1, feasible: 1, sos: 0.00410849, f: 0, ineq: 0, eq: 0.00429565 }
+{ time: 0.001591, evals: 4, done: 1, feasible: 1, sos: 0.00454469, f: 0, ineq: 0, eq: 0.000211266 }
+{ time: 0.000784, evals: 3, done: 1, feasible: 1, sos: 0.00470588, f: 0, ineq: 0, eq: 0.00357698 }
+{ time: 0.000942, evals: 3, done: 1, feasible: 1, sos: 0.00478467, f: 0, ineq: 0, eq: 0.00148874 }
+{ time: 0.001108, evals: 3, done: 1, feasible: 1, sos: 0.00457452, f: 0, ineq: 0, eq: 0.00162474 }
+{ time: 0.001451, evals: 4, done: 1, feasible: 1, sos: 0.005894, f: 0, ineq: 0, eq: 0.000439926 }
+{ time: 0.002882, evals: 3, done: 1, feasible: 1, sos: 0.00540869, f: 0, ineq: 0, eq: 0.0027726 }
+{ time: 0.001624, evals: 4, done: 1, feasible: 1, sos: 0.00720508, f: 0, ineq: 0, eq: 0.00069492 }
+{ time: 0.001267, evals: 4, done: 1, feasible: 1, sos: 0.0075089, f: 0, ineq: 0, eq: 0.000505518 }
+{ time: 0.002128, evals: 3, done: 1, feasible: 1, sos: 0.0078162, f: 0, ineq: 0, eq: 0.0019024 }
+{ time: 0.001489, evals: 3, done: 1, feasible: 1, sos: 0.00831903, f: 0, ineq: 0, eq: 0.00241169 }
+{ time: 0.005757, evals: 4, done: 1, feasible: 1, sos: 0.0106921, f: 0, ineq: 0, eq: 0.000467631 }
+{ time: 0.001208, evals: 4, done: 1, feasible: 1, sos: 0.0115667, f: 0, ineq: 0, eq: 0.000478951 }
+</pre></div></div>
+</div>
+<p>We now generate reative motion by smoothly overwriting the spline reference. Increasing time cost makes it more agressive (penalized total duration of estimated cubic spline).</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">bot</span><span class="o">.</span><span class="n">sync</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="mf">.1</span><span class="p">)</span> <span class="c1">#keep the workspace C sync&#39;ed to real/sim, and idle .1 sec</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">cen</span> <span class="o">+</span> <span class="mf">.98</span> <span class="o">*</span> <span class="p">(</span><span class="n">pos</span><span class="o">-</span><span class="n">cen</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.02</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">target</span><span class="o">.</span><span class="n">setPosition</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+
+    <span class="n">q_target</span><span class="p">,</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">IK</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span>
+    <span class="n">bot</span><span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="n">q_target</span><span class="p">,</span> <span class="n">timeCost</span><span class="o">=</span><span class="mf">5.</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Good practise is to always allow a user aborting motion execution. In this example, key ‘q’ will break the loop and call a home() (which is the same as moveTo(qHome, 1., True)</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+    <span class="n">bot</span><span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="n">q1</span><span class="p">)</span>
+    <span class="n">bot</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">C</span><span class="p">)</span> <span class="c1">#same as &#39;loop sync til keypressed or endOfTime&#39;, but also raises user window</span>
+    <span class="k">if</span> <span class="n">bot</span><span class="o">.</span><span class="n">getKeyPressed</span><span class="p">()</span><span class="o">==</span><span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="n">bot</span><span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="n">q0</span><span class="p">)</span>
+    <span class="n">bot</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">bot</span><span class="o">.</span><span class="n">getKeyPressed</span><span class="p">()</span><span class="o">==</span><span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>
+        <span class="k">break</span><span class="p">;</span>
+
+<span class="n">bot</span><span class="o">.</span><span class="n">home</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>gripper movements also do not block:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bot</span><span class="o">.</span><span class="n">gripperMove</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">_left</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">.02</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="ow">not</span> <span class="n">bot</span><span class="o">.</span><span class="n">gripperDone</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">_left</span><span class="p">):</span>
+    <span class="n">bot</span><span class="o">.</span><span class="n">sync</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="mf">.1</span><span class="p">)</span>
+
+<span class="n">bot</span><span class="o">.</span><span class="n">gripperMove</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">_left</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">.075</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="ow">not</span> <span class="n">bot</span><span class="o">.</span><span class="n">gripperDone</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">_left</span><span class="p">):</span>
+    <span class="n">bot</span><span class="o">.</span><span class="n">sync</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="mf">.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Always close the bot/sim properly:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">bot</span>
+<span class="k">del</span> <span class="n">C</span>
+</pre></div>
+</div>
+</div>
+<p>As a side note, we can always check which global config parameters have been queried by the code so far. That gives an idea of which global parameters exist:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ry</span><span class="o">.</span><span class="n">params_print</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="1a-configurations.html" class="btn btn-neutral float-left" title="Configurations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="1c-komo.html" class="btn btn-neutral float-right" title="KOMO: Motion Optimization" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Marc Toussaint.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

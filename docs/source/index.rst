@@ -14,11 +14,10 @@ Systems Lab <https://argmin.lis.tu-berlin.de/>`_, operate our robots.
  
 .. toctree::
    :maxdepth: 3
-   :numbered:
    :caption: Contents:
 
    getting_started
-   notebooks
+   tutorials
    script/script
    old/old
    rai

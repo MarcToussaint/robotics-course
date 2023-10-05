@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>4.1.4. SimLab Exercise 4 - Grasp &mdash; Robotics Python Library  documentation</title>
+  <title>SimLab Exercise 4 - Grasp &mdash; Robotics Python Library  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -20,8 +20,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4.1.5. SimLab - Project Proposal and Final Presentation" href="simlab5.html" />
-    <link rel="prev" title="4.1.3. SimLab Exercise 3 - OpenCV" href="simlab3.html" /> 
+    <link rel="next" title="SimLab - Project Proposal and Final Presentation" href="simlab5.html" />
+    <link rel="prev" title="SimLab Exercise 3 - OpenCV" href="simlab3.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,32 +45,32 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">1. Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../notebooks.html">2. Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../script/script.html">3. Lecture Script</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="old.html">4. Old Material</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="simlab.html">4.1. Lab Course in Simulation</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="simlab1.html">4.1.1. SimLab Exercise 1 - Basic Setup</a></li>
-<li class="toctree-l3"><a class="reference internal" href="simlab2.html">4.1.2. SimLab Exercise 2 - Motion</a></li>
-<li class="toctree-l3"><a class="reference internal" href="simlab3.html">4.1.3. SimLab Exercise 3 - OpenCV</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">4.1.4. SimLab Exercise 4 - Grasp</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#a-grasp-lift-drop-a-hopping-ball">4.1.4.1. a) Grasp, lift &amp; drop a hopping ball</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#b-throw-the-ball">4.1.4.2. b) Throw the ball</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#c-bonus-and-for-a-box">4.1.4.3. c) Bonus: …and for a box</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../script/script.html">Lecture Script</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="old.html">Old Material</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="simlab.html">Lab Course in Simulation</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="simlab1.html">SimLab Exercise 1 - Basic Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simlab2.html">SimLab Exercise 2 - Motion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simlab3.html">SimLab Exercise 3 - OpenCV</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">SimLab Exercise 4 - Grasp</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#a-grasp-lift-drop-a-hopping-ball">a) Grasp, lift &amp; drop a hopping ball</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#b-throw-the-ball">b) Throw the ball</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#c-bonus-and-for-a-box">c) Bonus: …and for a box</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="simlab5.html">4.1.5. SimLab - Project Proposal and Final Presentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simlab5.html">SimLab - Project Proposal and Final Presentation</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="komo.html">4.2. Learning KOMO (K-Order Markov Optimization)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_Configuration.html">4.3. Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_ConfigurationFiles.html">4.4. .g-files to describe robot configurations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_Graph.html">4.5. Graph and .g-files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_Simulation.html">4.6. Simulation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_Array.html">4.7. Array</a></li>
+<li class="toctree-l2"><a class="reference internal" href="komo.html">Learning KOMO (K-Order Markov Optimization)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Configuration.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_ConfigurationFiles.html">.g-files to describe robot configurations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Graph.html">Graph and .g-files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Simulation.html">Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Array.html">Array</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../rai.html">5. rai python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rai.html">rai python API</a></li>
 </ul>
 
         </div>
@@ -87,9 +87,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="old.html"><span class="section-number">4. </span>Old Material</a></li>
-          <li class="breadcrumb-item"><a href="simlab.html"><span class="section-number">4.1. </span>Lab Course in Simulation</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">4.1.4. </span>SimLab Exercise 4 - Grasp</li>
+          <li class="breadcrumb-item"><a href="old.html">Old Material</a></li>
+          <li class="breadcrumb-item"><a href="simlab.html">Lab Course in Simulation</a></li>
+      <li class="breadcrumb-item active">SimLab Exercise 4 - Grasp</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -99,7 +99,7 @@
            <div itemprop="articleBody">
              
   <section id="simlab-exercise-4-grasp">
-<h1><span class="section-number">4.1.4. </span>SimLab Exercise 4 - Grasp<a class="headerlink" href="#simlab-exercise-4-grasp" title="Permalink to this heading"></a></h1>
+<h1>SimLab Exercise 4 - Grasp<a class="headerlink" href="#simlab-exercise-4-grasp" title="Permalink to this heading"></a></h1>
 <p>Before new exercises, always update the repo:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd $HOME/git/robotics-course
 git pull
@@ -118,7 +118,7 @@ previous exercise. You can always use the cheat perception to debug
 your perception pipeline.</p></li>
 </ul>
 <section id="a-grasp-lift-drop-a-hopping-ball">
-<h2><span class="section-number">4.1.4.1. </span>a) Grasp, lift &amp; drop a hopping ball<a class="headerlink" href="#a-grasp-lift-drop-a-hopping-ball" title="Permalink to this heading"></a></h2>
+<h2>a) Grasp, lift &amp; drop a hopping ball<a class="headerlink" href="#a-grasp-lift-drop-a-hopping-ball" title="Permalink to this heading"></a></h2>
 <p>In <code class="docutils literal notranslate"><span class="pre">05-grasp</span></code> you already find a minimal setting where a dropping
 and hopping ball is grasped. The hopping is realized in simulation by
 an <em>imp</em> – which is a little callback code that can perturb the state
@@ -146,13 +146,13 @@ grasp the hopping ball reliably.</p></li>
 </ol>
 </section>
 <section id="b-throw-the-ball">
-<h2><span class="section-number">4.1.4.2. </span>b) Throw the ball<a class="headerlink" href="#b-throw-the-ball" title="Permalink to this heading"></a></h2>
+<h2>b) Throw the ball<a class="headerlink" href="#b-throw-the-ball" title="Permalink to this heading"></a></h2>
 <p>Do everything as above, but instead of just dropping the ball, throw
 it (far) using the robot. How can you design a motion that has a
 desired object velocity ad the point of <code class="docutils literal notranslate"><span class="pre">openGripper</span></code>?</p>
 </section>
 <section id="c-bonus-and-for-a-box">
-<h2><span class="section-number">4.1.4.3. </span>c) Bonus: …and for a box<a class="headerlink" href="#c-bonus-and-for-a-box" title="Permalink to this heading"></a></h2>
+<h2>c) Bonus: …and for a box<a class="headerlink" href="#c-bonus-and-for-a-box" title="Permalink to this heading"></a></h2>
 <p>Repeating the above exercise for a box is rather involved, esp. if you do not cheat perception and have to retrieve the box orientation (long axis) using opencv. Therefore, for this exercise it is fine for you to use cheat perception.</p>
 <ol class="arabic simple">
 <li><p>Replace the red sphere by a sphere-swept box of size <code class="docutils literal notranslate"><span class="pre">[.06,</span> <span class="pre">.06,</span>
@@ -172,8 +172,8 @@ design a good box grasp? (Cf. Exercise 2)</p></li>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="simlab3.html" class="btn btn-neutral float-left" title="4.1.3. SimLab Exercise 3 - OpenCV" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="simlab5.html" class="btn btn-neutral float-right" title="4.1.5. SimLab - Project Proposal and Final Presentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="simlab3.html" class="btn btn-neutral float-left" title="SimLab Exercise 3 - OpenCV" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="simlab5.html" class="btn btn-neutral float-right" title="SimLab - Project Proposal and Final Presentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

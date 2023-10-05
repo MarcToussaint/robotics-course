@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>4.6. Simulation &mdash; Robotics Python Library  documentation</title>
+  <title>Simulation &mdash; Robotics Python Library  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -20,8 +20,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4.7. Array" href="_Array.html" />
-    <link rel="prev" title="4.5. Graph and .g-files" href="_Graph.html" /> 
+    <link rel="next" title="Array" href="_Array.html" />
+    <link rel="prev" title="Graph and .g-files" href="_Graph.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,28 +45,28 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">1. Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../notebooks.html">2. Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../script/script.html">3. Lecture Script</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="old.html">4. Old Material</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="simlab.html">4.1. Lab Course in Simulation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="komo.html">4.2. Learning KOMO (K-Order Markov Optimization)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_Configuration.html">4.3. Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_ConfigurationFiles.html">4.4. .g-files to describe robot configurations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_Graph.html">4.5. Graph and .g-files</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">4.6. Simulation</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#c-tor">4.6.1. C’tor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#stepping-physics">4.6.2. Stepping physics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#opening-closing-the-gripper-and-gripping-state">4.6.3. Opening &amp; closing the gripper, and gripping state</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#getting-simulated-rgb-and-depth-images">4.6.4. Getting simulated RGB and depth images</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#simulation-states-restarting-the-simulation-in-previous-states">4.6.5. Simulation states: restarting the simulation in previous states</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#helper-depthdata2pointcloud">4.6.6. Helper: depthData2pointCloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../script/script.html">Lecture Script</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="old.html">Old Material</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="simlab.html">Lab Course in Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="komo.html">Learning KOMO (K-Order Markov Optimization)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Configuration.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_ConfigurationFiles.html">.g-files to describe robot configurations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Graph.html">Graph and .g-files</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Simulation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#c-tor">C’tor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stepping-physics">Stepping physics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#opening-closing-the-gripper-and-gripping-state">Opening &amp; closing the gripper, and gripping state</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#getting-simulated-rgb-and-depth-images">Getting simulated RGB and depth images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#simulation-states-restarting-the-simulation-in-previous-states">Simulation states: restarting the simulation in previous states</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#helper-depthdata2pointcloud">Helper: depthData2pointCloud</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="_Array.html">4.7. Array</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Array.html">Array</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../rai.html">5. rai python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rai.html">rai python API</a></li>
 </ul>
 
         </div>
@@ -83,8 +83,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="old.html"><span class="section-number">4. </span>Old Material</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">4.6. </span>Simulation</li>
+          <li class="breadcrumb-item"><a href="old.html">Old Material</a></li>
+      <li class="breadcrumb-item active">Simulation</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -94,21 +94,21 @@
            <div itemprop="articleBody">
              
   <section id="simulation">
-<span id="refsimulation"></span><h1><span class="section-number">4.6. </span>Simulation<a class="headerlink" href="#simulation" title="Permalink to this heading"></a></h1>
+<span id="refsimulation"></span><h1>Simulation<a class="headerlink" href="#simulation" title="Permalink to this heading"></a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">Simulation</span></code> class attaches a physics engine to a configuration,
 allows to step physics on that configuration and to control joints by
 position, velocity, or accelerations, grab simulated RGB and depth
 images, and add “adverserial imps” (that is, callback methods that
 perturb the controls, configuration, or sensor signals in some way).</p>
 <section id="c-tor">
-<h2><span class="section-number">4.6.1. </span>C’tor<a class="headerlink" href="#c-tor" title="Permalink to this heading"></a></h2>
+<h2>C’tor<a class="headerlink" href="#c-tor" title="Permalink to this heading"></a></h2>
 <p>The c’tor attaches a physics engine to the given configuration and
 initializes it. The current choices for <code class="docutils literal notranslate"><span class="pre">engine</span></code> are PhysX, Bullet,
 and just kinematic (no physics engine). <code class="docutils literal notranslate"><span class="pre">verbose=1</span></code> will open a
 display.</p>
 </section>
 <section id="stepping-physics">
-<h2><span class="section-number">4.6.2. </span>Stepping physics<a class="headerlink" href="#stepping-physics" title="Permalink to this heading"></a></h2>
+<h2>Stepping physics<a class="headerlink" href="#stepping-physics" title="Permalink to this heading"></a></h2>
 <p>The core methods steps a physics engine. This distinguishes between
 dynamic objects, which are governed by the laws of physics of the
 physics engine, and kinematic objects, which typically are the robot
@@ -125,7 +125,7 @@ to the user. Still, for completeness two methods return the current
 joint positions and velocities:</p>
 </section>
 <section id="opening-closing-the-gripper-and-gripping-state">
-<h2><span class="section-number">4.6.3. </span>Opening &amp; closing the gripper, and gripping state<a class="headerlink" href="#opening-closing-the-gripper-and-gripping-state" title="Permalink to this heading"></a></h2>
+<h2>Opening &amp; closing the gripper, and gripping state<a class="headerlink" href="#opening-closing-the-gripper-and-gripping-state" title="Permalink to this heading"></a></h2>
 <p>Many real grippers are controlled differently to standard robot
 joints: They receive a signal to close and do so until a force limit
 is reached. Similarly for opening. Therefore also this simulation has
@@ -136,7 +136,7 @@ speed/width/force are not yet implemented.</p>
 tell you if they have an object in hand:</p>
 </section>
 <section id="getting-simulated-rgb-and-depth-images">
-<h2><span class="section-number">4.6.4. </span>Getting simulated RGB and depth images<a class="headerlink" href="#getting-simulated-rgb-and-depth-images" title="Permalink to this heading"></a></h2>
+<h2>Getting simulated RGB and depth images<a class="headerlink" href="#getting-simulated-rgb-and-depth-images" title="Permalink to this heading"></a></h2>
 <p>Using OpenGL it is straight-forward to grab an RGB and depth image
 from a camera. The Simulation allows you to specify a camera by
 referring to a camera frame of the configuration, which should have
@@ -148,7 +148,7 @@ to have values in meters. Optionally, imps can post-process these
 images to add noise and systematic errors.</p>
 </section>
 <section id="simulation-states-restarting-the-simulation-in-previous-states">
-<h2><span class="section-number">4.6.5. </span>Simulation states: restarting the simulation in previous states<a class="headerlink" href="#simulation-states-restarting-the-simulation-in-previous-states" title="Permalink to this heading"></a></h2>
+<h2>Simulation states: restarting the simulation in previous states<a class="headerlink" href="#simulation-states-restarting-the-simulation-in-previous-states" title="Permalink to this heading"></a></h2>
 <p>It is often disirable to restart a physical simulation in an exact
 same state that has been visited before. This is often missing in
 standard physics engines. Infact, also the following methods are
@@ -159,7 +159,7 @@ and velocities of all frames of the scene. (TODO: Also discrete facts, such as w
 allows you to directly set arbitrary pose and velocity states.</p>
 </section>
 <section id="helper-depthdata2pointcloud">
-<h2><span class="section-number">4.6.6. </span>Helper: depthData2pointCloud<a class="headerlink" href="#helper-depthdata2pointcloud" title="Permalink to this heading"></a></h2>
+<h2>Helper: depthData2pointCloud<a class="headerlink" href="#helper-depthdata2pointcloud" title="Permalink to this heading"></a></h2>
 <p>This should acutally be declared somewhere else. In C++ it is a global
 method within the Perception code. A helper to convert a depth image
 (already in meters) to a set of 3D points (a (W*H)x3-matrix). The
@@ -173,8 +173,8 @@ pixel units) in x and y direction.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="_Graph.html" class="btn btn-neutral float-left" title="4.5. Graph and .g-files" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="_Array.html" class="btn btn-neutral float-right" title="4.7. Array" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="_Graph.html" class="btn btn-neutral float-left" title="Graph and .g-files" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="_Array.html" class="btn btn-neutral float-right" title="Array" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

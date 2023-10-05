@@ -4,6 +4,6 @@
 [submodule "rai-robotModels"]
 	path = rai-robotModels
 	url = https://github.com/Jung-Su/rai-robotModels.git
-[submodule "rai-python"]
-	path = rai-python
-	url = https://github.com/MarcToussaint/rai-python.git
+[submodule "rai-tutorials"]
+	path = rai-tutorials
+	url = https://github.com/MarcToussaint/rai-tutorials.git

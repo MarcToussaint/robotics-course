@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configurations &mdash; Robotics Python Library  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Robot Operation (BotOp) interface" href="1b-botop.html" />
+    <link rel="prev" title="Tutorials" href="../tutorials.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Robotics Python Library
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../tutorials.html#basics-on-configurations-botop-komo">Basics on Configurations, BotOp &amp; KOMO</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Configurations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Adding-frames-to-a-configuration">Adding frames to a configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Loading-existing-configurations">Loading existing configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Features:-computing-geometric-properties">Features: computing geometric properties</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Joint-and-Frame-State">Joint and Frame State</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#View-interaction-and-releasing-objects">View interaction and releasing objects</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="1b-botop.html">Robot Operation (BotOp) interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1c-komo.html">KOMO: Motion Optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1d-real.html">Starting with a real robot</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#in-depth">In Depth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#preliminary">Preliminary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../script/script.html">Lecture Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../old/old.html">Old Material</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rai.html">rai python API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Robotics Python Library</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../tutorials.html">Tutorials</a></li>
+      <li class="breadcrumb-item active">Configurations</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Configurations">
+<h1>Configurations<a class="headerlink" href="#Configurations" title="Permalink to this heading"></a></h1>
+<p>A configuration is essentially a set of (coordinate) frames, where each frame can represent a shape, joint, inertia, etc. This tutorial introduces to basics of creating &amp; loading configurations, the joint and frame state, computing features, and handling the view window.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">robotic</span> <span class="kn">import</span> <span class="n">ry</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">compiled</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+compile time: Sep 30 2023 22:39:07
+</pre></div></div>
+</div>
+<section id="Adding-frames-to-a-configuration">
+<h2>Adding frames to a configuration<a class="headerlink" href="#Adding-frames-to-a-configuration" title="Permalink to this heading"></a></h2>
+<p>The starting point is to create a <code class="docutils literal notranslate"><span class="pre">Configuration</span></code>:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span>
+<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
+</div>
+<p>This shows an empty configuration. Tip: Make the view window appear “Always On Top” (right click on the window bar)</p>
+<p>A configuration is essentially a tree (or forrest) of frames. You usually add models from files, but let’s do it manually here.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">setShape</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">ry</span><span class="o">.</span><span class="n">ST</span><span class="o">.</span><span class="n">marker</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">[</span><span class="mf">.4</span><span class="p">])</span>
+<span class="n">f</span><span class="o">.</span><span class="n">setPosition</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span><span class="mf">0.</span><span class="p">,</span><span class="mf">.5</span><span class="p">])</span>
+<span class="n">f</span><span class="o">.</span><span class="n">setQuaternion</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">.3</span><span class="p">,</span> <span class="mf">.0</span><span class="p">,</span> <span class="mf">.0</span><span class="p">])</span> <span class="c1">#is normalized internally</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;frame name:&#39;</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;pos:&#39;</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">getPosition</span><span class="p">(),</span> <span class="s1">&#39;quat:&#39;</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">getQuaternion</span><span class="p">())</span>
+<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+frame name: first pos: [0.  0.  0.5] quat: [0.95782629 0.28734789 0.         0.        ]
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
+</div>
+<p>Let’s add a second frame, but with first as parent and with a hinge joint!</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;second&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">setJoint</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">JT</span><span class="o">.</span><span class="n">hingeX</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">setShape</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">ry</span><span class="o">.</span><span class="n">ST</span><span class="o">.</span><span class="n">marker</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">[</span><span class="mf">.4</span><span class="p">])</span>
+<span class="n">f</span><span class="o">.</span><span class="n">setColor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;frame name:&#39;</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;pos:&#39;</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">getPosition</span><span class="p">(),</span> <span class="s1">&#39;quat:&#39;</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">getQuaternion</span><span class="p">())</span>
+<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+frame name: second pos: [0.  0.  0.5] quat: [-0.95782629 -0.28734789 -0.         -0.        ]
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
+</div>
+<p>Since we now have a configuration with a joint, we can articulate it:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">q</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">getJointState</span><span class="p">()</span>
+<span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">.1</span>
+<span class="n">C</span><span class="o">.</span><span class="n">setJointState</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;joint state:&#39;</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span>
+<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+joint state: [0.1]
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
+</div>
+<p>Other examples to add:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="s1">&#39;ball&#39;</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">)</span> <span class="o">.</span><span class="n">setShape</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">ST</span><span class="o">.</span><span class="n">sphere</span><span class="p">,</span> <span class="p">[</span><span class="mf">.1</span><span class="p">])</span> <span class="o">.</span><span class="n">setColor</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span><span class="mf">.5</span><span class="p">,</span><span class="mf">.0</span><span class="p">])</span> <span class="o">.</span><span class="n">setRelativePosition</span><span class="p">([</span><span class="o">-</span><span class="mf">.3</span><span class="p">,</span><span class="mf">.0</span><span class="p">,</span><span class="mf">.2</span><span class="p">])</span>
+<span class="n">C</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="s1">&#39;box&#39;</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">)</span> <span class="o">.</span><span class="n">setShape</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">ST</span><span class="o">.</span><span class="n">ssBox</span><span class="p">,</span> <span class="p">[</span><span class="mf">.3</span><span class="p">,</span><span class="mf">.2</span><span class="p">,</span><span class="mf">.1</span><span class="p">,</span><span class="mf">.02</span><span class="p">])</span> <span class="o">.</span><span class="n">setColor</span><span class="p">([</span><span class="mf">.5</span><span class="p">,</span><span class="mf">1.</span><span class="p">,</span><span class="mf">.0</span><span class="p">])</span> <span class="o">.</span><span class="n">setRelativePosition</span><span class="p">([</span><span class="mf">.0</span><span class="p">,</span><span class="mf">.0</span><span class="p">,</span><span class="mf">.2</span><span class="p">])</span>
+<span class="n">C</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="s1">&#39;capsule&#39;</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">)</span> <span class="o">.</span><span class="n">setShape</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">ST</span><span class="o">.</span><span class="n">capsule</span><span class="p">,</span> <span class="p">[</span><span class="mf">.3</span><span class="p">,</span> <span class="mf">.05</span><span class="p">])</span> <span class="o">.</span><span class="n">setColor</span><span class="p">([</span><span class="mf">.0</span><span class="p">,</span><span class="mf">1.</span><span class="p">,</span><span class="mf">.5</span><span class="p">])</span> <span class="o">.</span><span class="n">setRelativePosition</span><span class="p">([</span><span class="mf">.3</span><span class="p">,</span><span class="mf">.0</span><span class="p">,</span><span class="mf">.2</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">C</span><span class="o">.</span><span class="n">setJointState</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mf">.1</span><span class="o">*</span><span class="n">t</span><span class="p">)])</span>
+    <span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Loading-existing-configurations">
+<h2>Loading existing configurations<a class="headerlink" href="#Loading-existing-configurations" title="Permalink to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="n">C</span><span class="o">.</span><span class="n">addFile</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">raiPath</span><span class="p">(</span><span class="s1">&#39;panda/panda.g&#39;</span><span class="p">))</span>
+<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
+</div>
+<p>Let’s add a second panda, but prefix all frame names, and move it to the side</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">addFile</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">raiPath</span><span class="p">(</span><span class="s1">&#39;panda/panda.g&#39;</span><span class="p">),</span> <span class="s1">&#39;r_&#39;</span><span class="p">)</span>
+<span class="n">base_r</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">getFrame</span><span class="p">(</span><span class="s1">&#39;r_panda_base&#39;</span><span class="p">)</span>
+<span class="n">base_r</span><span class="o">.</span><span class="n">setPosition</span><span class="p">([</span><span class="mf">.0</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.0</span><span class="p">])</span>
+<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
+</div>
+<p>We can get the joint state of the full configuration:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">getJointState</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;joints:&#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">getJointNames</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;frames:&#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">getFrameNames</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[ 0.   -1.    0.   -2.    0.    2.    0.    0.05  0.   -1.    0.   -2.
+  0.    2.    0.    0.05]
+joints: [&#39;panda_joint1&#39;, &#39;panda_joint2&#39;, &#39;panda_joint3&#39;, &#39;panda_joint4&#39;, &#39;panda_joint5&#39;, &#39;panda_joint6&#39;, &#39;panda_joint7&#39;, &#39;panda_finger_joint1panda_finger_joint2&#39;, &#39;r_panda_joint1&#39;, &#39;r_panda_joint2&#39;, &#39;r_panda_joint3&#39;, &#39;r_panda_joint4&#39;, &#39;r_panda_joint5&#39;, &#39;r_panda_joint6&#39;, &#39;r_panda_joint7&#39;, &#39;r_panda_finger_joint1r_panda_finger_joint2&#39;]
+frames: [&#39;panda_base&#39;, &#39;panda_link0&#39;, &#39;panda_link0_0&#39;, &#39;panda_joint1_origin&#39;, &#39;panda_joint1&#39;, &#39;panda_link1&#39;, &#39;panda_link1_0&#39;, &#39;panda_joint2_origin&#39;, &#39;panda_joint2&#39;, &#39;panda_link2&#39;, &#39;panda_link2_0&#39;, &#39;panda_joint3_origin&#39;, &#39;panda_joint3&#39;, &#39;panda_link3&#39;, &#39;panda_link3_0&#39;, &#39;panda_joint4_origin&#39;, &#39;panda_joint4&#39;, &#39;panda_link4&#39;, &#39;panda_link4_0&#39;, &#39;panda_joint5_origin&#39;, &#39;panda_joint5&#39;, &#39;panda_link5&#39;, &#39;panda_link5_0&#39;, &#39;panda_joint6_origin&#39;, &#39;panda_joint6&#39;, &#39;panda_link6&#39;, &#39;panda_link6_0&#39;, &#39;panda_joint7_origin&#39;, &#39;panda_joint7&#39;, &#39;panda_link7&#39;, &#39;panda_link7_0&#39;, &#39;panda_joint8_origin&#39;, &#39;panda_joint8&#39;, &#39;panda_link8&#39;, &#39;panda_hand_joint_origin&#39;, &#39;panda_hand_joint&#39;, &#39;panda_hand&#39;, &#39;panda_hand_0&#39;, &#39;panda_finger_joint1_origin&#39;, &#39;panda_finger_joint2_origin&#39;, &#39;panda_finger_joint1&#39;, &#39;panda_finger_joint2&#39;, &#39;panda_leftfinger&#39;, &#39;panda_rightfinger&#39;, &#39;panda_leftfinger_0&#39;, &#39;panda_rightfinger_0&#39;, &#39;panda_coll0&#39;, &#39;panda_coll0b&#39;, &#39;panda_coll1&#39;, &#39;panda_coll3&#39;, &#39;panda_coll5&#39;, &#39;panda_coll2&#39;, &#39;panda_coll4&#39;, &#39;panda_coll6&#39;, &#39;panda_coll7&#39;, &#39;gripper&#39;, &#39;palm&#39;, &#39;finger1&#39;, &#39;finger2&#39;, &#39;r_panda_base&#39;, &#39;r_panda_link0&#39;, &#39;r_panda_link0_0&#39;, &#39;r_panda_joint1_origin&#39;, &#39;r_panda_joint1&#39;, &#39;r_panda_link1&#39;, &#39;r_panda_link1_0&#39;, &#39;r_panda_joint2_origin&#39;, &#39;r_panda_joint2&#39;, &#39;r_panda_link2&#39;, &#39;r_panda_link2_0&#39;, &#39;r_panda_joint3_origin&#39;, &#39;r_panda_joint3&#39;, &#39;r_panda_link3&#39;, &#39;r_panda_link3_0&#39;, &#39;r_panda_joint4_origin&#39;, &#39;r_panda_joint4&#39;, &#39;r_panda_link4&#39;, &#39;r_panda_link4_0&#39;, &#39;r_panda_joint5_origin&#39;, &#39;r_panda_joint5&#39;, &#39;r_panda_link5&#39;, &#39;r_panda_link5_0&#39;, &#39;r_panda_joint6_origin&#39;, &#39;r_panda_joint6&#39;, &#39;r_panda_link6&#39;, &#39;r_panda_link6_0&#39;, &#39;r_panda_joint7_origin&#39;, &#39;r_panda_joint7&#39;, &#39;r_panda_link7&#39;, &#39;r_panda_link7_0&#39;, &#39;r_panda_joint8_origin&#39;, &#39;r_panda_joint8&#39;, &#39;r_panda_link8&#39;, &#39;r_panda_hand_joint_origin&#39;, &#39;r_panda_hand_joint&#39;, &#39;r_panda_hand&#39;, &#39;r_panda_hand_0&#39;, &#39;r_panda_finger_joint1_origin&#39;, &#39;r_panda_finger_joint2_origin&#39;, &#39;r_panda_finger_joint1&#39;, &#39;r_panda_finger_joint2&#39;, &#39;r_panda_leftfinger&#39;, &#39;r_panda_rightfinger&#39;, &#39;r_panda_leftfinger_0&#39;, &#39;r_panda_rightfinger_0&#39;, &#39;r_panda_coll0&#39;, &#39;r_panda_coll0b&#39;, &#39;r_panda_coll1&#39;, &#39;r_panda_coll3&#39;, &#39;r_panda_coll5&#39;, &#39;r_panda_coll2&#39;, &#39;r_panda_coll4&#39;, &#39;r_panda_coll6&#39;, &#39;r_panda_coll7&#39;, &#39;r_gripper&#39;, &#39;r_palm&#39;, &#39;r_finger1&#39;, &#39;r_finger2&#39;]
+</pre></div></div>
+</div>
+<p>Let’s animate:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">q0</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">getJointState</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">q0</span> <span class="o">+</span> <span class="mf">.1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">q0</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">C</span><span class="o">.</span><span class="n">setJointState</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+    <span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">.2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Features:-computing-geometric-properties">
+<h2>Features: computing geometric properties<a class="headerlink" href="#Features:-computing-geometric-properties" title="Permalink to this heading"></a></h2>
+<p>For every frame we can query its pose:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">getFrame</span><span class="p">(</span><span class="s1">&#39;r_gripper&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;gripper pos:&#39;</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">getPosition</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;gripper quat:&#39;</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">getQuaternion</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;gripper rot:&#39;</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">getRotationMatrix</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+gripper pos: [0.32141215 0.44345913 0.72576189]
+gripper quat: [-0.8669439  -0.10911532  0.39042322  0.28995142]
+gripper rot: [[ 0.52699576  0.41754092 -0.74022635]
+ [-0.58794555  0.80804404  0.03721381]
+ [ 0.61367378  0.41560126  0.6713271 ]]
+</pre></div></div>
+</div>
+<p>The above provides basic forward kinematics: After <code class="docutils literal notranslate"><span class="pre">setJointState</span></code> you can query the pose of any configuration frame. However, there is a more general way to query <em>features</em>, i.e. properties of the configuration in a differentiable manner. You might not use this often; but it is important to understand as these differentiable features are the foundation of how optimization problems are formulated, which you’ll need a lot.</p>
+<p>Here are some example features to evaluate:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">y</span><span class="p">,</span><span class="n">J</span><span class="p">]</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;gripper&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;position of gripper:&#39;</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Jacobian:&#39;</span><span class="p">,</span> <span class="n">J</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+position of gripper: [ 0.32842615 -0.00310221  0.76643017]
+Jacobian: [[ 3.10221333e-03  4.33076454e-01 -1.14787661e-02 -1.67755538e-01
+  -3.79268649e-03  8.75715712e-02  8.67361738e-19  0.00000000e+00
+   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
+   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00]
+ [ 3.28426146e-01  1.75069738e-02  5.42979997e-01 -1.54572121e-02
+   1.81774030e-01 -3.01246858e-03  2.77555756e-17  0.00000000e+00
+   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
+   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00]
+ [ 0.00000000e+00 -3.28032821e-01  1.25841880e-02  5.18337387e-01
+   3.99599798e-03  2.20150278e-01  1.73472348e-18  0.00000000e+00
+   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
+   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00]]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># negative(!) distance between two convex shapes (or origin of marker)</span>
+<span class="n">C</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">negDistance</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;panda_coll7&#39;</span><span class="p">,</span> <span class="s1">&#39;r_panda_coll7&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(array([-0.31946979]),
+ array([[ 2.11266970e-01,  2.46852305e-02,  5.50265616e-01,
+         -4.20418790e-02,  2.95705159e-02, -1.11343269e-02,
+         -2.43657527e-17, -0.00000000e+00, -1.96930432e-01,
+         -4.35913337e-02, -5.21550074e-01,  7.40963736e-02,
+         -1.50353913e-02,  5.41474581e-03, -5.27869680e-18,
+         -0.00000000e+00]]))
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># the x-axis of the given frame in world coordinates</span>
+<span class="n">C</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">vectorX</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;gripper&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(array([ 0.51342582, -0.68935383,  0.51106284]),
+ array([[ 0.68935383,  0.51064577,  0.42483481, -0.52659502,  0.332467  ,
+         -0.5259756 , -0.45868217,  0.        ,  0.        ,  0.        ,
+          0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
+          0.        ],
+        [ 0.51342582,  0.02064269,  0.72089851, -0.02266834, -0.20468464,
+         -0.02193998, -0.72379283,  0.        ,  0.        ,  0.        ,
+          0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
+          0.        ],
+        [ 0.        , -0.48516266,  0.54559434,  0.49845333, -0.61009578,
+          0.4988135 , -0.51549452,  0.        ,  0.        ,  0.        ,
+          0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
+          0.        ]]))
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Joint-and-Frame-State">
+<h2>Joint and Frame State<a class="headerlink" href="#Joint-and-Frame-State" title="Permalink to this heading"></a></h2>
+<p>A configuration is a tree of n frames. Every frame has a pose (position &amp; quaternion), which is represented as a 7D vector (x,y,z, qw,qx,qy,qz). The frame state is the <span class="math notranslate nohighlight">\(n\times 7\)</span> matrix, where the i-th row is the pose of the i-th frame.</p>
+<p>A configuration also defines joints, which means that the relative transfromation from a parent to a child frame is parameterized by degrees-of-freedoms (DOFs). If the configuration has in total n DOFs, the joint state is a n-dimensional vector.</p>
+<p>Setting the joint state implies computing all relative transformations, and then forward chaining all transformations to compute all frame poses. So setting the joint state also sets the frame state.</p>
+<p>Setting the frame state allows you to set frame poses that are inconsistent/impossible w.r.t. the joints! Setting the frame state implies computing all relative transformations from the frame poses, and then assigning the joint state to the <em>projection</em> onto the actual DOFs</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">setJointState</span><span class="p">(</span><span class="n">q0</span><span class="p">)</span>
+<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
+</div>
+<p>The <em>frame state</em> is a <span class="math notranslate nohighlight">\(n\times 7\)</span> matrix, which contains for all of <span class="math notranslate nohighlight">\(n\)</span> frames the 7D pose. A pose is stored as [p_x, p_y, p_z, q_w, q_x, q_y, q_z], with position p and quaternion q.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X0</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">getFrameState</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;frame state: &#39;</span><span class="p">,</span> <span class="n">X0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+frame state:  [[ 0.00000000e+00  0.00000000e+00  0.00000000e+00  1.00000000e+00
+   0.00000000e+00  0.00000000e+00  0.00000000e+00]
+ [ 0.00000000e+00  0.00000000e+00  0.00000000e+00  1.00000000e+00
+   0.00000000e+00  0.00000000e+00  0.00000000e+00]
+ [ 0.00000000e+00  0.00000000e+00  0.00000000e+00  1.00000000e+00
+   0.00000000e+00  0.00000000e+00  0.00000000e+00]
+ [ 0.00000000e+00  0.00000000e+00  3.33000000e-01  1.00000000e+00
+   0.00000000e+00  0.00000000e+00  0.00000000e+00]
+ [ 0.00000000e+00  0.00000000e+00  3.33000000e-01  1.00000000e+00
+   0.00000000e+00  0.00000000e+00  0.00000000e+00]
+ [ 0.00000000e+00  0.00000000e+00  3.33000000e-01  1.00000000e+00
+   0.00000000e+00  0.00000000e+00  0.00000000e+00]
+ [ 0.00000000e+00  0.00000000e+00  3.33000000e-01  1.00000000e+00
+   0.00000000e+00  0.00000000e+00  0.00000000e+00]
+ [ 0.00000000e+00  0.00000000e+00  3.33000000e-01  7.07106781e-01
+  -7.07106781e-01  0.00000000e+00  0.00000000e+00]
+ [ 0.00000000e+00  0.00000000e+00  3.33000000e-01  6.20544581e-01
+  -6.20544581e-01 -3.39005049e-01 -3.39005049e-01]
+ [ 0.00000000e+00  0.00000000e+00  3.33000000e-01  6.20544581e-01
+  -6.20544581e-01 -3.39005049e-01 -3.39005049e-01]
+ [ 0.00000000e+00  0.00000000e+00  3.33000000e-01  6.20544581e-01
+  -6.20544581e-01 -3.39005049e-01 -3.39005049e-01]
+ [-2.65904831e-01 -1.05249143e-16  5.03735529e-01  8.77582562e-01
+   0.00000000e+00 -4.79425539e-01  0.00000000e+00]
+ [-2.65904831e-01 -1.05249143e-16  5.03735529e-01  8.77582562e-01
+   0.00000000e+00 -4.79425539e-01  0.00000000e+00]
+ [-2.65904831e-01 -1.05249143e-16  5.03735529e-01  8.77582562e-01
+   0.00000000e+00 -4.79425539e-01  0.00000000e+00]
+ [-2.65904831e-01 -1.05249143e-16  5.03735529e-01  8.77582562e-01
+   0.00000000e+00 -4.79425539e-01  0.00000000e+00]
+ [-2.21329891e-01 -1.05249143e-16  5.73156885e-01  6.20544581e-01
+   6.20544581e-01 -3.39005049e-01  3.39005049e-01]
+ [-2.21329891e-01 -1.05249143e-16  5.73156885e-01  6.20544581e-01
+   6.20544581e-01  3.39005049e-01 -3.39005049e-01]
+ [-2.21329891e-01 -1.05249143e-16  5.73156885e-01  6.20544581e-01
+   6.20544581e-01  3.39005049e-01 -3.39005049e-01]
+ [-2.21329891e-01 -1.05249143e-16  5.73156885e-01  6.20544581e-01
+   6.20544581e-01  3.39005049e-01 -3.39005049e-01]
+ [ 5.72200270e-02  2.67785794e-16  8.50054327e-01  8.77582562e-01
+   0.00000000e+00  4.79425539e-01  0.00000000e+00]
+ [ 5.72200270e-02  2.67785794e-16  8.50054327e-01  8.77582562e-01
+   0.00000000e+00  4.79425539e-01  0.00000000e+00]
+ [ 5.72200270e-02  2.67785794e-16  8.50054327e-01  8.77582562e-01
+   0.00000000e+00  4.79425539e-01  0.00000000e+00]
+ [ 5.72200270e-02  2.67785794e-16  8.50054327e-01  8.77582562e-01
+   0.00000000e+00  4.79425539e-01  0.00000000e+00]
+ [ 5.72200270e-02  2.67785794e-16  8.50054327e-01  6.20544581e-01
+   6.20544581e-01  3.39005049e-01 -3.39005049e-01]
+ [ 5.72200270e-02  2.67785794e-16  8.50054327e-01  6.20544581e-01
+   6.20544581e-01 -3.39005049e-01  3.39005049e-01]
+ [ 5.72200270e-02  2.67785794e-16  8.50054327e-01  6.20544581e-01
+   6.20544581e-01 -3.39005049e-01  3.39005049e-01]
+ [ 5.72200270e-02  2.67785794e-16  8.50054327e-01  6.20544581e-01
+   6.20544581e-01 -3.39005049e-01  3.39005049e-01]
+ [ 1.04766630e-01  2.67785794e-16  9.24103773e-01  0.00000000e+00
+   8.77582562e-01  0.00000000e+00  4.79425539e-01]
+ [ 1.04766630e-01  2.67785794e-16  9.24103773e-01  0.00000000e+00
+   8.77582562e-01  0.00000000e+00  4.79425539e-01]
+ [ 1.04766630e-01  2.67785794e-16  9.24103773e-01  0.00000000e+00
+   8.77582562e-01  0.00000000e+00  4.79425539e-01]
+ [ 1.04766630e-01  2.67785794e-16  9.24103773e-01  0.00000000e+00
+   8.77582562e-01  0.00000000e+00  4.79425539e-01]
+ [ 1.94804025e-01  2.67785794e-16  8.66291427e-01  0.00000000e+00
+   8.77582562e-01  0.00000000e+00  4.79425539e-01]
+ [ 1.94804025e-01  2.67785794e-16  8.66291427e-01  0.00000000e+00
+   8.77582562e-01  0.00000000e+00  4.79425539e-01]
+ [ 1.94804025e-01  2.67785794e-16  8.66291427e-01  0.00000000e+00
+   8.77582562e-01  0.00000000e+00  4.79425539e-01]
+ [ 1.94804025e-01  2.67785794e-16  8.66291427e-01  1.83467955e-01
+   8.10780761e-01  3.35835838e-01  4.42931549e-01]
+ [ 1.94804025e-01  2.67785794e-16  8.66291427e-01  1.83467955e-01
+   8.10780761e-01  3.35835838e-01  4.42931549e-01]
+ [ 1.94804025e-01  2.67785794e-16  8.66291427e-01  1.83467955e-01
+   8.10780761e-01  3.35835838e-01  4.42931549e-01]
+ [ 1.94804025e-01  2.67785794e-16  8.66291427e-01  1.83467955e-01
+   8.10780761e-01  3.35835838e-01  4.42931549e-01]
+ [ 2.43945931e-01  2.71027645e-16  8.34737772e-01  1.83467955e-01
+   8.10780761e-01  3.35835838e-01  4.42931549e-01]
+ [ 2.43945931e-01  2.71027645e-16  8.34737772e-01  1.83467955e-01
+   8.10780761e-01  3.35835838e-01  4.42931549e-01]
+ [ 2.63048480e-01 -3.53553800e-02  8.64488229e-01  1.83467955e-01
+   8.10780761e-01  3.35835838e-01  4.42931549e-01]
+ [ 2.24843382e-01  3.53553800e-02  8.04987314e-01  1.83467955e-01
+   8.10780761e-01  3.35835838e-01  4.42931549e-01]
+ [ 2.63048480e-01 -3.53553800e-02  8.64488229e-01  1.83467955e-01
+   8.10780761e-01  3.35835838e-01  4.42931549e-01]
+ [ 2.24843382e-01  3.53553800e-02  8.04987314e-01  1.83467955e-01
+   8.10780761e-01  3.35835838e-01  4.42931549e-01]
+ [ 2.63048480e-01 -3.53553800e-02  8.64488229e-01  1.83467955e-01
+   8.10780761e-01  3.35835838e-01  4.42931549e-01]
+ [ 2.24843382e-01  3.53553800e-02  8.04987314e-01 -4.42931549e-01
+   3.35835838e-01 -8.10780761e-01  1.83467955e-01]
+ [-4.00000000e-02  0.00000000e+00  3.00000000e-02  7.07106781e-01
+   0.00000000e+00  7.07106781e-01  0.00000000e+00]
+ [-2.00000000e-01 -1.20000000e-01  0.00000000e+00  7.07106781e-01
+   0.00000000e+00  7.07106781e-01  0.00000000e+00]
+ [ 0.00000000e+00  0.00000000e+00  1.83000000e-01  1.00000000e+00
+   0.00000000e+00  0.00000000e+00  0.00000000e+00]
+ [-1.39684183e-01 -1.05249143e-16  4.22690183e-01  8.77582562e-01
+   0.00000000e+00 -4.79425539e-01  0.00000000e+00]
+ [-1.11074170e-01  2.00000000e-02  7.41993865e-01  8.77582562e-01
+   0.00000000e+00  4.79425539e-01  0.00000000e+00]
+ [ 0.00000000e+00  0.00000000e+00  3.33000000e-01  6.20544581e-01
+  -6.20544581e-01 -3.39005049e-01 -3.39005049e-01]
+ [-2.21329891e-01 -1.05249143e-16  5.73156885e-01  6.20544581e-01
+   6.20544581e-01  3.39005049e-01 -3.39005049e-01]
+ [ 5.72200270e-02  4.00000000e-02  8.50054327e-01  6.20544581e-01
+   6.20544581e-01 -3.39005049e-01  3.39005049e-01]
+ [ 1.13181340e-01  2.67785794e-16  9.18700750e-01  0.00000000e+00
+   8.77582562e-01  0.00000000e+00  4.79425539e-01]
+ [ 2.89890247e-01  2.67785794e-16  8.05237266e-01 -8.10780567e-01
+  -1.83468211e-01  4.42931442e-01  3.35836307e-01]
+ [ 1.94804025e-01  2.67785794e-16  8.66291427e-01 -4.43577140e-01
+   7.03040009e-01  5.50671700e-01  7.57281032e-02]
+ [ 3.03197392e-01 -5.51543927e-02  8.62237905e-01  1.83467955e-01
+   8.10780761e-01  3.35835838e-01  4.42931549e-01]
+ [ 2.43597439e-01  5.51543927e-02  7.69416477e-01  1.83467955e-01
+   8.10780761e-01  3.35835838e-01  4.42931549e-01]
+ [ 0.00000000e+00  5.00000000e-01  0.00000000e+00  1.00000000e+00
+   0.00000000e+00  0.00000000e+00  0.00000000e+00]
+ [ 0.00000000e+00  5.00000000e-01  0.00000000e+00  1.00000000e+00
+   0.00000000e+00  0.00000000e+00  0.00000000e+00]
+ [ 0.00000000e+00  5.00000000e-01  0.00000000e+00  1.00000000e+00
+   0.00000000e+00  0.00000000e+00  0.00000000e+00]
+ [ 0.00000000e+00  5.00000000e-01  3.33000000e-01  1.00000000e+00
+   0.00000000e+00  0.00000000e+00  0.00000000e+00]
+ [ 0.00000000e+00  5.00000000e-01  3.33000000e-01  1.00000000e+00
+   0.00000000e+00  0.00000000e+00  0.00000000e+00]
+ [ 0.00000000e+00  5.00000000e-01  3.33000000e-01  1.00000000e+00
+   0.00000000e+00  0.00000000e+00  0.00000000e+00]
+ [ 0.00000000e+00  5.00000000e-01  3.33000000e-01  1.00000000e+00
+   0.00000000e+00  0.00000000e+00  0.00000000e+00]
+ [ 0.00000000e+00  5.00000000e-01  3.33000000e-01  7.07106781e-01
+  -7.07106781e-01  0.00000000e+00  0.00000000e+00]
+ [ 0.00000000e+00  5.00000000e-01  3.33000000e-01  6.20544581e-01
+  -6.20544581e-01 -3.39005049e-01 -3.39005049e-01]
+ [ 0.00000000e+00  5.00000000e-01  3.33000000e-01  6.20544581e-01
+  -6.20544581e-01 -3.39005049e-01 -3.39005049e-01]
+ [ 0.00000000e+00  5.00000000e-01  3.33000000e-01  6.20544581e-01
+  -6.20544581e-01 -3.39005049e-01 -3.39005049e-01]
+ [-2.65904831e-01  5.00000000e-01  5.03735529e-01  8.77582562e-01
+   0.00000000e+00 -4.79425539e-01  0.00000000e+00]
+ [-2.65904831e-01  5.00000000e-01  5.03735529e-01  8.77582562e-01
+   0.00000000e+00 -4.79425539e-01  0.00000000e+00]
+ [-2.65904831e-01  5.00000000e-01  5.03735529e-01  8.77582562e-01
+   0.00000000e+00 -4.79425539e-01  0.00000000e+00]
+ [-2.65904831e-01  5.00000000e-01  5.03735529e-01  8.77582562e-01
+   0.00000000e+00 -4.79425539e-01  0.00000000e+00]
+ [-2.21329891e-01  5.00000000e-01  5.73156885e-01  6.20544581e-01
+   6.20544581e-01 -3.39005049e-01  3.39005049e-01]
+ [-2.21329891e-01  5.00000000e-01  5.73156885e-01  6.20544581e-01
+   6.20544581e-01  3.39005049e-01 -3.39005049e-01]
+ [-2.21329891e-01  5.00000000e-01  5.73156885e-01  6.20544581e-01
+   6.20544581e-01  3.39005049e-01 -3.39005049e-01]
+ [-2.21329891e-01  5.00000000e-01  5.73156885e-01  6.20544581e-01
+   6.20544581e-01  3.39005049e-01 -3.39005049e-01]
+ [ 5.72200270e-02  5.00000000e-01  8.50054327e-01  8.77582562e-01
+   0.00000000e+00  4.79425539e-01  0.00000000e+00]
+ [ 5.72200270e-02  5.00000000e-01  8.50054327e-01  8.77582562e-01
+   0.00000000e+00  4.79425539e-01  0.00000000e+00]
+ [ 5.72200270e-02  5.00000000e-01  8.50054327e-01  8.77582562e-01
+   0.00000000e+00  4.79425539e-01  0.00000000e+00]
+ [ 5.72200270e-02  5.00000000e-01  8.50054327e-01  8.77582562e-01
+   0.00000000e+00  4.79425539e-01  0.00000000e+00]
+ [ 5.72200270e-02  5.00000000e-01  8.50054327e-01  6.20544581e-01
+   6.20544581e-01  3.39005049e-01 -3.39005049e-01]
+ [ 5.72200270e-02  5.00000000e-01  8.50054327e-01  6.20544581e-01
+   6.20544581e-01 -3.39005049e-01  3.39005049e-01]
+ [ 5.72200270e-02  5.00000000e-01  8.50054327e-01  6.20544581e-01
+   6.20544581e-01 -3.39005049e-01  3.39005049e-01]
+ [ 5.72200270e-02  5.00000000e-01  8.50054327e-01  6.20544581e-01
+   6.20544581e-01 -3.39005049e-01  3.39005049e-01]
+ [ 1.04766630e-01  5.00000000e-01  9.24103773e-01  0.00000000e+00
+   8.77582562e-01  0.00000000e+00  4.79425539e-01]
+ [ 1.04766630e-01  5.00000000e-01  9.24103773e-01  0.00000000e+00
+   8.77582562e-01  0.00000000e+00  4.79425539e-01]
+ [ 1.04766630e-01  5.00000000e-01  9.24103773e-01  0.00000000e+00
+   8.77582562e-01  0.00000000e+00  4.79425539e-01]
+ [ 1.04766630e-01  5.00000000e-01  9.24103773e-01  0.00000000e+00
+   8.77582562e-01  0.00000000e+00  4.79425539e-01]
+ [ 1.94804025e-01  5.00000000e-01  8.66291427e-01  0.00000000e+00
+   8.77582562e-01  0.00000000e+00  4.79425539e-01]
+ [ 1.94804025e-01  5.00000000e-01  8.66291427e-01  0.00000000e+00
+   8.77582562e-01  0.00000000e+00  4.79425539e-01]
+ [ 1.94804025e-01  5.00000000e-01  8.66291427e-01  0.00000000e+00
+   8.77582562e-01  0.00000000e+00  4.79425539e-01]
+ [ 1.94804025e-01  5.00000000e-01  8.66291427e-01  1.83467955e-01
+   8.10780761e-01  3.35835838e-01  4.42931549e-01]
+ [ 1.94804025e-01  5.00000000e-01  8.66291427e-01  1.83467955e-01
+   8.10780761e-01  3.35835838e-01  4.42931549e-01]
+ [ 1.94804025e-01  5.00000000e-01  8.66291427e-01  1.83467955e-01
+   8.10780761e-01  3.35835838e-01  4.42931549e-01]
+ [ 1.94804025e-01  5.00000000e-01  8.66291427e-01  1.83467955e-01
+   8.10780761e-01  3.35835838e-01  4.42931549e-01]
+ [ 2.43945931e-01  5.00000000e-01  8.34737772e-01  1.83467955e-01
+   8.10780761e-01  3.35835838e-01  4.42931549e-01]
+ [ 2.43945931e-01  5.00000000e-01  8.34737772e-01  1.83467955e-01
+   8.10780761e-01  3.35835838e-01  4.42931549e-01]
+ [ 2.63048480e-01  4.64644620e-01  8.64488229e-01  1.83467955e-01
+   8.10780761e-01  3.35835838e-01  4.42931549e-01]
+ [ 2.24843382e-01  5.35355380e-01  8.04987314e-01  1.83467955e-01
+   8.10780761e-01  3.35835838e-01  4.42931549e-01]
+ [ 2.63048480e-01  4.64644620e-01  8.64488229e-01  1.83467955e-01
+   8.10780761e-01  3.35835838e-01  4.42931549e-01]
+ [ 2.24843382e-01  5.35355380e-01  8.04987314e-01  1.83467955e-01
+   8.10780761e-01  3.35835838e-01  4.42931549e-01]
+ [ 2.63048480e-01  4.64644620e-01  8.64488229e-01  1.83467955e-01
+   8.10780761e-01  3.35835838e-01  4.42931549e-01]
+ [ 2.24843382e-01  5.35355380e-01  8.04987314e-01 -4.42931549e-01
+   3.35835838e-01 -8.10780761e-01  1.83467955e-01]
+ [-4.00000000e-02  5.00000000e-01  3.00000000e-02  7.07106781e-01
+   0.00000000e+00  7.07106781e-01  0.00000000e+00]
+ [-2.00000000e-01  3.80000000e-01  0.00000000e+00  7.07106781e-01
+   0.00000000e+00  7.07106781e-01  0.00000000e+00]
+ [ 0.00000000e+00  5.00000000e-01  1.83000000e-01  1.00000000e+00
+   0.00000000e+00  0.00000000e+00  0.00000000e+00]
+ [-1.39684183e-01  5.00000000e-01  4.22690183e-01  8.77582562e-01
+   0.00000000e+00 -4.79425539e-01  0.00000000e+00]
+ [-1.11074170e-01  5.20000000e-01  7.41993865e-01  8.77582562e-01
+   0.00000000e+00  4.79425539e-01  0.00000000e+00]
+ [ 0.00000000e+00  5.00000000e-01  3.33000000e-01  6.20544581e-01
+  -6.20544581e-01 -3.39005049e-01 -3.39005049e-01]
+ [-2.21329891e-01  5.00000000e-01  5.73156885e-01  6.20544581e-01
+   6.20544581e-01  3.39005049e-01 -3.39005049e-01]
+ [ 5.72200270e-02  5.40000000e-01  8.50054327e-01  6.20544581e-01
+   6.20544581e-01 -3.39005049e-01  3.39005049e-01]
+ [ 1.13181340e-01  5.00000000e-01  9.18700750e-01  0.00000000e+00
+   8.77582562e-01  0.00000000e+00  4.79425539e-01]
+ [ 2.89890247e-01  5.00000000e-01  8.05237266e-01 -8.10780567e-01
+  -1.83468211e-01  4.42931442e-01  3.35836307e-01]
+ [ 1.94804025e-01  5.00000000e-01  8.66291427e-01 -4.43577140e-01
+   7.03040009e-01  5.50671700e-01  7.57281032e-02]
+ [ 3.03197392e-01  4.44845607e-01  8.62237905e-01  1.83467955e-01
+   8.10780761e-01  3.35835838e-01  4.42931549e-01]
+ [ 2.43597439e-01  5.55154393e-01  7.69416477e-01  1.83467955e-01
+   8.10780761e-01  3.35835838e-01  4.42931549e-01]]
+</pre></div></div>
+</div>
+<p>Let’s do a very questionable thing: adding .1 to all numbers in the frame matrix!</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">X0</span> <span class="o">+</span> <span class="mf">.1</span>
+<span class="n">C</span><span class="o">.</span><span class="n">setFrameState</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
+</div>
+<p>That totally broke the original design of the robot! Setting global frame states overwrites the relative transformations between frames.</p>
+<p>(Also, the rows of X have non-normalized quaternions! These are normalized when setting the frame state.)</p>
+<p>Let’s reset:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">setFrameState</span><span class="p">(</span><span class="n">X0</span><span class="p">)</span>
+<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
+</div>
+<p>## Selecting joints</p>
+<p>Often one would like to choose which joints are actually active, that is, which joints are referred to in q. This allows one to sub-select joints and work only with projections of the full configuration state. This changes the joint state dimensionality, including ordering of entries in q. The frame state is not affected by such a selection of active joints.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">selectJoints</span><span class="p">([</span><span class="s1">&#39;panda_joint1&#39;</span><span class="p">,</span> <span class="s1">&#39;panda_joint1&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;joint state: &#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">getJointState</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;joint names: &#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">getJointNames</span><span class="p">()</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+joint state:  [0.]
+joint names:  [&#39;panda_joint1&#39;]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">selectJoints</span><span class="p">([],</span> <span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;joint state: &#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">getJointState</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;joint names: &#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">getJointNames</span><span class="p">()</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+joint state:  [ 0.      -1.00001  0.      -2.00001  0.       2.00001  0.       0.05
+  0.      -1.00001  0.      -2.00001  0.       2.00001  0.       0.05   ]
+joint names:  [&#39;panda_joint1&#39;, &#39;panda_joint2&#39;, &#39;panda_joint3&#39;, &#39;panda_joint4&#39;, &#39;panda_joint5&#39;, &#39;panda_joint6&#39;, &#39;panda_joint7&#39;, &#39;panda_finger_joint1panda_finger_joint2&#39;, &#39;r_panda_joint1&#39;, &#39;r_panda_joint2&#39;, &#39;r_panda_joint3&#39;, &#39;r_panda_joint4&#39;, &#39;r_panda_joint5&#39;, &#39;r_panda_joint6&#39;, &#39;r_panda_joint7&#39;, &#39;r_panda_finger_joint1r_panda_finger_joint2&#39;]
+</pre></div></div>
+</div>
+</section>
+<section id="View-interaction-and-releasing-objects">
+<h2>View interaction and releasing objects<a class="headerlink" href="#View-interaction-and-releasing-objects" title="Permalink to this heading"></a></h2>
+<p>You can close and re-open the view window</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">view_close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># things are still there</span>
+<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">pause</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s1">&#39;this is a message&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
+</div>
+<p>For user interaction it is often useful to wait for a keypress (making <code class="docutils literal notranslate"><span class="pre">view</span></code> a blocking call):</p>
+<p>keypressed = C.view(True, ‘press some key!’) print(‘pressed key:’, keypressed, chr(keypressed))</p>
+<p>Get a screenshot:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">img</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">view_getScreenshot</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">img</span><span class="p">),</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;class &#39;numpy.ndarray&#39;&gt; (400, 400, 3)
+</pre></div></div>
+</div>
+<p>And release everything, including closing the view</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">C</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../tutorials.html" class="btn btn-neutral float-left" title="Tutorials" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="1b-botop.html" class="btn btn-neutral float-right" title="Robot Operation (BotOp) interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Marc Toussaint.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Importing, Editing &amp; Manipulating Configurations &mdash; Robotics Python Library  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="KOMO: Reporting &amp; Explaining Convergence" href="komo-reporting.html" />
+    <link rel="prev" title="Differentiable Features &amp; Collision Evaluation" href="features.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Robotics Python Library
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#basics-on-configurations-botop-komo">Basics on Configurations, BotOp &amp; KOMO</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../tutorials.html#in-depth">In Depth</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="features.html">Differentiable Features &amp; Collision Evaluation</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Importing, Editing &amp; Manipulating Configurations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Importing-robot-models">Importing robot models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Conversion-from-URDF">Conversion from URDF</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Interactive-Editing">Interactive Editing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#How-to-attach-frames---faking-grasps">How to attach frames - faking grasps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Advanced:-YAML-and-dict-representations">Advanced: YAML and dict representations</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="komo-reporting.html">KOMO: Reporting &amp; Explaining Convergence</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#preliminary">Preliminary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../script/script.html">Lecture Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../old/old.html">Old Material</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rai.html">rai python API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Robotics Python Library</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../tutorials.html">Tutorials</a></li>
+      <li class="breadcrumb-item active">Importing, Editing &amp; Manipulating Configurations</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Importing,-Editing-&amp;-Manipulating-Configurations">
+<h1>Importing, Editing &amp; Manipulating Configurations<a class="headerlink" href="#Importing,-Editing-&-Manipulating-Configurations" title="Permalink to this heading"></a></h1>
+<ul class="simple">
+<li><p>This scripts loads a mini scene defined in ‘mini.g’.</p></li>
+<li><p>The ‘watchFile’ command allows you to edit the file in some other editor, while it is being redisplayed whenever you save.</p></li>
+<li><p>‘set/getJointState’ shows how to access degrees-of-freedom of the scene</p></li>
+<li><p>‘eval’ shows how to access other features, including its Jacobian</p></li>
+</ul>
+<section id="Importing-robot-models">
+<h2>Importing robot models<a class="headerlink" href="#Importing-robot-models" title="Permalink to this heading"></a></h2>
+<p>Let’s first have a look at robot models that are already installed with rai. (They are defined in the <code class="docutils literal notranslate"><span class="pre">rai-robotModels</span></code> github repo, which is partly copied into the <code class="docutils literal notranslate"><span class="pre">.../site-packages/robotic/rai-robotModels</span></code> install path.)</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">robotic</span> <span class="kn">import</span> <span class="n">ry</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The path where model files are pre-installed:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">ry</span><span class="o">.</span><span class="n">raiPath</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">))</span>
+<span class="c1"># you could overwrite this with:</span>
+<span class="c1"># ry.setRaiPath(&#39;/home/mtoussai/git/rai-robotModels/&#39;)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The path where model files are pre-installed:
+ /home/mtoussai/.local/lib/python3.8/site-packages/robotic/rai-robotModels/
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span>
+<span class="n">C</span><span class="o">.</span><span class="n">addFile</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">raiPath</span><span class="p">(</span><span class="s1">&#39;panda/panda.g&#39;</span><span class="p">))</span> <span class="o">.</span><span class="n">setPosition</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span><span class="mf">.0</span><span class="p">,</span><span class="mf">.0</span><span class="p">])</span> <span class="o">.</span><span class="n">setQuaternion</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">C</span><span class="o">.</span><span class="n">addFile</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">raiPath</span><span class="p">(</span><span class="s1">&#39;panda/panda.g&#39;</span><span class="p">),</span> <span class="s1">&#39;r_&#39;</span><span class="p">)</span> <span class="o">.</span><span class="n">setPosition</span><span class="p">([</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">.0</span><span class="p">,</span><span class="mf">.0</span><span class="p">])</span> <span class="o">.</span><span class="n">setQuaternion</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">C</span><span class="o">.</span><span class="n">addFile</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">raiPath</span><span class="p">(</span><span class="s1">&#39;pr2/pr2.g&#39;</span><span class="p">))</span> <span class="o">.</span><span class="n">setPosition</span><span class="p">([</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span><span class="mf">.0</span><span class="p">,</span><span class="mf">.0</span><span class="p">])</span>
+<span class="n">C</span><span class="o">.</span><span class="n">addFile</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">raiPath</span><span class="p">(</span><span class="s1">&#39;baxter/baxter.g&#39;</span><span class="p">))</span> <span class="o">.</span><span class="n">setPosition</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mf">.0</span><span class="p">,</span><span class="mf">1.</span><span class="p">])</span> <span class="o">.</span><span class="n">setQuaternion</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">C</span><span class="o">.</span><span class="n">addFile</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">raiPath</span><span class="p">(</span><span class="s1">&#39;robotiq/robotiq.g&#39;</span><span class="p">))</span> <span class="o">.</span><span class="n">setParent</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">getFrame</span><span class="p">(</span><span class="s1">&#39;panda_joint7&#39;</span><span class="p">))</span> <span class="o">.</span><span class="n">setRelativePosition</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">.15</span><span class="p">])</span>
+<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+-- WARNING:graph.cpp:read:663(-1) nothing to delete with key &#39;visual&#39;
+-- WARNING:graph.cpp:edit:485(-1) no nodes edited! (from &#39;joint: { ctrl_H: 1 }&#39;)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">addFile</span></code> returns the <em>first</em> frame defined in the file, which typically is the base frame of the whole robot. Therefore, by setting it’s position, you can move the whole loaded robot.</p>
+<p>Sometimes you want to add a model twice, but avoid duplicated frame names. With <code class="docutils literal notranslate"><span class="pre">addFile</span></code> you can specify a <code class="docutils literal notranslate"><span class="pre">prefix</span></code> string (here <code class="docutils literal notranslate"><span class="pre">r_</span></code>) which add that prefix to all frame names of the added robot. This is exemplified with the second panda added here.</p>
+<p>The Robotiq example also shows that this base frame can be made a child of other frames – attaching the robotiq to the panda arm. (Here in addition to the existing gripper, which would first have to be removed using <code class="docutils literal notranslate"><span class="pre">C.delFrame</span></code>.)</p>
+<p>The following is a simple helper to articulare all dofs in the display (press <code class="docutils literal notranslate"><span class="pre">q</span></code> to interrupt):</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">animate</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">KeyboardInterrupt</span>                         Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[8], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> <span class="ansi-yellow-bg">C</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">animate</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span>
+
+<span class="ansi-red-fg">KeyboardInterrupt</span>:
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">C</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Conversion-from-URDF">
+<h2>Conversion from URDF<a class="headerlink" href="#Conversion-from-URDF" title="Permalink to this heading"></a></h2>
+<p>The python package should install a script <code class="docutils literal notranslate"><span class="pre">urdf2rai.py</span></code> in <code class="docutils literal notranslate"><span class="pre">.local/bin</span></code>. That converts a urdf-file to a .g-file. For instance, place a <code class="docutils literal notranslate"><span class="pre">ur10.urdf</span></code> and the <code class="docutils literal notranslate"><span class="pre">ur_description</span></code> folder into the same folder and run:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>urdf2rai.py ur10.urdf &gt; ur10_org.g
+</pre></div>
+</div>
+<p>That should generate a <code class="docutils literal notranslate"><span class="pre">ur10_org.g</span></code> file that can be displayed with <code class="docutils literal notranslate"><span class="pre">kinEdit</span> <span class="pre">ur10_org.g</span></code>. Note, by default that <strong>excludes</strong> exporting collision shapes (as I typically replace them, e.g. by the convex hull of the visual shapes). The <code class="docutils literal notranslate"><span class="pre">-coll</span> <span class="pre">1</span></code> option of the script should include also the collision shapes.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">rai-robotModels</span></code> should have more info on conversion from URDF.</p>
+</section>
+<section id="Interactive-Editing">
+<h2>Interactive Editing<a class="headerlink" href="#Interactive-Editing" title="Permalink to this heading"></a></h2>
+<p>When developing your own model (robot or scene), you could of course just use the python commands <code class="docutils literal notranslate"><span class="pre">addFrame</span></code> etc. But that might be cumbersome and not interactive enough. The .g-file format is fairly easy to edit. To help doing this more interactively, there is the <code class="docutils literal notranslate"><span class="pre">watchFile</span></code> method:</p>
+<p>Open the file you want to edit (here <code class="docutils literal notranslate"><span class="pre">mini.g</span></code>) in any editor. At the same time, open it from within python and display it using <code class="docutils literal notranslate"><span class="pre">watchFile</span></code>. The key benefit is that <code class="docutils literal notranslate"><span class="pre">watchFile</span></code> reloads and re-displays the file whenever it is externally modified (it watches the file’s inode). That enables interactive editing.</p>
+<p><strong>TODO</strong>: The following is still not crash-robust when readers throw syntax error. kinEdit better?</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">robotic</span> <span class="kn">import</span> <span class="n">ry</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span>
+<span class="n">C</span><span class="o">.</span><span class="n">addFile</span><span class="p">(</span><span class="s1">&#39;mini.g&#39;</span><span class="p">)</span>
+<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">watchFile</span><span class="p">(</span><span class="s1">&#39;mini.g&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">C</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="How-to-attach-frames---faking-grasps">
+<h2>How to attach frames - faking grasps<a class="headerlink" href="#How-to-attach-frames---faking-grasps" title="Permalink to this heading"></a></h2>
+<p>Note, this is not real grasping. Just editing the kinematic tree in your configuration</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">robotic</span> <span class="kn">import</span> <span class="n">ry</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">time</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span>
+<span class="n">C</span><span class="o">.</span><span class="n">addFile</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">raiPath</span><span class="p">(</span><span class="s1">&#39;scenarios/pandasTable.g&#39;</span><span class="p">))</span>
+<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="s2">&quot;l_gripper&quot;</span><span class="p">,</span> <span class="s2">&quot;r_gripper&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#move a bit around</span>
+
+<span class="n">q</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">getJointState</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">):</span>
+    <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="o">/</span><span class="mi">10</span><span class="p">)</span>
+
+    <span class="n">C</span><span class="o">.</span><span class="n">setJointState</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+    <span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">C</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Advanced:-YAML-and-dict-representations">
+<h2>Advanced: YAML and dict representations<a class="headerlink" href="#Advanced:-YAML-and-dict-representations" title="Permalink to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">yaml</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">raiPath</span><span class="p">(</span><span class="s1">&#39;panda/panda_clean.g&#39;</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fil</span><span class="p">:</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">fil</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">C</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="features.html" class="btn btn-neutral float-left" title="Differentiable Features &amp; Collision Evaluation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="komo-reporting.html" class="btn btn-neutral float-right" title="KOMO: Reporting &amp; Explaining Convergence" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Marc Toussaint.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

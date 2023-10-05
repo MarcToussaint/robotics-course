@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>&lt;no title&gt; &mdash; Robotics Python Library  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Example for grasping in Sim" href="botop4-examples.html" />
+    <link rel="prev" title="First example to grap images from a webcam" href="botop3-vision.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Robotics Python Library
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../script/script.html">Lecture Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../old/old.html">Old Material</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rai.html">rai python API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Robotics Python Library</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../tutorials.html">Tutorials</a></li>
+      <li class="breadcrumb-item active">&lt;no title&gt;</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <dl>
+<dt>{</dt><dd><dl>
+<dt>“cells”: [</dt><dd><dl>
+<dt>{</dt><dd><p>“cell_type”: “markdown”,
+“metadata”: {},
+“source”: [</p>
+<blockquote>
+<div><p>“# Vision (to be merged)n”,</p>
+</div></blockquote>
+<p>]</p>
+</dd>
+</dl>
+<p>},
+{</p>
+<blockquote>
+<div><p>“cell_type”: “code”,
+“execution_count”: null,
+“id”: “91746f55-11c2-4591-a337-4155376e7596”,
+“metadata”: {},
+“outputs”: [],
+“source”: [</p>
+<blockquote>
+<div><p>“#import sys, osn”,
+“#sys.path.append(os.path.expanduser(‘~/git/botop/build’))n”,
+“#from robotic import ryn”,
+“from robotic import ryn”,
+“import numpy as npn”,
+“import timen”,
+“import matplotlib.pyplot as plt”</p>
+</div></blockquote>
+<p>]</p>
+</div></blockquote>
+<p>},
+{</p>
+<blockquote>
+<div><p>“cell_type”: “code”,
+“execution_count”: null,
+“id”: “f18925ed”,
+“metadata”: {},
+“outputs”: [],
+“source”: [</p>
+<blockquote>
+<div><p>“C = ry.Config()n”,
+“C.addFile(ry.raiPath(‘../rai-robotModels/scenarios/pandasTable.g’))n”,
+“n”,
+“obj = C.addFrame(‘obj’)n”,
+“obj.setPose(‘t(0. 0.1 0.8)’)n”,
+“obj.setShape(ry.ST.ssBox, size=[.05,.05,.05,.005])n”,
+“obj.setColor([1,.0,0])n”,
+“obj.setMass(.1)n”,
+“obj.setContact(True)n”,
+“#cameraFrame = C.addFrame(&quot;myCamera&quot;)n”,
+“#cameraFrame.setShape(ry.ST.marker, [0.3])n”,
+“# cameraFrame.setPosition([0,0,2.0])n”,
+“#cameraFrame.setPosition([0,1.0,2.0])n”,
+“#cameraFrame.setQuaternion([1,-0.5,0,1])n”,
+“C.view()”</p>
+</div></blockquote>
+<p>]</p>
+</div></blockquote>
+<p>},
+{</p>
+<blockquote>
+<div><p>“cell_type”: “code”,
+“execution_count”: null,
+“id”: “55da8f34”,
+“metadata”: {},
+“outputs”: [],
+“source”: [</p>
+<blockquote>
+<div><p>“bot = ry.BotOp(C, False)n”,
+“bot.home(C)”</p>
+</div></blockquote>
+<p>]</p>
+</div></blockquote>
+<p>},
+{</p>
+<blockquote>
+<div><p>“cell_type”: “code”,
+“execution_count”: null,
+“id”: “1bd73706-2f9b-4c4d-93bd-cdba581408b7”,
+“metadata”: {},
+“outputs”: [],
+“source”: [</p>
+<blockquote>
+<div><p>“rgb, depth = bot.getImageAndDepth(&quot;camera&quot;)n”,
+“n”,
+“fig = plt.figure(figsize=(10,5))n”,
+“axs = fig.subplots(1, 2)n”,
+“axs[0].imshow(rgb)n”,
+“axs[1].matshow(depth)n”,
+“plt.show()”</p>
+</div></blockquote>
+<p>]</p>
+</div></blockquote>
+<p>},
+{</p>
+<blockquote>
+<div><p>“cell_type”: “markdown”,
+“id”: “ce65b01b-9811-496c-9774-1589d5455deb”,
+“metadata”: {},
+“source”: [</p>
+<blockquote>
+<div><p>“From the lecture slides, we learnedn”,
+“$$\hat x = f\frac{X}{Z}+p_x,~\hat y = f\frac{Y}{Z}+p_y,$$n”,
+“wheren”,
+“- $\hat x, \hat y$ are image coordinates ($u$-$v$ or pixel),n”,
+“- $X, Y, Z$ represent camera coordinates, andn”,
+“- $p_x, p_y$ are the image offset.n”,
+“n”,
+“Since we know the $Z$ value of each pixel, we can compute their 3D coordinate (in camera frame):n”,
+“$$ X = Z\frac{\hat x-p_x}{f},~  Y = Z\frac{\hat y-p_y}{f}.$$”</p>
+</div></blockquote>
+<p>]</p>
+</div></blockquote>
+<p>},
+{</p>
+<blockquote>
+<div><p>“cell_type”: “code”,
+“execution_count”: null,
+“id”: “426eb3b6”,
+“metadata”: {},
+“outputs”: [],
+“source”: [</p>
+<blockquote>
+<div><p>“fxypxy = bot.getCameraFxypxy(&quot;camera&quot;)n”,
+“print(fxypxy)n”,
+“depth.shapen”,
+“cameraFrame = C.getFrame(&quot;camera&quot;)”</p>
+</div></blockquote>
+<p>]</p>
+</div></blockquote>
+<p>},
+{</p>
+<blockquote>
+<div><p>“cell_type”: “code”,
+“execution_count”: null,
+“id”: “cc08f354-0e4d-475b-8af5-ebff63533142”,
+“metadata”: {},
+“outputs”: [],
+“source”: [</p>
+<blockquote>
+<div><p>“fx, fy = fxypxy[0], fxypxy[1]n”,
+“px, py = fxypxy[2], fxypxy[3]n”,
+“R, t = cameraFrame.getRotationMatrix(), cameraFrame.getPosition()n”,
+“H, W = depth.shapen”,
+“n”,
+“Ctmp = ry.Config()n”,
+“points = np.zeros((H,W,3))n”,
+“#for i in range(H):n”,
+“if False:n”,
+”    for j in range(W):n”,
+”        Z = depth[i,j]n”,
+”        if Z &lt; 0:n”,
+”            continuen”,
+”            n”,
+”        ## depth is sign-fliped, j: right, i: downn”,
+”        points[i,j,0] = Z * (j - px) / fx;n”,
+”        points[i,j,1] = -Z * (i - py) / fy;n”,
+”        points[i,j,2] = -Zn”,
+”        n”,
+”        ## Coordinate transformation (from camera to world) n”,
+”        points[i,j] = R&#64;points[i,j] + tn”,
+”        n”,
+”        tmp = Ctmp.addFrame(&quot;pc&quot;+str(i)+str(j))n”,
+”        tmp.setShape(ry.ST.sphere, [0.02])n”,
+“#         tmp.setColor([1,0,0])n”,
+”        tmp.setColor(rgb[i,j]/255)n”,
+”        tmp.setPosition(points[i,j])n”,
+”    Ctmp.view()”</p>
+</div></blockquote>
+<p>]</p>
+</div></blockquote>
+<p>},
+{</p>
+<blockquote>
+<div><p>“cell_type”: “code”,
+“execution_count”: null,
+“id”: “1a9d2d8a-07ae-4dc3-afa5-3c90ac7d2b8e”,
+“metadata”: {},
+“outputs”: [],
+“source”: [</p>
+<blockquote>
+<div><p>“#C2 = ry.Config()n”,
+“#pclFrame = C2.addFrame(‘pcl’)n”,
+“#pclFrame.setPosition(cameraFrame.getPosition())n”,
+“#pclFrame.setQuaternion(cameraFrame.getQuaternion())n”,
+“C.delFrame(‘pcl’)n”,
+“pclFrame = C.addFrame(‘pcl’, ‘camera’)n”,
+“n”,
+“rgb, _, points = bot.getImageDepthPcl(‘camera’, False)n”,
+“pclFrame.setPointCloud(points, rgb)n”,
+“pclFrame.setColor([1.,0.,0.]) #only to see it when overlaying with truthn”,
+“C.view_recopyMeshes()n”,
+“C.view()”</p>
+</div></blockquote>
+<p>]</p>
+</div></blockquote>
+<p>},
+{</p>
+<blockquote>
+<div><p>“cell_type”: “code”,
+“execution_count”: null,
+“id”: “6e222a0a”,
+“metadata”: {},
+“outputs”: [],
+“source”: [</p>
+<blockquote>
+<div><p>“C.delFrame(‘pcl’)”</p>
+</div></blockquote>
+<p>]</p>
+</div></blockquote>
+<p>},
+{</p>
+<blockquote>
+<div><p>“cell_type”: “code”,
+“execution_count”: null,
+“id”: “72179b41”,
+“metadata”: {},
+“outputs”: [],
+“source”: [</p>
+<blockquote>
+<div><p>“bot.sync(C)”</p>
+</div></blockquote>
+<p>]</p>
+</div></blockquote>
+<p>},
+{</p>
+<blockquote>
+<div><p>“cell_type”: “code”,
+“execution_count”: null,
+“id”: “cfdb8d55”,
+“metadata”: {},
+“outputs”: [],
+“source”: [</p>
+<blockquote>
+<div><p>“del botn”,
+“del C”</p>
+</div></blockquote>
+<p>]</p>
+</div></blockquote>
+<p>},
+{</p>
+<blockquote>
+<div><p>“cell_type”: “code”,
+“execution_count”: null,
+“id”: “60ecc8d4”,
+“metadata”: {},
+“outputs”: [],
+“source”: []</p>
+</div></blockquote>
+<p>}</p>
+</dd>
+</dl>
+<p>],
+“metadata”: {</p>
+<blockquote>
+<div><dl class="simple">
+<dt>“kernelspec”: {</dt><dd><p>“display_name”: “Python 3 (ipykernel)”,
+“language”: “python”,
+“name”: “python3”</p>
+</dd>
+</dl>
+<p>},
+“language_info”: {</p>
+<blockquote>
+<div><dl class="simple">
+<dt>“codemirror_mode”: {</dt><dd><p>“name”: “ipython”,
+“version”: 3</p>
+</dd>
+</dl>
+<p>},
+“file_extension”: “.py”,
+“mimetype”: “text/x-python”,
+“name”: “python”,
+“nbconvert_exporter”: “python”,
+“pygments_lexer”: “ipython3”,
+“version”: “3.8.10”</p>
+</div></blockquote>
+<p>}</p>
+</div></blockquote>
+<p>},
+“nbformat”: 4,
+“nbformat_minor”: 5</p>
+</dd>
+</dl>
+<p>}</p>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="botop3-vision.html" class="btn btn-neutral float-left" title="First example to grap images from a webcam" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="botop4-examples.html" class="btn btn-neutral float-right" title="Example for grasping in Sim" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Marc Toussaint.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

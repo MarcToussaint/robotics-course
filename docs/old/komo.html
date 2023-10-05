@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>4.2. Learning KOMO (K-Order Markov Optimization) &mdash; Robotics Python Library  documentation</title>
+  <title>Learning KOMO (K-Order Markov Optimization) &mdash; Robotics Python Library  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -22,8 +22,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4.3. Configuration" href="_Configuration.html" />
-    <link rel="prev" title="4.1.5. SimLab - Project Proposal and Final Presentation" href="simlab5.html" /> 
+    <link rel="next" title="Configuration" href="_Configuration.html" />
+    <link rel="prev" title="SimLab - Project Proposal and Final Presentation" href="simlab5.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -47,39 +47,39 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">1. Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../notebooks.html">2. Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../script/script.html">3. Lecture Script</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="old.html">4. Old Material</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="simlab.html">4.1. Lab Course in Simulation</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">4.2. Learning KOMO (K-Order Markov Optimization)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#no-dynamics-no-velocities-how-do-you-solve-for-dynamic-problems">4.2.1. No dynamics? No velocities? How do you solve for dynamic problems?</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#what-is-komo">4.2.2. What is KOMO?</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#what-is-komo-formally">4.2.3. What is KOMO – formally?</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#what-are-the-main-steps-to-define-a-komo-problem">4.2.4. What are the main steps to define a KOMO problem?</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#roughly-what-does-komo-do-with-these-specs">4.2.5. Roughly, what does KOMO do with these specs?</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#can-komo-only-optimize-paths">4.2.6. Can KOMO only optimize paths?</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#can-i-load-an-urdf">4.2.7. Can I load an URDF?</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#first-practical-steps">4.2.8. First practical steps</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#lesson-1-play-around-with-rai-test-komo-tutorial">4.2.8.1. Lesson 1: play around with $RAI/test/KOMO/tutorial</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#lesson-2-learn-the-addobjective-method-and-the-language-of-features">4.2.8.2. Lesson 2: Learn the addObjective method and the “Language of Features”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../script/script.html">Lecture Script</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="old.html">Old Material</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="simlab.html">Lab Course in Simulation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Learning KOMO (K-Order Markov Optimization)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#no-dynamics-no-velocities-how-do-you-solve-for-dynamic-problems">No dynamics? No velocities? How do you solve for dynamic problems?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#what-is-komo">What is KOMO?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#what-is-komo-formally">What is KOMO – formally?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#what-are-the-main-steps-to-define-a-komo-problem">What are the main steps to define a KOMO problem?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#roughly-what-does-komo-do-with-these-specs">Roughly, what does KOMO do with these specs?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#can-komo-only-optimize-paths">Can KOMO only optimize paths?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#can-i-load-an-urdf">Can I load an URDF?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#first-practical-steps">First practical steps</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#lesson-1-play-around-with-rai-test-komo-tutorial">Lesson 1: play around with $RAI/test/KOMO/tutorial</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lesson-2-learn-the-addobjective-method-and-the-language-of-features">Lesson 2: Learn the addObjective method and the “Language of Features”</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#features-are-at-the-core">4.2.9. Features are at the core</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#varying-decision-variables-per-time-slice-kinematic-switches-force-contacts">4.2.10. Varying decision variables per time slice: kinematic switches &amp; force contacts</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#summary-there-are-only-a-few-fundamental-methods-in-komo-the-rest-are-helpers">4.2.11. Summary: there are only a few fundamental methods in KOMO, the rest are helpers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#steps-phase-real-time-and-time-optimization">4.2.12. Steps, phase, real time, and time optimization</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#links-to-more-documentation">4.2.13. LINKS to more documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#features-are-at-the-core">Features are at the core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#varying-decision-variables-per-time-slice-kinematic-switches-force-contacts">Varying decision variables per time slice: kinematic switches &amp; force contacts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#summary-there-are-only-a-few-fundamental-methods-in-komo-the-rest-are-helpers">Summary: there are only a few fundamental methods in KOMO, the rest are helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#steps-phase-real-time-and-time-optimization">Steps, phase, real time, and time optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#links-to-more-documentation">LINKS to more documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="_Configuration.html">4.3. Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_ConfigurationFiles.html">4.4. .g-files to describe robot configurations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_Graph.html">4.5. Graph and .g-files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_Simulation.html">4.6. Simulation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_Array.html">4.7. Array</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Configuration.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_ConfigurationFiles.html">.g-files to describe robot configurations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Graph.html">Graph and .g-files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Simulation.html">Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Array.html">Array</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../rai.html">5. rai python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rai.html">rai python API</a></li>
 </ul>
 
         </div>
@@ -96,8 +96,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="old.html"><span class="section-number">4. </span>Old Material</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">4.2. </span>Learning KOMO (K-Order Markov Optimization)</li>
+          <li class="breadcrumb-item"><a href="old.html">Old Material</a></li>
+      <li class="breadcrumb-item active">Learning KOMO (K-Order Markov Optimization)</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -107,9 +107,9 @@
            <div itemprop="articleBody">
              
   <section id="learning-komo-k-order-markov-optimization">
-<h1><span class="section-number">4.2. </span>Learning KOMO (K-Order Markov Optimization)<a class="headerlink" href="#learning-komo-k-order-markov-optimization" title="Permalink to this heading"></a></h1>
+<h1>Learning KOMO (K-Order Markov Optimization)<a class="headerlink" href="#learning-komo-k-order-markov-optimization" title="Permalink to this heading"></a></h1>
 <section id="no-dynamics-no-velocities-how-do-you-solve-for-dynamic-problems">
-<h2><span class="section-number">4.2.1. </span>No dynamics? No velocities? How do you solve for dynamic problems?<a class="headerlink" href="#no-dynamics-no-velocities-how-do-you-solve-for-dynamic-problems" title="Permalink to this heading"></a></h2>
+<h2>No dynamics? No velocities? How do you solve for dynamic problems?<a class="headerlink" href="#no-dynamics-no-velocities-how-do-you-solve-for-dynamic-problems" title="Permalink to this heading"></a></h2>
 <p>The <a class="reference internal" href="_Configuration.html#refconfiguration"><span class="std std-ref">Configuration</span></a> documentation describes the basic data
 structures: <code class="docutils literal notranslate"><span class="pre">Configuration</span></code>, <code class="docutils literal notranslate"><span class="pre">Frame</span></code>, and <code class="docutils literal notranslate"><span class="pre">Features</span></code>. But
 nothing about velocities or dynamics.</p>
@@ -144,7 +144,7 @@ velocities of features, or accelerations of features, or anything
 derivable from these.</p>
 </section>
 <section id="what-is-komo">
-<h2><span class="section-number">4.2.2. </span>What is KOMO?<a class="headerlink" href="#what-is-komo" title="Permalink to this heading"></a></h2>
+<h2>What is KOMO?<a class="headerlink" href="#what-is-komo" title="Permalink to this heading"></a></h2>
 <p>KOMO means k-order Markov optimization. KOMO is a way to formulate
 path optimization problems. Technically, this means it is a convention
 of how to specify the mathematical program, namely via the KOMO class.</p>
@@ -162,7 +162,7 @@ having a k-order Markov chain, instead of a Markov chain.</p>
 inequality and equality constraints of the mathematical program.</p>
 </section>
 <section id="what-is-komo-formally">
-<h2><span class="section-number">4.2.3. </span>What is KOMO – formally?<a class="headerlink" href="#what-is-komo-formally" title="Permalink to this heading"></a></h2>
+<h2>What is KOMO – formally?<a class="headerlink" href="#what-is-komo-formally" title="Permalink to this heading"></a></h2>
 <p>As a convention of notation, we describe a non-linear mathematical program as a tuple <span class="math notranslate nohighlight">\((X, \phi, \rho)\)</span>, where <span class="math notranslate nohighlight">\(X\)</span> is the decision space, <span class="math notranslate nohighlight">\(\phi: X \to \mathbb{R}^K\)</span> a set of features, and <span class="math notranslate nohighlight">\(\rho:\{1,..,K\} \to \{\text{S},\text{C},\text{I},\text{E}\}\)</span> indicates for each feature whether it is a sum-of-squares, normal cost, inequality, or equality:</p>
 <div class="math notranslate nohighlight">
 \[\min_{x\in X}~ \phi_\text{S}(x)^\top \phi_\text{S}(x) + \textbf{1}^\top \phi_\text{C}(x)
@@ -176,7 +176,7 @@ only on a subset of at most <span class="math notranslate nohighlight">\(k+1\)</
 <span class="math notranslate nohighlight">\([j] \subseteq \{1,..,T\}\)</span> indicates which variables the <em>j</em>-th feature depends on.</p>
 </section>
 <section id="what-are-the-main-steps-to-define-a-komo-problem">
-<h2><span class="section-number">4.2.4. </span>What are the main steps to define a KOMO problem?<a class="headerlink" href="#what-are-the-main-steps-to-define-a-komo-problem" title="Permalink to this heading"></a></h2>
+<h2>What are the main steps to define a KOMO problem?<a class="headerlink" href="#what-are-the-main-steps-to-define-a-komo-problem" title="Permalink to this heading"></a></h2>
 <p>With KOMO, the steps to specify the mathematical program are
 as follows:</p>
 <ul class="simple">
@@ -205,7 +205,7 @@ to learning KOMO is to learn using this method.</p></li>
 </ul>
 </section>
 <section id="roughly-what-does-komo-do-with-these-specs">
-<h2><span class="section-number">4.2.5. </span>Roughly, what does KOMO do with these specs?<a class="headerlink" href="#roughly-what-does-komo-do-with-these-specs" title="Permalink to this heading"></a></h2>
+<h2>Roughly, what does KOMO do with these specs?<a class="headerlink" href="#roughly-what-does-komo-do-with-these-specs" title="Permalink to this heading"></a></h2>
 <p>A core of KOMO is to compile all the given information into a more
 abstract representation of a non-linear mathematical program. It does
 so by implementing different (virtual) problem abstractions, namely
@@ -228,7 +228,7 @@ information on individual variables and which objectives depend on
 which variables, much like in a factor graph.</p>
 </section>
 <section id="can-komo-only-optimize-paths">
-<h2><span class="section-number">4.2.6. </span>Can KOMO only optimize paths?<a class="headerlink" href="#can-komo-only-optimize-paths" title="Permalink to this heading"></a></h2>
+<h2>Can KOMO only optimize paths?<a class="headerlink" href="#can-komo-only-optimize-paths" title="Permalink to this heading"></a></h2>
 <p>Actually no. You can optimize any ‘network’ of configurations. That
 is, you can specify that there are T configurations, but they are not
 necessarily consecutive. Instead, you specify objectives, but each
@@ -240,7 +240,7 @@ namely by exposing spare Jacobians and/or a sparse graph structure to
 the solver.</p>
 </section>
 <section id="can-i-load-an-urdf">
-<h2><span class="section-number">4.2.7. </span>Can I load an URDF?<a class="headerlink" href="#can-i-load-an-urdf" title="Permalink to this heading"></a></h2>
+<h2>Can I load an URDF?<a class="headerlink" href="#can-i-load-an-urdf" title="Permalink to this heading"></a></h2>
 <p>Yes. But currently it is only partially automatic. The easy part is to
 convert the urdf-file to a g-file using <code class="docutils literal notranslate"><span class="pre">$RAI/bin/urdf2rai.py</span></code>. The
 resulting g-file encodes the full kinematic structure. The part which
@@ -259,9 +259,9 @@ otherwise call ‘make bin’ in $RAI to compile this. You can edit the
 file with any editor during watching it with kinEdit.</p>
 </section>
 <section id="first-practical-steps">
-<h2><span class="section-number">4.2.8. </span>First practical steps<a class="headerlink" href="#first-practical-steps" title="Permalink to this heading"></a></h2>
+<h2>First practical steps<a class="headerlink" href="#first-practical-steps" title="Permalink to this heading"></a></h2>
 <section id="lesson-1-play-around-with-rai-test-komo-tutorial">
-<h3><span class="section-number">4.2.8.1. </span>Lesson 1: play around with $RAI/test/KOMO/tutorial<a class="headerlink" href="#lesson-1-play-around-with-rai-test-komo-tutorial" title="Permalink to this heading"></a></h3>
+<h3>Lesson 1: play around with $RAI/test/KOMO/tutorial<a class="headerlink" href="#lesson-1-play-around-with-rai-test-komo-tutorial" title="Permalink to this heading"></a></h3>
 <p>You can copy the folder <code class="docutils literal notranslate"><span class="pre">$RAI/test/KOMO/tutorial</span></code> to any place you want (e.g. your own sandbox repository). Just edit the BASE = ../.. declaration to the actual $RAI path and make will still work.</p>
 <p>Play around with the tutorialBasics() as follows:</p>
 <ul class="simple">
@@ -282,7 +282,7 @@ leads to better Newton steps.</p></li>
 </ul>
 </section>
 <section id="lesson-2-learn-the-addobjective-method-and-the-language-of-features">
-<h3><span class="section-number">4.2.8.2. </span>Lesson 2: Learn the addObjective method and the “Language of Features”<a class="headerlink" href="#lesson-2-learn-the-addobjective-method-and-the-language-of-features" title="Permalink to this heading"></a></h3>
+<h3>Lesson 2: Learn the addObjective method and the “Language of Features”<a class="headerlink" href="#lesson-2-learn-the-addobjective-method-and-the-language-of-features" title="Permalink to this heading"></a></h3>
 <p>The core of learning KOMO is to learn how to add objectives. The method declaration is</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">Objective</span><span class="o">*</span><span class="w"> </span><span class="n">addObjective</span><span class="p">(</span>
 <span class="w">   </span><span class="k">const</span><span class="w"> </span><span class="n">arr</span><span class="o">&amp;</span><span class="w"> </span><span class="n">times</span><span class="p">,</span><span class="w">            </span><span class="c1">//when (in phase! time) is this objective active?</span>
@@ -341,7 +341,7 @@ phases.</p>
 </section>
 </section>
 <section id="features-are-at-the-core">
-<h2><span class="section-number">4.2.9. </span>Features are at the core<a class="headerlink" href="#features-are-at-the-core" title="Permalink to this heading"></a></h2>
+<h2>Features are at the core<a class="headerlink" href="#features-are-at-the-core" title="Permalink to this heading"></a></h2>
 <p>So far we explained all arguments of addObjective except for those
 that specify the feature. In the previous examples the feature was
 specified by an enum symbol (FS_position) and the frame name “endeff”
@@ -417,7 +417,7 @@ and internally there are a lot more advanced features implemented,
 which are not yet exposed via the simple feature symbols.</p>
 </section>
 <section id="varying-decision-variables-per-time-slice-kinematic-switches-force-contacts">
-<h2><span class="section-number">4.2.10. </span>Varying decision variables per time slice: kinematic switches &amp; force contacts<a class="headerlink" href="#varying-decision-variables-per-time-slice-kinematic-switches-force-contacts" title="Permalink to this heading"></a></h2>
+<h2>Varying decision variables per time slice: kinematic switches &amp; force contacts<a class="headerlink" href="#varying-decision-variables-per-time-slice-kinematic-switches-force-contacts" title="Permalink to this heading"></a></h2>
 <p>KOMO is perhaps special among available trajectory optimization
 methods in that is allows to optimize over sequences in which the
 structure and degrees-of-freedom of configurations changes over
@@ -453,7 +453,7 @@ slides), these methods automatically also add a series of equality and
 inequality constraints to model different kinds of contacts.</p>
 </section>
 <section id="summary-there-are-only-a-few-fundamental-methods-in-komo-the-rest-are-helpers">
-<h2><span class="section-number">4.2.11. </span>Summary: there are only a few fundamental methods in KOMO, the rest are helpers<a class="headerlink" href="#summary-there-are-only-a-few-fundamental-methods-in-komo-the-rest-are-helpers" title="Permalink to this heading"></a></h2>
+<h2>Summary: there are only a few fundamental methods in KOMO, the rest are helpers<a class="headerlink" href="#summary-there-are-only-a-few-fundamental-methods-in-komo-the-rest-are-helpers" title="Permalink to this heading"></a></h2>
 <p>In summary, there are only a few fundamental methods to specify the optimization problem:</p>
 <ul class="simple">
 <li><p>setModel, to specify the blueprint configuration that is used to create configurations for all time slices (accounting for switches)</p></li>
@@ -465,7 +465,7 @@ inequality constraints to model different kinds of contacts.</p>
 <p>Many other methods are just for convenience and internally just call the following fundamental methods. Further methods are for running the default solver, or reading out results.</p>
 </section>
 <section id="steps-phase-real-time-and-time-optimization">
-<h2><span class="section-number">4.2.12. </span>Steps, phase, real time, and time optimization<a class="headerlink" href="#steps-phase-real-time-and-time-optimization" title="Permalink to this heading"></a></h2>
+<h2>Steps, phase, real time, and time optimization<a class="headerlink" href="#steps-phase-real-time-and-time-optimization" title="Permalink to this heading"></a></h2>
 <p>There are really <em>three</em> different quantities that relate to time in
 KOMO. First, we distinguish between step and phase, where steps
 enumerate the series of configurations from 0 to T-1, and phase is a
@@ -500,7 +500,7 @@ allow KOMO to adapt the real time evolution so that dynamic
 motions can align with a prefixed phase schedule.</p>
 </section>
 <section id="links-to-more-documentation">
-<h2><span class="section-number">4.2.13. </span>LINKS to more documentation<a class="headerlink" href="#links-to-more-documentation" title="Permalink to this heading"></a></h2>
+<h2>LINKS to more documentation<a class="headerlink" href="#links-to-more-documentation" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>And old arxiv tech report: <a class="reference external" href="https://arxiv.org/abs/1407.0414">https://arxiv.org/abs/1407.0414</a></p></li>
 <li><p>docu links in rai-maintenance: <a class="reference external" href="https://github.com/MarcToussaint/rai-maintenance/tree/master/help">https://github.com/MarcToussaint/rai-maintenance/tree/master/help</a></p></li>
@@ -513,8 +513,8 @@ motions can align with a prefixed phase schedule.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="simlab5.html" class="btn btn-neutral float-left" title="4.1.5. SimLab - Project Proposal and Final Presentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="_Configuration.html" class="btn btn-neutral float-right" title="4.3. Configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="simlab5.html" class="btn btn-neutral float-left" title="SimLab - Project Proposal and Final Presentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="_Configuration.html" class="btn btn-neutral float-right" title="Configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

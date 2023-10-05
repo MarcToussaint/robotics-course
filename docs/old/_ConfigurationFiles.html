@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>4.4. .g-files to describe robot configurations &mdash; Robotics Python Library  documentation</title>
+  <title>.g-files to describe robot configurations &mdash; Robotics Python Library  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -20,8 +20,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4.5. Graph and .g-files" href="_Graph.html" />
-    <link rel="prev" title="4.3. Configuration" href="_Configuration.html" /> 
+    <link rel="next" title="Graph and .g-files" href="_Graph.html" />
+    <link rel="prev" title="Configuration" href="_Configuration.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,26 +45,26 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">1. Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../notebooks.html">2. Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../script/script.html">3. Lecture Script</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="old.html">4. Old Material</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="simlab.html">4.1. Lab Course in Simulation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="komo.html">4.2. Learning KOMO (K-Order Markov Optimization)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_Configuration.html">4.3. Configuration</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">4.4. .g-files to describe robot configurations</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#editing-using-kinedit">4.4.1. Editing using <code class="docutils literal notranslate"><span class="pre">kinEdit</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#import-from-urdf">4.4.2. Import from URDF</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#notation-to-specify-transformations">4.4.3. Notation to specify transformations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#joint-types">4.4.4. Joint types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../script/script.html">Lecture Script</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="old.html">Old Material</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="simlab.html">Lab Course in Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="komo.html">Learning KOMO (K-Order Markov Optimization)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Configuration.html">Configuration</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">.g-files to describe robot configurations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#editing-using-kinedit">Editing using <code class="docutils literal notranslate"><span class="pre">kinEdit</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#import-from-urdf">Import from URDF</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#notation-to-specify-transformations">Notation to specify transformations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#joint-types">Joint types</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="_Graph.html">4.5. Graph and .g-files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_Simulation.html">4.6. Simulation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_Array.html">4.7. Array</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Graph.html">Graph and .g-files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Simulation.html">Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Array.html">Array</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../rai.html">5. rai python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rai.html">rai python API</a></li>
 </ul>
 
         </div>
@@ -81,8 +81,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="old.html"><span class="section-number">4. </span>Old Material</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">4.4. </span>.g-files to describe robot configurations</li>
+          <li class="breadcrumb-item"><a href="old.html">Old Material</a></li>
+      <li class="breadcrumb-item active">.g-files to describe robot configurations</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -92,7 +92,7 @@
            <div itemprop="articleBody">
              
   <section id="g-files-to-describe-robot-configurations">
-<span id="refconfigurationfile"></span><h1><span class="section-number">4.4. </span>.g-files to describe robot configurations<a class="headerlink" href="#g-files-to-describe-robot-configurations" title="Permalink to this heading"></a></h1>
+<span id="refconfigurationfile"></span><h1>.g-files to describe robot configurations<a class="headerlink" href="#g-files-to-describe-robot-configurations" title="Permalink to this heading"></a></h1>
 <p>We use .g-files to represent robot/world configurations. .g-files
 describe a general graph data structure as explained in
 <a class="reference internal" href="_Graph.html#refgraph"><span class="std std-ref">Graph and .g-files</span></a>. But for robot configurations it is rather simple:
@@ -150,7 +150,7 @@ relative transformation B. So this is a typical short hand to specify
 a joint (more similarly to how its done in URDF). But the generated
 underlying data structure is just a tree of frames.</p>
 <section id="editing-using-kinedit">
-<h2><span class="section-number">4.4.1. </span>Editing using <code class="docutils literal notranslate"><span class="pre">kinEdit</span></code><a class="headerlink" href="#editing-using-kinedit" title="Permalink to this heading"></a></h2>
+<h2>Editing using <code class="docutils literal notranslate"><span class="pre">kinEdit</span></code><a class="headerlink" href="#editing-using-kinedit" title="Permalink to this heading"></a></h2>
 <p>Whenever working with .g-files, you should try to display them using
 the <code class="docutils literal notranslate"><span class="pre">$RAI/bin/kinEdit</span></code> command line tool. CMake automatically
 compiles it; otherwise call ‘make bin’ in $RAI to compile this. Then
@@ -169,7 +169,7 @@ catch and report on syntax errors and be robust, but it crashes on
 some syntax errors and then needs to be restarted manually.</p>
 </section>
 <section id="import-from-urdf">
-<h2><span class="section-number">4.4.2. </span>Import from URDF<a class="headerlink" href="#import-from-urdf" title="Permalink to this heading"></a></h2>
+<h2>Import from URDF<a class="headerlink" href="#import-from-urdf" title="Permalink to this heading"></a></h2>
 <p>You can convert URDF files to .g-files using the <code class="docutils literal notranslate"><span class="pre">rai/bin/urdf2rai.py</span></code> script. However, the overall conversion is only partially automatic.  The
 resulting g-file encodes the full kinematic structure, but the mesh files usually require manual fiddling. First, in the
 g-file, you have to change the path to their location in the file
@@ -191,7 +191,7 @@ extra information on joints to make this a properly articulated robot
 world.</p>
 </section>
 <section id="notation-to-specify-transformations">
-<h2><span class="section-number">4.4.3. </span>Notation to specify transformations<a class="headerlink" href="#notation-to-specify-transformations" title="Permalink to this heading"></a></h2>
+<h2>Notation to specify transformations<a class="headerlink" href="#notation-to-specify-transformations" title="Permalink to this heading"></a></h2>
 <p>Transformation can always be specified as 7-vectors <code class="docutils literal notranslate"><span class="pre">Q:[p1</span> <span class="pre">p2</span> <span class="pre">p3</span> <span class="pre">q0</span>
 <span class="pre">q1</span> <span class="pre">q2</span> <span class="pre">q3]</span></code> (position, quaternion), or also 3- or 4-vectors if you
 only want to set position or orientation. But this is not always intuitive
@@ -208,7 +208,7 @@ transformations, as in the old turtle language.</p>
 </div>
 </section>
 <section id="joint-types">
-<h2><span class="section-number">4.4.4. </span>Joint types<a class="headerlink" href="#joint-types" title="Permalink to this heading"></a></h2>
+<h2>Joint types<a class="headerlink" href="#joint-types" title="Permalink to this heading"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">libry.JT</span></code> enum (in python; or rai::JointType in C++) lists all available joint type. Currently these are:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hingeX</span><span class="p">,</span> <span class="n">hingeY</span><span class="p">,</span> <span class="n">hingeZ</span><span class="p">,</span> <span class="n">transX</span><span class="p">,</span> <span class="n">transY</span><span class="p">,</span> <span class="n">transZ</span><span class="p">,</span> <span class="n">transXY</span><span class="p">,</span> <span class="n">trans3</span><span class="p">,</span> <span class="n">transXYPhi</span><span class="p">,</span> <span class="n">universal</span><span class="p">,</span> <span class="n">rigid</span><span class="p">,</span> <span class="n">quatBall</span><span class="p">,</span> <span class="n">phiTransXY</span><span class="p">,</span> <span class="n">XBall</span><span class="p">,</span> <span class="n">free</span><span class="p">,</span> <span class="n">tau</span>
 </pre></div>
@@ -229,8 +229,8 @@ the resulting relative transformation generated by the joint).</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="_Configuration.html" class="btn btn-neutral float-left" title="4.3. Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="_Graph.html" class="btn btn-neutral float-right" title="4.5. Graph and .g-files" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="_Configuration.html" class="btn btn-neutral float-left" title="Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="_Graph.html" class="btn btn-neutral float-right" title="Graph and .g-files" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>4.1.2. SimLab Exercise 2 - Motion &mdash; Robotics Python Library  documentation</title>
+  <title>SimLab Exercise 2 - Motion &mdash; Robotics Python Library  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -22,8 +22,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4.1.3. SimLab Exercise 3 - OpenCV" href="simlab3.html" />
-    <link rel="prev" title="4.1.1. SimLab Exercise 1 - Basic Setup" href="simlab1.html" /> 
+    <link rel="next" title="SimLab Exercise 3 - OpenCV" href="simlab3.html" />
+    <link rel="prev" title="SimLab Exercise 1 - Basic Setup" href="simlab1.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -47,35 +47,35 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">1. Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../notebooks.html">2. Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../script/script.html">3. Lecture Script</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="old.html">4. Old Material</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="simlab.html">4.1. Lab Course in Simulation</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="simlab1.html">4.1.1. SimLab Exercise 1 - Basic Setup</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">4.1.2. SimLab Exercise 2 - Motion</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#a-basic-ik">4.1.2.1. a) Basic IK</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#b-path-optimization-velocity-acceleration-objectives">4.1.2.2. b) Path Optimization &amp; velocity/acceleration objectives</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#c-explore-collision-features-and-enforce-touch">4.1.2.3. c) Explore collision features, and enforce touch</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#d-interacting-with-real-objects">4.1.2.4. d) Interacting with “real” objects</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#e-advanced-tricky-use-of-inequalities-scaling-and-target">4.1.2.5. e) Advanced: Tricky use of inequalities, scaling, and target</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#f-advanced-reactive-operational-space-control">4.1.2.6. f) Advanced: Reactive Operational Space Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../script/script.html">Lecture Script</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="old.html">Old Material</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="simlab.html">Lab Course in Simulation</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="simlab1.html">SimLab Exercise 1 - Basic Setup</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">SimLab Exercise 2 - Motion</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#a-basic-ik">a) Basic IK</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#b-path-optimization-velocity-acceleration-objectives">b) Path Optimization &amp; velocity/acceleration objectives</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#c-explore-collision-features-and-enforce-touch">c) Explore collision features, and enforce touch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#d-interacting-with-real-objects">d) Interacting with “real” objects</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#e-advanced-tricky-use-of-inequalities-scaling-and-target">e) Advanced: Tricky use of inequalities, scaling, and target</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#f-advanced-reactive-operational-space-control">f) Advanced: Reactive Operational Space Control</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="simlab3.html">4.1.3. SimLab Exercise 3 - OpenCV</a></li>
-<li class="toctree-l3"><a class="reference internal" href="simlab4.html">4.1.4. SimLab Exercise 4 - Grasp</a></li>
-<li class="toctree-l3"><a class="reference internal" href="simlab5.html">4.1.5. SimLab - Project Proposal and Final Presentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simlab3.html">SimLab Exercise 3 - OpenCV</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simlab4.html">SimLab Exercise 4 - Grasp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simlab5.html">SimLab - Project Proposal and Final Presentation</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="komo.html">4.2. Learning KOMO (K-Order Markov Optimization)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_Configuration.html">4.3. Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_ConfigurationFiles.html">4.4. .g-files to describe robot configurations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_Graph.html">4.5. Graph and .g-files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_Simulation.html">4.6. Simulation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_Array.html">4.7. Array</a></li>
+<li class="toctree-l2"><a class="reference internal" href="komo.html">Learning KOMO (K-Order Markov Optimization)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Configuration.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_ConfigurationFiles.html">.g-files to describe robot configurations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Graph.html">Graph and .g-files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Simulation.html">Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_Array.html">Array</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../rai.html">5. rai python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rai.html">rai python API</a></li>
 </ul>
 
         </div>
@@ -92,9 +92,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="old.html"><span class="section-number">4. </span>Old Material</a></li>
-          <li class="breadcrumb-item"><a href="simlab.html"><span class="section-number">4.1. </span>Lab Course in Simulation</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">4.1.2. </span>SimLab Exercise 2 - Motion</li>
+          <li class="breadcrumb-item"><a href="old.html">Old Material</a></li>
+          <li class="breadcrumb-item"><a href="simlab.html">Lab Course in Simulation</a></li>
+      <li class="breadcrumb-item active">SimLab Exercise 2 - Motion</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -104,7 +104,7 @@
            <div itemprop="articleBody">
              
   <section id="simlab-exercise-2-motion">
-<h1><span class="section-number">4.1.2. </span>SimLab Exercise 2 - Motion<a class="headerlink" href="#simlab-exercise-2-motion" title="Permalink to this heading"></a></h1>
+<h1>SimLab Exercise 2 - Motion<a class="headerlink" href="#simlab-exercise-2-motion" title="Permalink to this heading"></a></h1>
 <p>Note: Before new exercises, always update the repo:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd $HOME/git/robotics-course
 git pull
@@ -114,7 +114,7 @@ make -j4
 </pre></div>
 </div>
 <section id="a-basic-ik">
-<h2><span class="section-number">4.1.2.1. </span>a) Basic IK<a class="headerlink" href="#a-basic-ik" title="Permalink to this heading"></a></h2>
+<h2>a) Basic IK<a class="headerlink" href="#a-basic-ik" title="Permalink to this heading"></a></h2>
 <p>The first example in <code class="docutils literal notranslate"><span class="pre">course3-Simulation/03-motion</span></code> demonstrates a
 minimalistic setup to use optimization for IK. The initial example
 creates a KOMO instance setup to solve a 1-time-step optimization
@@ -153,7 +153,7 @@ motion.</p></li>
 </ol>
 </section>
 <section id="b-path-optimization-velocity-acceleration-objectives">
-<h2><span class="section-number">4.1.2.2. </span>b) Path Optimization &amp; velocity/acceleration objectives<a class="headerlink" href="#b-path-optimization-velocity-acceleration-objectives" title="Permalink to this heading"></a></h2>
+<h2>b) Path Optimization &amp; velocity/acceleration objectives<a class="headerlink" href="#b-path-optimization-velocity-acceleration-objectives" title="Permalink to this heading"></a></h2>
 <p>The second example in <code class="docutils literal notranslate"><span class="pre">course3-Simulation/03-motion</span></code> demonstrates a
 full path optimization example. Note the differences: We now specify the <code class="docutils literal notranslate"><span class="pre">times</span></code> argument when adding an objective, which is an single time slice or interval specified as a floating number. We defined the path to have 1 phase with 40 steps-per-phase; the <code class="docutils literal notranslate"><span class="pre">times={1.}</span></code> means the objective only holds at phase 1 (end of the path).</p>
 <p>Further note the <code class="docutils literal notranslate"><span class="pre">qItself</span></code> objective with <code class="docutils literal notranslate"><span class="pre">order=1</span></code>, which constrains the joint velocity to be zero at the end of the path.</p>
@@ -168,7 +168,7 @@ object, that works for any orientation of the object.</p></li>
 </ol>
 </section>
 <section id="c-explore-collision-features-and-enforce-touch">
-<h2><span class="section-number">4.1.2.3. </span>c) Explore collision features, and enforce touch<a class="headerlink" href="#c-explore-collision-features-and-enforce-touch" title="Permalink to this heading"></a></h2>
+<h2>c) Explore collision features, and enforce touch<a class="headerlink" href="#c-explore-collision-features-and-enforce-touch" title="Permalink to this heading"></a></h2>
 <p>So far we neglected collisions – and it is generally a fair approach
 to first try to design motions that inherently stay away from
 collisions even without using collision features, as the latter imply
@@ -193,7 +193,7 @@ interactions.</p></li>
 </ol>
 </section>
 <section id="d-interacting-with-real-objects">
-<h2><span class="section-number">4.1.2.4. </span>d) Interacting with “real” objects<a class="headerlink" href="#d-interacting-with-real-objects" title="Permalink to this heading"></a></h2>
+<h2>d) Interacting with “real” objects<a class="headerlink" href="#d-interacting-with-real-objects" title="Permalink to this heading"></a></h2>
 <p>The two examples in <code class="docutils literal notranslate"><span class="pre">course3-Simulation/03-motion</span></code> do not really interact with the “real” world (Simulation, in our case), but only compute some motion in your model configuration. Let us change that:</p>
 <ol class="arabic simple">
 <li><p>Add a new object named “myObj” of shape type <code class="docutils literal notranslate"><span class="pre">ssBox</span></code> (see note
@@ -216,7 +216,7 @@ sphere-swept shape primitives allow for well-defined Jacobians of
 collision features.</p>
 </section>
 <section id="e-advanced-tricky-use-of-inequalities-scaling-and-target">
-<h2><span class="section-number">4.1.2.5. </span>e) Advanced: Tricky use of inequalities, scaling, and target<a class="headerlink" href="#e-advanced-tricky-use-of-inequalities-scaling-and-target" title="Permalink to this heading"></a></h2>
+<h2>e) Advanced: Tricky use of inequalities, scaling, and target<a class="headerlink" href="#e-advanced-tricky-use-of-inequalities-scaling-and-target" title="Permalink to this heading"></a></h2>
 <p>This is a bit tricky to figure out, but if you do, you really understood the use of the scaling, target and inequalities.</p>
 <p>As in a), consider IK for grasping a cylinder again. Let’s care only
 about the gripper position, not it’s orientation. The position needs
@@ -233,7 +233,7 @@ it means multiplication with <span class="math notranslate nohighlight">\((0,0,1
 always needs to live in the original 3D feature space!</p>
 </section>
 <section id="f-advanced-reactive-operational-space-control">
-<h2><span class="section-number">4.1.2.6. </span>f) Advanced: Reactive Operational Space Control<a class="headerlink" href="#f-advanced-reactive-operational-space-control" title="Permalink to this heading"></a></h2>
+<h2>f) Advanced: Reactive Operational Space Control<a class="headerlink" href="#f-advanced-reactive-operational-space-control" title="Permalink to this heading"></a></h2>
 <p>Realize a simplest possible instance of Operational Space Control
 using KOMO. [The python interfaces are not ready for this yet.]</p>
 <ol class="arabic simple">
@@ -252,8 +252,8 @@ configuration.</p></li>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="simlab1.html" class="btn btn-neutral float-left" title="4.1.1. SimLab Exercise 1 - Basic Setup" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="simlab3.html" class="btn btn-neutral float-right" title="4.1.3. SimLab Exercise 3 - OpenCV" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="simlab1.html" class="btn btn-neutral float-left" title="SimLab Exercise 1 - Basic Setup" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="simlab3.html" class="btn btn-neutral float-right" title="SimLab Exercise 3 - OpenCV" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
