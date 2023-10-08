@@ -44,10 +44,10 @@ A standard test is
   If tab-autocomplete for jupyter does not work, try `python3 -m pip
   install --user jedi==0.17.2`
 
-## Installing the tutorial notebooks
+## Downloading the tutorial notebooks
 
-    git clone https://github.com/MarcToussaint/rai-python.git
-	cd rai-python/notebooks
+    git clone https://github.com/MarcToussaint/rai-tutorials.git
+	cd rai-tutorials
 	jupyter-notebook .
 
 If you don't have jupyter installed yet:

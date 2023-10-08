@@ -62,6 +62,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="komo-reporting.html">KOMO: Reporting &amp; Explaining Convergence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simulation.html">Direct Simulation Interface</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../tutorials.html#preliminary">Preliminary</a></li>
@@ -108,15 +109,15 @@
 <h2>Importing robot models<a class="headerlink" href="#Importing-robot-models" title="Permalink to this heading"></a></h2>
 <p>Let’s first have a look at robot models that are already installed with rai. (They are defined in the <code class="docutils literal notranslate"><span class="pre">rai-robotModels</span></code> github repo, which is partly copied into the <code class="docutils literal notranslate"><span class="pre">.../site-packages/robotic/rai-robotModels</span></code> install path.)</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">robotic</span> <span class="kn">import</span> <span class="n">ry</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The path where model files are pre-installed:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">ry</span><span class="o">.</span><span class="n">raiPath</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">))</span>
@@ -125,17 +126,8 @@
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-The path where model files are pre-installed:
- /home/mtoussai/.local/lib/python3.8/site-packages/robotic/rai-robotModels/
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span>
@@ -148,51 +140,20 @@ The path where model files are pre-installed:
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
--- WARNING:graph.cpp:read:663(-1) nothing to delete with key &#39;visual&#39;
--- WARNING:graph.cpp:edit:485(-1) no nodes edited! (from &#39;joint: { ctrl_H: 1 }&#39;)
-</pre></div></div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-0
-</pre></div></div>
-</div>
 <p>The <code class="docutils literal notranslate"><span class="pre">addFile</span></code> returns the <em>first</em> frame defined in the file, which typically is the base frame of the whole robot. Therefore, by setting it’s position, you can move the whole loaded robot.</p>
 <p>Sometimes you want to add a model twice, but avoid duplicated frame names. With <code class="docutils literal notranslate"><span class="pre">addFile</span></code> you can specify a <code class="docutils literal notranslate"><span class="pre">prefix</span></code> string (here <code class="docutils literal notranslate"><span class="pre">r_</span></code>) which add that prefix to all frame names of the added robot. This is exemplified with the second panda added here.</p>
 <p>The Robotiq example also shows that this base frame can be made a child of other frames – attaching the robotiq to the panda arm. (Here in addition to the existing gripper, which would first have to be removed using <code class="docutils literal notranslate"><span class="pre">C.delFrame</span></code>.)</p>
 <p>The following is a simple helper to articulare all dofs in the display (press <code class="docutils literal notranslate"><span class="pre">q</span></code> to interrupt):</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">animate</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">KeyboardInterrupt</span>                         Traceback (most recent call last)
-Cell <span class="ansi-green-fg">In[8], line 1</span>
-<span class="ansi-green-fg">----&gt; 1</span> <span class="ansi-yellow-bg">C</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">animate</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span>
-
-<span class="ansi-red-fg">KeyboardInterrupt</span>:
-</pre></div></div>
-</div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">C</span>
@@ -215,15 +176,15 @@ Cell <span class="ansi-green-fg">In[8], line 1</span>
 <p>Open the file you want to edit (here <code class="docutils literal notranslate"><span class="pre">mini.g</span></code>) in any editor. At the same time, open it from within python and display it using <code class="docutils literal notranslate"><span class="pre">watchFile</span></code>. The key benefit is that <code class="docutils literal notranslate"><span class="pre">watchFile</span></code> reloads and re-displays the file whenever it is externally modified (it watches the file’s inode). That enables interactive editing.</p>
 <p><strong>TODO</strong>: The following is still not crash-robust when readers throw syntax error. kinEdit better?</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">robotic</span> <span class="kn">import</span> <span class="n">ry</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span>
@@ -232,17 +193,8 @@ Cell <span class="ansi-green-fg">In[8], line 1</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-0
-</pre></div></div>
-</div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">watchFile</span><span class="p">(</span><span class="s1">&#39;mini.g&#39;</span><span class="p">)</span>
@@ -250,7 +202,7 @@ Cell <span class="ansi-green-fg">In[8], line 1</span>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">C</span>
@@ -262,7 +214,7 @@ Cell <span class="ansi-green-fg">In[8], line 1</span>
 <h2>How to attach frames - faking grasps<a class="headerlink" href="#How-to-attach-frames---faking-grasps" title="Permalink to this heading"></a></h2>
 <p>Note, this is not real grasping. Just editing the kinematic tree in your configuration</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">robotic</span> <span class="kn">import</span> <span class="n">ry</span>
@@ -271,8 +223,8 @@ Cell <span class="ansi-green-fg">In[8], line 1</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span>
@@ -281,17 +233,8 @@ Cell <span class="ansi-green-fg">In[8], line 1</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-0
-</pre></div></div>
-</div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="s2">&quot;l_gripper&quot;</span><span class="p">,</span> <span class="s2">&quot;r_gripper&quot;</span><span class="p">)</span>
@@ -299,7 +242,7 @@ Cell <span class="ansi-green-fg">In[8], line 1</span>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#move a bit around</span>
@@ -316,7 +259,7 @@ Cell <span class="ansi-green-fg">In[8], line 1</span>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">C</span>
@@ -327,7 +270,7 @@ Cell <span class="ansi-green-fg">In[8], line 1</span>
 <section id="Advanced:-YAML-and-dict-representations">
 <h2>Advanced: YAML and dict representations<a class="headerlink" href="#Advanced:-YAML-and-dict-representations" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">yaml</span>
@@ -340,7 +283,7 @@ Cell <span class="ansi-green-fg">In[8], line 1</span>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">C</span>

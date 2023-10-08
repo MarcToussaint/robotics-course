@@ -23,7 +23,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Inverse Kinematics as Optimization (to be merged)" href="komo1-IK-toBeMerged.html" />
+    <link rel="next" title="Direct Simulation Interface" href="simulation.html" />
     <link rel="prev" title="Importing, Editing &amp; Manipulating Configurations" href="configurationEditing.html" /> 
 </head>
 
@@ -61,6 +61,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#Plotting-constraint-errors-over-time-for-paths">Plotting constraint errors over time for paths</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="simulation.html">Direct Simulation Interface</a></li>
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="../tutorials.html#preliminary">Preliminary</a><ul class="current">
@@ -76,7 +77,6 @@
 <li class="toctree-l3"><a class="reference internal" href="komo3-switches-skeletons.html">Advanced: Switches &amp; Skeletons</a></li>
 <li class="toctree-l3"><a class="reference internal" href="botop3-vision.html">First example to grap images from a webcam</a></li>
 <li class="toctree-l3"><a class="reference internal" href="botop4-examples.html">Example for grasping in Sim</a></li>
-<li class="toctree-l3"><a class="reference internal" href="sim1-physics.html">Direct simulation interface</a></li>
 <li class="toctree-l3"><a class="reference internal" href="opt1-basics.html">Optimization (NLP formulation and solving)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="script5-PathFind.html">Path finding example</a></li>
 </ul>
@@ -189,7 +189,7 @@ underlying Lagrangian), which really “explains” the point of convergence as 
   &#39;tau&#39;: 1.0,
   &#39;#slices&#39;: 1,
   &#39;#totalDOF&#39;: 7,
-  &#39;#frames&#39;: 65,
+  &#39;#frames&#39;: 66,
   &#39;#pathQueries:&#39;: 0},
  &#39;objectives&#39;: {&#39;_F_qItself/0-#14&#39;: {&#39;order&#39;: 0.0,
    &#39;type&#39;: &#39;sos&#39;,
@@ -224,7 +224,7 @@ underlying Lagrangian), which really “explains” the point of convergence as 
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{ time: 0.000383, evals: 6, done: 1, feasible: 1, sos: 0.00414146, f: 0, ineq: 0, eq: 0.00188382 }
+{ time: 0.002029, evals: 6, done: 1, feasible: 1, sos: 0.00414146, f: 0, ineq: 0, eq: 0.00188382 }
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -293,7 +293,7 @@ underlying Lagrangian), which really “explains” the point of convergence as 
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{ time: 0.00459, evals: 120, done: 1, feasible: 0, sos: 0.0702195, f: 0, ineq: 0, eq: 4.60313 }
+{ time: 0.01241, evals: 120, done: 1, feasible: 0, sos: 0.0702195, f: 0, ineq: 0, eq: 4.60313 }
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -357,7 +357,7 @@ underlying Lagrangian), which really “explains” the point of convergence as 
 <h2>Plotting constraint errors over time for paths<a class="headerlink" href="#Plotting-constraint-errors-over-time-for-paths" title="Permalink to this heading"></a></h2>
 <p>The above only considers a simple IK problem. Let’s look at a path problem (we take the same 4-waypoint problem from the 1st tutorial):</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span>
@@ -372,7 +372,7 @@ underlying Lagrangian), which really “explains” the point of convergence as 
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -381,7 +381,7 @@ underlying Lagrangian), which really “explains” the point of convergence as 
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">setJointState</span><span class="p">(</span><span class="n">q0</span><span class="p">)</span>
@@ -411,13 +411,13 @@ underlying Lagrangian), which really “explains” the point of convergence as 
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{ time: 0.030868, evals: 25, done: 1, feasible: 1, sos: 16.5172, f: 0, ineq: 0, eq: 0.000774803 }
+{ time: 0.029967, evals: 25, done: 1, feasible: 1, sos: 16.5173, f: 0, ineq: 0, eq: 0.000774498 }
 </pre></div></div>
 </div>
 <p>Using <code class="docutils literal notranslate"><span class="pre">plotOverTime</span></code> in the report method now plots the constraint violations (or sqr costs) over <em>phase</em>, using gnuplot. (You need to have <code class="docutils literal notranslate"><span class="pre">gnuplot</span></code> installed.)</p>
 <p>Here, the only interesting (non-zero) signal is from the 2nd-order control costs, which are the acceleration costs. This is a typical acceperation cost profile for optimal paths between waypoints.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">R</span> <span class="o">=</span> <span class="n">komo</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="n">plotOverTime</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -426,7 +426,7 @@ underlying Lagrangian), which really “explains” the point of convergence as 
 </div>
 <p>Finally, the largrange gradients show that the control costs and the final velocity constraints contribute a lot, but each waypoint also contributes a significant gradient that explains the point of convergence. (If you’d increase control cost scaling, the waypoint Lagrange parameters and their reported gradients would equally increase.)</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solver</span><span class="o">.</span><span class="n">reportLagrangeGradients</span><span class="p">(</span><span class="n">komo</span><span class="o">.</span><span class="n">getFeatureNames</span><span class="p">())</span>
@@ -434,35 +434,44 @@ underlying Lagrangian), which really “explains” the point of convergence as 
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;_F_qItself/2-#14&#39;: {&#39;err&#39;: 16.271121116334356,
-  &#39;grad&#39;: 6007.955825681214,
+{&#39;_F_qItself/2-#14&#39;: {&#39;err&#39;: 16.271221226873042,
+  &#39;grad&#39;: 6007.932041855862,
   &#39;type&#39;: &#39;sos&#39;},
- &#39;_F_qItself/1-#14&#39;: {&#39;err&#39;: 3.3030160848102064e-05,
-  &#39;grad&#39;: 215.45148937551147,
+ &#39;_F_qItself/1-#14&#39;: {&#39;err&#39;: 3.2991984627583903e-05,
+  &#39;grad&#39;: 215.44352203086478,
   &#39;type&#39;: &#39;eq&#39;},
- &#39;__F_PositionDiff/0-l_gripper-way3&#39;: {&#39;err&#39;: 0.00010143823277963815,
-  &#39;grad&#39;: 38.290278666650735,
+ &#39;__F_PositionDiff/0-l_gripper-way3&#39;: {&#39;err&#39;: 0.00010220589093085097,
+  &#39;grad&#39;: 38.292276583455326,
   &#39;type&#39;: &#39;eq&#39;},
- &#39;__F_PositionDiff/0-l_gripper-way1&#39;: {&#39;err&#39;: 0.00022678390968228213,
-  &#39;grad&#39;: 36.94214120773105,
+ &#39;__F_PositionDiff/0-l_gripper-way1&#39;: {&#39;err&#39;: 0.00022613176104052668,
+  &#39;grad&#39;: 36.94496585387665,
   &#39;type&#39;: &#39;eq&#39;},
- &#39;__F_PositionDiff/0-l_gripper-way2&#39;: {&#39;err&#39;: 0.00016656504619849688,
-  &#39;grad&#39;: 31.04187318969391,
+ &#39;__F_PositionDiff/0-l_gripper-way2&#39;: {&#39;err&#39;: 0.00016647615025650042,
+  &#39;grad&#39;: 31.041675044147212,
   &#39;type&#39;: &#39;eq&#39;},
- &#39;__F_PositionDiff/0-l_gripper-way4&#39;: {&#39;err&#39;: 0.0002469860763765208,
-  &#39;grad&#39;: 22.003650346207117,
+ &#39;__F_PositionDiff/0-l_gripper-way4&#39;: {&#39;err&#39;: 0.0002466926005761927,
+  &#39;grad&#39;: 22.00293286910548,
   &#39;type&#39;: &#39;eq&#39;},
- &#39;_F_qItself/0-#14&#39;: {&#39;err&#39;: 0.2460856623621121,
-  &#39;grad&#39;: 1.2108203887336064,
+ &#39;_F_qItself/0-#14&#39;: {&#39;err&#39;: 0.24605158167255367,
+  &#39;grad&#39;: 1.2106791822071845,
   &#39;type&#39;: &#39;sos&#39;}}
 </pre></div></div>
 </div>
 <p>Test the following: Change the timing of the 3rd waypoint to “[2]” as well, requiring the robot to be at way2 and way3 at the same time – which clearly is infeasible. Check the solver return and lagrange gradients.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">komo</span>
+<span class="k">del</span> <span class="n">C</span>
+</pre></div>
+</div>
+</div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -479,7 +488,7 @@ underlying Lagrangian), which really “explains” the point of convergence as 
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="configurationEditing.html" class="btn btn-neutral float-left" title="Importing, Editing &amp; Manipulating Configurations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="komo1-IK-toBeMerged.html" class="btn btn-neutral float-right" title="Inverse Kinematics as Optimization (to be merged)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="simulation.html" class="btn btn-neutral float-right" title="Direct Simulation Interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
