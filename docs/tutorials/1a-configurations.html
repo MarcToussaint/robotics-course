@@ -23,7 +23,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Robot Operation (BotOp) interface" href="1b-botop.html" />
+    <link rel="next" title="BotOp (Robot Operation) interface" href="1b-botop.html" />
     <link rel="prev" title="Tutorials" href="../tutorials.html" /> 
 </head>
 
@@ -52,14 +52,15 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../tutorials.html#basics-on-configurations-botop-komo">Basics on Configurations, BotOp &amp; KOMO</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Configurations</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#Adding-frames-to-a-configuration">Adding frames to a configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Building-a-configuration-from-scratch">Building a configuration from scratch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Specifying-transformations:-Quaternions-&amp;-turtle-strings">Specifying transformations: Quaternions &amp; turtle strings</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#Loading-existing-configurations">Loading existing configurations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#Features:-computing-geometric-properties">Features: computing geometric properties</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#Joint-and-Frame-State">Joint and Frame State</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#View-interaction-and-releasing-objects">View interaction and releasing objects</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="1b-botop.html">Robot Operation (BotOp) interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1b-botop.html">BotOp (Robot Operation) interface</a></li>
 <li class="toctree-l3"><a class="reference internal" href="1c-komo.html">KOMO: Motion Optimization</a></li>
 <li class="toctree-l3"><a class="reference internal" href="1d-real.html">Starting with a real robot</a></li>
 </ul>
@@ -99,7 +100,11 @@
              
   <section id="Configurations">
 <h1>Configurations<a class="headerlink" href="#Configurations" title="Permalink to this heading"></a></h1>
-<p>A configuration is essentially a set of (coordinate) frames, where each frame can represent a shape, joint, inertia, etc. This tutorial introduces to basics of creating &amp; loading configurations, the joint and frame state, computing features, and handling the view window.</p>
+<p>A configuration is essentially a tree of (coordinate) frames, where each frame can have an associated shape, joint, inertia, etc. This tutorial introduces first steps to creating &amp; loading configurations in rai, setting/getting the joint and frame state, computing features, and handling the view window.</p>
+<p>Please see the <a class="reference external" href="https://marctoussaint.github.io/robotics-course/script/script.html#scene-robot-description">Script:Configurations</a> of configurations and degrees-of-freedom.</p>
+<section id="Building-a-configuration-from-scratch">
+<h2>Building a configuration from scratch<a class="headerlink" href="#Building-a-configuration-from-scratch" title="Permalink to this heading"></a></h2>
+<p>Let’s first build a configuration from scratch by adding frames and setting properties such as pose, shape and parentship of frames.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -107,7 +112,7 @@
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">robotic</span> <span class="kn">import</span> <span class="n">ry</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">time</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">compiled</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;version:&#39;</span><span class="p">,</span> <span class="n">ry</span><span class="o">.</span><span class="n">__version__</span><span class="p">,</span> <span class="n">ry</span><span class="o">.</span><span class="n">compiled</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
@@ -116,12 +121,11 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-compile time: Sep 30 2023 22:39:07
+version: 0.0.22 compile time: Oct 10 2023 22:38:22
 </pre></div></div>
 </div>
-<section id="Adding-frames-to-a-configuration">
-<h2>Adding frames to a configuration<a class="headerlink" href="#Adding-frames-to-a-configuration" title="Permalink to this heading"></a></h2>
-<p>The starting point is to create a <code class="docutils literal notranslate"><span class="pre">Configuration</span></code>:</p>
+<p>The following creates an empty configuration, and opens a view window for it.</p>
+<p>Tip: Make the view window appear “Always On Top” (right click on the window bar).</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -140,17 +144,16 @@ compile time: Sep 30 2023 22:39:07
 0
 </pre></div></div>
 </div>
-<p>This shows an empty configuration. Tip: Make the view window appear “Always On Top” (right click on the window bar)</p>
-<p>A configuration is essentially a tree (or forrest) of frames. You usually add models from files, but let’s do it manually here.</p>
+<p>A configuration is essentially a tree (or forrest) of frames. Let’s add a frame and set positions manually. We declare it a <strong>marker</strong> frame, which means it has no real shape, but is displayed using its base vectors in the view.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 <span class="n">f</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">)</span>
-<span class="n">f</span><span class="o">.</span><span class="n">setShape</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">ry</span><span class="o">.</span><span class="n">ST</span><span class="o">.</span><span class="n">marker</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">[</span><span class="mf">.4</span><span class="p">])</span>
+<span class="n">f</span><span class="o">.</span><span class="n">setShape</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">ry</span><span class="o">.</span><span class="n">ST</span><span class="o">.</span><span class="n">marker</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">[</span><span class="mf">.3</span><span class="p">])</span>
 <span class="n">f</span><span class="o">.</span><span class="n">setPosition</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span><span class="mf">0.</span><span class="p">,</span><span class="mf">.5</span><span class="p">])</span>
-<span class="n">f</span><span class="o">.</span><span class="n">setQuaternion</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">.3</span><span class="p">,</span> <span class="mf">.0</span><span class="p">,</span> <span class="mf">.0</span><span class="p">])</span> <span class="c1">#is normalized internally</span>
+<span class="n">f</span><span class="o">.</span><span class="n">setQuaternion</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">.3</span><span class="p">,</span> <span class="mf">.0</span><span class="p">,</span> <span class="mf">.0</span><span class="p">])</span> <span class="c1"># more about quaternions below</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;frame name:&#39;</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;pos:&#39;</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">getPosition</span><span class="p">(),</span> <span class="s1">&#39;quat:&#39;</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">getQuaternion</span><span class="p">())</span>
 <span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
@@ -210,7 +213,7 @@ frame name: second pos: [0.  0.  0.5] quat: [-0.95782629 -0.28734789 -0.        
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">q</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">getJointState</span><span class="p">()</span>
-<span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">.1</span>
+<span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">.2</span>
 <span class="n">C</span><span class="o">.</span><span class="n">setJointState</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;joint state:&#39;</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span>
 <span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
@@ -222,7 +225,7 @@ frame name: second pos: [0.  0.  0.5] quat: [-0.95782629 -0.28734789 -0.        
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-joint state: [0.1]
+joint state: [0.2]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -234,7 +237,7 @@ joint state: [0.1]
 0
 </pre></div></div>
 </div>
-<p>Other examples to add:</p>
+<p>For illustration, let’s add various other child frames with shapes to the ‘second’ frame and animate it with a trivial loop:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
@@ -249,16 +252,12 @@ joint state: [0.1]
 </pre></div>
 </div>
 </div>
-</section>
-<section id="Loading-existing-configurations">
-<h2>Loading existing configurations<a class="headerlink" href="#Loading-existing-configurations" title="Permalink to this heading"></a></h2>
+<p>The following lists all predefined shape types:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-<span class="n">C</span><span class="o">.</span><span class="n">addFile</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">raiPath</span><span class="p">(</span><span class="s1">&#39;panda/panda.g&#39;</span><span class="p">))</span>
-<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ry</span><span class="o">.</span><span class="n">ST</span><span class="o">.</span><span class="n">__members__</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -268,12 +267,101 @@ joint state: [0.1]
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
+dict_keys([&#39;none&#39;, &#39;box&#39;, &#39;sphere&#39;, &#39;capsule&#39;, &#39;mesh&#39;, &#39;cylinder&#39;, &#39;marker&#39;, &#39;pointCloud&#39;, &#39;ssCvx&#39;, &#39;ssBox&#39;, &#39;ssCylinder&#39;, &#39;ssBoxElip&#39;, &#39;quad&#39;, &#39;camera&#39;, &#39;sdf&#39;])
+</pre></div></div>
+</div>
+<p>For most of these, the <code class="docutils literal notranslate"><span class="pre">size</span></code> fully specifies them (box: 3 widths, sphere: radius, capsule: [length radius], cylinder: [length radius], marker: [axes lengths]). The <code class="docutils literal notranslate"><span class="pre">ssBox</span></code> is a sphere-swept-Box with a 4D size: [3 widths, corner radius], which is used a lot. Also mesh shapes can be set manually from python (<code class="docutils literal notranslate"><span class="pre">setMesh</span></code>) by directly giving vertex and triangle arrays. <code class="docutils literal notranslate"><span class="pre">ssCvx</span></code> means sphere-swept convex mesh, which is specified by a mesh and 1D size (radius), and also a very useful shape type.</p>
+<p>Let’s also briefly list the possible joint types:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ry</span><span class="o">.</span><span class="n">JT</span><span class="o">.</span><span class="n">__members__</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+dict_keys([&#39;hingeX&#39;, &#39;hingeY&#39;, &#39;hingeZ&#39;, &#39;transX&#39;, &#39;transY&#39;, &#39;transZ&#39;, &#39;transXY&#39;, &#39;trans3&#39;, &#39;transXYPhi&#39;, &#39;transYPhi&#39;, &#39;universal&#39;, &#39;rigid&#39;, &#39;quatBall&#39;, &#39;phiTransXY&#39;, &#39;XBall&#39;, &#39;free&#39;, &#39;generic&#39;, &#39;tau&#39;])
+</pre></div></div>
+</div>
+<p>Please see the <a class="reference external" href="https://marctoussaint.github.io/robotics-course/script/script.html#kinematics">Script:Kinematics</a> on the basics of such joints (=parameterized transformations). The <code class="docutils literal notranslate"><span class="pre">quatBall</span></code> perhaps deserves special explanation: it realizes a ball joint by introducing the 4D quaternion as joint state - this sometimes requires special attention. But the rai code implements correct Jacobians (accounting also for implicit normalization) w.r.t. the quaternion parameterization. The <code class="docutils literal notranslate"><span class="pre">free</span></code>
+joint is a 7D joint with 3D position and <code class="docutils literal notranslate"><span class="pre">quatBall</span></code>.</p>
+</section>
+<section id="Specifying-transformations:-Quaternions-&amp;-turtle-strings">
+<h2>Specifying transformations: Quaternions &amp; turtle strings<a class="headerlink" href="#Specifying-transformations:-Quaternions-&-turtle-strings" title="Permalink to this heading"></a></h2>
+<p>See the <a class="reference external" href="https://marctoussaint.github.io/robotics-course/script/script.html#d-transformations-rotations-quaternions">Script:Transformations</a> on background on 3D transformations, rotations, and quaternions. We use the (w,x,y,z) convention for quaternions. Whenever you set a quaternion manually, it is internally normalized. So setting a quaterniong (1,1,0,0) is totally fine and means 90-degrees around x:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="n">C</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span> <span class="o">.</span><span class="n">setShape</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">ST</span><span class="o">.</span><span class="n">marker</span><span class="p">,</span> <span class="p">[</span><span class="mf">.3</span><span class="p">])</span> <span class="o">.</span><span class="n">setPosition</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span><span class="mf">0.</span><span class="p">,</span><span class="mf">.5</span><span class="p">])</span> <span class="o">.</span><span class="n">setQuaternion</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">.0</span><span class="p">,</span> <span class="mf">.0</span><span class="p">])</span>
+<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
 0
 </pre></div></div>
 </div>
-<p>Let’s add a second panda, but prefix all frame names, and move it to the side</p>
+<p>But to specify transformations as a human, it is easier to use what I call turtle commands: a string of ‘translate’, ‘rotate’ commands that is sequenced to define a transformation:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span> <span class="o">.</span><span class="n">setShape</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">ST</span><span class="o">.</span><span class="n">marker</span><span class="p">,</span> <span class="p">[</span><span class="mf">.3</span><span class="p">])</span>
+<span class="n">f</span><span class="o">.</span><span class="n">setPose</span><span class="p">(</span><span class="s1">&#39;t(0 0 .5) d(30 1 0 0) t(0 0 .5) d(30 1 0 0)&#39;</span><span class="p">)</span> <span class="c1">#t=translate, #d=rotate-by-degrees around axis</span>
+<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
+</div>
+<p>Also rpy-Euler angles <code class="docutils literal notranslate"><span class="pre">E</span></code>, rotation-by-radians <code class="docutils literal notranslate"><span class="pre">r</span></code>, and quaternions <code class="docutils literal notranslate"><span class="pre">q</span></code> can be used in turtle strings.</p>
+</section>
+<section id="Loading-existing-configurations">
+<h2>Loading existing configurations<a class="headerlink" href="#Loading-existing-configurations" title="Permalink to this heading"></a></h2>
+<p>You will usually load predefined configurations from file, and then perhaps edit and combine them manually. The rai package has several robot models predefined and installed in the <code class="docutils literal notranslate"><span class="pre">raiPath</span></code>. They typically have the <code class="docutils literal notranslate"><span class="pre">.g</span></code>-file extension (see <a class="reference external" href="https://marctoussaint.github.io/robotics-course/script/script.html#graph-yaml-files">Script:gFiles</a> on this file format, which is a yaml-conform graph file). Converting from URDF to configuration files is possible (see advanced tutorial).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="n">C</span><span class="o">.</span><span class="n">addFile</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">raiPath</span><span class="p">(</span><span class="s1">&#39;panda/panda.g&#39;</span><span class="p">))</span>
+<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
+</div>
+<p>Let’s add a second panda, but to avoid frame name conflicts we prefix all frame names. That’s often important when importing multiple models into a single configuration. The can then also move the second robot simply by redefining the position of its base frame.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">addFile</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">raiPath</span><span class="p">(</span><span class="s1">&#39;panda/panda.g&#39;</span><span class="p">),</span> <span class="s1">&#39;r_&#39;</span><span class="p">)</span>
@@ -284,7 +372,7 @@ joint state: [0.1]
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -292,9 +380,9 @@ joint state: [0.1]
 0
 </pre></div></div>
 </div>
-<p>We can get the joint state of the full configuration:</p>
+<p>These models have several joints. We can get the joint state of the full configuration:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">getJointState</span><span class="p">())</span>
@@ -314,9 +402,9 @@ joints: [&#39;panda_joint1&#39;, &#39;panda_joint2&#39;, &#39;panda_joint3&#39;,
 frames: [&#39;panda_base&#39;, &#39;panda_link0&#39;, &#39;panda_link0_0&#39;, &#39;panda_joint1_origin&#39;, &#39;panda_joint1&#39;, &#39;panda_link1&#39;, &#39;panda_link1_0&#39;, &#39;panda_joint2_origin&#39;, &#39;panda_joint2&#39;, &#39;panda_link2&#39;, &#39;panda_link2_0&#39;, &#39;panda_joint3_origin&#39;, &#39;panda_joint3&#39;, &#39;panda_link3&#39;, &#39;panda_link3_0&#39;, &#39;panda_joint4_origin&#39;, &#39;panda_joint4&#39;, &#39;panda_link4&#39;, &#39;panda_link4_0&#39;, &#39;panda_joint5_origin&#39;, &#39;panda_joint5&#39;, &#39;panda_link5&#39;, &#39;panda_link5_0&#39;, &#39;panda_joint6_origin&#39;, &#39;panda_joint6&#39;, &#39;panda_link6&#39;, &#39;panda_link6_0&#39;, &#39;panda_joint7_origin&#39;, &#39;panda_joint7&#39;, &#39;panda_link7&#39;, &#39;panda_link7_0&#39;, &#39;panda_joint8_origin&#39;, &#39;panda_joint8&#39;, &#39;panda_link8&#39;, &#39;panda_hand_joint_origin&#39;, &#39;panda_hand_joint&#39;, &#39;panda_hand&#39;, &#39;panda_hand_0&#39;, &#39;panda_finger_joint1_origin&#39;, &#39;panda_finger_joint2_origin&#39;, &#39;panda_finger_joint1&#39;, &#39;panda_finger_joint2&#39;, &#39;panda_leftfinger&#39;, &#39;panda_rightfinger&#39;, &#39;panda_leftfinger_0&#39;, &#39;panda_rightfinger_0&#39;, &#39;panda_coll0&#39;, &#39;panda_coll0b&#39;, &#39;panda_coll1&#39;, &#39;panda_coll3&#39;, &#39;panda_coll5&#39;, &#39;panda_coll2&#39;, &#39;panda_coll4&#39;, &#39;panda_coll6&#39;, &#39;panda_coll7&#39;, &#39;gripper&#39;, &#39;palm&#39;, &#39;finger1&#39;, &#39;finger2&#39;, &#39;r_panda_base&#39;, &#39;r_panda_link0&#39;, &#39;r_panda_link0_0&#39;, &#39;r_panda_joint1_origin&#39;, &#39;r_panda_joint1&#39;, &#39;r_panda_link1&#39;, &#39;r_panda_link1_0&#39;, &#39;r_panda_joint2_origin&#39;, &#39;r_panda_joint2&#39;, &#39;r_panda_link2&#39;, &#39;r_panda_link2_0&#39;, &#39;r_panda_joint3_origin&#39;, &#39;r_panda_joint3&#39;, &#39;r_panda_link3&#39;, &#39;r_panda_link3_0&#39;, &#39;r_panda_joint4_origin&#39;, &#39;r_panda_joint4&#39;, &#39;r_panda_link4&#39;, &#39;r_panda_link4_0&#39;, &#39;r_panda_joint5_origin&#39;, &#39;r_panda_joint5&#39;, &#39;r_panda_link5&#39;, &#39;r_panda_link5_0&#39;, &#39;r_panda_joint6_origin&#39;, &#39;r_panda_joint6&#39;, &#39;r_panda_link6&#39;, &#39;r_panda_link6_0&#39;, &#39;r_panda_joint7_origin&#39;, &#39;r_panda_joint7&#39;, &#39;r_panda_link7&#39;, &#39;r_panda_link7_0&#39;, &#39;r_panda_joint8_origin&#39;, &#39;r_panda_joint8&#39;, &#39;r_panda_link8&#39;, &#39;r_panda_hand_joint_origin&#39;, &#39;r_panda_hand_joint&#39;, &#39;r_panda_hand&#39;, &#39;r_panda_hand_0&#39;, &#39;r_panda_finger_joint1_origin&#39;, &#39;r_panda_finger_joint2_origin&#39;, &#39;r_panda_finger_joint1&#39;, &#39;r_panda_finger_joint2&#39;, &#39;r_panda_leftfinger&#39;, &#39;r_panda_rightfinger&#39;, &#39;r_panda_leftfinger_0&#39;, &#39;r_panda_rightfinger_0&#39;, &#39;r_panda_coll0&#39;, &#39;r_panda_coll0b&#39;, &#39;r_panda_coll1&#39;, &#39;r_panda_coll3&#39;, &#39;r_panda_coll5&#39;, &#39;r_panda_coll2&#39;, &#39;r_panda_coll4&#39;, &#39;r_panda_coll6&#39;, &#39;r_panda_coll7&#39;, &#39;r_gripper&#39;, &#39;r_palm&#39;, &#39;r_finger1&#39;, &#39;r_finger2&#39;]
 </pre></div></div>
 </div>
-<p>Let’s animate:</p>
+<p>Let’s animate - without respect for limits or collisions! (E.g., the fingers go out of limits.)</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">q0</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">getJointState</span><span class="p">()</span>
@@ -333,7 +421,7 @@ frames: [&#39;panda_base&#39;, &#39;panda_link0&#39;, &#39;panda_link0_0&#39;, &
 <h2>Features: computing geometric properties<a class="headerlink" href="#Features:-computing-geometric-properties" title="Permalink to this heading"></a></h2>
 <p>For every frame we can query its pose:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">getFrame</span><span class="p">(</span><span class="s1">&#39;r_gripper&#39;</span><span class="p">)</span>
@@ -348,17 +436,18 @@ frames: [&#39;panda_base&#39;, &#39;panda_link0&#39;, &#39;panda_link0_0&#39;, &
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-gripper pos: [0.32141215 0.44345913 0.72576189]
-gripper quat: [-0.8669439  -0.10911532  0.39042322  0.28995142]
-gripper rot: [[ 0.52699576  0.41754092 -0.74022635]
- [-0.58794555  0.80804404  0.03721381]
- [ 0.61367378  0.41560126  0.6713271 ]]
+gripper pos: [0.28285113 0.48303487 0.78372153]
+gripper quat: [-0.82227892 -0.21950445  0.40232861  0.33735273]
+gripper rot: [[ 0.44864964  0.37817024 -0.80975353]
+ [-0.73142193  0.67602185 -0.08953445]
+ [ 0.51355182  0.63244108  0.57989897]]
 </pre></div></div>
 </div>
-<p>The above provides basic forward kinematics: After <code class="docutils literal notranslate"><span class="pre">setJointState</span></code> you can query the pose of any configuration frame. However, there is a more general way to query <em>features</em>, i.e. properties of the configuration in a differentiable manner. You might not use this often; but it is important to understand as these differentiable features are the foundation of how optimization problems are formulated, which you’ll need a lot.</p>
+<p>The above provides basic forward kinematics: After <code class="docutils literal notranslate"><span class="pre">setJointState</span></code> you can query the pose of any configuration frame.</p>
+<p>However, there is a more general way to query <em>features</em> (see <a class="reference external" href="https://marctoussaint.github.io/robotics-course/script/script.html#general-concept-of-differentiable-features">Script:Features</a>), i.e. properties of the configuration in a differentiable manner. You might not use this directly often; but defining differentiable features is the foundation of how optimization problems are formulated, which you will need a lot.</p>
 <p>Here are some example features to evaluate:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">y</span><span class="p">,</span><span class="n">J</span><span class="p">]</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;gripper&#39;</span><span class="p">])</span>
@@ -371,23 +460,23 @@ gripper rot: [[ 0.52699576  0.41754092 -0.74022635]
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-position of gripper: [ 0.32842615 -0.00310221  0.76643017]
-Jacobian: [[ 3.10221333e-03  4.33076454e-01 -1.14787661e-02 -1.67755538e-01
-  -3.79268649e-03  8.75715712e-02  8.67361738e-19  0.00000000e+00
+position of gripper: [0.27017462 0.03622352 0.84999348]
+Jacobian: [[-3.62235225e-02  5.13463103e-01 -7.02622624e-02 -2.71168832e-01
+  -1.27611357e-02  2.56483270e-02  2.60208521e-18  0.00000000e+00
    0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
    0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00]
- [ 3.28426146e-01  1.75069738e-02  5.42979997e-01 -1.54572121e-02
-   1.81774030e-01 -3.01246858e-03  2.77555756e-17  0.00000000e+00
+ [ 2.70174616e-01  6.03150204e-02  5.76809785e-01 -2.28430634e-02
+   1.64795742e-01  2.69416090e-02 -6.93889390e-17  0.00000000e+00
    0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
    0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00]
- [ 0.00000000e+00 -3.28032821e-01  1.25841880e-02  5.18337387e-01
-   3.99599798e-03  2.20150278e-01  1.73472348e-18  0.00000000e+00
+ [ 0.00000000e+00 -2.72555698e-01 -3.69637629e-03  4.88346517e-01
+  -1.75743534e-02  2.34009216e-01  1.73472348e-18  0.00000000e+00
    0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
    0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00]]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># negative(!) distance between two convex shapes (or origin of marker)</span>
@@ -396,22 +485,22 @@ Jacobian: [[ 3.10221333e-03  4.33076454e-01 -1.14787661e-02 -1.67755538e-01
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(array([-0.31946979]),
- array([[ 2.11266970e-01,  2.46852305e-02,  5.50265616e-01,
-         -4.20418790e-02,  2.95705159e-02, -1.11343269e-02,
-         -2.43657527e-17, -0.00000000e+00, -1.96930432e-01,
-         -4.35913337e-02, -5.21550074e-01,  7.40963736e-02,
-         -1.50353913e-02,  5.41474581e-03, -5.27869680e-18,
+(array([-0.287672]),
+ array([[ 8.92832227e-02,  5.19279493e-02,  5.58803809e-01,
+         -3.76354350e-02, -2.31257978e-02,  1.11019864e-03,
+         -3.11061377e-17, -0.00000000e+00, -7.07358385e-02,
+          3.18319343e-02, -5.48892145e-01, -7.56432874e-03,
+          6.87288685e-02,  6.43205889e-04,  1.36335428e-17,
          -0.00000000e+00]]))
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># the x-axis of the given frame in world coordinates</span>
@@ -420,33 +509,25 @@ Jacobian: [[ 3.10221333e-03  4.33076454e-01 -1.14787661e-02 -1.67755538e-01
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(array([ 0.51342582, -0.68935383,  0.51106284]),
- array([[ 0.68935383,  0.51064577,  0.42483481, -0.52659502,  0.332467  ,
-         -0.5259756 , -0.45868217,  0.        ,  0.        ,  0.        ,
+(array([ 0.35672715, -0.68401201,  0.63629656]),
+ array([[ 0.68401201,  0.6319515 ,  0.32046993, -0.61004922,  0.49726775,
+         -0.55852166, -0.31342281,  0.        ,  0.        ,  0.        ,
           0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
           0.        ],
-        [ 0.51342582,  0.02064269,  0.72089851, -0.02266834, -0.20468464,
-         -0.02193998, -0.72379283,  0.        ,  0.        ,  0.        ,
+        [ 0.35672715,  0.07423351,  0.72343628, -0.07620321, -0.28012681,
+         -0.01113349, -0.72925977,  0.        ,  0.        ,  0.        ,
           0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
           0.        ],
-        [ 0.        , -0.48516266,  0.54559434,  0.49845333, -0.61009578,
-          0.4988135 , -0.51549452,  0.        ,  0.        ,  0.        ,
+        [ 0.        , -0.27449095,  0.59802111,  0.26009446, -0.57991671,
+          0.3011558 , -0.60823213,  0.        ,  0.        ,  0.        ,
           0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
           0.        ]]))
 </pre></div></div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
 </div>
 </section>
 <section id="Joint-and-Frame-State">
@@ -456,7 +537,7 @@ Jacobian: [[ 3.10221333e-03  4.33076454e-01 -1.14787661e-02 -1.67755538e-01
 <p>Setting the joint state implies computing all relative transformations, and then forward chaining all transformations to compute all frame poses. So setting the joint state also sets the frame state.</p>
 <p>Setting the frame state allows you to set frame poses that are inconsistent/impossible w.r.t. the joints! Setting the frame state implies computing all relative transformations from the frame poses, and then assigning the joint state to the <em>projection</em> onto the actual DOFs</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">setJointState</span><span class="p">(</span><span class="n">q0</span><span class="p">)</span>
@@ -465,7 +546,7 @@ Jacobian: [[ 3.10221333e-03  4.33076454e-01 -1.14787661e-02 -1.67755538e-01
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -475,7 +556,7 @@ Jacobian: [[ 3.10221333e-03  4.33076454e-01 -1.14787661e-02 -1.67755538e-01
 </div>
 <p>The <em>frame state</em> is a <span class="math notranslate nohighlight">\(n\times 7\)</span> matrix, which contains for all of <span class="math notranslate nohighlight">\(n\)</span> frames the 7D pose. A pose is stored as [p_x, p_y, p_z, q_w, q_x, q_y, q_z], with position p and quaternion q.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X0</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">getFrameState</span><span class="p">()</span>
@@ -728,7 +809,7 @@ frame state:  [[ 0.00000000e+00  0.00000000e+00  0.00000000e+00  1.00000000e+00
 </div>
 <p>Let’s do a very questionable thing: adding .1 to all numbers in the frame matrix!</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">X0</span> <span class="o">+</span> <span class="mf">.1</span>
@@ -738,7 +819,7 @@ frame state:  [[ 0.00000000e+00  0.00000000e+00  0.00000000e+00  1.00000000e+00
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -750,7 +831,7 @@ frame state:  [[ 0.00000000e+00  0.00000000e+00  0.00000000e+00  1.00000000e+00
 <p>(Also, the rows of X have non-normalized quaternions! These are normalized when setting the frame state.)</p>
 <p>Let’s reset:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">setFrameState</span><span class="p">(</span><span class="n">X0</span><span class="p">)</span>
@@ -759,7 +840,7 @@ frame state:  [[ 0.00000000e+00  0.00000000e+00  0.00000000e+00  1.00000000e+00
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -770,7 +851,7 @@ frame state:  [[ 0.00000000e+00  0.00000000e+00  0.00000000e+00  1.00000000e+00
 <p>## Selecting joints</p>
 <p>Often one would like to choose which joints are actually active, that is, which joints are referred to in q. This allows one to sub-select joints and work only with projections of the full configuration state. This changes the joint state dimensionality, including ordering of entries in q. The frame state is not affected by such a selection of active joints.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">selectJoints</span><span class="p">([</span><span class="s1">&#39;panda_joint1&#39;</span><span class="p">,</span> <span class="s1">&#39;panda_joint1&#39;</span><span class="p">])</span>
@@ -789,7 +870,7 @@ joint names:  [&#39;panda_joint1&#39;]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">selectJoints</span><span class="p">([],</span> <span class="kc">True</span><span class="p">)</span>
@@ -813,7 +894,7 @@ joint names:  [&#39;panda_joint1&#39;, &#39;panda_joint2&#39;, &#39;panda_joint3
 <h2>View interaction and releasing objects<a class="headerlink" href="#View-interaction-and-releasing-objects" title="Permalink to this heading"></a></h2>
 <p>You can close and re-open the view window</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">view_close</span><span class="p">()</span>
@@ -821,7 +902,7 @@ joint names:  [&#39;panda_joint1&#39;, &#39;panda_joint2&#39;, &#39;panda_joint3
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># things are still there</span>
@@ -830,7 +911,7 @@ joint names:  [&#39;panda_joint1&#39;, &#39;panda_joint2&#39;, &#39;panda_joint3
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -839,10 +920,26 @@ joint names:  [&#39;panda_joint1&#39;, &#39;panda_joint2&#39;, &#39;panda_joint3
 </pre></div></div>
 </div>
 <p>For user interaction it is often useful to wait for a keypress (making <code class="docutils literal notranslate"><span class="pre">view</span></code> a blocking call):</p>
-<p>keypressed = C.view(True, ‘press some key!’) print(‘pressed key:’, keypressed, chr(keypressed))</p>
-<p>Get a screenshot:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">keypressed</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;press some key!&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;pressed key:&#39;</span><span class="p">,</span> <span class="n">keypressed</span><span class="p">,</span> <span class="nb">chr</span><span class="p">(</span><span class="n">keypressed</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+pressed key: 121 y
+</pre></div></div>
+</div>
+<p>You can also get a screenshot:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">img</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">view_getScreenshot</span><span class="p">()</span>
@@ -858,9 +955,26 @@ joint names:  [&#39;panda_joint1&#39;, &#39;panda_joint2&#39;, &#39;panda_joint3
 &lt;class &#39;numpy.ndarray&#39;&gt; (400, 400, 3)
 </pre></div></div>
 </div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_1a-configurations_57_0.png" src="../_images/tutorials_1a-configurations_57_0.png" />
+</div>
+</div>
 <p>And release everything, including closing the view</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">C</span>
@@ -883,7 +997,7 @@ joint names:  [&#39;panda_joint1&#39;, &#39;panda_joint2&#39;, &#39;panda_joint3
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../tutorials.html" class="btn btn-neutral float-left" title="Tutorials" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="1b-botop.html" class="btn btn-neutral float-right" title="Robot Operation (BotOp) interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="1b-botop.html" class="btn btn-neutral float-right" title="BotOp (Robot Operation) interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

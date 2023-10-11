@@ -41,6 +41,7 @@ These are not tested or adapted to the newest code base... They will be updated.
    :glob:
    :maxdepth: 1
    
+   tutorials/rendering
    tutorials/core*
    tutorials/komo*
    tutorials/botop*

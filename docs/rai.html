@@ -116,8 +116,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.stepDynamics"><code class="docutils literal notranslate"><span class="pre">Config.stepDynamics()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.view"><code class="docutils literal notranslate"><span class="pre">Config.view()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.view_close"><code class="docutils literal notranslate"><span class="pre">Config.view_close()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.view_focalLength"><code class="docutils literal notranslate"><span class="pre">Config.view_focalLength()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.view_getScreenshot"><code class="docutils literal notranslate"><span class="pre">Config.view_getScreenshot()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.view_playVideo"><code class="docutils literal notranslate"><span class="pre">Config.view_playVideo()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.view_pose"><code class="docutils literal notranslate"><span class="pre">Config.view_pose()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.view_recopyMeshes"><code class="docutils literal notranslate"><span class="pre">Config.view_recopyMeshes()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.watchFile"><code class="docutils literal notranslate"><span class="pre">Config.watchFile()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.write"><code class="docutils literal notranslate"><span class="pre">Config.write()</span></code></a></li>
@@ -325,6 +327,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#robotic.ry.compiled"><code class="docutils literal notranslate"><span class="pre">compiled()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#robotic.ry.getStartGoalPath"><code class="docutils literal notranslate"><span class="pre">getStartGoalPath()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#robotic.ry.params_add"><code class="docutils literal notranslate"><span class="pre">params_add()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#robotic.ry.params_clear"><code class="docutils literal notranslate"><span class="pre">params_clear()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#robotic.ry.params_file"><code class="docutils literal notranslate"><span class="pre">params_file()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#robotic.ry.params_print"><code class="docutils literal notranslate"><span class="pre">params_print()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#robotic.ry.raiPath"><code class="docutils literal notranslate"><span class="pre">raiPath()</span></code></a></li>
@@ -750,6 +753,12 @@
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="robotic.ry.Config.view_focalLength">
+<span class="sig-name descname"><span class="pre">view_focalLength</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.Config" title="robotic.ry.Config"><span class="pre">robotic.ry.Config</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#robotic.ry.Config.view_focalLength" title="Permalink to this definition"></a></dt>
+<dd><p>return the focal length of the view camera (only intrinsic parameter)</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="robotic.ry.Config.view_getScreenshot">
 <span class="sig-name descname"><span class="pre">view_getScreenshot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.Config" title="robotic.ry.Config"><span class="pre">robotic.ry.Config</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.uint8</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#robotic.ry.Config.view_getScreenshot" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -758,6 +767,12 @@
 <dt class="sig sig-object py" id="robotic.ry.Config.view_playVideo">
 <span class="sig-name descname"><span class="pre">view_playVideo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.Config" title="robotic.ry.Config"><span class="pre">robotic.ry.Config</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">saveVideoPath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#robotic.ry.Config.view_playVideo" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="robotic.ry.Config.view_pose">
+<span class="sig-name descname"><span class="pre">view_pose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.Config" title="robotic.ry.Config"><span class="pre">robotic.ry.Config</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">arr</span></span></span><a class="headerlink" href="#robotic.ry.Config.view_pose" title="Permalink to this definition"></a></dt>
+<dd><p>return the 7D pose of the view camera</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robotic.ry.Config.view_recopyMeshes">
@@ -1053,7 +1068,7 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robotic.ry.</span></span><span class="sig-name descname"><span class="pre">ImpType</span></span><a class="headerlink" href="#robotic.ry.ImpType" title="Permalink to this definition"></a></dt>
 <dd><p>Members:</p>
 <p>closeGripper</p>
-<p>openGripper</p>
+<p>moveGripper</p>
 <p>depthNoise</p>
 <p>rgbNoise</p>
 <p>adversarialDropper</p>
@@ -1697,7 +1712,8 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="robotic.ry.Simulation.getState">
 <span class="sig-name descname"><span class="pre">getState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.Simulation" title="robotic.ry.Simulation"><span class="pre">robotic.ry.Simulation</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="headerlink" href="#robotic.ry.Simulation.getState" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>returns a 4-tuple or frame state, joint state, frame velocities (linear &amp; angular), joint velocities</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robotic.ry.Simulation.getTimeToMove">
@@ -1726,7 +1742,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robotic.ry.Simulation.pushConfigurationToSimulator">
-<span class="sig-name descname"><span class="pre">pushConfigurationToSimulator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.Simulation" title="robotic.ry.Simulation"><span class="pre">robotic.ry.Simulation</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">frameVelocities</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">arr</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jointVelocities</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">arr</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#robotic.ry.Simulation.pushConfigurationToSimulator" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">pushConfigurationToSimulator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.Simulation" title="robotic.ry.Simulation"><span class="pre">robotic.ry.Simulation</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">frameVelocities</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">arr</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">array(0.0078125)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jointVelocities</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">arr</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">array(0.0078125)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#robotic.ry.Simulation.pushConfigurationToSimulator" title="Permalink to this definition"></a></dt>
 <dd><p>set the simulator to the full (frame) state of the configuration</p>
 </dd></dl>
 
@@ -1743,7 +1759,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robotic.ry.Simulation.setState">
-<span class="sig-name descname"><span class="pre">setState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.Simulation" title="robotic.ry.Simulation"><span class="pre">robotic.ry.Simulation</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">frameState</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">arr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frameVelocities</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">arr</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jointState</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">arr</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jointVelocities</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">arr</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#robotic.ry.Simulation.setState" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">setState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.Simulation" title="robotic.ry.Simulation"><span class="pre">robotic.ry.Simulation</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">frameState</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">arr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jointState</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">arr</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">array(0.0078125)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frameVelocities</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">arr</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">array(0.0078125)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jointVelocities</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">arr</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">array(0.0078125)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#robotic.ry.Simulation.setState" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1793,6 +1809,12 @@
 <dt class="sig sig-object py" id="robotic.ry.params_add">
 <span class="sig-prename descclassname"><span class="pre">robotic.ry.</span></span><span class="sig-name descname"><span class="pre">params_add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#robotic.ry.params_add" title="Permalink to this definition"></a></dt>
 <dd><p>add/set parameters</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="robotic.ry.params_clear">
+<span class="sig-prename descclassname"><span class="pre">robotic.ry.</span></span><span class="sig-name descname"><span class="pre">params_clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#robotic.ry.params_clear" title="Permalink to this definition"></a></dt>
+<dd><p>clear all parameters</p>
 </dd></dl>
 
 <dl class="py function">
