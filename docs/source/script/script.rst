@@ -7,8 +7,12 @@ Introduction
 Reference material
 ~~~~~~~~~~~~~~~~~~
 
-In terms of background, please refer to the USE PDFLATEX! as well as the
-USE PDFLATEX! lecture scripts. Here a list of further teaching material:
+In terms of background, please refer to the Maths for Intelligent
+Systems
+[<https://www.user.tu-berlin.de/mtoussai/teaching/Lecture-Maths.pdf>] as
+well as the Intro to Robotics
+[<https://www.user.tu-berlin.de/mtoussai/teaching/Lecture-Robotics.pdf>]
+lecture scripts. Here a list of further teaching material:
 
 -  Craig, J.J.: *Introduction to robotics: mechanics and control*.
    Addison-Wesley New York, 1989. (3rd edition 2006)
@@ -53,23 +57,10 @@ USE PDFLATEX! lecture scripts. Here a list of further teaching material:
 Coding Getting Started
 ~~~~~~~~~~~~~~~~~~~~~~
 
-The coding secitons use the ``robotic`` python package. Sources and
-dockers to build the wheel are found on USE PDFLATEX!.
-
-To install on a standard Ubuntu, the following should be sufficient
-
-::
-
-   sudo apt install liblapack3 freeglut3 libglew-dev python3 python3-pip
-   python3 -m pip install --user robotic numpy scipy
-
-A standard test is
-
-::
-
-   python3 -c 'from robotic import ry; ry.test.RndScene()'
-
-Several USE PDFLATEX! are available as part of the USE PDFLATEX!.
+Please follow the instructions at github/robotics-course
+[<https://marctoussaint.github.io/robotics-course/>] for setting up the
+python package. This includes a series of tutorials, which can also be
+downloaded here [<https://github.com/MarcToussaint/rai-tutorials>].
 
 Scene & Robot Description
 -------------------------
@@ -77,7 +68,7 @@ Scene & Robot Description
 Generally speaking, a scene is a collection of objects (including robot
 parts). We typically assume objects to be rigid bodies with fixed shape
 – which clearly is a simplification relative to real world. More about
-this below, in section `1.15.1 <#secShapes>`__.
+this below, in section `1.14.1 <#secShapes>`__.
 
 However, formally we define a scene as a collection of **frames**, which
 is short for coordinate frames. We can think of these frames as oriented
@@ -99,7 +90,7 @@ frame.
 
 Transformations in :math:`A\in SE(3)` are tuples :math:`A = (t, r)`,
 where :math:`t\in{\mathbb{R}}^3` is a translation and :math:`r\in SO(3)`
-a rotation – see Appendix `1.12 <#appTransforms>`__ for more details.
+a rotation – see Appendix `1.10 <#appTransforms>`__ for more details.
 Rotations can be represented as matrix :math:`R` (see the Maths script
 on properties of rotation matrices), and a pose as the :math:`4\times 4`
 homogeneous transform
@@ -113,55 +104,12 @@ use the convention :math:`r=(r_0,\bar r)`, where the first entry
 rotation axis :math:`\underline w`.
 
 Euler angles and the scaled rotation vector are alternative rotation
-representations – but never use them.
+representations – but never use them. The appendix
+`1.10 <#appTransforms>`__ introduces to all these representations and
+derives conversion equations to relate them.
 
-See appendix `1.12 <#appTransforms>`__ for reference and conversions.
-
-Let’s create a mini scene of 2 frames, both have no proper shape but
-just a “marker” displaying their axes. We create a yaml-style ``mini.g``
-file:
-
-::
-
-   A: { X: [1,0,1, 1,0,0,0], shape: marker, size: [.5] }
-   B: { X: [-1,0,1, 1,0,0,0], shape: marker, size: [.3] }
-
-Here, ``X`` provides the pose of frame :math:`A` and :math:`B`, given
-with 7 numbers, which are translation and quaternion. Let’s load and
-display it:
-
-::
-
-   from robotic import ry
-   C = ry.Config()
-   C.addFile('mini.g')
-   C.view()
-
-and you’ll see the two markers in places :math:`(1,0,1)` and
-:math:`(-1,0,1)`.
-
-Providing quaternions is rather non-intuitive for a human. So there is a
-second convention of how to specify transformations in a more
-human-intuitive manner with turtle commands:
-
-::
-
-   A: { X: "t(1 0 1) d(30 1 0 0)", shape: marker, size: [.5] }
-   B: { X: "t(-1 0 1) d(90 1 0 0)", shape: marker, size: [.3] }
-
-where the string is interpreted as sequential commands of translation
-(t), and rotation by degrees around an axis (d). These can be sequenced
-to specify the full transform more intuitively. Also Euler angle
-commands (E), rotation by radians (r), and a quaternion (q) are
-interpreted. Play around with this and see how the frame poses change.
-To reload you can also try calling
-
-::
-
-   C.watchFile('mini.g')
-
-which is a helper that automatically updates the display whenever the
-file changes – but doesn’t always handle file syntax errors well.
+The illustrates how you can manually define frames in a configuration
+and set absolute or relative transformations.
 
 Coordinates and Composition of Transformations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -211,22 +159,9 @@ But this question is somewhat ill-posed. The situation is:
    “backward COORDINATE transformation”.
 
 In the view of fundamental linear algebra, this should not surprise as
-vectors (and frames) transform *covariant*, while coordinates transform
-*contra-variant*. See the maths lecture.
-
-Let’s make the ``mini.g`` scene to represent a sequence of frames:
-
-::
-
-   A: { X: "t(1 0 1) d(30 1 0 0)", shape: marker, size: [.5] }
-   B(A): { Q: "t(-1 0 1) d(90 1 0 0)", shape: marker, size: [.3] }
-   C(B): { Q: "t(0 0 .5) d(30 1 0 0)", shape: marker, size: [.3], color:[1 0 0] }
-
-Relative to the above, we made :math:`B` a frame *relative* to
-:math:`A`, i.e., :math:`B` is now a child of :math:`A`, and added
-another child :math:`C` of :math:`B`. Note that instead of specifying
-the pose :math:`X`, we now have to specify the relative transform
-:math:`Q`.
+basis vectors transform *covariant*, while coordinates transform
+*contra-variant*. The appendix `1.10.2.1 <#secTransNotation>`__ explains
+this again in more detail and with an explicit example.
 
 Scene Tree or Forest
 ~~~~~~~~~~~~~~~~~~~~
@@ -248,6 +183,10 @@ Scenes can also be a forest of frames, where some frames have no parent
 and their pose :math:`X_i` must be specified, while for non-roots the
 relative transform :math:`Q_i` is specified. We usually only talk about
 trees, but include meaning forests.
+
+The also demonstrates how to define a fram a *child* of another, thereby
+defining a frame tree. Instead of the absolute pose ``X``, you typically
+specify the relative transformation ``Q`` for such a child frame.
 
 Kinematics
 ----------
@@ -300,21 +239,26 @@ rotation that corresponds to the quaternion :math:`q_i/|q_i|`. Note that
 if a user or algorithms sets such a quaternion parameter to zero, that’s
 a singularity and strict error.
 
+In the , when a joint is define for the first time, play around with
+alternative joint types, e.g. a ``quatBall``. The tutorial also lists
+which joint types are pre-defined.
+
 In the scene tree, some of the relative transforms :math:`Q_i` are
 parameterized by dofs, :math:`Q_i(q_i)`. Note that
-:math:`X_\text{parent$(i)$}` is the **joint base frame**, i.e.,
-determines the location and orientation of the joint axis, while
-:math:`X_i = X_\text{parent$(i)$} Q_i` is the **joint output frame**. In
-a robot structure one typically has chains of alternating rigid and
+:math:`X_\text{parent$(i)$}` is the **joint origin**, i.e., determines
+the location and orientation of the joint axis, while
+:math:`X_i = X_\text{parent$(i)$} Q_i` is the **joint (output) frame**.
+In a robot structure one typically has chains of alternating rigid and
 parameterized transforms, e.g.,
 
-a rigid transform :math:`Q_{\pi(i)}` from world into the base of joint
+a rigid transform :math:`Q_{\pi(i)}` from world into the origin of joint
 :math:`i`
 
 a parameterized transform :math:`Q_i(q_i)` representing the joint motion
+(We call this one the *joint frame*, as it hosts the joint dofs.)
 
 a rigid transform :math:`Q_{i \to \pi(j)}` from the output of :math:`i`
-into the base of a following joint :math:`j`
+into the origin of a following joint :math:`j`
 
 a parameterized transform :math:`Q_j(q_j)`
 
@@ -324,43 +268,18 @@ There is a minimalistic convention of describing robot structures,
 called Denavit-Hartenberg convention. These describe the rigid
 transformations between joints using only 4 numbers instead of 6 (which
 pre-determines the zero calibration as well as the “lateral” positioning
-of the following joint base frame). But there is no need to use this
+of the following joint origin). But there is no need to use this
 convention and the above notation is conceptually cleaner and leads to
-intuitive, freely user-defined joint base frames.
+intuitive, freely user-defined joint origins.
 
-Let’s make our ``mini.g`` scene a robot:
+In the you find a section on interactively editing a scene description
+file ``mini.g``. Using this you can try to invent your own robot and
+environment. The tutorial also shows how to load pre-define robot
+models. The appendix `[secConfigFiles] <#secConfigFiles>`__ provides a
+more formal specification of the yaml-style file syntax.
 
-::
-
-   A: { X: "t(1 0 1) d(30 1 0 0)", shape: marker, size: [.5] }
-   B(A): { joint: hingeX, Q: "t(-1 0 1) d(90 1 0 0)", shape: marker, size: [.3] }
-   C(B): { Q: "t(0 0 .5) d(30 1 0 0)", shape: marker, size: [.3], color:[1 0 0] }
-
-Frame :math:`B` became a joint. Note that :math:`A` is the joint base
-frame that determines its location and orientation, :math:`B` is the
-joint (output) frame, and :math:`C` is a down-stream frame attached to
-:math:`B`.
-
-If you use ``watchFile`` and hit ENTER, the configuration is animated so
-that the joint is articulated between its limits. In our case this leads
-to a strange effect, uncovering an issue with our scene description:
-Frame :math:`B` is specified with a relative transform :math:`Q` that
-includes a translation; but it is also specified as ``hingeX`` joint
-which can only generate rotations about :math:`x`. The two
-specifications are inconsistent and we should remove the direct
-:math:`Q` specification:
-
-::
-
-   A: { X: "t(1 0 1) d(30 1 0 0)", shape: marker, size: [.5] }
-   B(A): { joint:hingeX, q: 0.5, limits: [-2., 2], shape: marker, size: [.3] }
-   C(B): { Q: "t(0 0 .5) d(30 1 0 0)", shape: marker, size: [.3], color:[1 0 0] }
-
-Here we also specified an initial joint angle :math:`q=0.5` for the
-hinge joint, as well as limits.
-
-Configuration & Joint Vector
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Forward Kinematics
+~~~~~~~~~~~~~~~~~~
 
 We use the word **configuration** for an “articulated scene”, i.e.,
 where some relative transforms :math:`Q_i(q_i)` are parameterized by
@@ -375,9 +294,6 @@ the joint vector, we can forward chain all relative transformations in
 the scene and thereby compute the absolute pose :math:`X_i(q)` of every
 frame as a function of :math:`q`.
 
-Forward Kinematics
-~~~~~~~~~~~~~~~~~~
-
 This function :math:`q \mapsto X_i(q)` is the core of **forward
 kinematics**. It describes how the joint vector :math:`q` determines the
 pose of all frames in the configuration.
@@ -388,29 +304,30 @@ dofs :math:`q` to the full configuration state
 :math:`\{X_i(q)\}_{i=1}^m`, which so far we described in terms of all
 frame poses. This definition is consistent with the formal description
 of *kinematics* as the theory of possible motions of a system
-configuration (see `1.15.2 <#secKinematics>`__).
+configuration (see `1.14.2 <#secKinematics>`__).
 
 But in practice, the word forward kinematics is often used simply as the
 mapping from :math:`q` to one particular “feature” of the configuration.
 For instance, if :math:`X_i(q)=(t_i(q),r_i(q))` is the pose of some
-frame :math:`i`, forward kinematics can describe the mapping
+frame :math:`i` (e.g. the “end-effector”), forward kinematics can
+describe the mapping
 
 -  :math:`q\mapsto t_i(q)`   to the position of frame :math:`i`
 
--  :math:`q\mapsto r_i(q) \textbf{e}_x`   to the :math:`x`-axis of frame
-   :math:`i` (where :math:`\textbf{e}_x = (1,0,0)^{\!\top\!}`).
+-  :math:`q\mapsto r_i(q) \cdot \textbf{e}_x`   to the :math:`x`-axis of
+   frame :math:`i` (where :math:`\textbf{e}_x = (1,0,0)^{\!\top\!}`).
 
--  :math:`q\mapsto X_i(q) p`   to the world coordinate a point attached
-   to frame :math:`i` with fixed relative offset :math:`p`.
+-  :math:`q\mapsto X_i(q) p`   to the world coordinate of a point
+   attached to frame :math:`i` with fixed relative offset :math:`p`.
 
-Each of these are 3-dimensional features. Let specifically focus on
-three basic feature definitions
+Each of these are 3-dimensional features. Let introduce a more formal
+notation for these three basic features:
 
 .. math::
 
    \begin{aligned}
    q \mapsto \phi^{\textsf{pos}}_{i,p}(q) &= X_i(q)~ p \quad\in {\mathbb{R}}^3 ~, \\
-   q \mapsto \phi^{\textsf{vec}}_{i,v}(q) &= r_i(q)~ v \quad\in {\mathbb{R}}^3 ~, \\
+   q \mapsto \phi^{\textsf{vec}}_{i,v}(q) &= r_i(q) \cdot v \quad\in {\mathbb{R}}^3 ~, \\
    q \mapsto \phi^{\textsf{quat}}_{i}(q) &= r_i(q) \quad\in {\mathbb{R}}^4 ~,\end{aligned}
 
 where :math:`\phi^{\textsf{pos}}_{i,p}(q)` is the (world) position of a
@@ -424,35 +341,17 @@ E.g., also the :math:`3\times 3` rotation matrix is a useful basic
 feature (as it is often used in equations). We can easily construct it
 by concatenating columns, :math:`\phi^{\textsf{rot}}_i =
 (\phi^{\textsf{vec}}_{i,e_x}, \phi^{\textsf{vec}}_{i,e_y}, \phi^{\textsf{vec}}_{i,e_z}) \in {\mathbb{R}}^{3\times
-3}` for basis vectors :math:`e_x,e_y,e_z` of frame :math:`i`. Note that
-the Jacobian of this is a :math:`3\times 3 \times n` tensor.
+3}` for basis vectors :math:`e_x,e_y,e_z` of frame :math:`i`. (Note that
+the Jacobian (defined later) of this is a :math:`3\times 3 \times n`
+tensor.)
 
 The output space of the kinematic map is also called **task space**.
 However, I often just call it **kinematic feature**.
 
-In our mini scene we can get and set the joint state, as well as query
-the pose of all frames:
-
-::
-
-   q = C.getJointState()
-   print(q)
-
-   q[0] = q[0] + .5
-   C.setJointState(q)
-   C.view()
-
-   frameC = C.frame('C')
-   print('pos:', frameC.getPosition(), 'quat:', frameC.getQuaternion())
-
-   q[0] = q[0] + .5
-   C.setJointState(q)
-   print('pos:', frameC.getPosition(), 'quat:', frameC.getQuaternion())
-
-This example directly accesses a frame to query its position and
-orientation. Frames can also be created and modified in this way.
-However, below we introduce a more abstract way to access *features*
-that is more consistent to how constraint problems are formulated.
+The illustrates how you get the joint vector :math:`q` and set it. This
+way you can animate the configuration. Also the positions and
+orientations of all frames can be queried directly – realizing the most
+basic kind of forward kinematics.
 
 Jacobians
 ~~~~~~~~~
@@ -651,19 +550,23 @@ mapping
 
 of a single configuration into some :math:`D`-dimensional space.
 
-The rai code implements many features, most of them are accessible via a
-feature symbol (FS). The Feature tutorial [<notebooks/features.html>]
-should list all available features. New features can be implemented in
-C++ by overloading the abstract Feature class.
+The introduces to features that are readily implemented in the rai code.
+
+(In C++, new features can be implemented by overloading the abstract
+Feature class. Implementing new features is typically done by first
+evaluating existing features and then “forward chaining” the computation
+of the new feature – quite similar to how models are defined in pyTorch
+or similar autodiff frameworks. The C++ code uses autodiff (which
+*forward* chains Jacobians directly at computation) for most features.)
 
 When using features in code, one can additionally specify a ``target``
-and ``scale``, to that the feature is transformed:
+and ``scale``, which defines a subsequent linear transformation:
 
 .. math:: \phi(q) \gets \texttt{scale} \cdot (\phi(q) - \texttt{target})
 
 Note that the scale can be a matrix, which projects the feature. E.g.,
-if you want to define a 2D feature which the :math:`xy`-position of
-frame :math:`i`, then would could define use a matrix
+if you want to define a 2D feature which is the :math:`xy`-position of
+frame :math:`i`, then you can use a matrix
 :math:`\texttt{scale}= \left(\begin{array}{ccc}1 & 0 & 0 \\ 0 & 1 & 0\end{array}\right)`.
 
 Further, a feature can also be of higher order, which by default means a
@@ -673,7 +576,8 @@ features is a differentiable mapping
 .. math:: \phi: (q_0,q_1,..,q_k) \mapsto \mathbb{R}^D
 
 of a :math:`(k+1)`-tuple of configurations to a :math:`D`-dimensional
-space.
+space. This is typically used in the context of **path configurations**,
+which is a sequence of configurations used in path optimization.
 
 Given any 0-order feature :math:`\phi`, by default that defines its 1st
 and 2st order feature as
@@ -722,10 +626,6 @@ Based on this, one provides more convenient user functions that allow to
 query kinematic features for any frame :math:`i`, including the pose
 :math:`X_i`, and on demand also provide the Jacobian of that feature.
 
-Code tutorials: Code Tutorials: Configurations
-[<notebook/1a-configuration.ipynb>], Features
-[<notebook/features.ipynb>]
-
 Inverse Kinematics
 ~~~~~~~~~~~~~~~~~~
 
@@ -741,7 +641,7 @@ We introduced forward kinematics as a mapping from an
 invert this mapping, i.e., given a desired target :math:`y^*` in task
 space, find a joint vector :math:`q` such that :math:`\phi(q) = y^*`. As
 often :math:`n>d`, the inversion is under-specified (leading to what is
-called “redundancy”). But just as the pseudo-inverse of linear
+called “redundancy”). But just as the pseudo-inverse of a linear
 transformation addresses this, we can generalize this to a non-linear
 :math:`\phi` – namely in an optimality formulation.
 
@@ -762,7 +662,7 @@ could be the homing state of a robot or its current state.
 
 In practice, I recommend always using a proper NLP solver to solve
 inverse kinematics. As discussing optimization is beyond this script we
-are here already done with describing inverse kinematics! It is “noting
+are here already done with describing inverse kinematics! It is “nothing
 more” than defining a constraint problem of the sort
 (`[eqIKNLP] <#eqIKNLP>`__) and passing it to a solver. In the coding
 part below I will discuss the richness in options to define such
@@ -775,112 +675,19 @@ Building an NLP from features
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Eq. (\ `[eqIKNLP] <#eqIKNLP>`__) describes IK as an NLP. Appendix
-`1.13.1 <#secNLP>`__ provides a technical reference of how we define
-NLPs mathematically and in code. We summarize this here to enable us
-defining IK problems in the next coding example. Essentially, we specify
-an NLP by *adding objectives*, i.e., adding entries to the total feature
-function :math:`\phi(x)` and specifying the objective type:
+`1.12.1 <#secNLP>`__ provides a technical reference of how we define
+NLPs mathematically and in code. Essentially, an NLP is specified by
+*adding objectives*, where each objective is given by a feature function
+:math:`\phi_i` and an indicator :math:`\varrho_i` that defines whether
+the feature contributes a linear cost (``f``), sum-of-squares cost
+(``sos``), equality constraint (``eq``), or inequality constraint
+(``ineq``) to the NLP.
 
-.. math::
-
-   \begin{aligned}
-   \phi(x) =  \left(\begin{array}{c}f_1(x) \\ r_1(x) \\ h_1(x) \\ g_1(x) \\ h_2(x) \\ \vdots\end{array}\right) 
-   ~,\quad
-   \rho =  \left(\begin{array}{c}\texttt{f}\\ \texttt{sos}\\ \texttt{eq}\\ \texttt{ineq}\\ \texttt{eq}\\ \vdots\end{array}\right)  ~.\end{aligned}
-
-The indicator vector :math:`\rho` informs the solver which components of
-:math:`\phi` have to be treated as cost, sos, eq, or ineq. The entries
-“:math:`f_1`, :math:`r_1`,..” are any features defined in the same
-convention as above. This defines an NLP of the form
-
-.. math::
-
-   \begin{aligned}
-   \min_{b_l\le x \le b_u}~ {{\bf 1}}^{\!\top\!}\phi_\texttt{f}(x) + \phi_\texttt{sos}(x)^{\!\top\!}\phi_\texttt{sos}(x)
-     ~~\text{s.t.}~~\phi_\texttt{ineq}(x) \le 0,~ \phi_\texttt{eq}(x) = 0 ~,\end{aligned}
-
-where :math:`\phi_\texttt{sos}` is the subsets of ``sos``-features, etc.
-
-Let’s use a more interesting scene configuration to demonstrate IK. This
-is really a core exercise, as it opens up the space of defining
-kinematic constraint problems.
-
-::
-
-   import sys, os
-   sys.path.append(os.path.expanduser('~/git/rai-python/build'))
-   import libry as ry
-
-   C = ry.Config()
-   C.addFile(ry.raiPath('../rai-robotModels/scenarios/pandasTable.g'))
-   C.view()
-
-   C.addFrame('boxR','table') \
-     .setRelativePosition([.15,0,.1]) \
-     .setShape(ry.ST.ssBox, size=[.1,.1,.1,.02]) \
-     .setColor([1,1,0])
-   C.addFrame('boxL','table') \
-     .setRelativePosition([-.15,0,.1]) \
-     .setShape(ry.ST.ssBox, size=[.1,.1,.1,.02]) \
-     .setColor([1,.5,0])
-   C.view()
-
-So far, we just created a new scene, with a yellow and orange box. Now
-let’s define an NLP and solve it: [pgIK]
-
-::
-
-   komo = ry.KOMO()
-   komo.setConfig(C, True)
-   komo.setTiming(1., 1, 5., 1)
-   komo.addControlObjective([], 0, 1e-1)
-   komo.addObjective([], ry.FS.accumulatedCollisions, [], ry.OT.eq);
-   komo.addObjective([], ry.FS.jointLimits, [], ry.OT.ineq);
-   komo.addObjective([], ry.FS.positionDiff, ['r_gripper', 'boxL'], ry.OT.eq, [1e1]);
-   komo.addObjective([], ry.FS.positionDiff, ['l_gripper', 'boxR'], ry.OT.eq, [1e1]);
-
-   ret = ry.NLP_Solver() \
-     .setProblem(komo.nlp()) \
-     .setOptions( stopTolerance=1e-2 ) \
-     .solve()
-   print(ret)
-
-   komo.view(False, "waypoint solution")
-
-In the first block, we define a KOMO object, which is nothing but an NLP
-description over configurations. The ``setConfig`` and ``setTiming``
-calls state that we’re optimizing only over a single configuration, as
-always in Inverse Kinematics. We’ll later explain how to optimize over
-sequences of configurations.
-
-The ``add`` methods add objectives (=cost terms, or eq, or ineq
-constraints) to the NLP description. The ``ControlObjective`` is a
-small-weighted regularization :math:`|\!|q-q_0|\!|^2` to optimize for IK
-solutions close to the starting configuration. The others add features
-that define equality (``ry.OT.eq``) or inequality (``ry.OT.ineq``)
-constraints in the NLP.
-
-This *language* of adding objectives to an NLP description is at the
-core of the robotics library we use. Here it is used to define an
-Inverse Kinematics problem. Later we can use it to define path
-optimization problems, as well as MPC (reactive control) problems.
-
-``NLP_Solver`` is a generic NLP solver (by default using an Augmented
-Lagrangian method) that we introduce in the Optimization Algorithms
-Lecture. The ``ret`` tells us how many steps (``evals``) the solver
-needed, and what the costs and constraint errors at convergence are.
-
-The ``komo`` display shows both, the initial configuration and the
-solved configuration overlayed. With the following, we can read out the
-optimal joint vector:
-
-::
-
-   q = komo.getPath()
-   print(type(q), len(q))
-
-   C.setJointState(q[0])
-   C.view()
+The illustrates how an Inverse Kinematics problem can be specified as
+NLP. The core is the ``addObjective`` method, which adds a kinematic
+feature (optimally with transformed by scaling and target) as a cost or
+constraint (depending on the ``f``, ``sos``, ``eq``, or
+``ineq``\ indicator) to the NLP.
 
 Classical Derivation of Pseudo-Inverse Jacobian Solution
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1009,50 +816,6 @@ towards a optimal solution of the trade-off problem
 **singularity-robust IK**. But it only leads to an approximate IK
 solution.
 
-Placeholder
------------
-
-To come:
-
-Spline Motion and Control Levels
-
-Motion Planning: Path/Trajectory Optimization and Finding
-
-Dynamics
-
-Simulation
-
-Control Theory & MPC
-
-skipping here: Mobile Robotics slides
-
-Practical Control: PID, Splines, Tracking, & Layes of Control
--------------------------------------------------------------
-
-In section we introduce some basics to understand how robot control are
-typically realized in practise. Later sections will introduce in more
-detail general dynamics, control theory, trajectory optimization, and
-MPC. This section will help to grasp basic notions such as what is
-compliance vs. admittance and time-continuous tracking references.
-
-Path Planning
--------------
-
-Path Optimization – briefly
----------------------------
-
-Mobile Robotics
----------------
-
-Control Theory
---------------
-
-SKIPPED THIS TERM – Grasping (brief intro)
-------------------------------------------
-
-SKIPPED THIS TERM – Legged Locomotion (brief intro)
----------------------------------------------------
-
 .. _appTransforms:
 
 3D Transformations, Rotations, Quaternions
@@ -1076,14 +839,14 @@ A rotation matrix
    The set of rotation matrices has only 3 DoFs (:math:`\sim` the local
    Lie algebra is 3-dim).
 
-   The application of :math:`R` on a vector :math:`x` is simply the
-   matrix-vector product :math:`R x`.
+   -  The application of :math:`R` on a vector :math:`x` is simply the
+      matrix-vector product :math:`R x`.
 
-   Concatenation of two rotations :math:`R_1` and :math:`R_2` is the
-   normal matrix-matrix product :math:`R_1 R_2`.
+   -  Concatenation of two rotations :math:`R_1` and :math:`R_2` is the
+      normal matrix-matrix product :math:`R_1 R_2`.
 
-   Inversion is the transpose,
-   :math:`R^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1} = R^{\!\top\!}`.
+   -  Inversion is the transpose,
+      :math:`R^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1} = R^{\!\top\!}`.
 
 A rotation vector
    is an unconstrained vector :math:`w\in{\mathbb{R}}^3`. The vector’s
@@ -1091,56 +854,56 @@ A rotation vector
    rotation axis, the vector’s length :math:`|w|=\theta` determines the
    rotation angle (in radians, using the right thumb convention).
 
-   The application of a rotation described by :math:`w\in{\mathbb{R}}^3`
-   on a vector :math:`x\in{\mathbb{R}}^3` is given as (Rodrigues’
-   formula)
+   -  The application of a rotation described by
+      :math:`w\in{\mathbb{R}}^3` on a vector :math:`x\in{\mathbb{R}}^3`
+      is given as (Rodrigues’ formula)
 
-   .. math::
+      .. math::
 
-      \begin{aligned}
-      w \cdot x
-       &= \cos\theta~ x
-        + \sin\theta~ (\underline w\times x)
-        + (1-\cos\theta)~ \underline w(\underline w^{\!\top\!}x)\end{aligned}
+         \begin{aligned}
+         w \cdot x
+          &= \cos\theta~ x
+           + \sin\theta~ (\underline w\times x)
+           + (1-\cos\theta)~ \underline w(\underline w^{\!\top\!}x)\end{aligned}
 
-   where :math:`\theta=|w|` is the rotation angle and
-   :math:`\underline w=w/\theta` the unit length rotation axis.
+      where :math:`\theta=|w|` is the rotation angle and
+      :math:`\underline w=w/\theta` the unit length rotation axis.
 
-   The inverse rotation is described by the negative of the rotation
-   vector.
+   -  The inverse rotation is described by the negative of the rotation
+      vector.
 
-   Concatenation is non-trivial in this representation and we don’t
-   discuss it here. In practice, a rotation vector is first converted to
-   a rotation matrix or quaternion.
+   -  Concatenation is non-trivial in this representation and we don’t
+      discuss it here. In practice, a rotation vector is first converted
+      to a rotation matrix or quaternion.
 
-   Conversion to a matrix: For every vector :math:`w\in{\mathbb{R}}^3`
-   we define its skew symmetric matrix as
+   -  Conversion to a matrix: For every vector
+      :math:`w\in{\mathbb{R}}^3` we define its skew symmetric matrix as
 
-   .. math::
+      .. math::
 
-      \begin{aligned}
-      \hat w = \text{skew}(w) =  \left(\begin{array}{ccc}0 & -w_3 & w_2 \\ w_3 & 0 & -w_1 \\-w_2 & w_1 & 0\end{array}\right)  ~.\end{aligned}
+         \begin{aligned}
+         \hat w = \text{skew}(w) =  \left(\begin{array}{ccc}0 & -w_3 & w_2 \\ w_3 & 0 & -w_1 \\-w_2 & w_1 & 0\end{array}\right)  ~.\end{aligned}
 
-   Note that such skew-symmetric matrices are related to the cross
-   product: :math:`w \times v = \hat w~ v`, where the cross product is
-   rewritten as a matrix product. The rotation matrix :math:`R(w)` that
-   corresponds to a given rotation vector :math:`w` is:
+      Note that such skew-symmetric matrices are related to the cross
+      product: :math:`w \times v = \hat w~ v`, where the cross product
+      is rewritten as a matrix product. The rotation matrix :math:`R(w)`
+      that corresponds to a given rotation vector :math:`w` is:
 
-   .. math::
+      .. math::
 
-      \begin{aligned}
-      \label{eqRodriguez}
-      R(w)
-       &= \exp(\hat w) \\
-       &= \cos\theta~ I + \sin\theta~ \hat w/\theta+ (1-\cos\theta)~ w w^{\!\top\!}/\theta^2\end{aligned}
+         \begin{aligned}
+         \label{eqRodriguez}
+         R(w)
+          &= \exp(\hat w) \\
+          &= \cos\theta~ I + \sin\theta~ \hat w/\theta+ (1-\cos\theta)~ w w^{\!\top\!}/\theta^2\end{aligned}
 
-   The :math:`\exp` function is called exponential map (generating a
-   group element (=rotation matrix) via an element of the Lie algebra
-   (=skew matrix)). The other equation is called Rodrigues’ equation:
-   the first term is a diagonal matrix (:math:`I` is the 3D identity
-   matrix), the second terms the skew symmetric part, the last term the
-   symmetric part (:math:`w
-   w^{\!\top\!}` is also called outer product).
+      The :math:`\exp` function is called exponential map (generating a
+      group element (=rotation matrix) via an element of the Lie algebra
+      (=skew matrix)). The other equation is called Rodrigues’ equation:
+      the first term is a diagonal matrix (:math:`I` is the 3D identity
+      matrix), the second terms the skew symmetric part, the last term
+      the symmetric part (:math:`w
+      w^{\!\top\!}` is also called outer product).
 
 Angular velocity & derivative of a rotation matrix:
    We represent angular velocities by a vector
@@ -1186,59 +949,62 @@ Quaternion
    axis :math:`\underline w` via
    :math:`\bar r = \sin(\theta/2)~ \underline w`.
 
-   The inverse of a quaternion is given by negating :math:`\bar r`,
-   :math:`r^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1} =
-   (r_0,-\bar r)` (or, alternatively, negating :math:`r_0`).
+   -  The inverse of a quaternion is given by negating :math:`\bar r`,
+      :math:`r^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1} =
+      (r_0,-\bar r)` (or, alternatively, negating :math:`r_0`).
 
-   The concatenation of two rotations :math:`r`, :math:`r'` is given as
-   the quaternion product
+   -  The concatenation of two rotations :math:`r`, :math:`r'` is given
+      as the quaternion product
 
-   .. math::
+      .. math::
 
-      \begin{aligned}
-      \label{eqQuat}
-      r \circ r'
-       = (r_0 r'_0 - \bar r^{\!\top\!}\bar r',~
-          r_0 \bar r' + r'_0 \bar r + \bar r' \times \bar r)\end{aligned}
+         \begin{aligned}
+         \label{eqQuat}
+         r \circ r'
+          = (r_0 r'_0 - \bar r^{\!\top\!}\bar r',~
+             r_0 \bar r' + r'_0 \bar r + \bar r' \times \bar r)\end{aligned}
 
-   The application of a rotation quaternion :math:`r` on a vector
-   :math:`x` can be expressed by converting the vector first to the
-   quaternion :math:`(0,x)`, then computing
+   -  The application of a rotation quaternion :math:`r` on a vector
+      :math:`x` can be expressed by converting the vector first to the
+      quaternion :math:`(0,x)`, then computing
 
-   .. math::
+      .. math::
 
-      \begin{aligned}
-      r \cdot x = (r \circ (0,x) \circ r^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1})_{1:3} ~,\end{aligned}
+         \begin{aligned}
+         r \cdot x = (r \circ (0,x) \circ r^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1})_{1:3} ~,\end{aligned}
 
-   I think a bit more efficient is to first convert the rotation
-   quaternion :math:`r` to the equivalent rotation matrix :math:`R`, as
-   given by
+      I think a bit more efficient is to first convert the rotation
+      quaternion :math:`r` to the equivalent rotation matrix :math:`R`:
 
-   .. math::
+   -  Conversion to/from a matrix: A quaternion rotation :math:`r`
+      convertes to the rotation matrix
 
-      \begin{aligned}
-      R
-       &=  \left(\begin{array}{ccc}
-          1-r_{22}-r_{33} & r_{12}-r_{03} &    r_{13}+r_{02} \\
-          r_{12}+r_{03} &   1-r_{11}-r_{33} &  r_{23}-r_{01} \\
-          r_{13}-r_{02} &   r_{23}+r_{01} &    1-r_{11}-r_{22}
-          \end{array}\right)  \\ & ~ r_{ij} := 2 r_i r_j ~.\end{aligned}
+      .. math::
 
-   (Note: In comparison to (`[eqRodriguez] <#eqRodriguez>`__) this does
-   not require to compute a :math:`\sin` or :math:`\cos`.) Inversely,
-   the quaternion :math:`r` for a given matrix :math:`R` is
+         \begin{aligned}
+         R
+          &=  \left(\begin{array}{ccc}
+             1-r_{22}-r_{33} & r_{12}-r_{03} &    r_{13}+r_{02} \\
+             r_{12}+r_{03} &   1-r_{11}-r_{33} &  r_{23}-r_{01} \\
+             r_{13}-r_{02} &   r_{23}+r_{01} &    1-r_{11}-r_{22}
+             \end{array}\right)  \\ & ~ r_{ij} := 2 r_i r_j ~.\end{aligned}
 
-   .. math::
+      (Note: In comparison to (`[eqRodriguez] <#eqRodriguez>`__) this
+      does not require to compute a :math:`\sin` or :math:`\cos`.)
+      Inversely, the quaternion :math:`r` for a given matrix :math:`R`
+      is
 
-      \begin{aligned}
-          r_0 &= {\frac{1}{2}}\sqrt{1+{\rm tr}R}\\
-          r_3 &= (R_{21}-R_{12})/(4 r_0)\\
-          r_2 &= (R_{13}-R_{31})/(4 r_0)\\
-          r_1 &= (R_{32}-R_{23})/(4 r_0) ~.\end{aligned}
+      .. math::
+
+         \begin{aligned}
+             r_0 &= {\frac{1}{2}}\sqrt{1+{\rm tr}R}\\
+             r_3 &= (R_{21}-R_{12})/(4 r_0)\\
+             r_2 &= (R_{13}-R_{31})/(4 r_0)\\
+             r_1 &= (R_{32}-R_{23})/(4 r_0) ~.\end{aligned}
 
 Angular velocity :math:`\to` quaternion velocity
    Given an angular velocity :math:`w\in{\mathbb{R}}^3` and a current
-   quaternion :math:`r(t)\in{\mathbb{R}}`, what is the time derivative
+   quaternion :math:`r(t)\in{\mathbb{R}}^4`, what is the time derivative
    :math:`\dot r(t)` (in analogy to Eq. (\ `[eqDotR] <#eqDotR>`__))? For
    simplicity, let’s first assume :math:`|w|=1`. For a small time
    interval :math:`\delta`, :math:`w` generates a rotation vector
@@ -1276,13 +1042,14 @@ Angular velocity :math:`\to` quaternion velocity
    linearity the equation holds for any :math:`w`.
 
 Quaternion velocity :math:`\to` angular velocity
-   The following is relevant when taking the derivative w.r.t. the
-   quaternion parameters, e.g., for a ball joint represented as
+   The following is relevant when taking the derivative
+   w.r.t. quaternion parameters, e.g., of a ball joint represented as
    quaternion. Given :math:`\dot r`, we have
 
    .. math::
 
       \begin{aligned}
+      \label{eq37}
       \dot r \circ r^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1}
       &= {\frac{1}{2}}(0,w) \circ r \circ r^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1} = {\frac{1}{2}}(0,w) ~,\quad w = 2~ [\dot r \circ r^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1}]_{1:3}\end{aligned}
 
@@ -1290,8 +1057,8 @@ Quaternion velocity :math:`\to` angular velocity
    a change of quaternion :math:`\dot r`. However, the RHS zero will
    hold true only iff :math:`\dot
    r` is orthogonal to :math:`r` (where
-   :math:`\dot r^{\!\top\!}r = \dot r_0 r_0 + \dot {\bar
-   r^{\!\top\!}} \bar r = 0`, see ). In case
+   :math:`\dot r^{\!\top\!}r = \dot r_0 r_0 + \dot{\bar
+   r}{}^{\!\top\!}\bar r = 0`, see ). In case
    :math:`\dot r^{\!\top\!}r \not=0`, the change in length of the
    quaternion does not represent any angular velocity; in typical
    kinematics engines a non-unit length is ignored. Therefore one first
@@ -1301,15 +1068,16 @@ Quaternion velocity :math:`\to` angular velocity
    As a special case of application, consider computing the partial
    derivative w.r.t. quaternion parameters, where :math:`\dot r` is the
    4D unit vectors :math:`e_0,..,e_3`. In this case, the
-   orthogonalization becomes simply :math:`e_i \gets e_i - r r_i` and
+   orthogonalization becomes simply :math:`\dot r \gets e_i - r r_i` and
+   (`[eq37] <#eq37>`__) becomes
 
    .. math::
 
       \begin{aligned}
       (e_i - r_i r) \circ r^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1}
-      &= e_i \circ r^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1} - r_i (1,0,0,0) \\
-      w_i
-      &= 2~ [e_i \circ r^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1}]_{1:3} ~,\end{aligned}
+        &= e_i \circ r^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1} - r_i (1,0,0,0) ~,\quad
+        w_i
+       = 2~ [e_i \circ r^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1}]_{1:3} ~,\end{aligned}
 
    where :math:`w_i` is the rotation vector implied by
    :math:`\dot r = e_i`. In case the original quaternion :math:`r`
@@ -1331,22 +1099,12 @@ Quaternion velocity :math:`\to` angular velocity
    :math:`w = J \dot r` is the angular velocity induced by a quaternion
    velocity :math:`\dot r` (accounting for all implicit normalizations).
 
-.. _transformations-1:
+.. _secTransformations:
 
 Transformations
 ~~~~~~~~~~~~~~~
 
-We consider two types of transformations here: either static
-(translation+rotation), or dynamic
-(translation+velocity+rotation+angular velocity). The first maps between
-two static reference frames, the latter between moving reference frames,
-e.g. between reference frames attached to moving rigid bodies.
-
-Static transformations
-^^^^^^^^^^^^^^^^^^^^^^
-
-Concerning the static transformations, again there are different
-representations:
+We can represent a transformation as:
 
 A homogeneous matrix
    is a :math:`4\times 4`-matrix of the form
@@ -1396,52 +1154,6 @@ Translation and quaternion:
    the concatenation is
    :math:`(t_1,r_1) \circ (t_2,r_2) = (t_1 + r_1\cdot t_2, r_1 \circ r_2)`.
 
-Dynamic transformations
-^^^^^^^^^^^^^^^^^^^^^^^
-
-Just as static transformations map between (static) coordinate frames,
-dynamic transformations map between moving (inertial) frames which are,
-e.g., attached to moving bodies. A dynamic transformation is described
-by a tuple :math:`(t,r,v,w)` with translation :math:`t`, rotation
-:math:`r`, velocity :math:`v` and angular velocity :math:`w`. Under a
-dynamic transform :math:`(t,r,v,w)` a position and velocity
-:math:`(x,\dot x)` maps to a new position and velocity
-:math:`(x',\dot x')` given as
-
-.. math::
-
-   \begin{aligned}
-   & x'=t + r\cdot x \\
-   & \dot x' = v + w \times (r\cdot x)+ r\cdot\dot x\end{aligned}
-
-(the second term is the additional linear velocity of :math:`\dot x'`
-arising from the angular velocity :math:`w` of the dynamic transform).
-The concatenation
-:math:`(t,r,v,w) = (t_1,r_1,v_1,w_1) \circ (t_2,r_2,v_2,w_2)` of two
-dynamic transforms is given as
-
-.. math::
-
-   \begin{aligned}
-   & t = t_1 + r_1 \cdot t_2 \\
-   & v = v_1 + w_1 \times (r_1 \cdot t_2) + r_1 \cdot v_2 \\
-   & r = r_1 \circ r_2 \\
-   & w = w_1 + r_1 \cdot w_2\end{aligned}
-
-For completeness, the footnote [1]_ also describes how accelerations
-transform, including the case when the transform itself is accelerating.
-The inverse
-:math:`(t',r',v',w') = (t,r,v,w)^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1}`
-of a dynamic transform is given as
-
-.. math::
-
-   \begin{aligned}
-   & t' = -r^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1} \cdot t \\
-   & r' =  r^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1} \\
-   & v' =  r^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1} \cdot (w \times t - v) \\
-   & w' = -r^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1} \cdot w\end{aligned}
-
 Sequences of transformations
    by :math:`T_{A\to
    B}` we denote the transformation from frame :math:`A` to frame
@@ -1466,16 +1178,18 @@ Sequences of transformations
       \begin{aligned}
       p^A = T_{A\to B}~ p^B ~.\end{aligned}
 
-A note on affine coordinate frames
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. _secTransNotation:
+
+A note on “forward” vs. “backward” of frame and coordinate transforms
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Instead of the notation :math:`T_{A\to B}`, other text books often use
 notations such as :math:`T_{AB}` or :math:`T^A_B`. A common question
 regarding notation :math:`T_{A\to B}` is the following:
 
    *The notation :math:`T_{A\to B}` is confusing, since it transforms
-   coordinates from frame :math:`B` to frame :math:`A`. Why not the
-   other way around?*
+   coordinates from frame :math:`B` to frame :math:`A`. Why is the
+   notation not the other way around?*
 
 I think the notation :math:`T_{A\to B}` is intuitive for the following
 reasons. The core is to understand that a transformation can be thought
@@ -1552,8 +1266,56 @@ Another way to express this formally: :math:`T_{W\to B}` maps
 *covariant* vectors (including “basis vectors”) forward, but
 *contra-variant* vectors (including “coordinates”) backward.
 
-RAI references
---------------
+Splines
+-------
+
+A spline is a piece-wise polynomial path
+:math:`x:[0,T] \maps {\mathbb{R}}^n`.
+
+Let’s first clearly distinguish the use of words **knot**, **waypoint**,
+and **control point**:
+
+-  A knot :math:`t_i` is a point in *time*, :math:`t_i \in {\mathbb{R}}`
+   (usually :math:`t_i \in [0,T]`). The path is polynomial between
+   knots. We have a non-decreasing sequence of knots :math:`t_0,..,t_m`
+   (usually with :math:`t_0=0` and :math:`t_m=T`) which partition the
+   time interval :math:`[0,T]` into pieces
+   :math:`[t_i, t_{i{{\hspace{-0.0pt}\textrm{+}\hspace{-0.5pt}}1}}]` so
+   that the path is just polynomial in each piece. Note that we may
+   often have double or triple knots, meaning that several consecutive
+   knots
+   :math:`t_i = t_{i{{\hspace{-0.0pt}\textrm{+}\hspace{-0.5pt}}1}}` are
+   equal, especially at the beginning and end.
+
+-  A waypoint :math:`x_i` is a point on the path, typically at a knot,
+   :math:`x_i = x(t_i)`. So a path really passes through a waypoint. At
+   waypoints, we often also care about velocities :math:`v_i` (or
+   accelerations), where :math:`v_i = \dot x(t_i)`.
+
+-  A control point :math:`z_j` is (usually) not a point *on* the path,
+   but it indirectly defines the path as an linear combination of
+   several control points. B-splines, defined below, make this explicit.
+
+In robotics, there are two main conventions to define and parameterize
+splines: Hermite splines and B-splines. Hermite splines are defined by
+the knot sequence and explicitly prescribing waypoints :math:`x_i` and
+(for cubic) velocities :math:`v_i` at each knot (for quintic also
+acceperations :math:`a_i`). In contrast, B-splines are specified by the
+knot sequence and :math:`K` control points :math:`z_j`. As in B-splines
+we do not need to provide velocities as part of the specification, they
+are sometimes easier to use in practical robotics. However, the
+resulting path does not go (exactly) through the provided control points
+– the actual waypoints are implicit and ensuring exact prescribed
+waypoints implies solving a subproblem.
+
+Cubic splines are a common choice in robotics, as they have a still
+continuous (piece-wise linear) acceleration profile, and therefore
+limited jerk (3rd time derivative).
+
+Let’s start with Cubic Hermite splines.
+
+Code References
+---------------
 
 .. _secNLP:
 
@@ -1583,16 +1345,16 @@ to
 with :math:`r:~ {\mathbb{R}}^n \to {\mathbb{R}}^{d_r}`. In technical
 terms, the solver needs to be provided with:
 
-the problem “signature”: dimension :math:`n`, dimensions
-:math:`d_r, d_g, d_h`, bounds :math:`b_l, b_u \in {\mathbb{R}}^n`,
+-  the problem “signature”: dimension :math:`n`, dimensions
+   :math:`d_r, d_g, d_h`, bounds :math:`b_l, b_u \in {\mathbb{R}}^n`,
 
-functions :math:`f, r, g, h`,   Jacobians for all,   Hessian for
-:math:`f`,
+-  functions :math:`f, r, g, h`,   Jacobians for all,   Hessian for
+   :math:`f`,
 
-typically also an initialization sampler :math:`x_0 \sim p(x)`, that
-provides starting :math:`x_0`.
+-  typically also an initialization sampler :math:`x_0 \sim p(x)`, that
+   provides starting :math:`x_0`.
 
-Instead of providing a solver with separate functions
+However, instead of providing a solver with separate functions
 :math:`f, r, g, h`, we instead provide only a single differentiable
 **feature** function :math:`\phi: X \to {\mathbb{R}}^K`, which stacks
 all :math:`f,r,g,h` components to a single vector,
@@ -1605,9 +1367,10 @@ all :math:`f,r,g,h` components to a single vector,
    \rho =  \left(\begin{array}{c}\texttt{f}\\ \texttt{sos}\\ \texttt{eq}\\ \texttt{ineq}\\ \texttt{eq}\\ \vdots\end{array}\right)  ~,\end{aligned}
 
 where the indicator vector :math:`\rho` informs the solver which
-components of :math:`\phi` have to be treated as cost, sos, eq, or ineq.
-(The order of stacking does not matter.) In this convention, the NLP
-reads
+components of :math:`\phi` have to be treated as linear cost (``f``),
+sum-of-squares cost (``sos``), equality constraint (``eq``), or
+inequality constraint (``ineq``). (The order of stacking does not
+matter.) In this convention, the NLP reads
 
 .. math::
 
@@ -1616,17 +1379,19 @@ reads
      ~~\text{s.t.}~~\phi_\texttt{ineq}(x) \le 0,~ \phi_\texttt{eq}(x) = 0 ~,\end{aligned}
 
 where :math:`\phi_\texttt{sos}` is the subsets of ``sos``-features, etc.
-The solver needs to be provided with:
+Based on these conventions, the solver needs to be provided with:
 
-the problem “signature”: dimension :math:`n`, feature types
-:math:`\rho`, bounds :math:`b_l, b_u \in {\mathbb{R}}^n`,
+-  the problem “signature”: dimension :math:`n`, feature types
+   :math:`\rho`, bounds :math:`b_l, b_u \in {\mathbb{R}}^n`,
 
-a single differentiable **feature** function
-:math:`\phi: X \to {\mathbb{R}}^K`, with Jacobian functnio
-:math:`J = \partial_x \phi(x)`,
+-  a single differentiable **feature** function
+   :math:`\phi: X \to {\mathbb{R}}^K`, with Jacobian function
+   :math:`J = \partial_x \phi(x)`,
 
-and typically also an initialization sampler :math:`x_0 \sim p(x)`, that
-provides starting :math:`x_0`.
+-  optionally a Hessian function for the sum of all ``f``-terms,
+
+-  and typically also an initialization sampler :math:`x_0 \sim p(x)`,
+   that provides starting :math:`x_0`.
 
 In the rai code, an NLP is therefore declared as
 
@@ -1642,54 +1407,15 @@ In the rai code, an NLP is therefore declared as
      virtual arr  getInitializationSample(const arr& previousOptima={});
      virtual void getFHessian(arr& H, const arr& x);
 
-Kinematic Features
-~~~~~~~~~~~~~~~~~~
+.. _secYamlGraph:
 
-The code has several kinematic features
-:math:`\phi: q \mapsto \phi(q)\in{\mathbb{R}}^D` pre-defined – see Table
-`[tabFeatures] <#tabFeatures>`__.
-
-.. table:: [tabFeatures]Features pre-defined in rai.
-
-   ===================== ====== ========= =========
-   ================================================================================
-   FS                    frames :math:`D` :math:`k` description
-   ===================== ====== ========= =========
-   ================================================================================
-   position              o1     3                   3D position of o1 in world coordinates
-   positionDiff          o1,o2  3                   difference of 3D positions of o1 and o2 in world coordinates
-   positionRel           o1,o2  3                   3D position of o1 in o2 coordinates
-   quaternion            o1     4                   4D quaternion of o1 in world coordinates [2]_
-   quaternionDiff        o1,o2  4                   ...
-   quaternionRel         o1,o2  4                   ...
-   pose                  o1     7                   7D pose of o1 in world coordinates
-   poseDiff              o1,o2  7                   ...
-   poseRel               o1,o2  7                   ...
-   vectorX               o1     3                   The x-axis of frame o1 rotated back to world coordinates
-   vectorXDiff           o1,o2  3                   The difference of the above for two frames o1 and o2
-   vectorXRel            o1,o2  3                   The x-axis of frame o1 rotated as to be seend from the frame o2
-   vectorY...                                       same as above
-   scalarProductXX       o1,o2  1                   The scalar product of the x-axis fo frame o1 with the x-axis of frame o2
-   scalarProduct...      o1,o2                      as above
-   gazeAt                o1,o2  2                   The 2D projection of the origin of frame o2 onto the xy-plane of frame o1
-   angularVel            o1     3         1         The angular velocity of frame o1 across two configurations
-   accumulatedCollisions        1                   The sum of collision penetrations; when negative/zero, nothing is colliding
-   jointLimits                  1                   The sum of joint limit penetrations; when negative/zero, all joint limits are ok
-   distance              o1,o1  1                   The NEGATIVE distance between convex meshes o1 and o2, positive for penetration
-   qItself                      :math:`n`           The configuration joint vector
-   aboveBox              o1,o2  4                   when all negative, o1 is above (inside support of) the box o2
-   insideBox             o1,o2  6                   when all negative, o1 is inside the box o2
-   standingAbove                                    ?
-   ===================== ====== ========= =========
-   ================================================================================
-
-Graph-Yaml Files
+Yaml-Graph Files
 ~~~~~~~~~~~~~~~~
 
 We use yaml-style files throughout. These are the file representation of
 internal data structures such as dictionaries (anytype key-value maps)
 used for parameter files or other structure data, but esp. also graphs.
-The key extensions relative to yaml are:
+The (semantic) extensions relative to yaml are:
 
 -  An @Include@ node allows to hierarchically include files. This means
    that while each local file can be parsed with a standard yaml parser,
@@ -1714,61 +1440,13 @@ The key extensions relative to yaml are:
    shape=box ]@.
 
 -  Note that all of the above is still yaml syntax, the outer parser
-   only adds additional interpretation of @Include, Edit, Delete@ tags,
-   @<..>@ values, and @(..)@ in names.
+   only adds additional interpretation (post-processing) of @Include,
+   Edit, Delete@ tags, @<..>@ values, and @(..)@ in names.
 
 Within rai, .g-files are used to represent parameter files, robotic
-configurations (:math:`\sim` URDF), logic, factor graphs, optimization
-problems. The underlying data structure is used, e.g., as any-type
-container, Graph, or auto-convertion to python dictionaries.
-
-The following example of a .g-file might help:
-
-::
-
-   ## a trivial graph (all boolean-valued nodes)
-   x            # a vertex: key=x, value=true, parents=none
-   y            # another vertex: key=y, value=true, parents=none
-   (x y)        # an edge: key=none, value=true, parents=x y
-   (-1 -2)      # a hyperedge: key=none, value=true, parents=the previous edge and the y-node
-
-   ## nodes with subgraphs as value
-   A { color:blue }         # key=A, value=<Graph>, parents=none
-   B { color:red, value:5 } # key=B, value=<Graph>, parents=none
-   C(A,B) { width:2 }       # key=C, value=<Graph>, parents=A B
-   hyperedge(A B C) : 5     # key=hyperedge, value=5, parents=A B C
-
-   ## standard value types
-   a:string      # MT::String (except for keywords 'true' and 'false' and 'Mod' and 'Include')
-   b:"STRING"    # MT::String (does not require a ':')
-   c:'file.txt'  # MT::FileToken (does not require a ':')
-   d:-0.1234     # double
-   e:[1 2 3 0.5] # MT::arr (does not require a ':')
-   #f:(c d e)    # DEPRECATED!! MT::Array<*Node> (list of other nodes in the Graph)
-   g!            # bool (default: true, !means false)
-   h:true        # bool
-   i:false       # bool
-   j:{ a:0 }     # sub-Graph (special: does not require a ':')
-
-   ## parsing: : {..} (..) , and \n are separators for parsing key-value-pairs
-   b0:false b1, b2() b3    # 4 boolean nodes with keys 'b0', 'b1', 'b2', 'b3'
-   k:{ a, b:0.2 x:"hallo"     # sub-Graph with 6 nodes
-     y
-     z():filename.org x }
-
-   ## special Node Keys
-
-   # editing: after reading all nodes, the Graph takes all Edit nodes, deletes the Edit tag, and calls a edit()
-   # this example will modify/append the respective attributes of k
-   Edit k { y:false, z:otherString, b:7, c:newAttribute }
-
-   # including
-   Include: 'example_include.g'   # first creates a normal FileToken node then opens and includes the file directly
-
-   ## strange notations
-   a()       # key=a, value=true, parents=none
-   ()        # key=none, value=true, parents=none
-   [1 2 3 4] # key=none, value=MT::arr, parents=none
+configurations (:math:`\sim` URDF), 1st order logic, factor graphs,
+optimization problems. The underlying data structure is used, e.g., as
+any-type container, Graph, or auto-convertion to python dictionaries.
 
 Subgraphs may contain nodes that have parents from the containing graph,
 or from other subgraphs of the containing graph. Some methods of the
@@ -1777,160 +1455,8 @@ also nodes in subgraphs or parentgraphs are to be searched. This
 connectivity across (sub)-graphs e.g. allows to represent logic
 knowledge bases.
 
-yaml-style files to describe robot configurations
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-We use .g-files to represent robot/world configurations. .g-files
-describe a general graph data structure as explained in :ref:‘refGraph‘.
-But for robot configurations it is rather simple: Everly node describes
-a frame, and is described by three things:
-
-::
-
-     <frame-name> ( <parent> ) { <attributes> }
-
-where “<parent>“ needs to be a previously defined frame, or omitted, if
-the frame is a root frame. The attributes defined properties of the
-frame, such as its pose, shape, joint properties, etc.
-
-Here is an example taken from the “test/Kin/kin“:
-
-::
-
-     stem { X:<t(0 0 .5)>, shape:capsule, mass:1, size:[1 .05] }
-     
-     joint1_pre (stem) { Q:<t(0 0 .5) d(90 1 0 0)> }
-     joint1 (arm1) { joint:hingeX, Q:<d(-30 1 0 0)> }
-     arm1 (joint1) { Q:<t(0 0 .15)>, shape:capsule, mass:1, size:[.3 .05] }
-     
-     arm2 { shape:capsule, mass:1, size:[.3 .05] }
-     eff { shape:capsule, mass:1, size:[.3 .05] }
-     
-     joint2 (arm1 arm2) { joint:hingeX, A:<t(0 0 .15) d(0 0 0 1)>, Q:<d(-10 1 0 0)>, B:<t(0 0 .15) > }
-     joint3 (arm2 eff ) { joint:hingeX, A:<t(0 0 .15) d(0 0 0 1)>, Q:<d(-10 1 0 0)>, B:<t(0 0 .15) > }
-     
-     target { X:<t(.0 .2 1.7)>, shape:sphere, mass:.001, size:[0 0 0 .02], color:[0 0 0] }
-
-The first line defines a frame “stem“, which has absolute pose “<t(0 0
-.5)>“ (pose specifications are described below). It also has a shape
-attached, namely a capsule of length 1 and radius .05. And it has
-inertial mass attached, namely with mass 1.
-
-The 2nd to 4th line form a block of 3 new frames: the ``joint1_pre``
-frame is child of step, which fixed relative transformation
-``<t(0 0 .5) d(90 1 0 0)>`` (.5 meter up, 90 degress rotation about x).
-The ``joint1`` frame is a child of ``joint1_pre``. But this frame is
-special! It is a joint, which means that its relative transformation to
-the parent is not fixed, but varies with joint dofs. Here, it is 1 joint
-dofs describing a hinge joint about the parent’s x-axis. This joint is
-here initialized to non-zero, namely to a relative transform
-``<d(-30 1 0 0)>``. The ``arm1`` frame is then a child of ``joint1``,
-with a relative transform ``<t(0 0 .15)>``, a capsule shape attached,
-and mass.
-
-This is a typical example for a chain of frames from one link, via a
-joint, to the next. All robot configurations are just trees; and the
-configuration file simply defines frames one-by-one, where each frame
-may have 1 parent frame.
-
-The next two lines define two more frames ``arm2`` and ``eff`` mass and
-capsule shapes; but they’re yet all located at zero absolute pose. The
-following two lines are actually a short hand notation to introduce a
-joint frames between arm1 and arm2 (arm2 and arm3) in retrospect. The
-``joint2`` declaration implicitly first defines a ``joint2_pre`` child
-of arm1 with fixed relative transformation A; then the ``joint2`` chile
-of ``joint2_pre`` with hinge joint and initial transformation Q; then
-attaches the arm2 frame as its child with fixed relative transformation
-B. So this is a typical short hand to specify a joint (more similarly to
-how its done in URDF). But the generated underlying data structure is
-just a tree of frames.
-
-Editing using ``kinEdit``
-^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Whenever working with .g-files, you should try to display them using the
-``$RAI/bin/kinEdit`` command line tool. CMake automatically compiles it;
-otherwise call ’make bin’ in ``$RAI`` to compile this. Then you can call
-``kinEdit someFile.g`` on any model file. (In python, the equivalence is
-to reload the configuration from file repeatedly.) Whenever ``kinEdit``
-reads a file, it also outputs a file ``z.g`` and ``z.urdf`` of what it
-read. Sometimes it is useful to look into this. It can also be used to
-clean and prune kinematic structures.
-
-But more than that, you can keep the display open when editing the file
-in any text editor. Whenever you save the file the display will notice
-it, reload the file, and display the updated model. This allows some
-degree of continuous editing. You might sometimes have to hit enter in
-the window to enforce reloading. The little tool tries to catch and
-report on syntax errors and be robust, but it crashes on some syntax
-errors and then needs to be restarted manually.
-
-Import from URDF
-^^^^^^^^^^^^^^^^
-
-You can convert URDF files to .g-files using the ``rai/bin/urdf2rai.py``
-script. However, the overall conversion is only partially automatic. The
-resulting g-file encodes the full kinematic structure, but the mesh
-files usually require manual fiddling. First, in the g-file, you have to
-change the path to their location in the file system (removing the
-’package’ part). Potentially that’s all you need. However, the rai code
-calls various collision libraries that need clean and correct
-(orientation, holes, etc) mesh files. Those that come with URDF files
-are typically not clean and correct. I typically use meshlab (the
-command line tool) to automatically clean and compress meshes into ply
-files.
-
-The best guide for the whole conversion pipeline is hubo/HOWTO.sh in the
-rai-robotModels repository, which also describes mesh cleaning scripts.
-We also managed to import a [full
-kitchen](https://github.com/MarcToussaint/rai-robotModels/tree/master/bremenKitchen)
-from unreal, where we first exported the description to JSON. There are
-also some working examples to import ‘gltf‘.
-
-Finally, the collada file format can represent trees of frames and
-objects, which can be loaded. This can be augmented with just a little
-extra information on joints to make this a properly articulated robot
-world.
-
-Notation to specify transformations
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Transformation can always be specified as 7-vectors
-``Q:[p1 p2 p3 q0 q1 q2 q3]`` (position, quaternion), or also 3- or
-4-vectors if you only want to set position or orientation. But this is
-not always intuitive for human editing. Therefore, the bracket notation
-``<...>`` allows for another notation, namely as a chaining of little
-interpretable transformations, as in the old turtle language.
-
-Specifically, you specify a transform by chaining:
-
-::
-
-     t(x y z)       # translation by (x,y,z)
-     q(q0 q1 q2 q3) # rotation by a quaternion
-     r(r x y z)     # rotation by `r` _radians_ around the axis (x,y,z)
-     d(d x y z)     # rotation by `d` _degrees_ around the axis (x,y,z)
-     E(r p y)       # rotation by roll-pitch-yaw Euler angles
-
-Joint types
-^^^^^^^^^^^
-
-The ``libry.JT`` enum (in python; or rai::JointType in C++) lists all
-available joint type. Currently these are:
-
-::
-
-     hingeX, hingeY, hingeZ, transX, transY, transZ, transXY, trans3, transXYPhi, universal, rigid, quatBall, phiTransXY, XBall, free, tau
-
-A quatBall is a quaternion ball joint with 4 dofs (that supports all
-differentiability and optimization); a free joint is a full 7 dof joint;
-a rigid joint might seem redundant, but internally it sometimes markes a
-break between separate objects (like an object sitting rigidly on a
-table) rather than having multiple shapes attached to the same object.
-
-The joint’s dofs can be initialized equivalently either with a ``q``
-attribute (defining the dofs values), or a ``Q`` attribute (defining the
-resulting relative transformation generated by the joint).
+The shows this file syntax is used to specify robot/environment
+configurations.
 
 Cameras
 -------
@@ -1971,15 +1497,15 @@ there are two conventions for the :math:`y`-axis:
 
 The transformation from camera coordinates :math:`x` to image
 coordinates :math:`u` is involves perspective projection. For better
-readability, let’s write – only for this equation –
-:math:`x \equiv (x,y,z)`. Then the mapping is
+readability, let’s write (only in this equation)
+:math:`x \equiv (\texttt{x},\texttt{y},\texttt{z})`. Then the mapping is
 
 .. math::
 
    \begin{aligned}
    \label{eqxtou}
    u =  \left(\begin{array}{c}u_x \\ u_y \\ u_d\end{array}\right) 
-   &=  \left(\begin{array}{c}(f_x x + s y)/z + c_x\\ f_y y/z + c_y \\ z\end{array}\right)  ~.\end{aligned}
+   &=  \left(\begin{array}{c}(f_x \texttt{x}+ s \texttt{y})/\texttt{z}+ c_x\\ f_y \texttt{y}/\texttt{z}+ c_y \\ \texttt{z}\end{array}\right)  ~.\end{aligned}
 
 Here, the five so-called **intrinsic parameters**
 :math:`f_x,f_y,c_x,c_y,s` are the focal length :math:`f_x,f_y`, the
@@ -2115,58 +1641,4 @@ We can decompose it using
    \begin{aligned}
      t &\gets P^+_{3,:} \\
      (K,R^{\!\top\!}) &\gets \text{RQ-decomposition}( [P^+_{1:3,:}]^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1} ]\end{aligned}
-
-.. _placeholder-1:
-
-Placeholder
------------
-
-.. _secShapes:
-
-Shapes
-~~~~~~
-
-.. _secKinematics:
-
-Kinematics formally
-~~~~~~~~~~~~~~~~~~~
-
-– Switching Kinematics?
-
-.. [1]
-   Transformation of accelerations:
-
-   .. math::
-
-      \begin{aligned}
-      \dot v
-       &= \dot v_1
-            + \dot w_1 \times (r_1 \cdot t_2)
-            + w_1 \times (w_1 \times (r_1 \cdot t_2))\\
-            &\quad+ 2\, w_1 \times (r_1 \cdot v_2)
-            + r_1 \cdot \dot v_2 \\
-      \dot w
-       &= \dot w_1 + w_1 \times (r_1 \cdot w_2) + r_1 \cdot \dot w_2\end{aligned}
-
-   Used identities: for any vectors :math:`a,b,c` and rotation
-   :math:`r`:
-
-   .. math::
-
-      \begin{aligned}
-      &r \cdot (a \times b) = (r \cdot a) \times (r \cdot b)\\
-      & a \times (b \times c) = b (a c) - c (ab) \\
-      &\partial_t (r \cdot a) = w \times (r \cdot a) + r \cdot \dot a \\
-      %& \del_t (r_0 \circ r \cdot t)
-      % = w_0 \times (r_0 \circ r \cdot t)
-      % + r_0 \cdot \[w \times (r \cdot t) + r \cdot v\]
-      % = (w_0 + r_0 \cdot w) \times (r_0 \circ r \cdot t) + r_0 r \cdot v  \\
-      & \partial_t (w \times a) = \dot w \times t + w \times \dot a\end{aligned}
-
-.. [2]
-   There is ways to handle the invariance w.r.t. quaternion sign
-   properly.
-
-.. |image| image:: \caption
-.. |image| image:: \caption
 

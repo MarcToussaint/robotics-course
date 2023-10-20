@@ -103,8 +103,6 @@
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="rai.html#robotic.ry.Frame.addAttribute">addAttribute() (robotic.ry.Frame method)</a>
-</li>
       <li><a href="rai.html#robotic.ry.Frame.addAttributes">addAttributes() (robotic.ry.Frame method)</a>
 </li>
       <li><a href="rai.html#robotic.ry.Config.addConfigurationCopy">addConfigurationCopy() (robotic.ry.Config method)</a>
@@ -151,6 +149,8 @@
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="rai.html#robotic.ry.CameraView">CameraView (class in robotic.ry)</a>
+</li>
       <li><a href="rai.html#robotic.ry.Config.clear">clear() (robotic.ry.Config method)</a>
 </li>
       <li><a href="rai.html#robotic.ry.KOMO.clearObjectives">clearObjectives() (robotic.ry.KOMO method)</a>
@@ -159,9 +159,15 @@
 </li>
       <li><a href="rai.html#robotic.ry.compiled">compiled() (in module robotic.ry)</a>
 </li>
+      <li><a href="rai.html#robotic.ry.Config.computeCollisions">computeCollisions() (robotic.ry.Config method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="rai.html#robotic.ry.Config.computeCollisions">computeCollisions() (robotic.ry.Config method)</a>
+      <li><a href="rai.html#robotic.ry.CameraView.computeImageAndDepth">computeImageAndDepth() (robotic.ry.CameraView method)</a>
+</li>
+      <li><a href="rai.html#robotic.ry.CameraView.computeSegmentationID">computeSegmentationID() (robotic.ry.CameraView method)</a>
+</li>
+      <li><a href="rai.html#robotic.ry.CameraView.computeSegmentationImage">computeSegmentationImage() (robotic.ry.CameraView method)</a>
 </li>
       <li><a href="rai.html#robotic.ry.Config">Config (class in robotic.ry)</a>
 </li>
@@ -178,6 +184,8 @@
       <li><a href="rai.html#robotic.ry.Config.delFrame">delFrame() (robotic.ry.Config method)</a>
 </li>
       <li><a href="rai.html#robotic.ry.Simulation.depthData2pointCloud">depthData2pointCloud() (robotic.ry.Simulation method)</a>
+</li>
+      <li><a href="rai.html#robotic.ry.depthImage2PointCloud">depthImage2PointCloud() (in module robotic.ry)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -255,7 +263,7 @@
 </li>
       <li><a href="rai.html#robotic.ry.NLP.getBounds">getBounds() (robotic.ry.NLP method)</a>
 </li>
-      <li><a href="rai.html#robotic.ry.BotOp.getCameraFxypxy">getCameraFxypxy() (robotic.ry.BotOp method)</a>
+      <li><a href="rai.html#robotic.ry.BotOp.getCameraFxycxy">getCameraFxycxy() (robotic.ry.BotOp method)</a>
 </li>
       <li><a href="rai.html#robotic.ry.Config.getCollisions">getCollisions() (robotic.ry.Config method)</a>
 </li>
@@ -283,6 +291,8 @@
         <li><a href="rai.html#robotic.ry.KOMO.getFrameState">(robotic.ry.KOMO method)</a>
 </li>
       </ul></li>
+      <li><a href="rai.html#robotic.ry.CameraView.getFxyCxy">getFxyCxy() (robotic.ry.CameraView method)</a>
+</li>
       <li><a href="rai.html#robotic.ry.Simulation.getGripperIsGrasping">getGripperIsGrasping() (robotic.ry.Simulation method)</a>
 </li>
       <li><a href="rai.html#robotic.ry.Simulation.getGripperWidth">getGripperWidth() (robotic.ry.Simulation method)</a>
@@ -305,10 +315,10 @@
 </li>
       <li><a href="rai.html#robotic.ry.Config.getJointDimension">getJointDimension() (robotic.ry.Config method)</a>
 </li>
-      <li><a href="rai.html#robotic.ry.Config.getJointNames">getJointNames() (robotic.ry.Config method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="rai.html#robotic.ry.Config.getJointNames">getJointNames() (robotic.ry.Config method)</a>
+</li>
       <li><a href="rai.html#robotic.ry.Config.getJointState">getJointState() (robotic.ry.Config method)</a>
 
       <ul>
@@ -603,7 +613,11 @@
 </li>
       <li><a href="rai.html#robotic.ry.NLP_SolverOptions.set_wolfe">set_wolfe() (robotic.ry.NLP_SolverOptions method)</a>
 </li>
+      <li><a href="rai.html#robotic.ry.Frame.setAttribute">setAttribute() (robotic.ry.Frame method)</a>
+</li>
       <li><a href="rai.html#robotic.ry.NLP_Factory.setBounds">setBounds() (robotic.ry.NLP_Factory method)</a>
+</li>
+      <li><a href="rai.html#robotic.ry.CameraView.setCamera">setCamera() (robotic.ry.CameraView method)</a>
 </li>
       <li><a href="rai.html#robotic.ry.Frame.setColor">setColor() (robotic.ry.Frame method)</a>
 </li>
@@ -637,10 +651,10 @@
 </li>
       <li><a href="rai.html#robotic.ry.Frame.setMass">setMass() (robotic.ry.Frame method)</a>
 </li>
-      <li><a href="rai.html#robotic.ry.Frame.setMeshAsLines">setMeshAsLines() (robotic.ry.Frame method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="rai.html#robotic.ry.Frame.setMeshAsLines">setMeshAsLines() (robotic.ry.Frame method)</a>
+</li>
       <li><a href="rai.html#robotic.ry.Simulation.setMoveto">setMoveto() (robotic.ry.Simulation method)</a>
 </li>
       <li><a href="rai.html#robotic.ry.NLP_Solver.setOptions">setOptions() (robotic.ry.NLP_Solver method)</a>
@@ -755,9 +769,13 @@
       </ul></li>
       <li><a href="rai.html#robotic.ry.Config.view_focalLength">view_focalLength() (robotic.ry.Config method)</a>
 </li>
+      <li><a href="rai.html#robotic.ry.Config.view_fxycxy">view_fxycxy() (robotic.ry.Config method)</a>
+</li>
+      <li><a href="rai.html#robotic.ry.Config.view_getDepth">view_getDepth() (robotic.ry.Config method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="rai.html#robotic.ry.Config.view_getScreenshot">view_getScreenshot() (robotic.ry.Config method)</a>
+      <li><a href="rai.html#robotic.ry.Config.view_getRgb">view_getRgb() (robotic.ry.Config method)</a>
 </li>
       <li><a href="rai.html#robotic.ry.KOMO.view_play">view_play() (robotic.ry.KOMO method)</a>
 </li>
@@ -766,6 +784,10 @@
       <li><a href="rai.html#robotic.ry.Config.view_pose">view_pose() (robotic.ry.Config method)</a>
 </li>
       <li><a href="rai.html#robotic.ry.Config.view_recopyMeshes">view_recopyMeshes() (robotic.ry.Config method)</a>
+</li>
+      <li><a href="rai.html#robotic.ry.Config.view_savePng">view_savePng() (robotic.ry.Config method)</a>
+</li>
+      <li><a href="rai.html#robotic.ry.Config.view_setCamera">view_setCamera() (robotic.ry.Config method)</a>
 </li>
   </ul></td>
 </tr></table>

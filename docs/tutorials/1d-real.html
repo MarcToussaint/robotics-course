@@ -52,17 +52,18 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../tutorials.html#basics-on-configurations-botop-komo">Basics on Configurations, BotOp &amp; KOMO</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="1a-configurations.html">Configurations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="1b-botop.html">Robot Operation (BotOp) interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1b-botop.html">BotOp (Robot Operation) interface</a></li>
 <li class="toctree-l3"><a class="reference internal" href="1c-komo.html">KOMO: Motion Optimization</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Starting with a real robot</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#First-robot-motion,-camera-&amp;-pcl,-and-gripper-motion">First robot motion, camera &amp; pcl, and gripper motion</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#Advanced:-Compliance-&amp;-Force/Torque-feedback">Advanced: Compliance &amp; Force/Torque feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Testing-the-depth-camera">Testing the depth camera</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="features.html">Differentiable Features &amp; Collision Evaluation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../tutorials.html#in-depth">In Depth</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#preliminary">Preliminary</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../script/script.html">Lecture Script</a></li>
@@ -100,7 +101,7 @@
 <section id="First-robot-motion,-camera-&amp;-pcl,-and-gripper-motion">
 <h2>First robot motion, camera &amp; pcl, and gripper motion<a class="headerlink" href="#First-robot-motion,-camera-&-pcl,-and-gripper-motion" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">robotic</span> <span class="kn">import</span> <span class="n">ry</span>
@@ -111,7 +112,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#in case you switch to simulation</span>
@@ -122,7 +123,7 @@
 </div>
 <p>First, also for a real robot we first load the configuration and maintain our own workspace configuration.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span>
@@ -134,7 +135,7 @@
 </div>
 <p>Now we start botop with real=True. By passing the model configuration C, the system knows which and how many robots there should be an tries to connect with them.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># True = real robot!!</span>
@@ -144,7 +145,7 @@
 </div>
 <p>If that failed, you could <code class="docutils literal notranslate"><span class="pre">ry.params_print()</span></code> to see which global parameters were used and whether you should change them.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">bot</span><span class="o">.</span><span class="n">get_t</span><span class="p">()</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span> <span class="c1">#if the above failed, use a sim...</span>
@@ -155,7 +156,7 @@
 </div>
 <p>A first <strong>motion</strong>:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">q</span> <span class="o">=</span> <span class="n">bot</span><span class="o">.</span><span class="n">get_qHome</span><span class="p">()</span>
@@ -172,7 +173,7 @@
 </div>
 <p>Grabbing a <strong>camera image &amp; pcl</strong>, adding the pcl to the workspace C:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pcl</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">getFrame</span><span class="p">(</span><span class="s2">&quot;pcl&quot;</span><span class="p">)</span>
@@ -189,7 +190,7 @@
 </div>
 <p>Closing &amp; opening the <strong>gripper</strong>:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#slow close</span>
@@ -208,7 +209,7 @@
 </div>
 <p>Always shut down the robot properly by destroying the handle:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">bot</span>
@@ -220,7 +221,7 @@
 <section id="Advanced:-Compliance-&amp;-Force/Torque-feedback">
 <h2>Advanced: Compliance &amp; Force/Torque feedback<a class="headerlink" href="#Advanced:-Compliance-&-Force/Torque-feedback" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">robotic</span> <span class="kn">import</span> <span class="n">ry</span>
@@ -230,7 +231,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span>
@@ -240,7 +241,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># True = real robot!!</span>
@@ -250,7 +251,7 @@
 </div>
 <p>After opening the robot, it is holding its position. Try moving it you can feel the gains.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;floating=False, damping=True -- Try moving the robot by hand!</span><span class="se">\n</span><span class="s1">-- press any key to continue --&#39;</span><span class="p">)</span>
@@ -259,7 +260,7 @@
 </div>
 <p>We can let it float (=setting the reference always to q_current) and turn off the damping, which makes the robot move more freely:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bot</span><span class="o">.</span><span class="n">hold</span><span class="p">(</span><span class="n">floating</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">damping</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -280,16 +281,14 @@
 <p>The <code class="docutils literal notranslate"><span class="pre">hold</span></code> methods above might be useful for kinestetic teaching or so (you can always keep C sync’ed and compute any features while moving the robot).</p>
 <p>But for autonomous compliant manipulation we want to follow a reference and impose compliance in following this reference <em>along some task space dimensions only</em>. I.e., a task space compliance.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bot</span><span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="n">bot</span><span class="o">.</span><span class="n">get_qHome</span><span class="p">(),</span> <span class="mf">1.</span><span class="p">)</span>
 <span class="n">bot</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
 
-<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<span class="k">while</span> <span class="n">bot</span><span class="o">.</span><span class="n">getKeyPressed</span><span class="p">()</span><span class="o">!=</span><span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>
     <span class="n">bot</span><span class="o">.</span><span class="n">sync</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="mf">.1</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">bot</span><span class="o">.</span><span class="n">getKeyPressed</span><span class="p">()</span><span class="o">==</span><span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>
-       <span class="k">break</span>
     <span class="n">y</span><span class="p">,</span> <span class="n">J</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;l_gripper&quot;</span><span class="p">],</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
     <span class="n">bot</span><span class="o">.</span><span class="n">setCompliance</span><span class="p">(</span><span class="n">J</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; direct:&#39;</span><span class="p">,</span> <span class="n">J</span> <span class="o">@</span> <span class="n">bot</span><span class="o">.</span><span class="n">get_tauExternal</span><span class="p">(),</span>
@@ -300,7 +299,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bot</span><span class="o">.</span><span class="n">home</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
@@ -308,11 +307,66 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">bot</span>
 <span class="k">del</span> <span class="n">C</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Testing-the-depth-camera">
+<h2>Testing the depth camera<a class="headerlink" href="#Testing-the-depth-camera" title="Permalink to this heading"></a></h2>
+<p>The following grabs an attached realsense camera, which in our setup is attached by default to the wrist. The robot is put in floating mode, so that you can move the camera. At the same time, the point cloud is attached in the model configuration to the camera frame – and forward kinematics displays it in world coordinates. That way you can visually see how well you configuration model is calibrated to your real world – and how noisy the depth camera really is.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">robotic</span> <span class="kn">import</span> <span class="n">ry</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">time</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span>
+<span class="n">C</span><span class="o">.</span><span class="n">addFile</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">raiPath</span><span class="p">(</span><span class="s1">&#39;scenarios/pandaSingle.g&#39;</span><span class="p">))</span>
+<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;this is your workspace data structure C -- NOT THE SIMULTATION&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># True = real robot!!</span>
+<span class="n">bot</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">BotOp</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bot</span><span class="o">.</span><span class="n">hold</span><span class="p">(</span><span class="n">floating</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">damping</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pclFrame</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="s1">&#39;pcl&#39;</span><span class="p">,</span> <span class="s1">&#39;cameraWrist&#39;</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="n">bot</span><span class="o">.</span><span class="n">getKeyPressed</span><span class="p">()</span><span class="o">!=</span><span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>
+    <span class="n">rgb</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">points</span> <span class="o">=</span> <span class="n">bot</span><span class="o">.</span><span class="n">getImageDepthPcl</span><span class="p">(</span><span class="s1">&#39;cameraWrist&#39;</span><span class="p">)</span>
+    <span class="n">pclFrame</span><span class="o">.</span><span class="n">setPointCloud</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">rgb</span><span class="p">)</span>
+
+    <span class="n">bot</span><span class="o">.</span><span class="n">sync</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="mf">.1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

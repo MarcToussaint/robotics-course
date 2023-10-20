@@ -99,25 +99,16 @@ Systems Lab</a>, operate our robots.</p>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/1b-botop.html">BotOp (Robot Operation) interface</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/1c-komo.html">KOMO: Motion Optimization</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/1d-real.html">Starting with a real robot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/features.html">Differentiable Features &amp; Collision Evaluation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials.html#in-depth">In Depth</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="tutorials/features.html">Differentiable Features &amp; Collision Evaluation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/configurationEditing.html">Importing, Editing &amp; Manipulating Configurations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/komo-reporting.html">KOMO: Reporting &amp; Explaining Convergence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/simulation.html">Direct Simulation Interface</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="tutorials.html#preliminary">Preliminary</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="tutorials/rendering.html">CameraView and Rendering [todo]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tutorials/komo-reporting.html">KOMO: Reporting &amp; Explaining Convergence</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tutorials/komo1-IK-toBeMerged.html">Inverse Kinematics as Optimization (to be merged)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tutorials/komo2-PathOptimization-toBeMerged.html">Path Optimization (to be merged)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tutorials/komo3-switches-skeletons.html">Advanced: Switches &amp; Skeletons</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tutorials/botop3-vision.html">First example to grap images from a webcam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tutorials/botop4-examples.html">Example for grasping in Sim</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tutorials/opt1-basics.html">Optimization (NLP formulation and solving)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tutorials/script5-PathFind.html">Path finding example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/rendering.html">CameraView, Offscreen (headless), and Realistic Rendering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/rrt-example.html">Path finding example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/nlp-solver.html">Optimization (NLP formulation and solving)</a></li>
 </ul>
 </li>
 </ul>
@@ -136,7 +127,6 @@ Systems Lab</a>, operate our robots.</p>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="script/script.html#kinematics">Kinematics</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="script/script.html#robots-as-parameterized-trees">Robots as Parameterized Trees</a></li>
-<li class="toctree-l3"><a class="reference internal" href="script/script.html#configuration-joint-vector">Configuration &amp; Joint Vector</a></li>
 <li class="toctree-l3"><a class="reference internal" href="script/script.html#forward-kinematics">Forward Kinematics</a></li>
 <li class="toctree-l3"><a class="reference internal" href="script/script.html#jacobians">Jacobians</a></li>
 <li class="toctree-l3"><a class="reference internal" href="script/script.html#general-concept-of-differentiable-features">General Concept of Differentiable Features</a></li>
@@ -144,35 +134,21 @@ Systems Lab</a>, operate our robots.</p>
 <li class="toctree-l3"><a class="reference internal" href="script/script.html#inverse-kinematics">Inverse Kinematics</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="script/script.html#placeholder">Placeholder</a></li>
-<li class="toctree-l2"><a class="reference internal" href="script/script.html#practical-control-pid-splines-tracking-layes-of-control">Practical Control: PID, Splines, Tracking, &amp; Layes of Control</a></li>
-<li class="toctree-l2"><a class="reference internal" href="script/script.html#path-planning">Path Planning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="script/script.html#path-optimization-briefly">Path Optimization – briefly</a></li>
-<li class="toctree-l2"><a class="reference internal" href="script/script.html#mobile-robotics">Mobile Robotics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="script/script.html#control-theory">Control Theory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="script/script.html#skipped-this-term-grasping-brief-intro">SKIPPED THIS TERM – Grasping (brief intro)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="script/script.html#skipped-this-term-legged-locomotion-brief-intro">SKIPPED THIS TERM – Legged Locomotion (brief intro)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="script/script.html#d-transformations-rotations-quaternions">3D Transformations, Rotations, Quaternions</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="script/script.html#rotations">Rotations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="script/script.html#transformations-1">Transformations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="script/script.html#sectransformations">Transformations</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="script/script.html#rai-references">RAI references</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="script/script.html#splines">Splines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="script/script.html#code-references">Code References</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="script/script.html#nlp-interface">NLP interface</a></li>
-<li class="toctree-l3"><a class="reference internal" href="script/script.html#kinematic-features">Kinematic Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="script/script.html#graph-yaml-files">Graph-Yaml Files</a></li>
-<li class="toctree-l3"><a class="reference internal" href="script/script.html#yaml-style-files-to-describe-robot-configurations">yaml-style files to describe robot configurations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="script/script.html#yaml-graph-files">Yaml-Graph Files</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="script/script.html#cameras">Cameras</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="script/script.html#image-camera-world-coordinates">Image, Camera, &amp; World Coordinates</a></li>
 <li class="toctree-l3"><a class="reference internal" href="script/script.html#homogeneous-coordinates-camera-matrix-p">Homogeneous coordinates &amp; Camera Matrix <span class="math notranslate nohighlight">\(P\)</span></a></li>
 <li class="toctree-l3"><a class="reference internal" href="script/script.html#calibration-as-estimating-p-k-r-t-from-depth-data">Calibration as Estimating <span class="math notranslate nohighlight">\(P,K,R,t\)</span> from Depth Data</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="script/script.html#placeholder-1">Placeholder</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="script/script.html#shapes">Shapes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="script/script.html#kinematics-formally">Kinematics formally</a></li>
 </ul>
 </li>
 </ul>
@@ -240,7 +216,7 @@ Systems Lab</a>, operate our robots.</p>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="rai.html#robotic.ry.BotOp"><code class="docutils literal notranslate"><span class="pre">BotOp</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.BotOp.getCameraFxypxy"><code class="docutils literal notranslate"><span class="pre">BotOp.getCameraFxypxy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.BotOp.getCameraFxycxy"><code class="docutils literal notranslate"><span class="pre">BotOp.getCameraFxycxy()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.BotOp.getImageAndDepth"><code class="docutils literal notranslate"><span class="pre">BotOp.getImageAndDepth()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.BotOp.getImageDepthPcl"><code class="docutils literal notranslate"><span class="pre">BotOp.getImageDepthPcl()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.BotOp.getKeyPressed"><code class="docutils literal notranslate"><span class="pre">BotOp.getKeyPressed()</span></code></a></li>
@@ -265,6 +241,14 @@ Systems Lab</a>, operate our robots.</p>
 <li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.BotOp.stop"><code class="docutils literal notranslate"><span class="pre">BotOp.stop()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.BotOp.sync"><code class="docutils literal notranslate"><span class="pre">BotOp.sync()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.BotOp.wait"><code class="docutils literal notranslate"><span class="pre">BotOp.wait()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rai.html#robotic.ry.CameraView"><code class="docutils literal notranslate"><span class="pre">CameraView</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.CameraView.computeImageAndDepth"><code class="docutils literal notranslate"><span class="pre">CameraView.computeImageAndDepth()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.CameraView.computeSegmentationID"><code class="docutils literal notranslate"><span class="pre">CameraView.computeSegmentationID()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.CameraView.computeSegmentationImage"><code class="docutils literal notranslate"><span class="pre">CameraView.computeSegmentationImage()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.CameraView.getFxyCxy"><code class="docutils literal notranslate"><span class="pre">CameraView.getFxyCxy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.CameraView.setCamera"><code class="docutils literal notranslate"><span class="pre">CameraView.setCamera()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="rai.html#robotic.ry.Config"><code class="docutils literal notranslate"><span class="pre">Config</span></code></a><ul>
@@ -303,10 +287,14 @@ Systems Lab</a>, operate our robots.</p>
 <li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.Config.view"><code class="docutils literal notranslate"><span class="pre">Config.view()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.Config.view_close"><code class="docutils literal notranslate"><span class="pre">Config.view_close()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.Config.view_focalLength"><code class="docutils literal notranslate"><span class="pre">Config.view_focalLength()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.Config.view_getScreenshot"><code class="docutils literal notranslate"><span class="pre">Config.view_getScreenshot()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.Config.view_fxycxy"><code class="docutils literal notranslate"><span class="pre">Config.view_fxycxy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.Config.view_getDepth"><code class="docutils literal notranslate"><span class="pre">Config.view_getDepth()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.Config.view_getRgb"><code class="docutils literal notranslate"><span class="pre">Config.view_getRgb()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.Config.view_playVideo"><code class="docutils literal notranslate"><span class="pre">Config.view_playVideo()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.Config.view_pose"><code class="docutils literal notranslate"><span class="pre">Config.view_pose()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.Config.view_recopyMeshes"><code class="docutils literal notranslate"><span class="pre">Config.view_recopyMeshes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.Config.view_savePng"><code class="docutils literal notranslate"><span class="pre">Config.view_savePng()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.Config.view_setCamera"><code class="docutils literal notranslate"><span class="pre">Config.view_setCamera()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.Config.watchFile"><code class="docutils literal notranslate"><span class="pre">Config.watchFile()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.Config.write"><code class="docutils literal notranslate"><span class="pre">Config.write()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.Config.writeCollada"><code class="docutils literal notranslate"><span class="pre">Config.writeCollada()</span></code></a></li>
@@ -330,7 +318,6 @@ Systems Lab</a>, operate our robots.</p>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="rai.html#robotic.ry.Frame"><code class="docutils literal notranslate"><span class="pre">Frame</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.Frame.addAttribute"><code class="docutils literal notranslate"><span class="pre">Frame.addAttribute()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.Frame.addAttributes"><code class="docutils literal notranslate"><span class="pre">Frame.addAttributes()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.Frame.getAttributes"><code class="docutils literal notranslate"><span class="pre">Frame.getAttributes()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.Frame.getJointState"><code class="docutils literal notranslate"><span class="pre">Frame.getJointState()</span></code></a></li>
@@ -343,6 +330,7 @@ Systems Lab</a>, operate our robots.</p>
 <li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.Frame.getRotationMatrix"><code class="docutils literal notranslate"><span class="pre">Frame.getRotationMatrix()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.Frame.getSize"><code class="docutils literal notranslate"><span class="pre">Frame.getSize()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.Frame.info"><code class="docutils literal notranslate"><span class="pre">Frame.info()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.Frame.setAttribute"><code class="docutils literal notranslate"><span class="pre">Frame.setAttribute()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.Frame.setColor"><code class="docutils literal notranslate"><span class="pre">Frame.setColor()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.Frame.setContact"><code class="docutils literal notranslate"><span class="pre">Frame.setContact()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="rai.html#robotic.ry.Frame.setJoint"><code class="docutils literal notranslate"><span class="pre">Frame.setJoint()</span></code></a></li>
@@ -511,6 +499,7 @@ Systems Lab</a>, operate our robots.</p>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="rai.html#robotic.ry.compiled"><code class="docutils literal notranslate"><span class="pre">compiled()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="rai.html#robotic.ry.depthImage2PointCloud"><code class="docutils literal notranslate"><span class="pre">depthImage2PointCloud()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="rai.html#robotic.ry.getStartGoalPath"><code class="docutils literal notranslate"><span class="pre">getStartGoalPath()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="rai.html#robotic.ry.params_add"><code class="docutils literal notranslate"><span class="pre">params_add()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="rai.html#robotic.ry.params_clear"><code class="docutils literal notranslate"><span class="pre">params_clear()</span></code></a></li>

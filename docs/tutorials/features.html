@@ -50,8 +50,11 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#basics-on-configurations-botop-komo">Basics on Configurations, BotOp &amp; KOMO</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../tutorials.html#in-depth">In Depth</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../tutorials.html#basics-on-configurations-botop-komo">Basics on Configurations, BotOp &amp; KOMO</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="1a-configurations.html">Configurations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1b-botop.html">BotOp (Robot Operation) interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1c-komo.html">KOMO: Motion Optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1d-real.html">Starting with a real robot</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Differentiable Features &amp; Collision Evaluation</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#Recap-of-evaluating-features-directly">Recap of evaluating features directly</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#List-of-features">List of features</a></li>
@@ -60,15 +63,11 @@
 <li class="toctree-l4"><a class="reference internal" href="#Scale-and-target-transformation">Scale and target transformation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#Collision-features">Collision features</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#Enabling/disabling-collisions">Enabling/disabling collisions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#Advanced:-Features-over-configuration-tuples-(path-configurations,-velocity/acceleration-features)">Advanced: Features over configuration tuples (path configurations, velocity/acceleration features)</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="configurationEditing.html">Importing, Editing &amp; Manipulating Configurations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="komo-reporting.html">KOMO: Reporting &amp; Explaining Convergence</a></li>
-<li class="toctree-l3"><a class="reference internal" href="simulation.html">Direct Simulation Interface</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#preliminary">Preliminary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#in-depth">In Depth</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../script/script.html">Lecture Script</a></li>
@@ -478,7 +477,7 @@ sign properly.]</p></td>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;robotic.ry.Frame at 0x7f1cb934ff30&gt;
+&lt;robotic.ry.Frame at 0x7fa7b82d3ab0&gt;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -662,38 +661,17 @@ sign properly.]</p></td>
 </section>
 <section id="Enabling/disabling-collisions">
 <h2>Enabling/disabling collisions<a class="headerlink" href="#Enabling/disabling-collisions" title="Permalink to this heading"></a></h2>
-<p><strong>TODO</strong> explain <code class="docutils literal notranslate"><span class="pre">setContact</span></code> of ry.Frame</p>
+<p>In a typical robotic configuration we might have both, visual and (more coarse) collision shapes. Broadphase collision checking should only include the collision shapes. Further, after broadphase collision checking one typically wants to filter out some collisions: shapes of consecutive robot links should usually not be included in collision checking.</p>
+<p>In the rai code, shapes have an <em>integer</em> <code class="docutils literal notranslate"><span class="pre">contact</span></code> parameter to control this, with the following semantics:</p>
+<ul class="simple">
+<li><p>contact = 0 (default) –&gt; the shape never collides (e.g., is a visual)</p></li>
+<li><p>contact = 1 –&gt; the shape collides with all other shapes</p></li>
+<li><p>contact &lt; -k (some negative number) –&gt; the shape collides with all shapes except for those that are k-th order parents</p></li>
+</ul>
+<p>So, the latter setting is very natural in robot chains: contact=-1 means “not colliding with the parent link”. To be precise, the “k-th order parenthood” means frames between which there are k joints or less.</p>
+<p>Note <code class="docutils literal notranslate"><span class="pre">contact</span></code> needs to be set <em>before</em> the first broadphase collision checking, as it is used in the construction of the underlying collision engine.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#those are the real penetrations:</span>
-<span class="c1">#C.getCollisions(belowMargin=0.)</span>
-
-<span class="c1">#deactivate a collision flag!</span>
-<span class="c1">#f = C.getFrame(&quot;R_gripper&quot;)</span>
-<span class="c1">#f.setContact(0)</span>
-
-<span class="c1">#C.computeCollisions()</span>
-<span class="c1">#C.getCollisions(belowMargin=0.)</span>
-</pre></div>
-</div>
-</div>
-<p>Notes: * The contact flag of frames is an integer: 0 = does not contribute to contact lists, 1 = always contributes, negative = only contributes to collision pairs that are topologically distant in the kinematic tree * WARNING: the broad phase collision engine is created at first call - You cannot enable collisions between objects that were disabled during first call of the collision engine * TODO: enable recreation of a fresh collision engine for a changed configuration</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
-</section>
-<section id="Advanced:-Features-over-configuration-tuples-(path-configurations,-velocity/acceleration-features)">
-<h2>Advanced: Features over configuration tuples (path configurations, velocity/acceleration features)<a class="headerlink" href="#Advanced:-Features-over-configuration-tuples-(path-configurations,-velocity/acceleration-features)" title="Permalink to this heading"></a></h2>
-<p>TODO</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">C</span>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CameraView and Rendering [todo] &mdash; Robotics Python Library  documentation</title>
+  <title>CameraView, Offscreen (headless), and Realistic Rendering &mdash; Robotics Python Library  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
@@ -23,7 +23,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Inverse Kinematics as Optimization (to be merged)" href="komo1-IK-toBeMerged.html" />
+    <link rel="next" title="Path finding example" href="rrt-example.html" />
     <link rel="prev" title="Direct Simulation Interface" href="simulation.html" /> 
 </head>
 
@@ -51,20 +51,20 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../tutorials.html#basics-on-configurations-botop-komo">Basics on Configurations, BotOp &amp; KOMO</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#in-depth">In Depth</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../tutorials.html#preliminary">Preliminary</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">CameraView and Rendering [todo]</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#Rendering-configurations">Rendering configurations</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../tutorials.html#in-depth">In Depth</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="configurationEditing.html">Importing, Editing &amp; Manipulating Configurations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="komo-reporting.html">KOMO: Reporting &amp; Explaining Convergence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simulation.html">Direct Simulation Interface</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">CameraView, Offscreen (headless), and Realistic Rendering</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Grabbing-images-and-depth-from-the-view-window">Grabbing images and depth from the view window</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Saving-pngs-for-video-generation">Saving pngs for video generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Offscreen-(headless)-CameraView">Offscreen (headless) CameraView</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Point-Cloud">Point Cloud</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Physics-based-Rendering-using-Nvidia-NVISII">Physics-based Rendering using Nvidia NVISII</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="komo-reporting.html">KOMO: Reporting &amp; Explaining Convergence</a></li>
-<li class="toctree-l3"><a class="reference internal" href="komo1-IK-toBeMerged.html">Inverse Kinematics as Optimization (to be merged)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="komo2-PathOptimization-toBeMerged.html">Path Optimization (to be merged)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="komo3-switches-skeletons.html">Advanced: Switches &amp; Skeletons</a></li>
-<li class="toctree-l3"><a class="reference internal" href="botop3-vision.html">First example to grap images from a webcam</a></li>
-<li class="toctree-l3"><a class="reference internal" href="botop4-examples.html">Example for grasping in Sim</a></li>
-<li class="toctree-l3"><a class="reference internal" href="opt1-basics.html">Optimization (NLP formulation and solving)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="script5-PathFind.html">Path finding example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rrt-example.html">Path finding example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nlp-solver.html">Optimization (NLP formulation and solving)</a></li>
 </ul>
 </li>
 </ul>
@@ -89,7 +89,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../tutorials.html">Tutorials</a></li>
-      <li class="breadcrumb-item active">CameraView and Rendering [todo]</li>
+      <li class="breadcrumb-item active">CameraView, Offscreen (headless), and Realistic Rendering</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -98,28 +98,21 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="CameraView-and-Rendering-[todo]">
-<h1>CameraView and Rendering [todo]<a class="headerlink" href="#CameraView-and-Rendering-[todo]" title="Permalink to this heading"></a></h1>
-<ul class="simple">
-<li><p>setting camera to frame</p></li>
-<li><p>grabbing img &amp; depth</p></li>
-<li><p>converting to point clouds (and displaying)</p></li>
-<li><p>generating videos by saving pngs + ffmpeg</p></li>
-<li><p>realistic rendering using nvisii</p></li>
-</ul>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
+  <section id="CameraView,-Offscreen-(headless),-and-Realistic-Rendering">
+<h1>CameraView, Offscreen (headless), and Realistic Rendering<a class="headerlink" href="#CameraView,-Offscreen-(headless),-and-Realistic-Rendering" title="Permalink to this heading"></a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">view</span></code> is realized using very basic OpenGL rendering. It is straight-forward to grab the image (and, e.g., make a video from such images), as well as the depth (e.g. to simulate a depth camera).</p>
+<p>However, grabbing from the actual view window is brittle, as it depends on the window manager and might give weird results if the window is not visible. The package provides an offscreen (headless) implementation of the OpenGL rendering, which allows to compute images and depth (also object segmentation labels) without window or X.</p>
+<p>The simple OpenGL rendering is ok for depth camera simulation, but not visually realistic. An interface to Nvidia’s NVISSI physics-based rendering enables very flexible realistic rendering.</p>
+<section id="Grabbing-images-and-depth-from-the-view-window">
+<h2>Grabbing images and depth from the view window<a class="headerlink" href="#Grabbing-images-and-depth-from-the-view-window" title="Permalink to this heading"></a></h2>
+<p>The view is internally implemented using glfw and most basic opengl. It’s simple to grab the rgb and depth buffers.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">robotic</span> <span class="kn">import</span> <span class="n">ry</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">__version__</span><span class="p">,</span> <span class="n">ry</span><span class="o">.</span><span class="n">compiled</span><span class="p">())</span>
 </pre></div>
 </div>
@@ -129,11 +122,11 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-0.0.22 compile time: Oct 10 2023 21:52:17
+0.0.23 compile time: Oct 20 2023 14:36:37
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span>
@@ -143,7 +136,81 @@
 </div>
 </div>
 <div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rgb</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">view_getRgb</span><span class="p">()</span>
+<span class="n">depth</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">view_getDepth</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">rgb</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">depth</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(400, 400, 3) (400, 400)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">rgb</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">depth</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_rendering_5_0.png" src="../_images/tutorials_rendering_5_0.png" />
+</div>
+</div>
+<p>The camera pose can be set to be at a particular frame. (Create a dedicated frame, if you want freedom to set the camera). Also camera intrinsics (focalLength, width, height) can be set with frame attributes. Our scene has a <code class="docutils literal notranslate"><span class="pre">cameraTop</span></code> predefined:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">getFrame</span><span class="p">(</span><span class="s1">&#39;cameraTop&#39;</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s1">&#39;focalLength&#39;</span><span class="p">,</span> <span class="mf">.5</span><span class="p">)</span> <span class="c1"># wide angle</span>
+<span class="n">f</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s1">&#39;width&#39;</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span> <span class="c1"># super wide angle</span>
+<span class="n">f</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s1">&#39;height&#39;</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span> <span class="c1"># super wide angle</span>
+<span class="n">C</span><span class="o">.</span><span class="n">view_setCamera</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Saving-pngs-for-video-generation">
+<h2>Saving pngs for video generation<a class="headerlink" href="#Saving-pngs-for-video-generation" title="Permalink to this heading"></a></h2>
+<p>There might be many better ways to generate a video. But a simple one it to write many numered pngs and call ffmpeg on shell. For instance:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># first ensure a folder</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;mkdir -p z.vid&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -152,10 +219,16 @@
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rgb</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">view_getScreenshot</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">q</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">getJointState</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">):</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">q</span> <span class="o">+</span> <span class="mf">.02</span>
+    <span class="n">C</span><span class="o">.</span><span class="n">setJointState</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+    <span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+    <span class="n">C</span><span class="o">.</span><span class="n">view_savePng</span><span class="p">(</span><span class="s1">&#39;z.vid/&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -163,7 +236,7 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rgb</span><span class="o">.</span><span class="n">shape</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;ffmpeg -v 16 -f image2 -framerate 12 -i z.vid/</span><span class="si">%04d</span><span class="s1">.png -c:v libx264 -r 25 -pix_fmt yuv420p -y vid.mp4&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -173,31 +246,40 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(400, 400, 3)
+0
 </pre></div></div>
 </div>
+<p>…which creates an mp4 with 12 images per second.</p>
+</section>
+<section id="Offscreen-(headless)-CameraView">
+<h2>Offscreen (headless) CameraView<a class="headerlink" href="#Offscreen-(headless)-CameraView" title="Permalink to this heading"></a></h2>
+<p>But this way of grabbing images and depth from the view window is brittle (as it depends on the window manager) and also includes markers and non-visual objects. A much better way is to use offscreen method:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">display</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cam</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">CameraView</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageOps</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rgb</span><span class="p">,</span> <span class="n">depth</span> <span class="o">=</span> <span class="n">cam</span><span class="o">.</span><span class="n">computeImageAndDepth</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>    <span class="n">img</span> <span class="o">=</span> <span class="n">ImageOps</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">fromarray</span><span class="p">(</span><span class="n">rgb</span><span class="p">,</span> <span class="s1">&#39;RGB&#39;</span><span class="p">))</span>
-    <span class="n">display</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">rgb</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">depth</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -205,105 +287,317 @@
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_rendering_8_0.png" src="../_images/tutorials_rendering_8_0.png" />
+<img alt="../_images/tutorials_rendering_16_0.png" src="../_images/tutorials_rendering_16_0.png" />
 </div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cam</span><span class="o">.</span><span class="n">setCamera</span><span class="p">(</span><span class="s1">&#39;cameraTop&#39;</span><span class="p">)</span> <span class="c1"># cameraWrist is another pre-defined frame</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;robotic.ry.CameraViewSensor at 0x7fb86c52d8b0&gt;
+</pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rgb</span><span class="p">,</span> <span class="n">depth</span> <span class="o">=</span> <span class="n">cam</span><span class="o">.</span><span class="n">computeImageAndDepth</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">rgb</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">depth</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_rendering_19_0.png" src="../_images/tutorials_rendering_19_0.png" />
+</div>
+</div>
+</section>
+<section id="Point-Cloud">
+<h2>Point Cloud<a class="headerlink" href="#Point-Cloud" title="Permalink to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">robotic</span> <span class="kn">import</span> <span class="n">ry</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span>
+<span class="n">C</span><span class="o">.</span><span class="n">addFile</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">raiPath</span><span class="p">(</span><span class="s1">&#39;scenarios/pandaSingle.g&#39;</span><span class="p">))</span>
+<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
-<section id="Rendering-configurations">
-<h2>Rendering configurations<a class="headerlink" href="#Rendering-configurations" title="Permalink to this heading"></a></h2>
-<p>Camera images and depth are usually accessed via a simulation interface (BotOp). But we can compute images and depth also directly for a given configuration, without really creating a (physical) simulation. Here the basic approach: We can also add a frame, attached to the head, which has no shape associated to it, but create a view is associated with that frame TODO: Add nvisii support/export!</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;camera&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="s1">&#39;head_tilt_link&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="s1">&#39;Q:&lt;d(-90 1 0 0) d(180 0 0 1)&gt; focalLength:.3&#39;</span><span class="p">)</span>
-<span class="n">V</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">cameraView</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cam</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">CameraView</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+<span class="n">cam</span><span class="o">.</span><span class="n">setCamera</span><span class="p">(</span><span class="s1">&#39;cameraTop&#39;</span><span class="p">)</span>
+<span class="n">rgb</span><span class="p">,</span> <span class="n">depth</span> <span class="o">=</span> <span class="n">cam</span><span class="o">.</span><span class="n">computeImageAndDepth</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+<span class="n">pcl</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">depthImage2PointCloud</span><span class="p">(</span><span class="n">depth</span><span class="p">,</span> <span class="n">cam</span><span class="o">.</span><span class="n">getFxyCxy</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Vimg</span> <span class="o">=</span> <span class="n">V</span><span class="o">.</span><span class="n">imageViewer</span><span class="p">()</span>
-<span class="n">Vseg</span> <span class="o">=</span> <span class="n">V</span><span class="o">.</span><span class="n">segmentationViewer</span><span class="p">()</span>
-<span class="n">Vpcl</span> <span class="o">=</span> <span class="n">V</span><span class="o">.</span><span class="n">pointCloudViewer</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">V</span><span class="o">.</span><span class="n">addSensor</span><span class="p">(</span><span class="s1">&#39;kinect&#39;</span><span class="p">,</span> <span class="s1">&#39;endeffKinect&#39;</span><span class="p">,</span> <span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">,</span> <span class="mf">580.</span><span class="o">/</span><span class="mf">480.</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.</span><span class="p">,</span> <span class="p">[</span><span class="mf">.1</span><span class="p">,</span> <span class="mf">50.</span><span class="p">]</span> <span class="p">)</span>
-<span class="c1">#V.addSensor(name=&#39;camera&#39;, frameAttached=&#39;camera&#39;, width=600, height=400)</span>
-<span class="n">V</span><span class="o">.</span><span class="n">selectSensor</span><span class="p">(</span><span class="s1">&#39;kinect&#39;</span><span class="p">)</span>
-<span class="p">[</span><span class="n">image</span><span class="p">,</span><span class="n">depth</span><span class="p">]</span> <span class="o">=</span> <span class="n">V</span><span class="o">.</span><span class="n">computeImageAndDepth</span><span class="p">()</span>
-<span class="n">seg</span> <span class="o">=</span> <span class="n">V</span><span class="o">.</span><span class="n">computeSegmentation</span><span class="p">()</span>
-<span class="n">pcl</span> <span class="o">=</span> <span class="n">V</span><span class="o">.</span><span class="n">computePointCloud</span><span class="p">(</span><span class="n">depth</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;image shape:&#39;</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;depth shape:&#39;</span><span class="p">,</span> <span class="n">depth</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;segmentation shape:&#39;</span><span class="p">,</span> <span class="n">seg</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;pcl shape:&#39;</span><span class="p">,</span> <span class="n">pcl</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">rgb</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">depth</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">pcl</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">view_fxycxy</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
-<p>When we move the robot, that view moves with it:</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(360, 640, 3) (360, 640) (360, 640, 3)
+[1881.85195923 1881.85195923  200.          200.        ]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">setJointState</span><span class="p">([</span><span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;head_pan_joint&#39;</span><span class="p">])</span>
-<span class="n">C</span><span class="o">.</span><span class="n">setJointState</span><span class="p">([</span><span class="mf">1.</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;head_tilt_joint&#39;</span><span class="p">])</span>
-<span class="n">V</span><span class="o">.</span><span class="n">updateConfig</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
-<span class="p">[</span><span class="n">image</span><span class="p">,</span><span class="n">depth</span><span class="p">]</span> <span class="o">=</span> <span class="n">V</span><span class="o">.</span><span class="n">computeImageAndDepth</span><span class="p">()</span>
-<span class="n">pcl</span> <span class="o">=</span> <span class="n">V</span><span class="o">.</span><span class="n">computePointCloud</span><span class="p">(</span><span class="n">depth</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<p>To close a view (or destroy a handle to a computational module), we reassign it to zero. We can also remove a frame from the configuration.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Vimg</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">Vseg</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">Vpcl</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">V</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">C</span><span class="o">.</span><span class="n">delFrame</span><span class="p">(</span><span class="s1">&#39;camera&#39;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">rgb</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">depth</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_rendering_25_0.png" src="../_images/tutorials_rendering_25_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">view_close</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">delFrame</span><span class="p">(</span><span class="s1">&#39;pcl2&#39;</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="s1">&#39;pcl2&#39;</span><span class="p">,</span> <span class="s1">&#39;cameraTop&#39;</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">setPointCloud</span><span class="p">(</span><span class="n">pcl</span><span class="p">,</span> <span class="p">[</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+-- WARNING:kin.cpp:getFrame:392(-1) cannot find frame named &#39;pcl2&#39;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
+</div>
+</section>
+<section id="Physics-based-Rendering-using-Nvidia-NVISII">
+<h2>Physics-based Rendering using Nvidia NVISII<a class="headerlink" href="#Physics-based-Rendering-using-Nvidia-NVISII" title="Permalink to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">robotic</span> <span class="kn">import</span> <span class="n">ry</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">robotic</span> <span class="kn">import</span> <span class="n">render</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;version&#39;</span><span class="p">,</span> <span class="n">ry</span><span class="o">.</span><span class="n">compiled</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ImportError</span>                               Traceback (most recent call last)
+<span class="ansi-green-fg">/tmp/ipykernel_90908/164390504.py</span> in <span class="ansi-cyan-fg">?</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-fg">----&gt; 3</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">from</span> robotic <span class="ansi-green-fg">import</span> ry
+<span class="ansi-green-intense-fg ansi-bold">      4</span> <span class="ansi-green-fg">from</span> matplotlib <span class="ansi-green-fg">import</span> pyplot <span class="ansi-green-fg">as</span> plt
+<span class="ansi-green-intense-fg ansi-bold">      5</span> <span class="ansi-green-fg">from</span> robotic <span class="ansi-green-fg">import</span> render
+<span class="ansi-green-intense-fg ansi-bold">      6</span> print<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;version&#39;</span><span class="ansi-blue-fg">,</span> ry<span class="ansi-blue-fg">.</span>compiled<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">~/.local/lib/python3.8/site-packages/robotic/render.py</span> in <span class="ansi-cyan-fg">?</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-green-fg">from</span> robotic <span class="ansi-green-fg">import</span> ry
+<span class="ansi-green-intense-fg ansi-bold">      2</span> <span class="ansi-green-fg">import</span> numpy <span class="ansi-green-fg">as</span> np
+<span class="ansi-green-fg">----&gt; 3</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">import</span> nvisii
+<span class="ansi-green-intense-fg ansi-bold">      4</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> <span class="ansi-green-fg">def</span> quatMult<span class="ansi-blue-fg">(</span>b<span class="ansi-blue-fg">,</span> c<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">      6</span>     a <span class="ansi-blue-fg">=</span> b<span class="ansi-blue-fg">.</span>copy<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">;</span>
+
+<span class="ansi-green-fg">~/.local/lib/python3.8/site-packages/nvisii/__init__.py</span> in <span class="ansi-cyan-fg">?</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">     49</span>
+<span class="ansi-green-intense-fg ansi-bold">     50</span>
+<span class="ansi-green-intense-fg ansi-bold">     51</span>
+<span class="ansi-green-intense-fg ansi-bold">     52</span>
+<span class="ansi-green-fg">---&gt; 53</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">from</span> sys <span class="ansi-green-fg">import</span> version_info <span class="ansi-green-fg">as</span> _swig_python_version_info
+<span class="ansi-green-intense-fg ansi-bold">     54</span> <span class="ansi-green-fg">if</span> _swig_python_version_info <span class="ansi-blue-fg">&lt;</span> <span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">7</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">     55</span>     <span class="ansi-green-fg">raise</span> RuntimeError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;Python 2.7 or later required&#34;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     56</span>
+
+<span class="ansi-red-fg">ImportError</span>: libcuda.so.1: cannot open shared object file: No such file or directory
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span>
+<span class="n">C</span><span class="o">.</span><span class="n">addFile</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">raiPath</span><span class="p">(</span><span class="s1">&#39;scenarios/pandaSingle.g&#39;</span><span class="p">))</span>
+<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="s1">&#39;light1&#39;</span><span class="p">)</span> <span class="o">.</span><span class="n">setPosition</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span> <span class="o">.</span><span class="n">setShape</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">ST</span><span class="o">.</span><span class="n">ssBox</span><span class="p">,</span> <span class="p">[</span><span class="mf">.5</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">.1</span><span class="p">,</span><span class="mf">.02</span><span class="p">])</span> <span class="o">.</span><span class="n">setColor</span><span class="p">([</span><span class="mf">.5</span><span class="p">])</span> <span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="mi">6000</span><span class="p">)</span>
+<span class="n">C</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="s1">&#39;light2&#39;</span><span class="p">)</span> <span class="o">.</span><span class="n">setPosition</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span> <span class="o">.</span><span class="n">setShape</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">ST</span><span class="o">.</span><span class="n">ssBox</span><span class="p">,</span> <span class="p">[</span><span class="mf">.5</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">.1</span><span class="p">,</span><span class="mf">.02</span><span class="p">])</span> <span class="o">.</span><span class="n">setColor</span><span class="p">([</span><span class="mf">.8</span><span class="p">])</span> <span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="mi">6000</span><span class="p">)</span>
+<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nv</span> <span class="o">=</span> <span class="n">render</span><span class="o">.</span><span class="n">NvisiiRenderer</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">view_focalLength</span><span class="p">())</span>
+<span class="n">nv</span><span class="o">.</span><span class="n">addConfig</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[24], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> nv <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">render</span><span style="color: rgb(98,98,98)">.</span>NvisiiRenderer(<span style="color: rgb(98,98,98)">600</span>, <span style="color: rgb(98,98,98)">400</span>, C<span style="color: rgb(98,98,98)">.</span>view_focalLength())
+<span class="ansi-green-intense-fg ansi-bold">      2</span> nv<span style="color: rgb(98,98,98)">.</span>addConfig(C)
+
+<span class="ansi-red-fg">NameError</span>: name &#39;render&#39; is not defined
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nv</span><span class="o">.</span><span class="n">setCamera</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+<span class="n">rgb</span> <span class="o">=</span> <span class="n">nv</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">rgb</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[25], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> <span class="ansi-yellow-bg">nv</span><span style="color: rgb(98,98,98)">.</span>setCamera(C)
+<span class="ansi-green-intense-fg ansi-bold">      2</span> rgb <span style="color: rgb(98,98,98)">=</span> nv<span style="color: rgb(98,98,98)">.</span>render(<span style="color: rgb(98,98,98)">256</span>)
+<span class="ansi-green-intense-fg ansi-bold">      3</span> plt<span style="color: rgb(98,98,98)">.</span>imshow(rgb)
+
+<span class="ansi-red-fg">NameError</span>: name &#39;nv&#39; is not defined
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">nv</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[26], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> <span class="ansi-bold" style="color: rgb(0,135,0)">del</span> nv
+
+<span class="ansi-red-fg">NameError</span>: name &#39;nv&#39; is not defined
+</pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -321,7 +615,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="simulation.html" class="btn btn-neutral float-left" title="Direct Simulation Interface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="komo1-IK-toBeMerged.html" class="btn btn-neutral float-right" title="Inverse Kinematics as Optimization (to be merged)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="rrt-example.html" class="btn btn-neutral float-right" title="Path finding example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

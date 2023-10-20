@@ -54,7 +54,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#robotic.ry.BotOp"><code class="docutils literal notranslate"><span class="pre">BotOp</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#robotic.ry.BotOp.getCameraFxypxy"><code class="docutils literal notranslate"><span class="pre">BotOp.getCameraFxypxy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#robotic.ry.BotOp.getCameraFxycxy"><code class="docutils literal notranslate"><span class="pre">BotOp.getCameraFxycxy()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.BotOp.getImageAndDepth"><code class="docutils literal notranslate"><span class="pre">BotOp.getImageAndDepth()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.BotOp.getImageDepthPcl"><code class="docutils literal notranslate"><span class="pre">BotOp.getImageDepthPcl()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.BotOp.getKeyPressed"><code class="docutils literal notranslate"><span class="pre">BotOp.getKeyPressed()</span></code></a></li>
@@ -79,6 +79,14 @@
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.BotOp.stop"><code class="docutils literal notranslate"><span class="pre">BotOp.stop()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.BotOp.sync"><code class="docutils literal notranslate"><span class="pre">BotOp.sync()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.BotOp.wait"><code class="docutils literal notranslate"><span class="pre">BotOp.wait()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#robotic.ry.CameraView"><code class="docutils literal notranslate"><span class="pre">CameraView</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#robotic.ry.CameraView.computeImageAndDepth"><code class="docutils literal notranslate"><span class="pre">CameraView.computeImageAndDepth()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#robotic.ry.CameraView.computeSegmentationID"><code class="docutils literal notranslate"><span class="pre">CameraView.computeSegmentationID()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#robotic.ry.CameraView.computeSegmentationImage"><code class="docutils literal notranslate"><span class="pre">CameraView.computeSegmentationImage()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#robotic.ry.CameraView.getFxyCxy"><code class="docutils literal notranslate"><span class="pre">CameraView.getFxyCxy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#robotic.ry.CameraView.setCamera"><code class="docutils literal notranslate"><span class="pre">CameraView.setCamera()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#robotic.ry.Config"><code class="docutils literal notranslate"><span class="pre">Config</span></code></a><ul>
@@ -117,10 +125,14 @@
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.view"><code class="docutils literal notranslate"><span class="pre">Config.view()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.view_close"><code class="docutils literal notranslate"><span class="pre">Config.view_close()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.view_focalLength"><code class="docutils literal notranslate"><span class="pre">Config.view_focalLength()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.view_getScreenshot"><code class="docutils literal notranslate"><span class="pre">Config.view_getScreenshot()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.view_fxycxy"><code class="docutils literal notranslate"><span class="pre">Config.view_fxycxy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.view_getDepth"><code class="docutils literal notranslate"><span class="pre">Config.view_getDepth()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.view_getRgb"><code class="docutils literal notranslate"><span class="pre">Config.view_getRgb()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.view_playVideo"><code class="docutils literal notranslate"><span class="pre">Config.view_playVideo()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.view_pose"><code class="docutils literal notranslate"><span class="pre">Config.view_pose()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.view_recopyMeshes"><code class="docutils literal notranslate"><span class="pre">Config.view_recopyMeshes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.view_savePng"><code class="docutils literal notranslate"><span class="pre">Config.view_savePng()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.view_setCamera"><code class="docutils literal notranslate"><span class="pre">Config.view_setCamera()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.watchFile"><code class="docutils literal notranslate"><span class="pre">Config.watchFile()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.write"><code class="docutils literal notranslate"><span class="pre">Config.write()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Config.writeCollada"><code class="docutils literal notranslate"><span class="pre">Config.writeCollada()</span></code></a></li>
@@ -144,7 +156,6 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#robotic.ry.Frame"><code class="docutils literal notranslate"><span class="pre">Frame</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Frame.addAttribute"><code class="docutils literal notranslate"><span class="pre">Frame.addAttribute()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Frame.addAttributes"><code class="docutils literal notranslate"><span class="pre">Frame.addAttributes()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Frame.getAttributes"><code class="docutils literal notranslate"><span class="pre">Frame.getAttributes()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Frame.getJointState"><code class="docutils literal notranslate"><span class="pre">Frame.getJointState()</span></code></a></li>
@@ -157,6 +168,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Frame.getRotationMatrix"><code class="docutils literal notranslate"><span class="pre">Frame.getRotationMatrix()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Frame.getSize"><code class="docutils literal notranslate"><span class="pre">Frame.getSize()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Frame.info"><code class="docutils literal notranslate"><span class="pre">Frame.info()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Frame.setAttribute"><code class="docutils literal notranslate"><span class="pre">Frame.setAttribute()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Frame.setColor"><code class="docutils literal notranslate"><span class="pre">Frame.setColor()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Frame.setContact"><code class="docutils literal notranslate"><span class="pre">Frame.setContact()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#robotic.ry.Frame.setJoint"><code class="docutils literal notranslate"><span class="pre">Frame.setJoint()</span></code></a></li>
@@ -325,6 +337,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#robotic.ry.compiled"><code class="docutils literal notranslate"><span class="pre">compiled()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#robotic.ry.depthImage2PointCloud"><code class="docutils literal notranslate"><span class="pre">depthImage2PointCloud()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#robotic.ry.getStartGoalPath"><code class="docutils literal notranslate"><span class="pre">getStartGoalPath()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#robotic.ry.params_add"><code class="docutils literal notranslate"><span class="pre">params_add()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#robotic.ry.params_clear"><code class="docutils literal notranslate"><span class="pre">params_clear()</span></code></a></li>
@@ -380,10 +393,10 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="robotic.ry.BotOp">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robotic.ry.</span></span><span class="sig-name descname"><span class="pre">BotOp</span></span><a class="headerlink" href="#robotic.ry.BotOp" title="Permalink to this definition"></a></dt>
-<dd><p>needs some docu!</p>
+<dd><p>Robot Operation interface – see <a class="reference external" href="https://marctoussaint.github.io/robotics-course/tutorials/1b-botop.html">https://marctoussaint.github.io/robotics-course/tutorials/1b-botop.html</a></p>
 <dl class="py method">
-<dt class="sig sig-object py" id="robotic.ry.BotOp.getCameraFxypxy">
-<span class="sig-name descname"><span class="pre">getCameraFxypxy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.BotOp" title="robotic.ry.BotOp"><span class="pre">robotic.ry.BotOp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensorName</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">arr</span></span></span><a class="headerlink" href="#robotic.ry.BotOp.getCameraFxypxy" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="robotic.ry.BotOp.getCameraFxycxy">
+<span class="sig-name descname"><span class="pre">getCameraFxycxy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.BotOp" title="robotic.ry.BotOp"><span class="pre">robotic.ry.BotOp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensorName</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">arr</span></span></span><a class="headerlink" href="#robotic.ry.BotOp.getCameraFxycxy" title="Permalink to this definition"></a></dt>
 <dd><p>returns camera intrinsics</p>
 </dd></dl>
 
@@ -536,9 +549,45 @@
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="robotic.ry.CameraView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robotic.ry.</span></span><span class="sig-name descname"><span class="pre">CameraView</span></span><a class="headerlink" href="#robotic.ry.CameraView" title="Permalink to this definition"></a></dt>
+<dd><p>Offscreen rendering</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="robotic.ry.CameraView.computeImageAndDepth">
+<span class="sig-name descname"><span class="pre">computeImageAndDepth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.CameraView" title="robotic.ry.CameraView"><span class="pre">robotic.ry.CameraView</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.Config" title="robotic.ry.Config"><span class="pre">robotic.ry.Config</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">visualsOnly</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="headerlink" href="#robotic.ry.CameraView.computeImageAndDepth" title="Permalink to this definition"></a></dt>
+<dd><p>returns image and depth from a camera sensor; the ‘config’ argument needs to be the same configuration as in the constructor, but in new state</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="robotic.ry.CameraView.computeSegmentationID">
+<span class="sig-name descname"><span class="pre">computeSegmentationID</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.CameraView" title="robotic.ry.CameraView"><span class="pre">robotic.ry.CameraView</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Array&lt;T&gt;</span></span></span><a class="headerlink" href="#robotic.ry.CameraView.computeSegmentationID" title="Permalink to this definition"></a></dt>
+<dd><p>return a uint16 array with object ID segmentation</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="robotic.ry.CameraView.computeSegmentationImage">
+<span class="sig-name descname"><span class="pre">computeSegmentationImage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.CameraView" title="robotic.ry.CameraView"><span class="pre">robotic.ry.CameraView</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Array&lt;T&gt;</span></span></span><a class="headerlink" href="#robotic.ry.CameraView.computeSegmentationImage" title="Permalink to this definition"></a></dt>
+<dd><p>return an rgb image encoding the object ID segmentation</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="robotic.ry.CameraView.getFxyCxy">
+<span class="sig-name descname"><span class="pre">getFxyCxy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.CameraView" title="robotic.ry.CameraView"><span class="pre">robotic.ry.CameraView</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">arr</span></span></span><a class="headerlink" href="#robotic.ry.CameraView.getFxyCxy" title="Permalink to this definition"></a></dt>
+<dd><p>return the camera intrinsics f_x, f_y, c_x, c_y</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="robotic.ry.CameraView.setCamera">
+<span class="sig-name descname"><span class="pre">setCamera</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.CameraView" title="robotic.ry.CameraView"><span class="pre">robotic.ry.CameraView</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">cameraFrameName</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">rai::CameraView::Sensor</span></span></span><a class="headerlink" href="#robotic.ry.CameraView.setCamera" title="Permalink to this definition"></a></dt>
+<dd><p>select a camera, typically a frame that has camera info attributes</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="robotic.ry.Config">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robotic.ry.</span></span><span class="sig-name descname"><span class="pre">Config</span></span><a class="headerlink" href="#robotic.ry.Config" title="Permalink to this definition"></a></dt>
-<dd><p>Core data structure to represent a kinematic configuration.</p>
+<dd><p>Core data structure to represent a kinematic configuration (essentially a tree of frames). See <a class="reference external" href="https://marctoussaint.github.io/robotics-course/tutorials/1a-configurations.html">https://marctoussaint.github.io/robotics-course/tutorials/1a-configurations.html</a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="robotic.ry.Config.addConfigurationCopy">
 <span class="sig-name descname"><span class="pre">addConfigurationCopy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.Config" title="robotic.ry.Config"><span class="pre">robotic.ry.Config</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.Config" title="robotic.ry.Config"><span class="pre">robotic.ry.Config</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#robotic.ry.Config.addConfigurationCopy" title="Permalink to this definition"></a></dt>
@@ -600,7 +649,7 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="robotic.ry.Config.eval">
 <span class="sig-name descname"><span class="pre">eval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.Config" title="robotic.ry.Config"><span class="pre">robotic.ry.Config</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">featureSymbol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.FS" title="robotic.ry.FS"><span class="pre">robotic.ry.FS</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">frames</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">StringA</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">arr</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">array(1.e-05)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">arr</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">array(0.0078125)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="headerlink" href="#robotic.ry.Config.eval" title="Permalink to this definition"></a></dt>
-<dd><p>evaluate a feature</p>
+<dd><p>evaluate a feature – see <a class="reference external" href="https://marctoussaint.github.io/robotics-course/tutorials/features.html">https://marctoussaint.github.io/robotics-course/tutorials/features.html</a></p>
 </dd></dl>
 
 <dl class="py method">
@@ -759,8 +808,19 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="robotic.ry.Config.view_getScreenshot">
-<span class="sig-name descname"><span class="pre">view_getScreenshot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.Config" title="robotic.ry.Config"><span class="pre">robotic.ry.Config</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.uint8</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#robotic.ry.Config.view_getScreenshot" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="robotic.ry.Config.view_fxycxy">
+<span class="sig-name descname"><span class="pre">view_fxycxy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.Config" title="robotic.ry.Config"><span class="pre">robotic.ry.Config</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">arr</span></span></span><a class="headerlink" href="#robotic.ry.Config.view_fxycxy" title="Permalink to this definition"></a></dt>
+<dd><p>return (fx, fy, cx, cy): the focal length and image center in PIXEL UNITS</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="robotic.ry.Config.view_getDepth">
+<span class="sig-name descname"><span class="pre">view_getDepth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.Config" title="robotic.ry.Config"><span class="pre">robotic.ry.Config</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float32</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#robotic.ry.Config.view_getDepth" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="robotic.ry.Config.view_getRgb">
+<span class="sig-name descname"><span class="pre">view_getRgb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.Config" title="robotic.ry.Config"><span class="pre">robotic.ry.Config</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.uint8</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#robotic.ry.Config.view_getRgb" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -778,6 +838,18 @@
 <dt class="sig sig-object py" id="robotic.ry.Config.view_recopyMeshes">
 <span class="sig-name descname"><span class="pre">view_recopyMeshes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.Config" title="robotic.ry.Config"><span class="pre">robotic.ry.Config</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#robotic.ry.Config.view_recopyMeshes" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="robotic.ry.Config.view_savePng">
+<span class="sig-name descname"><span class="pre">view_savePng</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.Config" title="robotic.ry.Config"><span class="pre">robotic.ry.Config</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathPrefix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'z.vid/'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#robotic.ry.Config.view_savePng" title="Permalink to this definition"></a></dt>
+<dd><p>saves a png image of the current view, numbered with a global counter, with the intention to make a video</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="robotic.ry.Config.view_setCamera">
+<span class="sig-name descname"><span class="pre">view_setCamera</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.Config" title="robotic.ry.Config"><span class="pre">robotic.ry.Config</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.Frame" title="robotic.ry.Frame"><span class="pre">robotic.ry.Frame</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#robotic.ry.Config.view_setCamera" title="Permalink to this definition"></a></dt>
+<dd><p>set the camera pose to a frame, and check frame attributes for intrinsic parameters (focalLength, width height)</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robotic.ry.Config.watchFile">
@@ -882,7 +954,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="robotic.ry.Feature">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robotic.ry.</span></span><span class="sig-name descname"><span class="pre">Feature</span></span><a class="headerlink" href="#robotic.ry.Feature" title="Permalink to this definition"></a></dt>
-<dd><p>todo doc</p>
+<dd><p>to be removed - use only directly from Config</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="robotic.ry.Feature.description">
 <span class="sig-name descname"><span class="pre">description</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.Feature" title="robotic.ry.Feature"><span class="pre">robotic.ry.Feature</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.Config" title="robotic.ry.Config"><span class="pre">robotic.ry.Config</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#robotic.ry.Feature.description" title="Permalink to this definition"></a></dt>
@@ -913,12 +985,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="robotic.ry.Frame">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robotic.ry.</span></span><span class="sig-name descname"><span class="pre">Frame</span></span><a class="headerlink" href="#robotic.ry.Frame" title="Permalink to this definition"></a></dt>
-<dd><p>todo doc</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="robotic.ry.Frame.addAttribute">
-<span class="sig-name descname"><span class="pre">addAttribute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.Frame" title="robotic.ry.Frame"><span class="pre">robotic.ry.Frame</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#robotic.ry.Frame" title="robotic.ry.Frame"><span class="pre">robotic.ry.Frame</span></a></span></span><a class="headerlink" href="#robotic.ry.Frame.addAttribute" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
+<dd><p>A (coordinate) of a configuration, which can have a parent, and associated shape, joint, and/or inertia</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="robotic.ry.Frame.addAttributes">
 <span class="sig-name descname"><span class="pre">addAttributes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.Frame" title="robotic.ry.Frame"><span class="pre">robotic.ry.Frame</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#robotic.ry.Frame.addAttributes" title="Permalink to this definition"></a></dt>
@@ -979,6 +1046,11 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="robotic.ry.Frame.info">
 <span class="sig-name descname"><span class="pre">info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.Frame" title="robotic.ry.Frame"><span class="pre">robotic.ry.Frame</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#robotic.ry.Frame.info" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="robotic.ry.Frame.setAttribute">
+<span class="sig-name descname"><span class="pre">setAttribute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.Frame" title="robotic.ry.Frame"><span class="pre">robotic.ry.Frame</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#robotic.ry.Frame" title="robotic.ry.Frame"><span class="pre">robotic.ry.Frame</span></a></span></span><a class="headerlink" href="#robotic.ry.Frame.setAttribute" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1113,11 +1185,16 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="robotic.ry.KOMO">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robotic.ry.</span></span><span class="sig-name descname"><span class="pre">KOMO</span></span><a class="headerlink" href="#robotic.ry.KOMO" title="Permalink to this definition"></a></dt>
-<dd><p>Constrained solver to optimize configurations or paths. (KOMO = k-order Markov Optimization)</p>
+<dd><p>Constrained solver to optimize configurations or paths. (KOMO = k-order Markov Optimization) – see <a class="reference external" href="https://marctoussaint.github.io/robotics-course/tutorials/1c-komo.html">https://marctoussaint.github.io/robotics-course/tutorials/1c-komo.html</a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="robotic.ry.KOMO.addControlObjective">
 <span class="sig-name descname"><span class="pre">addControlObjective</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.KOMO" title="robotic.ry.KOMO"><span class="pre">robotic.ry.KOMO</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">times</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">arr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">arr</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">array(0.0078125)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deltaFromSlice</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deltaToSlice</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Objective</span></span></span><a class="headerlink" href="#robotic.ry.KOMO.addControlObjective" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><ul class="simple">
+<li><p>times: (as for <cite>addObjective</cite>) the phase-interval in which this objective holds; [] means all times</p></li>
+<li><p>order: Do we penalize the jointState directly (order=0: penalizing sqr distance to qHome, order=1: penalizing sqr distances between consecutive configurations (velocities), order=2: penalizing accelerations across 3 configurations)</p></li>
+<li><p>scale: as usual, but modulated by a factor ‘sqrt(delta t)’ that somehow ensures total control costs in approximately independent of the choice of stepsPerPhase</p></li>
+</ul>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robotic.ry.KOMO.addInteraction_elasticBounce">
@@ -1132,7 +1209,14 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="robotic.ry.KOMO.addObjective">
 <span class="sig-name descname"><span class="pre">addObjective</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">robotic.ry.KOMO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">times:</span> <span class="pre">arr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature:</span> <span class="pre">robotic.ry.FS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frames:</span> <span class="pre">List[str]</span> <span class="pre">=</span> <span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type:</span> <span class="pre">ObjectiveType</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale:</span> <span class="pre">arr</span> <span class="pre">=</span> <span class="pre">array(0.0078125)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target:</span> <span class="pre">arr</span> <span class="pre">=</span> <span class="pre">array(0.0078125)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">-1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#robotic.ry.KOMO.addObjective" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>central method to define objectives in the KOMO NLP:
+* times: the time intervals (subset of configurations in a path) over which this feature is active (irrelevant for IK)
+* feature: the feature symbol (see advanced <cite>Feature</cite> tutorial)
+* frames: the frames for which the feature is computed, given as list of frame names
+* type: whether this is a sum-of-squares (sos) cost, or eq or ineq constraint
+* scale: the matrix(!) by which the feature is multiplied
+* target: the offset which is substracted from the feature (before scaling)</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robotic.ry.KOMO.addQuaternionNorms">
@@ -1233,8 +1317,8 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robotic.ry.KOMO.report">
-<span class="sig-name descname"><span class="pre">report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.KOMO" title="robotic.ry.KOMO"><span class="pre">robotic.ry.KOMO</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">plotOverTime</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#robotic.ry.KOMO.report" title="Permalink to this definition"></a></dt>
-<dd><p>returns a dict with full report on features, optionally plotting costs/violations over time</p>
+<span class="sig-name descname"><span class="pre">report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.KOMO" title="robotic.ry.KOMO"><span class="pre">robotic.ry.KOMO</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">specs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plotOverTime</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#robotic.ry.KOMO.report" title="Permalink to this definition"></a></dt>
+<dd><p>returns a dict with full report on features, optionally also on problem specs and plotting costs/violations over time</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1245,12 +1329,14 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="robotic.ry.KOMO.setConfig">
 <span class="sig-name descname"><span class="pre">setConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.KOMO" title="robotic.ry.KOMO"><span class="pre">robotic.ry.KOMO</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.Config" title="robotic.ry.Config"><span class="pre">robotic.ry.Config</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">enableCollisions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#robotic.ry.KOMO.setConfig" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>[deprecated] please set directly in constructor</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robotic.ry.KOMO.setTiming">
 <span class="sig-name descname"><span class="pre">setTiming</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.KOMO" title="robotic.ry.KOMO"><span class="pre">robotic.ry.KOMO</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">phases</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slicesPerPhase</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">durationPerPhase</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kOrder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#robotic.ry.KOMO.setTiming" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>[deprecated] please set directly in constructor</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robotic.ry.KOMO.updateRootObjects">
@@ -1653,7 +1739,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="robotic.ry.Simulation">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robotic.ry.</span></span><span class="sig-name descname"><span class="pre">Simulation</span></span><a class="headerlink" href="#robotic.ry.Simulation" title="Permalink to this definition"></a></dt>
-<dd><p>todo doc</p>
+<dd><p>A direct simulation interface to physics engines (Nvidia PhysX, Bullet) – see <a class="reference external" href="https://marctoussaint.github.io/robotics-course/tutorials/simulation.html">https://marctoussaint.github.io/robotics-course/tutorials/simulation.html</a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="robotic.ry.Simulation.addImp">
 <span class="sig-name descname"><span class="pre">addImp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.Simulation" title="robotic.ry.Simulation"><span class="pre">robotic.ry.Simulation</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robotic.ry.ImpType" title="robotic.ry.ImpType"><span class="pre">robotic.ry.ImpType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">StringA</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">arr</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#robotic.ry.Simulation.addImp" title="Permalink to this definition"></a></dt>
@@ -1798,6 +1884,12 @@
 <dt class="sig sig-object py" id="robotic.ry.compiled">
 <span class="sig-prename descclassname"><span class="pre">robotic.ry.</span></span><span class="sig-name descname"><span class="pre">compiled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#robotic.ry.compiled" title="Permalink to this definition"></a></dt>
 <dd><p>return a compile date+time version string</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="robotic.ry.depthImage2PointCloud">
+<span class="sig-prename descclassname"><span class="pre">robotic.ry.</span></span><span class="sig-name descname"><span class="pre">depthImage2PointCloud</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">depth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float32</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fxycxy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">arr</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">arr</span></span></span><a class="headerlink" href="#robotic.ry.depthImage2PointCloud" title="Permalink to this definition"></a></dt>
+<dd><p>return the point cloud from the depth image</p>
 </dd></dl>
 
 <dl class="py function">

@@ -61,10 +61,10 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="1d-real.html">Starting with a real robot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html">Differentiable Features &amp; Collision Evaluation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../tutorials.html#in-depth">In Depth</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#preliminary">Preliminary</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../script/script.html">Lecture Script</a></li>
@@ -99,7 +99,8 @@
   <section id="KOMO:-Motion-Optimization">
 <h1>KOMO: Motion Optimization<a class="headerlink" href="#KOMO:-Motion-Optimization" title="Permalink to this heading"></a></h1>
 <p>KOMO is a framework for designing motion by formulating optimization problems. Inverse kinematics (IK) is the special case of optimizing only over a single configuration rather than a path. Formulating KOMO problems is key to realizing motion in <code class="docutils literal notranslate"><span class="pre">rai</span></code>.</p>
-<p>This tutorial shows basics on how IK, rough waypoint optimization, and fine path optimization can be formulated as non-linear mathematical program (NLP) using KOMO. Essentially, the <code class="docutils literal notranslate"><span class="pre">addObjective</span></code> allows to add costs or constraints over any <code class="docutils literal notranslate"><span class="pre">Feature</span></code> to the NLP (same features that can be evaluated with ‘C.eval’).</p>
+<p>The <a class="reference external" href="https://marctoussaint.github.io/robotics-course/script/script.html#general-concept-of-differentiable-features">Script:Inverse Kinematics</a> and the <a class="reference external" href="https://marctoussaint.github.io/robotics-course/script/script.html#nlp-interface">Appendix:NLP Interface</a> provide the mathematical background on inverse kinematics and especially the convention of how NLPs can be defined by adding objectives.</p>
+<p>This tutorial shows how IK, rough waypoint optimization, and fine path optimization can be formulated as non-linear mathematical program (NLP) using KOMO. Essentially, the <code class="docutils literal notranslate"><span class="pre">addObjective</span></code> allows to add costs or constraints over any <code class="docutils literal notranslate"><span class="pre">Feature</span></code> to the NLP (same features that can be evaluated with ‘C.eval’).</p>
 <section id="Minimal-IK-example">
 <h2>Minimal IK example<a class="headerlink" href="#Minimal-IK-example" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
@@ -186,7 +187,8 @@ the feature (before scaling)</p>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{ time: 0.001417, evals: 6, done: 1, feasible: 1, sos: 0.00414146, f: 0, ineq: 0, eq: 0.00188382 }====nlp==== method:AugmentedLagrangian bounded: yes
+{ time: 0.001512, evals: 6, done: 1, feasible: 1, sos: 0.00414146, f: 0, ineq: 0, eq: 0.00188382 }====nlp==== method:AugmentedLagrangian bounded: yes
+
 ==nlp== it:0 evals:0 mu:1 nu:1 muLB:0.1
 ----newton---- initial point f(x):16.0447 alpha:1 beta:1
 --newton-- it:   1  |Delta|:        0.2  alpha:          1  evals:   2  f(y):    6.55808  ACCEPT
@@ -198,8 +200,7 @@ the feature (before scaling)</p>
 ==nlp== it:   1  evals:   5  A(x): 0.00437027  mu:5
 --newton-- it:   5  |Delta|: 0.00240133  alpha:          1  evals:   6  f(y): 0.00413537  ACCEPT
 --newton-- stopping: &#39;absMax(Delta)&lt;options.stopTolerance&#39;
-==nlp== it:   1  evals:   6  A(x): 0.00413537  f: 0.00414146  g:          0  h: 0.00188382  |x-x&#39;|: 0.00240133      stop:
-DeltaConverge
+==nlp== it:   1  evals:   6  A(x): 0.00413537  f: 0.00414146  g:          0  h: 0.00188382  |x-x&#39;|: 0.00240133      stop:DeltaConverge
 ==nlp== StoppingCriterion Delta&lt;0.01
 ----newton---- final f(x):0.00413537
 </pre></div></div>
@@ -258,7 +259,7 @@ DeltaConverge
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-86
+0
 </pre></div></div>
 </div>
 </section>
@@ -283,7 +284,7 @@ DeltaConverge
 <p>The two <code class="docutils literal notranslate"><span class="pre">scalarProduct</span></code> feature state that the gripper x-axis (which is the axis connecting the fingers) should be orthogonal to the object x- and z-axes. That implies fingers to normally oppose the object’s y-planes.</p>
 <p>Note that grasping could also be opposing the object x- or z- planes – see below. Let solve it and then set the joint state to the solution:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ret</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">NLP_Solver</span><span class="p">(</span><span class="n">komo</span><span class="o">.</span><span class="n">nlp</span><span class="p">(),</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span> <span class="p">)</span> <span class="o">.</span><span class="n">solve</span><span class="p">()</span>
@@ -300,12 +301,12 @@ DeltaConverge
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{ time: 0.001427, evals: 3, done: 1, feasible: 1, sos: 0.00551937, f: 0, ineq: 0, eq: 0.000566221 }
+{ time: 0.001797, evals: 4, done: 1, feasible: 1, sos: 0.00552507, f: 0, ineq: 0, eq: 0.00405028 }
 -- Always check feasibility flag of NLP solver return
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">q</span> <span class="o">=</span> <span class="n">komo</span><span class="o">.</span><span class="n">getPath</span><span class="p">()</span>
@@ -315,17 +316,17 @@ DeltaConverge
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-13
+0
 </pre></div></div>
 </div>
 <p>Reusing the KOMO instance is ok if some aspect of the configuration changes and you want to resolve the same problem:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">box</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">getFrame</span><span class="p">(</span><span class="s1">&#39;box&#39;</span><span class="p">)</span>
@@ -349,22 +350,22 @@ DeltaConverge
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{ time: 0.028821, evals: 70, done: 1, feasible: 1, sos: 0.038482, f: 0, ineq: 0, eq: 0.0689135 }
-{ time: 0.030648, evals: 57, done: 1, feasible: 1, sos: 0.0228804, f: 0, ineq: 0, eq: 0.000608482 }
-{ time: 0.016176, evals: 23, done: 1, feasible: 1, sos: 0.0184499, f: 0, ineq: 0, eq: 0.000537333 }
-{ time: 0.023501, evals: 70, done: 1, feasible: 1, sos: 0.0298244, f: 0, ineq: 0, eq: 0.000128193 }
-{ time: 0.043527, evals: 76, done: 1, feasible: 1, sos: 0.0325442, f: 0, ineq: 0, eq: 0.000223303 }
-{ time: 0.013276, evals: 21, done: 1, feasible: 1, sos: 0.0597724, f: 0, ineq: 0, eq: 0.00114935 }
-{ time: 0.029548, evals: 52, done: 1, feasible: 1, sos: 0.0106994, f: 0, ineq: 0, eq: 0.000153658 }
-{ time: 0.004645, evals: 8, done: 1, feasible: 1, sos: 0.0140415, f: 0, ineq: 0, eq: 0.00139689 }
-{ time: 0.012348, evals: 16, done: 1, feasible: 1, sos: 0.00865087, f: 0, ineq: 0, eq: 0.000584601 }
-{ time: 0.01036, evals: 14, done: 1, feasible: 1, sos: 0.0232755, f: 0, ineq: 0, eq: 0.000568126 }
+{ time: 0.003631, evals: 8, done: 1, feasible: 1, sos: 0.0118405, f: 0, ineq: 0, eq: 0.00215776 }
+{ time: 0.006321, evals: 7, done: 1, feasible: 1, sos: 0.0103414, f: 0, ineq: 0, eq: 0.000336711 }
+{ time: 0.002403, evals: 7, done: 1, feasible: 1, sos: 0.01097, f: 0, ineq: 0, eq: 0.00447927 }
+{ time: 0.004758, evals: 7, done: 1, feasible: 1, sos: 0.00539469, f: 0, ineq: 0, eq: 0.00406896 }
+{ time: 0.002674, evals: 8, done: 1, feasible: 1, sos: 0.0112329, f: 0, ineq: 0, eq: 0.0020554 }
+{ time: 0.006923, evals: 7, done: 1, feasible: 1, sos: 0.0105515, f: 0, ineq: 0, eq: 0.00418246 }
+{ time: 0.006086, evals: 9, done: 1, feasible: 1, sos: 0.0159132, f: 0, ineq: 0, eq: 0.000817011 }
+{ time: 0.059088, evals: 129, done: 1, feasible: 1, sos: 0.0690676, f: 0, ineq: 0, eq: 0.254744 }
+{ time: 0.030893, evals: 35, done: 1, feasible: 1, sos: 0.011408, f: 0, ineq: 0, eq: 0.000348813 }
+{ time: 0.00723, evals: 8, done: 1, feasible: 1, sos: 0.00931696, f: 0, ineq: 0, eq: 0.000815863 }
 </pre></div></div>
 </div>
 <p>So the solver finds feasible grasps and exploits the null space of the constraints (grasps from different directions, but always opposing the y-planes).</p>
 <p>To make this proper, we should actually test all three possible grasps - so let’s define 3 IK problems, solve each, and pick the best:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">komo</span>
@@ -389,7 +390,7 @@ DeltaConverge
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
@@ -410,7 +411,7 @@ DeltaConverge
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">komo</span>
@@ -424,7 +425,7 @@ DeltaConverge
 <p>Motion design can often be done by computing waypoints, i.e. a none-fine-resolution sequence of poses. The BotOp interface can then spline-interpolate between them when executing them.</p>
 <p>Let’s define a configuration where the desired gripper waypoints are pre-defined as marker frames. (That’s a common pattern: Simplify defining constraints by adding helper reference frames in the configuration.)</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span>
@@ -438,7 +439,7 @@ DeltaConverge
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -448,7 +449,7 @@ DeltaConverge
 </div>
 <p>Now we can define a KOMO problem over 4 configurations, where at each configuration we impose position equality between gripper and a waypoint:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">komo</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">KOMO</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">phases</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">slicesPerPhase</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">kOrder</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">enableCollisions</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -476,22 +477,22 @@ DeltaConverge
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{ time: 0.003007, evals: 16, done: 1, feasible: 1, sos: 3.21288, f: 0, ineq: 0, eq: 0.00032909 }
-[[-0.20663586 -0.13496344 -0.59776524 -2.2035971   0.10594295  2.36732289
-  -0.49784157]
- [-0.15109084 -0.45181027 -0.52787726 -1.83940161  0.14530834  2.50834388
-  -0.49779615]
- [ 0.56312916 -0.11031886  0.1834559  -2.19559066  0.23492054  2.34642298
-  -0.49775775]
- [ 0.56235883 -0.38646533  0.16337372 -1.83209628  0.23679226  2.4918878
-  -0.49773599]]
+{ time: 0.003847, evals: 10, done: 1, feasible: 1, sos: 2.3949, f: 0, ineq: 0, eq: 0.000292005 }
+[[-0.35333405 -0.05475643 -0.41824617 -2.08348439 -0.05931971  2.17654835
+  -0.50101108]
+ [-0.29338172 -0.37617078 -0.40548624 -1.73266988 -0.02274141  2.33778584
+  -0.50190159]
+ [ 0.44235508 -0.06356002  0.31597399 -2.10275629  0.12245479  2.2037305
+  -0.50256413]
+ [ 0.43491826 -0.36086469  0.27555955 -1.74089886  0.12219269  2.34815424
+  -0.50291742]]
 </pre></div></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">KOMO</span> <span class="pre">constructor</span></code> has arguments: * config: the configuration, which is copied once (for IK) or many times (for waypoints/paths) to be the optimization variable * phases: the number P of phases (which essentially defines the real-valued interval [0,P] over which objectives can be formulated) * slicesPerPhase: the discretizations per phase -&gt; in total we have phases<em>slicesPerPhases configurations which form the path and over which we optimize</em> kOrder: the “Markov-order”, i.e., maximal
-tuple of configurations over which we formulate features (e.g. take finite differences)</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">KOMO</span> <span class="pre">constructor</span></code> has arguments: * config: the configuration, which is copied once (for IK) or many times (for waypoints/paths) to be the optimization variable * phases: the number P of phases (which essentially defines the real-valued interval [0,P] over which objectives can be formulated) * slicesPerPhase: the discretizations per phase -&gt; in total we have phases<em>slicesPerPhases configurations which form the path and over which we optimize</em> kOrder: the ‘Markov-order’, i.e., maximal
+tuple of configurations over which we formulate features (e.g. take finite differences) * enableCollisions: if True, KOMO runs a broadphase collision check (using libFCL) in each optimization step – only then accumulative collision/penetration features will correctly evaluate to non-zero. But this is costly.</p>
 <p>In our waypoint case: We have 4 phases, one for each waypoint. We don’t sub-sample the motion between waypoints, which is why we have slicesPerPhase=1. We formulate this as a 1-order problem: Some features take the finite difference between consecutive configurations (namely, to penalize velocities).</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">addControlObjective</span></code> is <em>almost</em> the same as adding a <code class="docutils literal notranslate"><span class="pre">FS.jointState</span></code> objective: It penalizes distances in joint space. It has three arguments: * times: (as for <code class="docutils literal notranslate"><span class="pre">addObjective</span></code>) the phase-interval in which this objective holds; [] means all times * order: Do we penalize the jointState directly (order=0: penalizing sqr distance to qHome, order=1: penalizing sqr distances between consecutive configurations (velocities), order=2: penalizing accelerations across 3 configurations) *
-scale: as usual, but modulated by a factor “sqrt(delta t)” that somehow ensures total control costs in approximately independent of the choice of stepsPerPhase</p>
+scale: as usual, but modulated by a factor ‘sqrt(delta t)’ that somehow ensures total control costs in approximately independent of the choice of stepsPerPhase</p>
 <p>In our waypoint case: We add control costs for both: homing (order 0, ensuring to stay close to homing), and velocities (order 1, penalizing movement between waypoints)</p>
 <p>And the <code class="docutils literal notranslate"><span class="pre">addObjective</span></code> method now makes use of <code class="docutils literal notranslate"><span class="pre">times</span></code> argument: Specifying [1] means that this objective only holds in the interval [1,1], i.e. at phase-time 1 only.</p>
 </section>
@@ -499,7 +500,7 @@ scale: as usual, but modulated by a factor “sqrt(delta t)” that somehow ensu
 <h2>Path example<a class="headerlink" href="#Path-example" title="Permalink to this heading"></a></h2>
 <p>Let’s do almost the same, but for a fine path. First order=1, leading to zig-zag, then order=2, leading to smooth path.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note, the slicesPerPhase=10 is the only difference to above</span>
@@ -529,12 +530,12 @@ scale: as usual, but modulated by a factor “sqrt(delta t)” that somehow ensu
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{ time: 0.009121, evals: 11, done: 1, feasible: 1, sos: 2.51961, f: 0, ineq: 0, eq: 0.00173899 }
+{ time: 0.040918, evals: 11, done: 1, feasible: 1, sos: 2.51979, f: 0, ineq: 0, eq: 0.00172374 }
 size of path: (40, 7)
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># only differences: the kOrder=2, control objective order 2, constrain final jointState velocity to zero</span>
@@ -565,14 +566,14 @@ size of path: (40, 7)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{ time: 0.034008, evals: 25, done: 1, feasible: 1, sos: 16.5172, f: 0, ineq: 0, eq: 0.000773995 }
+{ time: 0.048273, evals: 25, done: 1, feasible: 1, sos: 16.5171, f: 0, ineq: 0, eq: 0.000772768 }
 size of path: (40, 7)
 </pre></div></div>
 </div>
 <p>Notice the new last objective! Without it, <em>final velocity</em> would not be zero. The last objective constrains the order=1 (i.e. velocity!) of the jointState feature to be zero.</p>
 <p>Let’s plot the trajectory:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -589,7 +590,7 @@ size of path: (40, 7)
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">C</span>

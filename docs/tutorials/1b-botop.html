@@ -57,16 +57,17 @@
 <li class="toctree-l4"><a class="reference internal" href="#Reactive-control:-Overwriting-the-reference">Reactive control: Overwriting the reference</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#Aborting-motion">Aborting motion</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#Gripper-operation">Gripper operation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Camera-&amp;-Point-Could">Camera &amp; Point Could</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#Shutdown">Shutdown</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#Parameters">Parameters</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="1c-komo.html">KOMO: Motion Optimization</a></li>
 <li class="toctree-l3"><a class="reference internal" href="1d-real.html">Starting with a real robot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html">Differentiable Features &amp; Collision Evaluation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../tutorials.html#in-depth">In Depth</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#preliminary">Preliminary</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../script/script.html">Lecture Script</a></li>
@@ -203,8 +204,8 @@ in many different modes: pure kinematic (no physics for objects), a physics simu
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-timeToEnd: -28.796281057949574
-timeToEnd: 1.095718942064984
+timeToEnd: -0.09828105793499753
+timeToEnd: 1.0957189420649807
 timeToEnd: 2.191437884129961
 </pre></div></div>
 </div>
@@ -276,26 +277,26 @@ timeToEnd: 2.191437884129961
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{ time: 0.0093, evals: 6, done: 1, feasible: 1, sos: 0.00550984, f: 0, ineq: 0, eq: 0.000701699 }
-{ time: 0.001671, evals: 3, done: 1, feasible: 1, sos: 0.00241885, f: 0, ineq: 0, eq: 0.00088997 }
-{ time: 0.000225, evals: 3, done: 1, feasible: 1, sos: 0.00257359, f: 0, ineq: 0, eq: 0.00556468 }
-{ time: 0.00095, evals: 4, done: 1, feasible: 1, sos: 0.00366289, f: 0, ineq: 0, eq: 0.000540954 }
-{ time: 0.00045, evals: 3, done: 1, feasible: 1, sos: 0.00420046, f: 0, ineq: 0, eq: 0.00241635 }
-{ time: 0.000343, evals: 4, done: 1, feasible: 1, sos: 0.00452485, f: 0, ineq: 0, eq: 0.000174736 }
-{ time: 0.000596, evals: 3, done: 1, feasible: 1, sos: 0.00458515, f: 0, ineq: 0, eq: 0.00103539 }
-{ time: 0.001106, evals: 3, done: 1, feasible: 1, sos: 0.00410844, f: 0, ineq: 0, eq: 0.00326819 }
-{ time: 0.002605, evals: 4, done: 1, feasible: 1, sos: 0.00523505, f: 0, ineq: 0, eq: 0.000523148 }
-{ time: 0.000554, evals: 2, done: 1, feasible: 1, sos: 0.00487113, f: 0, ineq: 0, eq: 0.00127815 }
-{ time: 0.000358, evals: 4, done: 1, feasible: 1, sos: 0.0051523, f: 0, ineq: 0, eq: 0.000178529 }
-{ time: 0.000238, evals: 3, done: 1, feasible: 1, sos: 0.00500442, f: 0, ineq: 0, eq: 0.00383324 }
-{ time: 0.000718, evals: 3, done: 1, feasible: 1, sos: 0.00529726, f: 0, ineq: 0, eq: 0.00283411 }
-{ time: 0.000183, evals: 3, done: 1, feasible: 1, sos: 0.00504676, f: 0, ineq: 0, eq: 0.00365181 }
-{ time: 0.000373, evals: 4, done: 1, feasible: 1, sos: 0.00540518, f: 0, ineq: 0, eq: 0.000290939 }
-{ time: 0.000392, evals: 3, done: 1, feasible: 1, sos: 0.00459007, f: 0, ineq: 0, eq: 0.00110692 }
-{ time: 0.000299, evals: 3, done: 1, feasible: 1, sos: 0.00368058, f: 0, ineq: 0, eq: 0.00425598 }
-{ time: 0.000199, evals: 4, done: 1, feasible: 1, sos: 0.00411064, f: 0, ineq: 0, eq: 0.000524381 }
-{ time: 0.000321, evals: 4, done: 1, feasible: 1, sos: 0.00383817, f: 0, ineq: 0, eq: 0.000373605 }
-{ time: 0.000563, evals: 3, done: 1, feasible: 1, sos: 0.00367665, f: 0, ineq: 0, eq: 0.00473915 }
+{ time: 0.002842, evals: 6, done: 1, feasible: 1, sos: 0.0067775, f: 0, ineq: 0, eq: 0.0005408 }
+{ time: 0.002032, evals: 3, done: 1, feasible: 1, sos: 0.00321675, f: 0, ineq: 0, eq: 0.000900211 }
+{ time: 0.001523, evals: 2, done: 1, feasible: 1, sos: 0.0031297, f: 0, ineq: 0, eq: 0.00110733 }
+{ time: 0.000393, evals: 3, done: 1, feasible: 1, sos: 0.0037666, f: 0, ineq: 0, eq: 0.00255867 }
+{ time: 0.003193, evals: 4, done: 1, feasible: 1, sos: 0.00455003, f: 0, ineq: 0, eq: 0.000192847 }
+{ time: 0.001693, evals: 4, done: 1, feasible: 1, sos: 0.00367259, f: 0, ineq: 0, eq: 0.00026511 }
+{ time: 0.000392, evals: 4, done: 1, feasible: 1, sos: 0.00428734, f: 0, ineq: 0, eq: 0.000144815 }
+{ time: 0.000217, evals: 4, done: 1, feasible: 1, sos: 0.00316682, f: 0, ineq: 0, eq: 0.000338487 }
+{ time: 0.002715, evals: 4, done: 1, feasible: 1, sos: 0.00339213, f: 0, ineq: 0, eq: 0.000222226 }
+{ time: 0.000955, evals: 3, done: 1, feasible: 1, sos: 0.00354052, f: 0, ineq: 0, eq: 0.00201801 }
+{ time: 0.000375, evals: 4, done: 1, feasible: 1, sos: 0.00412341, f: 0, ineq: 0, eq: 0.000264779 }
+{ time: 0.001238, evals: 3, done: 1, feasible: 1, sos: 0.00379458, f: 0, ineq: 0, eq: 0.00320893 }
+{ time: 0.003819, evals: 4, done: 1, feasible: 1, sos: 0.00381466, f: 0, ineq: 0, eq: 0.00063563 }
+{ time: 0.001351, evals: 3, done: 1, feasible: 1, sos: 0.00433728, f: 0, ineq: 0, eq: 0.00278551 }
+{ time: 0.001375, evals: 3, done: 1, feasible: 1, sos: 0.00378, f: 0, ineq: 0, eq: 0.00317554 }
+{ time: 0.001355, evals: 3, done: 1, feasible: 1, sos: 0.00385413, f: 0, ineq: 0, eq: 0.0032276 }
+{ time: 0.00047, evals: 3, done: 1, feasible: 1, sos: 0.00407101, f: 0, ineq: 0, eq: 0.00110385 }
+{ time: 0.002052, evals: 4, done: 1, feasible: 1, sos: 0.00452004, f: 0, ineq: 0, eq: 0.000197274 }
+{ time: 0.001125, evals: 3, done: 1, feasible: 1, sos: 0.0038175, f: 0, ineq: 0, eq: 0.00375235 }
+{ time: 0.000473, evals: 4, done: 1, feasible: 1, sos: 0.00390226, f: 0, ineq: 0, eq: 0.000188478 }
 </pre></div></div>
 </div>
 <p>We now generate reative motion by smoothly overwriting the spline reference. Increasing time cost makes it more agressive (penalized total duration of estimated cubic spline).</p>
@@ -317,34 +318,46 @@ timeToEnd: 2.191437884129961
 <section id="Aborting-motion">
 <h2>Aborting motion<a class="headerlink" href="#Aborting-motion" title="Permalink to this heading"></a></h2>
 <p>Good practise is to always allow a user aborting motion execution. In this example, key ‘q’ will break the loop and call a home() (which is the same as moveTo(qHome, 1., True)</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
     <span class="n">bot</span><span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="n">q1</span><span class="p">)</span>
     <span class="n">bot</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">C</span><span class="p">)</span> <span class="c1">#same as &#39;loop sync til keypressed or endOfTime&#39;, but also raises user window</span>
     <span class="k">if</span> <span class="n">bot</span><span class="o">.</span><span class="n">getKeyPressed</span><span class="p">()</span><span class="o">==</span><span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;cancelled&quot;</span><span class="p">)</span>
         <span class="k">break</span><span class="p">;</span>
 
     <span class="n">bot</span><span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="n">q0</span><span class="p">)</span>
     <span class="n">bot</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">bot</span><span class="o">.</span><span class="n">getKeyPressed</span><span class="p">()</span><span class="o">==</span><span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;cancelled&quot;</span><span class="p">)</span>
         <span class="k">break</span><span class="p">;</span>
 
 <span class="n">bot</span><span class="o">.</span><span class="n">home</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+cancelled
+</pre></div></div>
+</div>
 </section>
 <section id="Gripper-operation">
 <h2>Gripper operation<a class="headerlink" href="#Gripper-operation" title="Permalink to this heading"></a></h2>
 <p>Gripper movements also do not block:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bot</span><span class="o">.</span><span class="n">gripperMove</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">_left</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">.02</span><span class="p">,</span> <span class="n">speed</span><span class="o">=</span><span class="mf">.2</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bot</span><span class="o">.</span><span class="n">gripperMove</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">_left</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">.01</span><span class="p">,</span> <span class="n">speed</span><span class="o">=</span><span class="mf">.2</span><span class="p">)</span>
 
 <span class="k">while</span> <span class="ow">not</span> <span class="n">bot</span><span class="o">.</span><span class="n">gripperDone</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">_left</span><span class="p">):</span>
     <span class="n">bot</span><span class="o">.</span><span class="n">sync</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="mf">.1</span><span class="p">)</span>
@@ -357,11 +370,85 @@ timeToEnd: 2.191437884129961
 </div>
 </div>
 </section>
+<section id="Camera-&amp;-Point-Could">
+<h2>Camera &amp; Point Could<a class="headerlink" href="#Camera-&-Point-Could" title="Permalink to this heading"></a></h2>
+<p>BotOp also interfaces basic grabbing of image and depth. In simulation model, the sensor name needs to be a frame name that has camera attributed defined. On the real robot, a realsense camera is directly grabbed.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rgb</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">points</span> <span class="o">=</span> <span class="n">bot</span><span class="o">.</span><span class="n">getImageDepthPcl</span><span class="p">(</span><span class="s1">&#39;cameraWrist&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">axs</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">rgb</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">matshow</span><span class="p">(</span><span class="n">depth</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_1b-botop_26_0.png" src="../_images/tutorials_1b-botop_26_0.png" />
+</div>
+</div>
+<p>The returned <code class="docutils literal notranslate"><span class="pre">points</span></code> are a point could, that was directly computed from the depth image and the camera intrinsics. The intrinsics are given by the focal lengths (f_x, f_y) and image center (c_x, c_y). We can also manually compute the point cloud as follows:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fxycxy</span> <span class="o">=</span> <span class="n">bot</span><span class="o">.</span><span class="n">getCameraFxycxy</span><span class="p">(</span><span class="s2">&quot;cameraWrist&quot;</span><span class="p">)</span>
+<span class="n">points2</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">depthImage2PointCloud</span><span class="p">(</span><span class="n">depth</span><span class="p">,</span> <span class="n">fxycxy</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">points</span> <span class="o">-</span> <span class="n">points2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0.0
+</pre></div></div>
+</div>
+<p>The point cloud is given relative to the camera frame. We can display it by creating a dedicates frame, attached to the camera frame, and setting its (purely visual) shape to be the point cloud:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pclFrame</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="s1">&#39;pcl&#39;</span><span class="p">,</span> <span class="s1">&#39;cameraWrist&#39;</span><span class="p">)</span>
+<span class="n">pclFrame</span><span class="o">.</span><span class="n">setPointCloud</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">rgb</span><span class="p">)</span>
+<span class="n">pclFrame</span><span class="o">.</span><span class="n">setColor</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span><span class="mf">0.</span><span class="p">,</span><span class="mf">0.</span><span class="p">])</span> <span class="c1">#only to see it when overlaying with truth</span>
+<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
+</div>
+</section>
 <section id="Shutdown">
 <h2>Shutdown<a class="headerlink" href="#Shutdown" title="Permalink to this heading"></a></h2>
 <p>You always need to shut down processes (e.g. communication with the real robot) properly. That’s done here by explicitly destroying the objects:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">bot</span>
@@ -384,7 +471,7 @@ timeToEnd: 2.191437884129961
 <h2>Parameters<a class="headerlink" href="#Parameters" title="Permalink to this heading"></a></h2>
 <p>BotOp (and other parts of the rai code) use all kinds of internal parameters that can be configured. The best way to look which parameters actually are used/relevant is to retrospect print the list of parameters have been queried by the code so far. That gives an idea of which global parameters exist:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ry</span><span class="o">.</span><span class="n">params_print</span><span class="p">()</span>
@@ -455,7 +542,7 @@ seed: 0
 <p>In the context of BotOp, the parameter <code class="docutils literal notranslate"><span class="pre">botsim/engine</span></code> can also be set to <code class="docutils literal notranslate"><span class="pre">kin</span></code>, which would create a simulation without physics where merely the robot moves (and grasped object can be attached/detached). The <code class="docutils literal notranslate"><span class="pre">botsim/verbose</span></code> above leads to the explicit verbosity when creating the simulator interface.</p>
 <p>Parameters can be set in a local file <code class="docutils literal notranslate"><span class="pre">rai.cfg</span></code>, or manually in python with the following calls – but that need’s to be done BEFORE BotOp is created.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ry</span><span class="o">.</span><span class="n">params_add</span><span class="p">({</span><span class="s1">&#39;botsim/verbose&#39;</span><span class="p">:</span> <span class="mf">2.</span><span class="p">,</span> <span class="s1">&#39;physx/motorKp&#39;</span><span class="p">:</span> <span class="mf">10000.</span><span class="p">,</span> <span class="s1">&#39;physx/motorKd&#39;</span><span class="p">:</span> <span class="mf">1000.</span><span class="p">})</span>

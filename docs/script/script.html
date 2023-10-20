@@ -23,7 +23,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Old Material" href="../old/old.html" />
-    <link rel="prev" title="Path finding example" href="../tutorials/script5-PathFind.html" /> 
+    <link rel="prev" title="Optimization (NLP formulation and solving)" href="../tutorials/nlp-solver.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -63,7 +63,6 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#kinematics">Kinematics</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#robots-as-parameterized-trees">Robots as Parameterized Trees</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#configuration-joint-vector">Configuration &amp; Joint Vector</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#forward-kinematics">Forward Kinematics</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#jacobians">Jacobians</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#rotational-joint">Rotational Joint</a></li>
@@ -80,46 +79,24 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#placeholder">Placeholder</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#practical-control-pid-splines-tracking-layes-of-control">Practical Control: PID, Splines, Tracking, &amp; Layes of Control</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#path-planning">Path Planning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#path-optimization-briefly">Path Optimization – briefly</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#mobile-robotics">Mobile Robotics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#control-theory">Control Theory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#skipped-this-term-grasping-brief-intro">SKIPPED THIS TERM – Grasping (brief intro)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#skipped-this-term-legged-locomotion-brief-intro">SKIPPED THIS TERM – Legged Locomotion (brief intro)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#d-transformations-rotations-quaternions">3D Transformations, Rotations, Quaternions</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#rotations">Rotations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#transformations-1">Transformations</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#static-transformations">Static transformations</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#dynamic-transformations">Dynamic transformations</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#a-note-on-affine-coordinate-frames">A note on affine coordinate frames</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sectransformations">Transformations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#a-note-on-forward-vs-backward-of-frame-and-coordinate-transforms">A note on “forward” vs. “backward” of frame and coordinate transforms</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#rai-references">RAI references</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#splines">Splines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#code-references">Code References</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#nlp-interface">NLP interface</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#kinematic-features">Kinematic Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#graph-yaml-files">Graph-Yaml Files</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#yaml-style-files-to-describe-robot-configurations">yaml-style files to describe robot configurations</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#editing-using-kinedit">Editing using <code class="docutils literal notranslate"><span class="pre">kinEdit</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#import-from-urdf">Import from URDF</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#notation-to-specify-transformations">Notation to specify transformations</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#joint-types">Joint types</a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="#yaml-graph-files">Yaml-Graph Files</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#cameras">Cameras</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#image-camera-world-coordinates">Image, Camera, &amp; World Coordinates</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#homogeneous-coordinates-camera-matrix-p">Homogeneous coordinates &amp; Camera Matrix <span class="math notranslate nohighlight">\(P\)</span></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#calibration-as-estimating-p-k-r-t-from-depth-data">Calibration as Estimating <span class="math notranslate nohighlight">\(P,K,R,t\)</span> from Depth Data</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#placeholder-1">Placeholder</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#shapes">Shapes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#kinematics-formally">Kinematics formally</a></li>
 </ul>
 </li>
 </ul>
@@ -157,8 +134,12 @@
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
 <section id="reference-material">
 <h3>Reference material<a class="headerlink" href="#reference-material" title="Permalink to this heading"></a></h3>
-<p>In terms of background, please refer to the USE PDFLATEX! as well as the
-USE PDFLATEX! lecture scripts. Here a list of further teaching material:</p>
+<p>In terms of background, please refer to the Maths for Intelligent
+Systems
+[&lt;<a class="reference external" href="https://www.user.tu-berlin.de/mtoussai/teaching/Lecture-Maths.pdf">https://www.user.tu-berlin.de/mtoussai/teaching/Lecture-Maths.pdf</a>&gt;] as
+well as the Intro to Robotics
+[&lt;<a class="reference external" href="https://www.user.tu-berlin.de/mtoussai/teaching/Lecture-Robotics.pdf">https://www.user.tu-berlin.de/mtoussai/teaching/Lecture-Robotics.pdf</a>&gt;]
+lecture scripts. Here a list of further teaching material:</p>
 <ul>
 <li><p>Craig, J.J.: <em>Introduction to robotics: mechanics and control</em>.
 Addison-Wesley New York, 1989. (3rd edition 2006)</p></li>
@@ -195,18 +176,10 @@ non-holonomic constraints)</p>
 </section>
 <section id="coding-getting-started">
 <h3>Coding Getting Started<a class="headerlink" href="#coding-getting-started" title="Permalink to this heading"></a></h3>
-<p>The coding secitons use the <code class="docutils literal notranslate"><span class="pre">robotic</span></code> python package. Sources and
-dockers to build the wheel are found on USE PDFLATEX!.</p>
-<p>To install on a standard Ubuntu, the following should be sufficient</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">liblapack3</span> <span class="n">freeglut3</span> <span class="n">libglew</span><span class="o">-</span><span class="n">dev</span> <span class="n">python3</span> <span class="n">python3</span><span class="o">-</span><span class="n">pip</span>
-<span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">user</span> <span class="n">robotic</span> <span class="n">numpy</span> <span class="n">scipy</span>
-</pre></div>
-</div>
-<p>A standard test is</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="o">-</span><span class="n">c</span> <span class="s1">&#39;from robotic import ry; ry.test.RndScene()&#39;</span>
-</pre></div>
-</div>
-<p>Several USE PDFLATEX! are available as part of the USE PDFLATEX!.</p>
+<p>Please follow the instructions at github/robotics-course
+[&lt;<a class="reference external" href="https://marctoussaint.github.io/robotics-course/">https://marctoussaint.github.io/robotics-course/</a>&gt;] for setting up the
+python package. This includes a series of tutorials, which can also be
+downloaded here [&lt;<a class="reference external" href="https://github.com/MarcToussaint/rai-tutorials">https://github.com/MarcToussaint/rai-tutorials</a>&gt;].</p>
 </section>
 </section>
 <section id="scene-robot-description">
@@ -214,7 +187,7 @@ dockers to build the wheel are found on USE PDFLATEX!.</p>
 <p>Generally speaking, a scene is a collection of objects (including robot
 parts). We typically assume objects to be rigid bodies with fixed shape
 – which clearly is a simplification relative to real world. More about
-this below, in section 1.15.1.</p>
+this below, in section 1.14.1.</p>
 <p>However, formally we define a scene as a collection of <strong>frames</strong>, which
 is short for coordinate frames. We can think of these frames as oriented
 locations in 3D space – and various things can be associated to these
@@ -232,7 +205,7 @@ specifically for the transformation from world origin to the object
 frame.</p>
 <p>Transformations in <span class="math notranslate nohighlight">\(A\in SE(3)\)</span> are tuples <span class="math notranslate nohighlight">\(A = (t, r)\)</span>,
 where <span class="math notranslate nohighlight">\(t\in{\mathbb{R}}^3\)</span> is a translation and <span class="math notranslate nohighlight">\(r\in SO(3)\)</span>
-a rotation – see Appendix 1.12 for more details.
+a rotation – see Appendix 1.10 for more details.
 Rotations can be represented as matrix <span class="math notranslate nohighlight">\(R\)</span> (see the Maths script
 on properties of rotation matrices), and a pose as the <span class="math notranslate nohighlight">\(4\times 4\)</span>
 homogeneous transform
@@ -245,48 +218,15 @@ use the convention <span class="math notranslate nohighlight">\(r=(r_0,\bar r)\)
 <span class="math notranslate nohighlight">\(\bar r = \sin(\theta/2)~ \underline w\)</span> relate to the unit length
 rotation axis <span class="math notranslate nohighlight">\(\underline w\)</span>.</p>
 <p>Euler angles and the scaled rotation vector are alternative rotation
-representations – but never use them.</p>
-<p>See appendix 1.12 for reference and conversions.</p>
-<p>Let’s create a mini scene of 2 frames, both have no proper shape but
-just a “marker” displaying their axes. We create a yaml-style <code class="docutils literal notranslate"><span class="pre">mini.g</span></code>
-file:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">:</span> <span class="p">{</span> <span class="n">X</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">shape</span><span class="p">:</span> <span class="n">marker</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="p">[</span><span class="mf">.5</span><span class="p">]</span> <span class="p">}</span>
-<span class="n">B</span><span class="p">:</span> <span class="p">{</span> <span class="n">X</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">shape</span><span class="p">:</span> <span class="n">marker</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="p">[</span><span class="mf">.3</span><span class="p">]</span> <span class="p">}</span>
-</pre></div>
-</div>
-<p>Here, <code class="docutils literal notranslate"><span class="pre">X</span></code> provides the pose of frame <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>, given
-with 7 numbers, which are translation and quaternion. Let’s load and
-display it:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">robotic</span> <span class="kn">import</span> <span class="n">ry</span>
-<span class="n">C</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span>
-<span class="n">C</span><span class="o">.</span><span class="n">addFile</span><span class="p">(</span><span class="s1">&#39;mini.g&#39;</span><span class="p">)</span>
-<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>and you’ll see the two markers in places <span class="math notranslate nohighlight">\((1,0,1)\)</span> and
-<span class="math notranslate nohighlight">\((-1,0,1)\)</span>.</p>
-<p>Providing quaternions is rather non-intuitive for a human. So there is a
-second convention of how to specify transformations in a more
-human-intuitive manner with turtle commands:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">:</span> <span class="p">{</span> <span class="n">X</span><span class="p">:</span> <span class="s2">&quot;t(1 0 1) d(30 1 0 0)&quot;</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="n">marker</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="p">[</span><span class="mf">.5</span><span class="p">]</span> <span class="p">}</span>
-<span class="n">B</span><span class="p">:</span> <span class="p">{</span> <span class="n">X</span><span class="p">:</span> <span class="s2">&quot;t(-1 0 1) d(90 1 0 0)&quot;</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="n">marker</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="p">[</span><span class="mf">.3</span><span class="p">]</span> <span class="p">}</span>
-</pre></div>
-</div>
-<p>where the string is interpreted as sequential commands of translation
-(t), and rotation by degrees around an axis (d). These can be sequenced
-to specify the full transform more intuitively. Also Euler angle
-commands (E), rotation by radians (r), and a quaternion (q) are
-interpreted. Play around with this and see how the frame poses change.
-To reload you can also try calling</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">watchFile</span><span class="p">(</span><span class="s1">&#39;mini.g&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>which is a helper that automatically updates the display whenever the
-file changes – but doesn’t always handle file syntax errors well.</p>
+representations – but never use them. The appendix
+1.10 introduces to all these representations and
+derives conversion equations to relate them.</p>
+<p>The illustrates how you can manually define frames in a configuration
+and set absolute or relative transformations.</p>
 </section>
 <section id="coordinates-and-composition-of-transformations">
 <h3>Coordinates and Composition of Transformations<a class="headerlink" href="#coordinates-and-composition-of-transformations" title="Permalink to this heading"></a></h3>
-<p><img alt="image" src="script/caption" /></p>
+<p><a href="#id2"><span class="problematic" id="id3">|image|</span></a></p>
 <p>[figTransforms] Composition of transforms.</p>
 <p>Consider Fig. [figTransforms], were we have three
 frames <span class="math notranslate nohighlight">\(1,2,3\)</span> in addition to the world origin frame <span class="math notranslate nohighlight">\(W\)</span>.
@@ -321,19 +261,9 @@ FRAME transformation”.</p></li>
 “backward COORDINATE transformation”.</p></li>
 </ul>
 <p>In the view of fundamental linear algebra, this should not surprise as
-vectors (and frames) transform <em>covariant</em>, while coordinates transform
-<em>contra-variant</em>. See the maths lecture.</p>
-<p>Let’s make the <code class="docutils literal notranslate"><span class="pre">mini.g</span></code> scene to represent a sequence of frames:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">:</span> <span class="p">{</span> <span class="n">X</span><span class="p">:</span> <span class="s2">&quot;t(1 0 1) d(30 1 0 0)&quot;</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="n">marker</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="p">[</span><span class="mf">.5</span><span class="p">]</span> <span class="p">}</span>
-<span class="n">B</span><span class="p">(</span><span class="n">A</span><span class="p">):</span> <span class="p">{</span> <span class="n">Q</span><span class="p">:</span> <span class="s2">&quot;t(-1 0 1) d(90 1 0 0)&quot;</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="n">marker</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="p">[</span><span class="mf">.3</span><span class="p">]</span> <span class="p">}</span>
-<span class="n">C</span><span class="p">(</span><span class="n">B</span><span class="p">):</span> <span class="p">{</span> <span class="n">Q</span><span class="p">:</span> <span class="s2">&quot;t(0 0 .5) d(30 1 0 0)&quot;</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="n">marker</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="p">[</span><span class="mf">.3</span><span class="p">],</span> <span class="n">color</span><span class="p">:[</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">]</span> <span class="p">}</span>
-</pre></div>
-</div>
-<p>Relative to the above, we made <span class="math notranslate nohighlight">\(B\)</span> a frame <em>relative</em> to
-<span class="math notranslate nohighlight">\(A\)</span>, i.e., <span class="math notranslate nohighlight">\(B\)</span> is now a child of <span class="math notranslate nohighlight">\(A\)</span>, and added
-another child <span class="math notranslate nohighlight">\(C\)</span> of <span class="math notranslate nohighlight">\(B\)</span>. Note that instead of specifying
-the pose <span class="math notranslate nohighlight">\(X\)</span>, we now have to specify the relative transform
-<span class="math notranslate nohighlight">\(Q\)</span>.</p>
+basis vectors transform <em>covariant</em>, while coordinates transform
+<em>contra-variant</em>. The appendix 1.10.2.1 explains
+this again in more detail and with an explicit example.</p>
 </section>
 <section id="scene-tree-or-forest">
 <h3>Scene Tree or Forest<a class="headerlink" href="#scene-tree-or-forest" title="Permalink to this heading"></a></h3>
@@ -352,6 +282,9 @@ abbreviate the notation <span class="math notranslate nohighlight">\(Q_i \equiv 
 and their pose <span class="math notranslate nohighlight">\(X_i\)</span> must be specified, while for non-roots the
 relative transform <span class="math notranslate nohighlight">\(Q_i\)</span> is specified. We usually only talk about
 trees, but include meaning forests.</p>
+<p>The also demonstrates how to define a fram a <em>child</em> of another, thereby
+defining a frame tree. Instead of the absolute pose <code class="docutils literal notranslate"><span class="pre">X</span></code>, you typically
+specify the relative transformation <code class="docutils literal notranslate"><span class="pre">Q</span></code> for such a child frame.</p>
 </section>
 </section>
 <section id="kinematics">
@@ -394,55 +327,39 @@ ball joints. However, note that this is an over parameterization: If
 rotation that corresponds to the quaternion <span class="math notranslate nohighlight">\(q_i/|q_i|\)</span>. Note that
 if a user or algorithms sets such a quaternion parameter to zero, that’s
 a singularity and strict error.</p>
+<p>In the , when a joint is define for the first time, play around with
+alternative joint types, e.g. a <code class="docutils literal notranslate"><span class="pre">quatBall</span></code>. The tutorial also lists
+which joint types are pre-defined.</p>
 <p>In the scene tree, some of the relative transforms <span class="math notranslate nohighlight">\(Q_i\)</span> are
 parameterized by dofs, <span class="math notranslate nohighlight">\(Q_i(q_i)\)</span>. Note that
-<span class="math notranslate nohighlight">\(X_\text{parent$(i)$}\)</span> is the <strong>joint base frame</strong>, i.e.,
-determines the location and orientation of the joint axis, while
-<span class="math notranslate nohighlight">\(X_i = X_\text{parent$(i)$} Q_i\)</span> is the <strong>joint output frame</strong>. In
-a robot structure one typically has chains of alternating rigid and
+<span class="math notranslate nohighlight">\(X_\text{parent$(i)$}\)</span> is the <strong>joint origin</strong>, i.e., determines
+the location and orientation of the joint axis, while
+<span class="math notranslate nohighlight">\(X_i = X_\text{parent$(i)$} Q_i\)</span> is the <strong>joint (output) frame</strong>.
+In a robot structure one typically has chains of alternating rigid and
 parameterized transforms, e.g.,</p>
-<p>a rigid transform <span class="math notranslate nohighlight">\(Q_{\pi(i)}\)</span> from world into the base of joint
+<p>a rigid transform <span class="math notranslate nohighlight">\(Q_{\pi(i)}\)</span> from world into the origin of joint
 <span class="math notranslate nohighlight">\(i\)</span></p>
-<p>a parameterized transform <span class="math notranslate nohighlight">\(Q_i(q_i)\)</span> representing the joint motion</p>
+<p>a parameterized transform <span class="math notranslate nohighlight">\(Q_i(q_i)\)</span> representing the joint motion
+(We call this one the <em>joint frame</em>, as it hosts the joint dofs.)</p>
 <p>a rigid transform <span class="math notranslate nohighlight">\(Q_{i \to \pi(j)}\)</span> from the output of <span class="math notranslate nohighlight">\(i\)</span>
-into the base of a following joint <span class="math notranslate nohighlight">\(j\)</span></p>
+into the origin of a following joint <span class="math notranslate nohighlight">\(j\)</span></p>
 <p>a parameterized transform <span class="math notranslate nohighlight">\(Q_j(q_j)\)</span></p>
 <p>etc</p>
 <p>There is a minimalistic convention of describing robot structures,
 called Denavit-Hartenberg convention. These describe the rigid
 transformations between joints using only 4 numbers instead of 6 (which
 pre-determines the zero calibration as well as the “lateral” positioning
-of the following joint base frame). But there is no need to use this
+of the following joint origin). But there is no need to use this
 convention and the above notation is conceptually cleaner and leads to
-intuitive, freely user-defined joint base frames.</p>
-<p>Let’s make our <code class="docutils literal notranslate"><span class="pre">mini.g</span></code> scene a robot:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">:</span> <span class="p">{</span> <span class="n">X</span><span class="p">:</span> <span class="s2">&quot;t(1 0 1) d(30 1 0 0)&quot;</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="n">marker</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="p">[</span><span class="mf">.5</span><span class="p">]</span> <span class="p">}</span>
-<span class="n">B</span><span class="p">(</span><span class="n">A</span><span class="p">):</span> <span class="p">{</span> <span class="n">joint</span><span class="p">:</span> <span class="n">hingeX</span><span class="p">,</span> <span class="n">Q</span><span class="p">:</span> <span class="s2">&quot;t(-1 0 1) d(90 1 0 0)&quot;</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="n">marker</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="p">[</span><span class="mf">.3</span><span class="p">]</span> <span class="p">}</span>
-<span class="n">C</span><span class="p">(</span><span class="n">B</span><span class="p">):</span> <span class="p">{</span> <span class="n">Q</span><span class="p">:</span> <span class="s2">&quot;t(0 0 .5) d(30 1 0 0)&quot;</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="n">marker</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="p">[</span><span class="mf">.3</span><span class="p">],</span> <span class="n">color</span><span class="p">:[</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">]</span> <span class="p">}</span>
-</pre></div>
-</div>
-<p>Frame <span class="math notranslate nohighlight">\(B\)</span> became a joint. Note that <span class="math notranslate nohighlight">\(A\)</span> is the joint base
-frame that determines its location and orientation, <span class="math notranslate nohighlight">\(B\)</span> is the
-joint (output) frame, and <span class="math notranslate nohighlight">\(C\)</span> is a down-stream frame attached to
-<span class="math notranslate nohighlight">\(B\)</span>.</p>
-<p>If you use <code class="docutils literal notranslate"><span class="pre">watchFile</span></code> and hit ENTER, the configuration is animated so
-that the joint is articulated between its limits. In our case this leads
-to a strange effect, uncovering an issue with our scene description:
-Frame <span class="math notranslate nohighlight">\(B\)</span> is specified with a relative transform <span class="math notranslate nohighlight">\(Q\)</span> that
-includes a translation; but it is also specified as <code class="docutils literal notranslate"><span class="pre">hingeX</span></code> joint
-which can only generate rotations about <span class="math notranslate nohighlight">\(x\)</span>. The two
-specifications are inconsistent and we should remove the direct
-<span class="math notranslate nohighlight">\(Q\)</span> specification:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">:</span> <span class="p">{</span> <span class="n">X</span><span class="p">:</span> <span class="s2">&quot;t(1 0 1) d(30 1 0 0)&quot;</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="n">marker</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="p">[</span><span class="mf">.5</span><span class="p">]</span> <span class="p">}</span>
-<span class="n">B</span><span class="p">(</span><span class="n">A</span><span class="p">):</span> <span class="p">{</span> <span class="n">joint</span><span class="p">:</span><span class="n">hingeX</span><span class="p">,</span> <span class="n">q</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">limits</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mf">2.</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">shape</span><span class="p">:</span> <span class="n">marker</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="p">[</span><span class="mf">.3</span><span class="p">]</span> <span class="p">}</span>
-<span class="n">C</span><span class="p">(</span><span class="n">B</span><span class="p">):</span> <span class="p">{</span> <span class="n">Q</span><span class="p">:</span> <span class="s2">&quot;t(0 0 .5) d(30 1 0 0)&quot;</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="n">marker</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="p">[</span><span class="mf">.3</span><span class="p">],</span> <span class="n">color</span><span class="p">:[</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">]</span> <span class="p">}</span>
-</pre></div>
-</div>
-<p>Here we also specified an initial joint angle <span class="math notranslate nohighlight">\(q=0.5\)</span> for the
-hinge joint, as well as limits.</p>
+intuitive, freely user-defined joint origins.</p>
+<p>In the you find a section on interactively editing a scene description
+file <code class="docutils literal notranslate"><span class="pre">mini.g</span></code>. Using this you can try to invent your own robot and
+environment. The tutorial also shows how to load pre-define robot
+models. The appendix [secConfigFiles] provides a
+more formal specification of the yaml-style file syntax.</p>
 </section>
-<section id="configuration-joint-vector">
-<h3>Configuration &amp; Joint Vector<a class="headerlink" href="#configuration-joint-vector" title="Permalink to this heading"></a></h3>
+<section id="forward-kinematics">
+<h3>Forward Kinematics<a class="headerlink" href="#forward-kinematics" title="Permalink to this heading"></a></h3>
 <p>We use the word <strong>configuration</strong> for an “articulated scene”, i.e.,
 where some relative transforms <span class="math notranslate nohighlight">\(Q_i(q_i)\)</span> are parameterized by
 dofs <span class="math notranslate nohighlight">\(q_i \in {\mathbb{R}}^{d_i}\)</span> (and also other dofs such as
@@ -454,9 +371,6 @@ stacking of all dofs <span class="math notranslate nohighlight">\(q_i\)</span> (
 the joint vector, we can forward chain all relative transformations in
 the scene and thereby compute the absolute pose <span class="math notranslate nohighlight">\(X_i(q)\)</span> of every
 frame as a function of <span class="math notranslate nohighlight">\(q\)</span>.</p>
-</section>
-<section id="forward-kinematics">
-<h3>Forward Kinematics<a class="headerlink" href="#forward-kinematics" title="Permalink to this heading"></a></h3>
 <p>This function <span class="math notranslate nohighlight">\(q \mapsto X_i(q)\)</span> is the core of <strong>forward
 kinematics</strong>. It describes how the joint vector <span class="math notranslate nohighlight">\(q\)</span> determines the
 pose of all frames in the configuration.</p>
@@ -466,24 +380,25 @@ dofs <span class="math notranslate nohighlight">\(q\)</span> to the full configu
 <span class="math notranslate nohighlight">\(\{X_i(q)\}_{i=1}^m\)</span>, which so far we described in terms of all
 frame poses. This definition is consistent with the formal description
 of <em>kinematics</em> as the theory of possible motions of a system
-configuration (see 1.15.2).</p>
+configuration (see 1.14.2).</p>
 <p>But in practice, the word forward kinematics is often used simply as the
 mapping from <span class="math notranslate nohighlight">\(q\)</span> to one particular “feature” of the configuration.
 For instance, if <span class="math notranslate nohighlight">\(X_i(q)=(t_i(q),r_i(q))\)</span> is the pose of some
-frame <span class="math notranslate nohighlight">\(i\)</span>, forward kinematics can describe the mapping</p>
+frame <span class="math notranslate nohighlight">\(i\)</span> (e.g. the “end-effector”), forward kinematics can
+describe the mapping</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(q\mapsto t_i(q)\)</span>   to the position of frame <span class="math notranslate nohighlight">\(i\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(q\mapsto r_i(q) \textbf{e}_x\)</span>   to the <span class="math notranslate nohighlight">\(x\)</span>-axis of frame
-<span class="math notranslate nohighlight">\(i\)</span> (where <span class="math notranslate nohighlight">\(\textbf{e}_x = (1,0,0)^{\!\top\!}\)</span>).</p></li>
-<li><p><span class="math notranslate nohighlight">\(q\mapsto X_i(q) p\)</span>   to the world coordinate a point attached
-to frame <span class="math notranslate nohighlight">\(i\)</span> with fixed relative offset <span class="math notranslate nohighlight">\(p\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(q\mapsto r_i(q) \cdot \textbf{e}_x\)</span>   to the <span class="math notranslate nohighlight">\(x\)</span>-axis of
+frame <span class="math notranslate nohighlight">\(i\)</span> (where <span class="math notranslate nohighlight">\(\textbf{e}_x = (1,0,0)^{\!\top\!}\)</span>).</p></li>
+<li><p><span class="math notranslate nohighlight">\(q\mapsto X_i(q) p\)</span>   to the world coordinate of a point
+attached to frame <span class="math notranslate nohighlight">\(i\)</span> with fixed relative offset <span class="math notranslate nohighlight">\(p\)</span>.</p></li>
 </ul>
-<p>Each of these are 3-dimensional features. Let specifically focus on
-three basic feature definitions</p>
+<p>Each of these are 3-dimensional features. Let introduce a more formal
+notation for these three basic features:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 q \mapsto \phi^{\textsf{pos}}_{i,p}(q) &amp;= X_i(q)~ p \quad\in {\mathbb{R}}^3 ~, \\
-q \mapsto \phi^{\textsf{vec}}_{i,v}(q) &amp;= r_i(q)~ v \quad\in {\mathbb{R}}^3 ~, \\
+q \mapsto \phi^{\textsf{vec}}_{i,v}(q) &amp;= r_i(q) \cdot v \quad\in {\mathbb{R}}^3 ~, \\
 q \mapsto \phi^{\textsf{quat}}_{i}(q) &amp;= r_i(q) \quad\in {\mathbb{R}}^4 ~,\end{aligned}\end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\phi^{\textsf{pos}}_{i,p}(q)\)</span> is the (world) position of a
 point attached to frame <span class="math notranslate nohighlight">\(i\)</span> with relative offset <span class="math notranslate nohighlight">\(p\)</span>,
@@ -495,31 +410,15 @@ frame <span class="math notranslate nohighlight">\(i\)</span>. From these three,
 feature (as it is often used in equations). We can easily construct it
 by concatenating columns, <span class="math notranslate nohighlight">\(\phi^{\textsf{rot}}_i =
 (\phi^{\textsf{vec}}_{i,e_x}, \phi^{\textsf{vec}}_{i,e_y}, \phi^{\textsf{vec}}_{i,e_z}) \in {\mathbb{R}}^{3\times
-3}\)</span> for basis vectors <span class="math notranslate nohighlight">\(e_x,e_y,e_z\)</span> of frame <span class="math notranslate nohighlight">\(i\)</span>. Note that
-the Jacobian of this is a <span class="math notranslate nohighlight">\(3\times 3 \times n\)</span> tensor.</p>
+3}\)</span> for basis vectors <span class="math notranslate nohighlight">\(e_x,e_y,e_z\)</span> of frame <span class="math notranslate nohighlight">\(i\)</span>. (Note that
+the Jacobian (defined later) of this is a <span class="math notranslate nohighlight">\(3\times 3 \times n\)</span>
+tensor.)</p>
 <p>The output space of the kinematic map is also called <strong>task space</strong>.
 However, I often just call it <strong>kinematic feature</strong>.</p>
-<p>In our mini scene we can get and set the joint state, as well as query
-the pose of all frames:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">q</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">getJointState</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
-
-<span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">.5</span>
-<span class="n">C</span><span class="o">.</span><span class="n">setJointState</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
-<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
-
-<span class="n">frameC</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;pos:&#39;</span><span class="p">,</span> <span class="n">frameC</span><span class="o">.</span><span class="n">getPosition</span><span class="p">(),</span> <span class="s1">&#39;quat:&#39;</span><span class="p">,</span> <span class="n">frameC</span><span class="o">.</span><span class="n">getQuaternion</span><span class="p">())</span>
-
-<span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">.5</span>
-<span class="n">C</span><span class="o">.</span><span class="n">setJointState</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;pos:&#39;</span><span class="p">,</span> <span class="n">frameC</span><span class="o">.</span><span class="n">getPosition</span><span class="p">(),</span> <span class="s1">&#39;quat:&#39;</span><span class="p">,</span> <span class="n">frameC</span><span class="o">.</span><span class="n">getQuaternion</span><span class="p">())</span>
-</pre></div>
-</div>
-<p>This example directly accesses a frame to query its position and
-orientation. Frames can also be created and modified in this way.
-However, below we introduce a more abstract way to access <em>features</em>
-that is more consistent to how constraint problems are formulated.</p>
+<p>The illustrates how you get the joint vector <span class="math notranslate nohighlight">\(q\)</span> and set it. This
+way you can animate the configuration. Also the positions and
+orientations of all frames can be queried directly – realizing the most
+basic kind of forward kinematics.</p>
 </section>
 <section id="jacobians">
 <h3>Jacobians<a class="headerlink" href="#jacobians" title="Permalink to this heading"></a></h3>
@@ -682,17 +581,20 @@ mapping</p>
 <div class="math notranslate nohighlight">
 \[\phi: q \mapsto \mathbb{R}^D\]</div>
 <p>of a single configuration into some <span class="math notranslate nohighlight">\(D\)</span>-dimensional space.</p>
-<p>The rai code implements many features, most of them are accessible via a
-feature symbol (FS). The Feature tutorial [&lt;notebooks/features.html&gt;]
-should list all available features. New features can be implemented in
-C++ by overloading the abstract Feature class.</p>
+<p>The introduces to features that are readily implemented in the rai code.</p>
+<p>(In C++, new features can be implemented by overloading the abstract
+Feature class. Implementing new features is typically done by first
+evaluating existing features and then “forward chaining” the computation
+of the new feature – quite similar to how models are defined in pyTorch
+or similar autodiff frameworks. The C++ code uses autodiff (which
+<em>forward</em> chains Jacobians directly at computation) for most features.)</p>
 <p>When using features in code, one can additionally specify a <code class="docutils literal notranslate"><span class="pre">target</span></code>
-and <code class="docutils literal notranslate"><span class="pre">scale</span></code>, to that the feature is transformed:</p>
+and <code class="docutils literal notranslate"><span class="pre">scale</span></code>, which defines a subsequent linear transformation:</p>
 <div class="math notranslate nohighlight">
 \[\phi(q) \gets \texttt{scale} \cdot (\phi(q) - \texttt{target})\]</div>
 <p>Note that the scale can be a matrix, which projects the feature. E.g.,
-if you want to define a 2D feature which the <span class="math notranslate nohighlight">\(xy\)</span>-position of
-frame <span class="math notranslate nohighlight">\(i\)</span>, then would could define use a matrix
+if you want to define a 2D feature which is the <span class="math notranslate nohighlight">\(xy\)</span>-position of
+frame <span class="math notranslate nohighlight">\(i\)</span>, then you can use a matrix
 <span class="math notranslate nohighlight">\(\texttt{scale}= \left(\begin{array}{ccc}1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0\end{array}\right)\)</span>.</p>
 <p>Further, a feature can also be of higher order, which by default means a
 finite difference of a 0-order features. In general, a higher-order
@@ -700,7 +602,8 @@ features is a differentiable mapping</p>
 <div class="math notranslate nohighlight">
 \[\phi: (q_0,q_1,..,q_k) \mapsto \mathbb{R}^D\]</div>
 <p>of a <span class="math notranslate nohighlight">\((k+1)\)</span>-tuple of configurations to a <span class="math notranslate nohighlight">\(D\)</span>-dimensional
-space.</p>
+space. This is typically used in the context of <strong>path configurations</strong>,
+which is a sequence of configurations used in path optimization.</p>
 <p>Given any 0-order feature <span class="math notranslate nohighlight">\(\phi\)</span>, by default that defines its 1st
 and 2st order feature as</p>
 <div class="math notranslate nohighlight">
@@ -742,13 +645,10 @@ matrices should be returned in sparse format.</p></li>
 <p>Based on this, one provides more convenient user functions that allow to
 query kinematic features for any frame <span class="math notranslate nohighlight">\(i\)</span>, including the pose
 <span class="math notranslate nohighlight">\(X_i\)</span>, and on demand also provide the Jacobian of that feature.</p>
-<p>Code tutorials: Code Tutorials: Configurations
-[&lt;notebook/1a-configuration.ipynb&gt;], Features
-[&lt;notebook/features.ipynb&gt;]</p>
 </section>
 <section id="inverse-kinematics">
 <h3>Inverse Kinematics<a class="headerlink" href="#inverse-kinematics" title="Permalink to this heading"></a></h3>
-<p><img alt="image" src="script/caption" /></p>
+<p><a href="#id4"><span class="problematic" id="id5">|image|</span></a></p>
 <p>We can “puppeteer” a robot by defining optimization problems with task
 space constraints and solve for the joint state.</p>
 <p>We introduced forward kinematics as a mapping from an
@@ -758,7 +658,7 @@ space constraints and solve for the joint state.</p>
 invert this mapping, i.e., given a desired target <span class="math notranslate nohighlight">\(y^*\)</span> in task
 space, find a joint vector <span class="math notranslate nohighlight">\(q\)</span> such that <span class="math notranslate nohighlight">\(\phi(q) = y^*\)</span>. As
 often <span class="math notranslate nohighlight">\(n&gt;d\)</span>, the inversion is under-specified (leading to what is
-called “redundancy”). But just as the pseudo-inverse of linear
+called “redundancy”). But just as the pseudo-inverse of a linear
 transformation addresses this, we can generalize this to a non-linear
 <span class="math notranslate nohighlight">\(\phi\)</span> – namely in an optimality formulation.</p>
 <p>Given <span class="math notranslate nohighlight">\(\phi\)</span> and a target <span class="math notranslate nohighlight">\(y^*\)</span>, a good option is to define
@@ -774,7 +674,7 @@ might typically choose it as a squared distance
 could be the homing state of a robot or its current state.</p>
 <p>In practice, I recommend always using a proper NLP solver to solve
 inverse kinematics. As discussing optimization is beyond this script we
-are here already done with describing inverse kinematics! It is “noting
+are here already done with describing inverse kinematics! It is “nothing
 more” than defining a constraint problem of the sort
 ([eqIKNLP]) and passing it to a solver. In the coding
 part below I will discuss the richness in options to define such
@@ -784,96 +684,18 @@ pseudo-inverse Jacobian solution to IK below.</p>
 <section id="building-an-nlp-from-features">
 <h4>Building an NLP from features<a class="headerlink" href="#building-an-nlp-from-features" title="Permalink to this heading"></a></h4>
 <p>Eq. ([eqIKNLP]) describes IK as an NLP. Appendix
-1.13.1 provides a technical reference of how we define
-NLPs mathematically and in code. We summarize this here to enable us
-defining IK problems in the next coding example. Essentially, we specify
-an NLP by <em>adding objectives</em>, i.e., adding entries to the total feature
-function <span class="math notranslate nohighlight">\(\phi(x)\)</span> and specifying the objective type:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{aligned}
-\phi(x) =  \left(\begin{array}{c}f_1(x) \\ r_1(x) \\ h_1(x) \\ g_1(x) \\ h_2(x) \\ \vdots\end{array}\right)
-~,\quad
-\rho =  \left(\begin{array}{c}\texttt{f}\\ \texttt{sos}\\ \texttt{eq}\\ \texttt{ineq}\\ \texttt{eq}\\ \vdots\end{array}\right)  ~.\end{aligned}\end{split}\]</div>
-<p>The indicator vector <span class="math notranslate nohighlight">\(\rho\)</span> informs the solver which components of
-<span class="math notranslate nohighlight">\(\phi\)</span> have to be treated as cost, sos, eq, or ineq. The entries
-“<span class="math notranslate nohighlight">\(f_1\)</span>, <span class="math notranslate nohighlight">\(r_1\)</span>,..” are any features defined in the same
-convention as above. This defines an NLP of the form</p>
-<div class="math notranslate nohighlight">
-\[\begin{aligned}
-\min_{b_l\le x \le b_u}~ {{\bf 1}}^{\!\top\!}\phi_\texttt{f}(x) + \phi_\texttt{sos}(x)^{\!\top\!}\phi_\texttt{sos}(x)
-  ~~\text{s.t.}~~\phi_\texttt{ineq}(x) \le 0,~ \phi_\texttt{eq}(x) = 0 ~,\end{aligned}\]</div>
-<p>where <span class="math notranslate nohighlight">\(\phi_\texttt{sos}\)</span> is the subsets of <code class="docutils literal notranslate"><span class="pre">sos</span></code>-features, etc.</p>
-<p>Let’s use a more interesting scene configuration to demonstrate IK. This
-is really a core exercise, as it opens up the space of defining
-kinematic constraint problems.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~/git/rai-python/build&#39;</span><span class="p">))</span>
-<span class="kn">import</span> <span class="nn">libry</span> <span class="k">as</span> <span class="nn">ry</span>
-
-<span class="n">C</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span>
-<span class="n">C</span><span class="o">.</span><span class="n">addFile</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">raiPath</span><span class="p">(</span><span class="s1">&#39;../rai-robotModels/scenarios/pandasTable.g&#39;</span><span class="p">))</span>
-<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
-
-<span class="n">C</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="s1">&#39;boxR&#39;</span><span class="p">,</span><span class="s1">&#39;table&#39;</span><span class="p">)</span> \
-  <span class="o">.</span><span class="n">setRelativePosition</span><span class="p">([</span><span class="mf">.15</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">.1</span><span class="p">])</span> \
-  <span class="o">.</span><span class="n">setShape</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">ST</span><span class="o">.</span><span class="n">ssBox</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">[</span><span class="mf">.1</span><span class="p">,</span><span class="mf">.1</span><span class="p">,</span><span class="mf">.1</span><span class="p">,</span><span class="mf">.02</span><span class="p">])</span> \
-  <span class="o">.</span><span class="n">setColor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">C</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="s1">&#39;boxL&#39;</span><span class="p">,</span><span class="s1">&#39;table&#39;</span><span class="p">)</span> \
-  <span class="o">.</span><span class="n">setRelativePosition</span><span class="p">([</span><span class="o">-</span><span class="mf">.15</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">.1</span><span class="p">])</span> \
-  <span class="o">.</span><span class="n">setShape</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">ST</span><span class="o">.</span><span class="n">ssBox</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">[</span><span class="mf">.1</span><span class="p">,</span><span class="mf">.1</span><span class="p">,</span><span class="mf">.1</span><span class="p">,</span><span class="mf">.02</span><span class="p">])</span> \
-  <span class="o">.</span><span class="n">setColor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mf">.5</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>So far, we just created a new scene, with a yellow and orange box. Now
-let’s define an NLP and solve it: [pgIK]</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">komo</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">KOMO</span><span class="p">()</span>
-<span class="n">komo</span><span class="o">.</span><span class="n">setConfig</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-<span class="n">komo</span><span class="o">.</span><span class="n">setTiming</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">5.</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">komo</span><span class="o">.</span><span class="n">addControlObjective</span><span class="p">([],</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1e-1</span><span class="p">)</span>
-<span class="n">komo</span><span class="o">.</span><span class="n">addObjective</span><span class="p">([],</span> <span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">accumulatedCollisions</span><span class="p">,</span> <span class="p">[],</span> <span class="n">ry</span><span class="o">.</span><span class="n">OT</span><span class="o">.</span><span class="n">eq</span><span class="p">);</span>
-<span class="n">komo</span><span class="o">.</span><span class="n">addObjective</span><span class="p">([],</span> <span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">jointLimits</span><span class="p">,</span> <span class="p">[],</span> <span class="n">ry</span><span class="o">.</span><span class="n">OT</span><span class="o">.</span><span class="n">ineq</span><span class="p">);</span>
-<span class="n">komo</span><span class="o">.</span><span class="n">addObjective</span><span class="p">([],</span> <span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">positionDiff</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;r_gripper&#39;</span><span class="p">,</span> <span class="s1">&#39;boxL&#39;</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">OT</span><span class="o">.</span><span class="n">eq</span><span class="p">,</span> <span class="p">[</span><span class="mf">1e1</span><span class="p">]);</span>
-<span class="n">komo</span><span class="o">.</span><span class="n">addObjective</span><span class="p">([],</span> <span class="n">ry</span><span class="o">.</span><span class="n">FS</span><span class="o">.</span><span class="n">positionDiff</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;l_gripper&#39;</span><span class="p">,</span> <span class="s1">&#39;boxR&#39;</span><span class="p">],</span> <span class="n">ry</span><span class="o">.</span><span class="n">OT</span><span class="o">.</span><span class="n">eq</span><span class="p">,</span> <span class="p">[</span><span class="mf">1e1</span><span class="p">]);</span>
-
-<span class="n">ret</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">NLP_Solver</span><span class="p">()</span> \
-  <span class="o">.</span><span class="n">setProblem</span><span class="p">(</span><span class="n">komo</span><span class="o">.</span><span class="n">nlp</span><span class="p">())</span> \
-  <span class="o">.</span><span class="n">setOptions</span><span class="p">(</span> <span class="n">stopTolerance</span><span class="o">=</span><span class="mf">1e-2</span> <span class="p">)</span> \
-  <span class="o">.</span><span class="n">solve</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span>
-
-<span class="n">komo</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;waypoint solution&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>In the first block, we define a KOMO object, which is nothing but an NLP
-description over configurations. The <code class="docutils literal notranslate"><span class="pre">setConfig</span></code> and <code class="docutils literal notranslate"><span class="pre">setTiming</span></code>
-calls state that we’re optimizing only over a single configuration, as
-always in Inverse Kinematics. We’ll later explain how to optimize over
-sequences of configurations.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">add</span></code> methods add objectives (=cost terms, or eq, or ineq
-constraints) to the NLP description. The <code class="docutils literal notranslate"><span class="pre">ControlObjective</span></code> is a
-small-weighted regularization <span class="math notranslate nohighlight">\(|\!|q-q_0|\!|^2\)</span> to optimize for IK
-solutions close to the starting configuration. The others add features
-that define equality (<code class="docutils literal notranslate"><span class="pre">ry.OT.eq</span></code>) or inequality (<code class="docutils literal notranslate"><span class="pre">ry.OT.ineq</span></code>)
-constraints in the NLP.</p>
-<p>This <em>language</em> of adding objectives to an NLP description is at the
-core of the robotics library we use. Here it is used to define an
-Inverse Kinematics problem. Later we can use it to define path
-optimization problems, as well as MPC (reactive control) problems.</p>
-<p><code class="docutils literal notranslate"><span class="pre">NLP_Solver</span></code> is a generic NLP solver (by default using an Augmented
-Lagrangian method) that we introduce in the Optimization Algorithms
-Lecture. The <code class="docutils literal notranslate"><span class="pre">ret</span></code> tells us how many steps (<code class="docutils literal notranslate"><span class="pre">evals</span></code>) the solver
-needed, and what the costs and constraint errors at convergence are.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">komo</span></code> display shows both, the initial configuration and the
-solved configuration overlayed. With the following, we can read out the
-optimal joint vector:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">q</span> <span class="o">=</span> <span class="n">komo</span><span class="o">.</span><span class="n">getPath</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">q</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">q</span><span class="p">))</span>
-
-<span class="n">C</span><span class="o">.</span><span class="n">setJointState</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
-</pre></div>
-</div>
+1.12.1 provides a technical reference of how we define
+NLPs mathematically and in code. Essentially, an NLP is specified by
+<em>adding objectives</em>, where each objective is given by a feature function
+<span class="math notranslate nohighlight">\(\phi_i\)</span> and an indicator <span class="math notranslate nohighlight">\(\varrho_i\)</span> that defines whether
+the feature contributes a linear cost (<code class="docutils literal notranslate"><span class="pre">f</span></code>), sum-of-squares cost
+(<code class="docutils literal notranslate"><span class="pre">sos</span></code>), equality constraint (<code class="docutils literal notranslate"><span class="pre">eq</span></code>), or inequality constraint
+(<code class="docutils literal notranslate"><span class="pre">ineq</span></code>) to the NLP.</p>
+<p>The illustrates how an Inverse Kinematics problem can be specified as
+NLP. The core is the <code class="docutils literal notranslate"><span class="pre">addObjective</span></code> method, which adds a kinematic
+feature (optimally with transformed by scaling and target) as a cost or
+constraint (depending on the <code class="docutils literal notranslate"><span class="pre">f</span></code>, <code class="docutils literal notranslate"><span class="pre">sos</span></code>, <code class="docutils literal notranslate"><span class="pre">eq</span></code>, or
+<code class="docutils literal notranslate"><span class="pre">ineq</span></code>indicator) to the NLP.</p>
 </section>
 <section id="classical-derivation-of-pseudo-inverse-jacobian-solution">
 <h4>Classical Derivation of Pseudo-Inverse Jacobian Solution<a class="headerlink" href="#classical-derivation-of-pseudo-inverse-jacobian-solution" title="Permalink to this heading"></a></h4>
@@ -981,42 +803,6 @@ solution.</p>
 </section>
 </section>
 </section>
-<section id="placeholder">
-<h2>Placeholder<a class="headerlink" href="#placeholder" title="Permalink to this heading"></a></h2>
-<p>To come:</p>
-<p>Spline Motion and Control Levels</p>
-<p>Motion Planning: Path/Trajectory Optimization and Finding</p>
-<p>Dynamics</p>
-<p>Simulation</p>
-<p>Control Theory &amp; MPC</p>
-<p>skipping here: Mobile Robotics slides</p>
-</section>
-<section id="practical-control-pid-splines-tracking-layes-of-control">
-<h2>Practical Control: PID, Splines, Tracking, &amp; Layes of Control<a class="headerlink" href="#practical-control-pid-splines-tracking-layes-of-control" title="Permalink to this heading"></a></h2>
-<p>In section we introduce some basics to understand how robot control are
-typically realized in practise. Later sections will introduce in more
-detail general dynamics, control theory, trajectory optimization, and
-MPC. This section will help to grasp basic notions such as what is
-compliance vs. admittance and time-continuous tracking references.</p>
-</section>
-<section id="path-planning">
-<h2>Path Planning<a class="headerlink" href="#path-planning" title="Permalink to this heading"></a></h2>
-</section>
-<section id="path-optimization-briefly">
-<h2>Path Optimization – briefly<a class="headerlink" href="#path-optimization-briefly" title="Permalink to this heading"></a></h2>
-</section>
-<section id="mobile-robotics">
-<h2>Mobile Robotics<a class="headerlink" href="#mobile-robotics" title="Permalink to this heading"></a></h2>
-</section>
-<section id="control-theory">
-<h2>Control Theory<a class="headerlink" href="#control-theory" title="Permalink to this heading"></a></h2>
-</section>
-<section id="skipped-this-term-grasping-brief-intro">
-<h2>SKIPPED THIS TERM – Grasping (brief intro)<a class="headerlink" href="#skipped-this-term-grasping-brief-intro" title="Permalink to this heading"></a></h2>
-</section>
-<section id="skipped-this-term-legged-locomotion-brief-intro">
-<h2>SKIPPED THIS TERM – Legged Locomotion (brief intro)<a class="headerlink" href="#skipped-this-term-legged-locomotion-brief-intro" title="Permalink to this heading"></a></h2>
-</section>
 <section id="d-transformations-rotations-quaternions">
 <span id="apptransforms"></span><h2>3D Transformations, Rotations, Quaternions<a class="headerlink" href="#d-transformations-rotations-quaternions" title="Permalink to this heading"></a></h2>
 <section id="rotations">
@@ -1034,20 +820,23 @@ don’t recommend using them in practice.</p>
 the constraint of orthogonality and determinant 1 constraints this:
 The set of rotation matrices has only 3 DoFs (<span class="math notranslate nohighlight">\(\sim\)</span> the local
 Lie algebra is 3-dim).</p>
-<p>The application of <span class="math notranslate nohighlight">\(R\)</span> on a vector <span class="math notranslate nohighlight">\(x\)</span> is simply the
-matrix-vector product <span class="math notranslate nohighlight">\(R x\)</span>.</p>
-<p>Concatenation of two rotations <span class="math notranslate nohighlight">\(R_1\)</span> and <span class="math notranslate nohighlight">\(R_2\)</span> is the
-normal matrix-matrix product <span class="math notranslate nohighlight">\(R_1 R_2\)</span>.</p>
-<p>Inversion is the transpose,
-<span class="math notranslate nohighlight">\(R^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1} = R^{\!\top\!}\)</span>.</p>
+<ul class="simple">
+<li><p>The application of <span class="math notranslate nohighlight">\(R\)</span> on a vector <span class="math notranslate nohighlight">\(x\)</span> is simply the
+matrix-vector product <span class="math notranslate nohighlight">\(R x\)</span>.</p></li>
+<li><p>Concatenation of two rotations <span class="math notranslate nohighlight">\(R_1\)</span> and <span class="math notranslate nohighlight">\(R_2\)</span> is the
+normal matrix-matrix product <span class="math notranslate nohighlight">\(R_1 R_2\)</span>.</p></li>
+<li><p>Inversion is the transpose,
+<span class="math notranslate nohighlight">\(R^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1} = R^{\!\top\!}\)</span>.</p></li>
+</ul>
 </dd>
 <dt>A rotation vector</dt><dd><p>is an unconstrained vector <span class="math notranslate nohighlight">\(w\in{\mathbb{R}}^3\)</span>. The vector’s
 direction <span class="math notranslate nohighlight">\(\underline w = \frac{w}{|w|}\)</span> determines the
 rotation axis, the vector’s length <span class="math notranslate nohighlight">\(|w|=\theta\)</span> determines the
 rotation angle (in radians, using the right thumb convention).</p>
-<p>The application of a rotation described by <span class="math notranslate nohighlight">\(w\in{\mathbb{R}}^3\)</span>
-on a vector <span class="math notranslate nohighlight">\(x\in{\mathbb{R}}^3\)</span> is given as (Rodrigues’
-formula)</p>
+<ul>
+<li><p>The application of a rotation described by
+<span class="math notranslate nohighlight">\(w\in{\mathbb{R}}^3\)</span> on a vector <span class="math notranslate nohighlight">\(x\in{\mathbb{R}}^3\)</span>
+is given as (Rodrigues’ formula)</p>
 <div class="math notranslate nohighlight">
 \[\begin{aligned}
 w \cdot x
@@ -1056,20 +845,21 @@ w \cdot x
   + (1-\cos\theta)~ \underline w(\underline w^{\!\top\!}x)\end{aligned}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\theta=|w|\)</span> is the rotation angle and
 <span class="math notranslate nohighlight">\(\underline w=w/\theta\)</span> the unit length rotation axis.</p>
-<p>The inverse rotation is described by the negative of the rotation
-vector.</p>
-<p>Concatenation is non-trivial in this representation and we don’t
-discuss it here. In practice, a rotation vector is first converted to
-a rotation matrix or quaternion.</p>
-<p>Conversion to a matrix: For every vector <span class="math notranslate nohighlight">\(w\in{\mathbb{R}}^3\)</span>
-we define its skew symmetric matrix as</p>
+</li>
+<li><p>The inverse rotation is described by the negative of the rotation
+vector.</p></li>
+<li><p>Concatenation is non-trivial in this representation and we don’t
+discuss it here. In practice, a rotation vector is first converted
+to a rotation matrix or quaternion.</p></li>
+<li><p>Conversion to a matrix: For every vector
+<span class="math notranslate nohighlight">\(w\in{\mathbb{R}}^3\)</span> we define its skew symmetric matrix as</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 \hat w = \text{skew}(w) =  \left(\begin{array}{ccc}0 &amp; -w_3 &amp; w_2 \\ w_3 &amp; 0 &amp; -w_1 \\-w_2 &amp; w_1 &amp; 0\end{array}\right)  ~.\end{aligned}\end{split}\]</div>
 <p>Note that such skew-symmetric matrices are related to the cross
-product: <span class="math notranslate nohighlight">\(w \times v = \hat w~ v\)</span>, where the cross product is
-rewritten as a matrix product. The rotation matrix <span class="math notranslate nohighlight">\(R(w)\)</span> that
-corresponds to a given rotation vector <span class="math notranslate nohighlight">\(w\)</span> is:</p>
+product: <span class="math notranslate nohighlight">\(w \times v = \hat w~ v\)</span>, where the cross product
+is rewritten as a matrix product. The rotation matrix <span class="math notranslate nohighlight">\(R(w)\)</span>
+that corresponds to a given rotation vector <span class="math notranslate nohighlight">\(w\)</span> is:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 \label{eqRodriguez}
@@ -1080,9 +870,11 @@ R(w)
 group element (=rotation matrix) via an element of the Lie algebra
 (=skew matrix)). The other equation is called Rodrigues’ equation:
 the first term is a diagonal matrix (<span class="math notranslate nohighlight">\(I\)</span> is the 3D identity
-matrix), the second terms the skew symmetric part, the last term the
-symmetric part (<span class="math notranslate nohighlight">\(w
+matrix), the second terms the skew symmetric part, the last term
+the symmetric part (<span class="math notranslate nohighlight">\(w
 w^{\!\top\!}\)</span> is also called outer product).</p>
+</li>
+</ul>
 </dd>
 <dt>Angular velocity &amp; derivative of a rotation matrix:</dt><dd><p>We represent angular velocities by a vector
 <span class="math notranslate nohighlight">\(w\in{\mathbb{R}}^3\)</span>, the direction <span class="math notranslate nohighlight">\(\underline w\)</span>
@@ -1121,26 +913,30 @@ related to the rotation angle <span class="math notranslate nohighlight">\(\thet
 <span class="math notranslate nohighlight">\(\bar r\equiv r_{1:3}\)</span> are related to the unit length rotation
 axis <span class="math notranslate nohighlight">\(\underline w\)</span> via
 <span class="math notranslate nohighlight">\(\bar r = \sin(\theta/2)~ \underline w\)</span>.</p>
-<p>The inverse of a quaternion is given by negating <span class="math notranslate nohighlight">\(\bar r\)</span>,
+<ul>
+<li><p>The inverse of a quaternion is given by negating <span class="math notranslate nohighlight">\(\bar r\)</span>,
 <span class="math notranslate nohighlight">\(r^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1} =
-(r_0,-\bar r)\)</span> (or, alternatively, negating <span class="math notranslate nohighlight">\(r_0\)</span>).</p>
-<p>The concatenation of two rotations <span class="math notranslate nohighlight">\(r\)</span>, <span class="math notranslate nohighlight">\(r'\)</span> is given as
-the quaternion product</p>
+(r_0,-\bar r)\)</span> (or, alternatively, negating <span class="math notranslate nohighlight">\(r_0\)</span>).</p></li>
+<li><p>The concatenation of two rotations <span class="math notranslate nohighlight">\(r\)</span>, <span class="math notranslate nohighlight">\(r'\)</span> is given
+as the quaternion product</p>
 <div class="math notranslate nohighlight">
 \[\begin{aligned}
 \label{eqQuat}
 r \circ r'
  = (r_0 r'_0 - \bar r^{\!\top\!}\bar r',~
     r_0 \bar r' + r'_0 \bar r + \bar r' \times \bar r)\end{aligned}\]</div>
-<p>The application of a rotation quaternion <span class="math notranslate nohighlight">\(r\)</span> on a vector
+</li>
+<li><p>The application of a rotation quaternion <span class="math notranslate nohighlight">\(r\)</span> on a vector
 <span class="math notranslate nohighlight">\(x\)</span> can be expressed by converting the vector first to the
 quaternion <span class="math notranslate nohighlight">\((0,x)\)</span>, then computing</p>
 <div class="math notranslate nohighlight">
 \[\begin{aligned}
 r \cdot x = (r \circ (0,x) \circ r^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1})_{1:3} ~,\end{aligned}\]</div>
 <p>I think a bit more efficient is to first convert the rotation
-quaternion <span class="math notranslate nohighlight">\(r\)</span> to the equivalent rotation matrix <span class="math notranslate nohighlight">\(R\)</span>, as
-given by</p>
+quaternion <span class="math notranslate nohighlight">\(r\)</span> to the equivalent rotation matrix <span class="math notranslate nohighlight">\(R\)</span>:</p>
+</li>
+<li><p>Conversion to/from a matrix: A quaternion rotation <span class="math notranslate nohighlight">\(r\)</span>
+convertes to the rotation matrix</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 R
@@ -1149,18 +945,21 @@ R
     r_{12}+r_{03} &amp;   1-r_{11}-r_{33} &amp;  r_{23}-r_{01} \\
     r_{13}-r_{02} &amp;   r_{23}+r_{01} &amp;    1-r_{11}-r_{22}
     \end{array}\right)  \\ &amp; ~ r_{ij} := 2 r_i r_j ~.\end{aligned}\end{split}\]</div>
-<p>(Note: In comparison to ([eqRodriguez]) this does
-not require to compute a <span class="math notranslate nohighlight">\(\sin\)</span> or <span class="math notranslate nohighlight">\(\cos\)</span>.) Inversely,
-the quaternion <span class="math notranslate nohighlight">\(r\)</span> for a given matrix <span class="math notranslate nohighlight">\(R\)</span> is</p>
+<p>(Note: In comparison to ([eqRodriguez]) this
+does not require to compute a <span class="math notranslate nohighlight">\(\sin\)</span> or <span class="math notranslate nohighlight">\(\cos\)</span>.)
+Inversely, the quaternion <span class="math notranslate nohighlight">\(r\)</span> for a given matrix <span class="math notranslate nohighlight">\(R\)</span>
+is</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
     r_0 &amp;= {\frac{1}{2}}\sqrt{1+{\rm tr}R}\\
     r_3 &amp;= (R_{21}-R_{12})/(4 r_0)\\
     r_2 &amp;= (R_{13}-R_{31})/(4 r_0)\\
     r_1 &amp;= (R_{32}-R_{23})/(4 r_0) ~.\end{aligned}\end{split}\]</div>
+</li>
+</ul>
 </dd>
 <dt>Angular velocity <span class="math notranslate nohighlight">\(\to\)</span> quaternion velocity</dt><dd><p>Given an angular velocity <span class="math notranslate nohighlight">\(w\in{\mathbb{R}}^3\)</span> and a current
-quaternion <span class="math notranslate nohighlight">\(r(t)\in{\mathbb{R}}\)</span>, what is the time derivative
+quaternion <span class="math notranslate nohighlight">\(r(t)\in{\mathbb{R}}^4\)</span>, what is the time derivative
 <span class="math notranslate nohighlight">\(\dot r(t)\)</span> (in analogy to Eq. ([eqDotR]))? For
 simplicity, let’s first assume <span class="math notranslate nohighlight">\(|w|=1\)</span>. For a small time
 interval <span class="math notranslate nohighlight">\(\delta\)</span>, <span class="math notranslate nohighlight">\(w\)</span> generates a rotation vector
@@ -1188,19 +987,20 @@ evaluate to one, and we have</p>
 <span class="math notranslate nohighlight">\(|w|=1\)</span> it is a normalized quaternion. However, due to the
 linearity the equation holds for any <span class="math notranslate nohighlight">\(w\)</span>.</p>
 </dd>
-<dt>Quaternion velocity <span class="math notranslate nohighlight">\(\to\)</span> angular velocity</dt><dd><p>The following is relevant when taking the derivative w.r.t. the
-quaternion parameters, e.g., for a ball joint represented as
+<dt>Quaternion velocity <span class="math notranslate nohighlight">\(\to\)</span> angular velocity</dt><dd><p>The following is relevant when taking the derivative
+w.r.t. quaternion parameters, e.g., of a ball joint represented as
 quaternion. Given <span class="math notranslate nohighlight">\(\dot r\)</span>, we have</p>
 <div class="math notranslate nohighlight">
 \[\begin{aligned}
+\label{eq37}
 \dot r \circ r^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1}
 &amp;= {\frac{1}{2}}(0,w) \circ r \circ r^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1} = {\frac{1}{2}}(0,w) ~,\quad w = 2~ [\dot r \circ r^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1}]_{1:3}\end{aligned}\]</div>
 <p>which allows us to read off the angular velocity <span class="math notranslate nohighlight">\(w\)</span> induced by
 a change of quaternion <span class="math notranslate nohighlight">\(\dot r\)</span>. However, the RHS zero will
 hold true only iff <span class="math notranslate nohighlight">\(\dot
 r\)</span> is orthogonal to <span class="math notranslate nohighlight">\(r\)</span> (where
-<span class="math notranslate nohighlight">\(\dot r^{\!\top\!}r = \dot r_0 r_0 + \dot {\bar
-r^{\!\top\!}} \bar r = 0\)</span>, see ). In case
+<span class="math notranslate nohighlight">\(\dot r^{\!\top\!}r = \dot r_0 r_0 + \dot{\bar
+r}{}^{\!\top\!}\bar r = 0\)</span>, see ). In case
 <span class="math notranslate nohighlight">\(\dot r^{\!\top\!}r \not=0\)</span>, the change in length of the
 quaternion does not represent any angular velocity; in typical
 kinematics engines a non-unit length is ignored. Therefore one first
@@ -1209,13 +1009,14 @@ r \gets \dot r - r(\dot r^{\!\top\!}r)\)</span>.</p>
 <p>As a special case of application, consider computing the partial
 derivative w.r.t. quaternion parameters, where <span class="math notranslate nohighlight">\(\dot r\)</span> is the
 4D unit vectors <span class="math notranslate nohighlight">\(e_0,..,e_3\)</span>. In this case, the
-orthogonalization becomes simply <span class="math notranslate nohighlight">\(e_i \gets e_i - r r_i\)</span> and</p>
+orthogonalization becomes simply <span class="math notranslate nohighlight">\(\dot r \gets e_i - r r_i\)</span> and
+([eq37]) becomes</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}\begin{aligned}
+\[\begin{aligned}
 (e_i - r_i r) \circ r^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1}
-&amp;= e_i \circ r^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1} - r_i (1,0,0,0) \\
-w_i
-&amp;= 2~ [e_i \circ r^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1}]_{1:3} ~,\end{aligned}\end{split}\]</div>
+  &amp;= e_i \circ r^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1} - r_i (1,0,0,0) ~,\quad
+  w_i
+ = 2~ [e_i \circ r^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1}]_{1:3} ~,\end{aligned}\]</div>
 <p>where <span class="math notranslate nohighlight">\(w_i\)</span> is the rotation vector implied by
 <span class="math notranslate nohighlight">\(\dot r = e_i\)</span>. In case the original quaternion <span class="math notranslate nohighlight">\(r\)</span>
 wasn’t normalized (which could be, if a standard optimization
@@ -1235,17 +1036,9 @@ velocity <span class="math notranslate nohighlight">\(\dot r\)</span> (accountin
 </dd>
 </dl>
 </section>
-<section id="transformations-1">
-<span id="id1"></span><h3>Transformations<a class="headerlink" href="#transformations-1" title="Permalink to this heading"></a></h3>
-<p>We consider two types of transformations here: either static
-(translation+rotation), or dynamic
-(translation+velocity+rotation+angular velocity). The first maps between
-two static reference frames, the latter between moving reference frames,
-e.g. between reference frames attached to moving rigid bodies.</p>
-<section id="static-transformations">
-<h4>Static transformations<a class="headerlink" href="#static-transformations" title="Permalink to this heading"></a></h4>
-<p>Concerning the static transformations, again there are different
-representations:</p>
+<section id="sectransformations">
+<span id="id1"></span><h3>Transformations<a class="headerlink" href="#sectransformations" title="Permalink to this heading"></a></h3>
+<p>We can represent a transformation as:</p>
 <dl>
 <dt>A homogeneous matrix</dt><dd><p>is a <span class="math notranslate nohighlight">\(4\times 4\)</span>-matrix of the form</p>
 <div class="math notranslate nohighlight">
@@ -1282,45 +1075,6 @@ Analogous to the above, the application of <span class="math notranslate nohighl
 the concatenation is
 <span class="math notranslate nohighlight">\((t_1,r_1) \circ (t_2,r_2) = (t_1 + r_1\cdot t_2, r_1 \circ r_2)\)</span>.</p>
 </dd>
-</dl>
-</section>
-<section id="dynamic-transformations">
-<h4>Dynamic transformations<a class="headerlink" href="#dynamic-transformations" title="Permalink to this heading"></a></h4>
-<p>Just as static transformations map between (static) coordinate frames,
-dynamic transformations map between moving (inertial) frames which are,
-e.g., attached to moving bodies. A dynamic transformation is described
-by a tuple <span class="math notranslate nohighlight">\((t,r,v,w)\)</span> with translation <span class="math notranslate nohighlight">\(t\)</span>, rotation
-<span class="math notranslate nohighlight">\(r\)</span>, velocity <span class="math notranslate nohighlight">\(v\)</span> and angular velocity <span class="math notranslate nohighlight">\(w\)</span>. Under a
-dynamic transform <span class="math notranslate nohighlight">\((t,r,v,w)\)</span> a position and velocity
-<span class="math notranslate nohighlight">\((x,\dot x)\)</span> maps to a new position and velocity
-<span class="math notranslate nohighlight">\((x',\dot x')\)</span> given as</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{aligned}
-&amp; x'=t + r\cdot x \\
-&amp; \dot x' = v + w \times (r\cdot x)+ r\cdot\dot x\end{aligned}\end{split}\]</div>
-<p>(the second term is the additional linear velocity of <span class="math notranslate nohighlight">\(\dot x'\)</span>
-arising from the angular velocity <span class="math notranslate nohighlight">\(w\)</span> of the dynamic transform).
-The concatenation
-<span class="math notranslate nohighlight">\((t,r,v,w) = (t_1,r_1,v_1,w_1) \circ (t_2,r_2,v_2,w_2)\)</span> of two
-dynamic transforms is given as</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{aligned}
-&amp; t = t_1 + r_1 \cdot t_2 \\
-&amp; v = v_1 + w_1 \times (r_1 \cdot t_2) + r_1 \cdot v_2 \\
-&amp; r = r_1 \circ r_2 \\
-&amp; w = w_1 + r_1 \cdot w_2\end{aligned}\end{split}\]</div>
-<p>For completeness, the footnote <a class="footnote-reference brackets" href="#id5" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> also describes how accelerations
-transform, including the case when the transform itself is accelerating.
-The inverse
-<span class="math notranslate nohighlight">\((t',r',v',w') = (t,r,v,w)^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1}\)</span>
-of a dynamic transform is given as</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{aligned}
-&amp; t' = -r^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1} \cdot t \\
-&amp; r' =  r^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1} \\
-&amp; v' =  r^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1} \cdot (w \times t - v) \\
-&amp; w' = -r^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1} \cdot w\end{aligned}\end{split}\]</div>
-<dl>
 <dt>Sequences of transformations</dt><dd><p>by <span class="math notranslate nohighlight">\(T_{A\to
 B}\)</span> we denote the transformation from frame <span class="math notranslate nohighlight">\(A\)</span> to frame
 <span class="math notranslate nohighlight">\(B\)</span>. The frames <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> can be thought of
@@ -1340,16 +1094,15 @@ relative to frame <span class="math notranslate nohighlight">\(B\)</span>. It ho
 p^A = T_{A\to B}~ p^B ~.\end{aligned}\]</div>
 </dd>
 </dl>
-</section>
-<section id="a-note-on-affine-coordinate-frames">
-<h4>A note on affine coordinate frames<a class="headerlink" href="#a-note-on-affine-coordinate-frames" title="Permalink to this heading"></a></h4>
+<section id="a-note-on-forward-vs-backward-of-frame-and-coordinate-transforms">
+<span id="sectransnotation"></span><h4>A note on “forward” vs. “backward” of frame and coordinate transforms<a class="headerlink" href="#a-note-on-forward-vs-backward-of-frame-and-coordinate-transforms" title="Permalink to this heading"></a></h4>
 <p>Instead of the notation <span class="math notranslate nohighlight">\(T_{A\to B}\)</span>, other text books often use
 notations such as <span class="math notranslate nohighlight">\(T_{AB}\)</span> or <span class="math notranslate nohighlight">\(T^A_B\)</span>. A common question
 regarding notation <span class="math notranslate nohighlight">\(T_{A\to B}\)</span> is the following:</p>
 <blockquote>
 <div><p><em>The notation :math:`T_{Ato B}` is confusing, since it transforms
-coordinates from frame :math:`B` to frame :math:`A`. Why not the
-other way around?</em></p>
+coordinates from frame :math:`B` to frame :math:`A`. Why is the
+notation not the other way around?</em></p>
 </div></blockquote>
 <p>I think the notation <span class="math notranslate nohighlight">\(T_{A\to B}\)</span> is intuitive for the following
 reasons. The core is to understand that a transformation can be thought
@@ -1414,8 +1167,50 @@ p &amp;= o^B + \sum_i p^B_i~ \boldsymbol e^B_i \\
 </section>
 </section>
 </section>
-<section id="rai-references">
-<h2>RAI references<a class="headerlink" href="#rai-references" title="Permalink to this heading"></a></h2>
+<section id="splines">
+<h2>Splines<a class="headerlink" href="#splines" title="Permalink to this heading"></a></h2>
+<p>A spline is a piece-wise polynomial path
+<span class="math notranslate nohighlight">\(x:[0,T] \maps {\mathbb{R}}^n\)</span>.</p>
+<p>Let’s first clearly distinguish the use of words <strong>knot</strong>, <strong>waypoint</strong>,
+and <strong>control point</strong>:</p>
+<ul class="simple">
+<li><p>A knot <span class="math notranslate nohighlight">\(t_i\)</span> is a point in <em>time</em>, <span class="math notranslate nohighlight">\(t_i \in {\mathbb{R}}\)</span>
+(usually <span class="math notranslate nohighlight">\(t_i \in [0,T]\)</span>). The path is polynomial between
+knots. We have a non-decreasing sequence of knots <span class="math notranslate nohighlight">\(t_0,..,t_m\)</span>
+(usually with <span class="math notranslate nohighlight">\(t_0=0\)</span> and <span class="math notranslate nohighlight">\(t_m=T\)</span>) which partition the
+time interval <span class="math notranslate nohighlight">\([0,T]\)</span> into pieces
+<span class="math notranslate nohighlight">\([t_i, t_{i{{\hspace{-0.0pt}\textrm{+}\hspace{-0.5pt}}1}}]\)</span> so
+that the path is just polynomial in each piece. Note that we may
+often have double or triple knots, meaning that several consecutive
+knots
+<span class="math notranslate nohighlight">\(t_i = t_{i{{\hspace{-0.0pt}\textrm{+}\hspace{-0.5pt}}1}}\)</span> are
+equal, especially at the beginning and end.</p></li>
+<li><p>A waypoint <span class="math notranslate nohighlight">\(x_i\)</span> is a point on the path, typically at a knot,
+<span class="math notranslate nohighlight">\(x_i = x(t_i)\)</span>. So a path really passes through a waypoint. At
+waypoints, we often also care about velocities <span class="math notranslate nohighlight">\(v_i\)</span> (or
+accelerations), where <span class="math notranslate nohighlight">\(v_i = \dot x(t_i)\)</span>.</p></li>
+<li><p>A control point <span class="math notranslate nohighlight">\(z_j\)</span> is (usually) not a point <em>on</em> the path,
+but it indirectly defines the path as an linear combination of
+several control points. B-splines, defined below, make this explicit.</p></li>
+</ul>
+<p>In robotics, there are two main conventions to define and parameterize
+splines: Hermite splines and B-splines. Hermite splines are defined by
+the knot sequence and explicitly prescribing waypoints <span class="math notranslate nohighlight">\(x_i\)</span> and
+(for cubic) velocities <span class="math notranslate nohighlight">\(v_i\)</span> at each knot (for quintic also
+acceperations <span class="math notranslate nohighlight">\(a_i\)</span>). In contrast, B-splines are specified by the
+knot sequence and <span class="math notranslate nohighlight">\(K\)</span> control points <span class="math notranslate nohighlight">\(z_j\)</span>. As in B-splines
+we do not need to provide velocities as part of the specification, they
+are sometimes easier to use in practical robotics. However, the
+resulting path does not go (exactly) through the provided control points
+– the actual waypoints are implicit and ensuring exact prescribed
+waypoints implies solving a subproblem.</p>
+<p>Cubic splines are a common choice in robotics, as they have a still
+continuous (piece-wise linear) acceleration profile, and therefore
+limited jerk (3rd time derivative).</p>
+<p>Let’s start with Cubic Hermite splines.</p>
+</section>
+<section id="code-references">
+<h2>Code References<a class="headerlink" href="#code-references" title="Permalink to this heading"></a></h2>
 <section id="nlp-interface">
 <span id="secnlp"></span><h3>NLP interface<a class="headerlink" href="#nlp-interface" title="Permalink to this heading"></a></h3>
 <p>A general non-linear mathematical program (NLP) is of the form</p>
@@ -1434,13 +1229,15 @@ to</p>
 \min_{b_l\le x \le b_u}~ f(x) + r(x)^{\!\top\!}r(x) ~~~\text{s.t.}~~~ g(x)\le 0,~ h(x) = 0  ~,\end{aligned}\]</div>
 <p>with <span class="math notranslate nohighlight">\(r:~ {\mathbb{R}}^n \to {\mathbb{R}}^{d_r}\)</span>. In technical
 terms, the solver needs to be provided with:</p>
-<p>the problem “signature”: dimension <span class="math notranslate nohighlight">\(n\)</span>, dimensions
-<span class="math notranslate nohighlight">\(d_r, d_g, d_h\)</span>, bounds <span class="math notranslate nohighlight">\(b_l, b_u \in {\mathbb{R}}^n\)</span>,</p>
-<p>functions <span class="math notranslate nohighlight">\(f, r, g, h\)</span>,   Jacobians for all,   Hessian for
-<span class="math notranslate nohighlight">\(f\)</span>,</p>
-<p>typically also an initialization sampler <span class="math notranslate nohighlight">\(x_0 \sim p(x)\)</span>, that
-provides starting <span class="math notranslate nohighlight">\(x_0\)</span>.</p>
-<p>Instead of providing a solver with separate functions
+<ul class="simple">
+<li><p>the problem “signature”: dimension <span class="math notranslate nohighlight">\(n\)</span>, dimensions
+<span class="math notranslate nohighlight">\(d_r, d_g, d_h\)</span>, bounds <span class="math notranslate nohighlight">\(b_l, b_u \in {\mathbb{R}}^n\)</span>,</p></li>
+<li><p>functions <span class="math notranslate nohighlight">\(f, r, g, h\)</span>,   Jacobians for all,   Hessian for
+<span class="math notranslate nohighlight">\(f\)</span>,</p></li>
+<li><p>typically also an initialization sampler <span class="math notranslate nohighlight">\(x_0 \sim p(x)\)</span>, that
+provides starting <span class="math notranslate nohighlight">\(x_0\)</span>.</p></li>
+</ul>
+<p>However, instead of providing a solver with separate functions
 <span class="math notranslate nohighlight">\(f, r, g, h\)</span>, we instead provide only a single differentiable
 <strong>feature</strong> function <span class="math notranslate nohighlight">\(\phi: X \to {\mathbb{R}}^K\)</span>, which stacks
 all <span class="math notranslate nohighlight">\(f,r,g,h\)</span> components to a single vector,</p>
@@ -1450,22 +1247,26 @@ all <span class="math notranslate nohighlight">\(f,r,g,h\)</span> components to 
 ~,\quad
 \rho =  \left(\begin{array}{c}\texttt{f}\\ \texttt{sos}\\ \texttt{eq}\\ \texttt{ineq}\\ \texttt{eq}\\ \vdots\end{array}\right)  ~,\end{aligned}\end{split}\]</div>
 <p>where the indicator vector <span class="math notranslate nohighlight">\(\rho\)</span> informs the solver which
-components of <span class="math notranslate nohighlight">\(\phi\)</span> have to be treated as cost, sos, eq, or ineq.
-(The order of stacking does not matter.) In this convention, the NLP
-reads</p>
+components of <span class="math notranslate nohighlight">\(\phi\)</span> have to be treated as linear cost (<code class="docutils literal notranslate"><span class="pre">f</span></code>),
+sum-of-squares cost (<code class="docutils literal notranslate"><span class="pre">sos</span></code>), equality constraint (<code class="docutils literal notranslate"><span class="pre">eq</span></code>), or
+inequality constraint (<code class="docutils literal notranslate"><span class="pre">ineq</span></code>). (The order of stacking does not
+matter.) In this convention, the NLP reads</p>
 <div class="math notranslate nohighlight">
 \[\begin{aligned}
 \min_{b_l\le x \le b_u}~ {{\bf 1}}^{\!\top\!}\phi_\texttt{f}(x) + \phi_\texttt{sos}(x)^{\!\top\!}\phi_\texttt{sos}(x)
   ~~\text{s.t.}~~\phi_\texttt{ineq}(x) \le 0,~ \phi_\texttt{eq}(x) = 0 ~,\end{aligned}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\phi_\texttt{sos}\)</span> is the subsets of <code class="docutils literal notranslate"><span class="pre">sos</span></code>-features, etc.
-The solver needs to be provided with:</p>
-<p>the problem “signature”: dimension <span class="math notranslate nohighlight">\(n\)</span>, feature types
-<span class="math notranslate nohighlight">\(\rho\)</span>, bounds <span class="math notranslate nohighlight">\(b_l, b_u \in {\mathbb{R}}^n\)</span>,</p>
-<p>a single differentiable <strong>feature</strong> function
-<span class="math notranslate nohighlight">\(\phi: X \to {\mathbb{R}}^K\)</span>, with Jacobian functnio
-<span class="math notranslate nohighlight">\(J = \partial_x \phi(x)\)</span>,</p>
-<p>and typically also an initialization sampler <span class="math notranslate nohighlight">\(x_0 \sim p(x)\)</span>, that
-provides starting <span class="math notranslate nohighlight">\(x_0\)</span>.</p>
+Based on these conventions, the solver needs to be provided with:</p>
+<ul class="simple">
+<li><p>the problem “signature”: dimension <span class="math notranslate nohighlight">\(n\)</span>, feature types
+<span class="math notranslate nohighlight">\(\rho\)</span>, bounds <span class="math notranslate nohighlight">\(b_l, b_u \in {\mathbb{R}}^n\)</span>,</p></li>
+<li><p>a single differentiable <strong>feature</strong> function
+<span class="math notranslate nohighlight">\(\phi: X \to {\mathbb{R}}^K\)</span>, with Jacobian function
+<span class="math notranslate nohighlight">\(J = \partial_x \phi(x)\)</span>,</p></li>
+<li><p>optionally a Hessian function for the sum of all <code class="docutils literal notranslate"><span class="pre">f</span></code>-terms,</p></li>
+<li><p>and typically also an initialization sampler <span class="math notranslate nohighlight">\(x_0 \sim p(x)\)</span>,
+that provides starting <span class="math notranslate nohighlight">\(x_0\)</span>.</p></li>
+</ul>
 <p>In the rai code, an NLP is therefore declared as</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span><span class="n">signature</span>
 <span class="n">uint</span> <span class="n">dimension</span><span class="p">;</span>  <span class="n">ObjectiveTypeA</span> <span class="n">featureTypes</span><span class="p">;</span>  <span class="n">arr</span> <span class="n">bounds_lo</span><span class="p">,</span> <span class="n">bounds_up</span><span class="p">;</span>
@@ -1479,18 +1280,12 @@ provides starting <span class="math notranslate nohighlight">\(x_0\)</span>.</p>
 </pre></div>
 </div>
 </section>
-<section id="kinematic-features">
-<h3>Kinematic Features<a class="headerlink" href="#kinematic-features" title="Permalink to this heading"></a></h3>
-<p>The code has several kinematic features
-<span class="math notranslate nohighlight">\(\phi: q \mapsto \phi(q)\in{\mathbb{R}}^D\)</span> pre-defined – see Table
-[tabFeatures].</p>
-</section>
-<section id="graph-yaml-files">
-<h3>Graph-Yaml Files<a class="headerlink" href="#graph-yaml-files" title="Permalink to this heading"></a></h3>
+<section id="yaml-graph-files">
+<span id="secyamlgraph"></span><h3>Yaml-Graph Files<a class="headerlink" href="#yaml-graph-files" title="Permalink to this heading"></a></h3>
 <p>We use yaml-style files throughout. These are the file representation of
 internal data structures such as dictionaries (anytype key-value maps)
 used for parameter files or other structure data, but esp. also graphs.
-The key extensions relative to yaml are:</p>
+The (semantic) extensions relative to yaml are:</p>
 <ul class="simple">
 <li><p>An &#64;Include&#64; node allows to hierarchically include files. This means
 that while each local file can be parsed with a standard yaml parser,
@@ -1511,199 +1306,21 @@ and &#64;C&#64;. The semantics of this is that &#64;A&#64; is a (directed) edge
 between B and C. This is analogous to a dot declaration &#64;B -&gt; C [
 shape=box ]&#64;.</p></li>
 <li><p>Note that all of the above is still yaml syntax, the outer parser
-only adds additional interpretation of &#64;Include, Edit, Delete&#64; tags,
-&#64;&lt;..&gt;&#64; values, and &#64;(..)&#64; in names.</p></li>
+only adds additional interpretation (post-processing) of &#64;Include,
+Edit, Delete&#64; tags, &#64;&lt;..&gt;&#64; values, and &#64;(..)&#64; in names.</p></li>
 </ul>
 <p>Within rai, .g-files are used to represent parameter files, robotic
-configurations (<span class="math notranslate nohighlight">\(\sim\)</span> URDF), logic, factor graphs, optimization
-problems. The underlying data structure is used, e.g., as any-type
-container, Graph, or auto-convertion to python dictionaries.</p>
-<p>The following example of a .g-file might help:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>## a trivial graph (all boolean-valued nodes)
-x            # a vertex: key=x, value=true, parents=none
-y            # another vertex: key=y, value=true, parents=none
-(x y)        # an edge: key=none, value=true, parents=x y
-(-1 -2)      # a hyperedge: key=none, value=true, parents=the previous edge and the y-node
-
-## nodes with subgraphs as value
-A { color:blue }         # key=A, value=&lt;Graph&gt;, parents=none
-B { color:red, value:5 } # key=B, value=&lt;Graph&gt;, parents=none
-C(A,B) { width:2 }       # key=C, value=&lt;Graph&gt;, parents=A B
-hyperedge(A B C) : 5     # key=hyperedge, value=5, parents=A B C
-
-## standard value types
-a:string      # MT::String (except for keywords &#39;true&#39; and &#39;false&#39; and &#39;Mod&#39; and &#39;Include&#39;)
-b:&quot;STRING&quot;    # MT::String (does not require a &#39;:&#39;)
-c:&#39;file.txt&#39;  # MT::FileToken (does not require a &#39;:&#39;)
-d:-0.1234     # double
-e:[1 2 3 0.5] # MT::arr (does not require a &#39;:&#39;)
-#f:(c d e)    # DEPRECATED!! MT::Array&lt;*Node&gt; (list of other nodes in the Graph)
-g!            # bool (default: true, !means false)
-h:true        # bool
-i:false       # bool
-j:{ a:0 }     # sub-Graph (special: does not require a &#39;:&#39;)
-
-## parsing: : {..} (..) , and \n are separators for parsing key-value-pairs
-b0:false b1, b2() b3    # 4 boolean nodes with keys &#39;b0&#39;, &#39;b1&#39;, &#39;b2&#39;, &#39;b3&#39;
-k:{ a, b:0.2 x:&quot;hallo&quot;     # sub-Graph with 6 nodes
-  y
-  z():filename.org x }
-
-## special Node Keys
-
-# editing: after reading all nodes, the Graph takes all Edit nodes, deletes the Edit tag, and calls a edit()
-# this example will modify/append the respective attributes of k
-Edit k { y:false, z:otherString, b:7, c:newAttribute }
-
-# including
-Include: &#39;example_include.g&#39;   # first creates a normal FileToken node then opens and includes the file directly
-
-## strange notations
-a()       # key=a, value=true, parents=none
-()        # key=none, value=true, parents=none
-[1 2 3 4] # key=none, value=MT::arr, parents=none
-</pre></div>
-</div>
+configurations (<span class="math notranslate nohighlight">\(\sim\)</span> URDF), 1st order logic, factor graphs,
+optimization problems. The underlying data structure is used, e.g., as
+any-type container, Graph, or auto-convertion to python dictionaries.</p>
 <p>Subgraphs may contain nodes that have parents from the containing graph,
 or from other subgraphs of the containing graph. Some methods of the
 <code class="docutils literal notranslate"><span class="pre">Graph</span></code> class (to find nodes by key or type) allow to specify whether
 also nodes in subgraphs or parentgraphs are to be searched. This
 connectivity across (sub)-graphs e.g. allows to represent logic
 knowledge bases.</p>
-</section>
-<section id="yaml-style-files-to-describe-robot-configurations">
-<h3>yaml-style files to describe robot configurations<a class="headerlink" href="#yaml-style-files-to-describe-robot-configurations" title="Permalink to this heading"></a></h3>
-<p>We use .g-files to represent robot/world configurations. .g-files
-describe a general graph data structure as explained in :ref:‘refGraph‘.
-But for robot configurations it is rather simple: Everly node describes
-a frame, and is described by three things:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">frame</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span> <span class="p">(</span> <span class="o">&lt;</span><span class="n">parent</span><span class="o">&gt;</span> <span class="p">)</span> <span class="p">{</span> <span class="o">&lt;</span><span class="n">attributes</span><span class="o">&gt;</span> <span class="p">}</span>
-</pre></div>
-</div>
-<p>where “&lt;parent&gt;“ needs to be a previously defined frame, or omitted, if
-the frame is a root frame. The attributes defined properties of the
-frame, such as its pose, shape, joint properties, etc.</p>
-<p>Here is an example taken from the “test/Kin/kin“:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">stem</span> <span class="p">{</span> <span class="n">X</span><span class="p">:</span><span class="o">&lt;</span><span class="n">t</span><span class="p">(</span><span class="mi">0</span> <span class="mi">0</span> <span class="mf">.5</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span><span class="n">capsule</span><span class="p">,</span> <span class="n">mass</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="p">:[</span><span class="mi">1</span> <span class="mf">.05</span><span class="p">]</span> <span class="p">}</span>
-
-<span class="n">joint1_pre</span> <span class="p">(</span><span class="n">stem</span><span class="p">)</span> <span class="p">{</span> <span class="n">Q</span><span class="p">:</span><span class="o">&lt;</span><span class="n">t</span><span class="p">(</span><span class="mi">0</span> <span class="mi">0</span> <span class="mf">.5</span><span class="p">)</span> <span class="n">d</span><span class="p">(</span><span class="mi">90</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">)</span><span class="o">&gt;</span> <span class="p">}</span>
-<span class="n">joint1</span> <span class="p">(</span><span class="n">arm1</span><span class="p">)</span> <span class="p">{</span> <span class="n">joint</span><span class="p">:</span><span class="n">hingeX</span><span class="p">,</span> <span class="n">Q</span><span class="p">:</span><span class="o">&lt;</span><span class="n">d</span><span class="p">(</span><span class="o">-</span><span class="mi">30</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">)</span><span class="o">&gt;</span> <span class="p">}</span>
-<span class="n">arm1</span> <span class="p">(</span><span class="n">joint1</span><span class="p">)</span> <span class="p">{</span> <span class="n">Q</span><span class="p">:</span><span class="o">&lt;</span><span class="n">t</span><span class="p">(</span><span class="mi">0</span> <span class="mi">0</span> <span class="mf">.15</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span><span class="n">capsule</span><span class="p">,</span> <span class="n">mass</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="p">:[</span><span class="mf">.3</span> <span class="mf">.05</span><span class="p">]</span> <span class="p">}</span>
-
-<span class="n">arm2</span> <span class="p">{</span> <span class="n">shape</span><span class="p">:</span><span class="n">capsule</span><span class="p">,</span> <span class="n">mass</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="p">:[</span><span class="mf">.3</span> <span class="mf">.05</span><span class="p">]</span> <span class="p">}</span>
-<span class="n">eff</span> <span class="p">{</span> <span class="n">shape</span><span class="p">:</span><span class="n">capsule</span><span class="p">,</span> <span class="n">mass</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="p">:[</span><span class="mf">.3</span> <span class="mf">.05</span><span class="p">]</span> <span class="p">}</span>
-
-<span class="n">joint2</span> <span class="p">(</span><span class="n">arm1</span> <span class="n">arm2</span><span class="p">)</span> <span class="p">{</span> <span class="n">joint</span><span class="p">:</span><span class="n">hingeX</span><span class="p">,</span> <span class="n">A</span><span class="p">:</span><span class="o">&lt;</span><span class="n">t</span><span class="p">(</span><span class="mi">0</span> <span class="mi">0</span> <span class="mf">.15</span><span class="p">)</span> <span class="n">d</span><span class="p">(</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Q</span><span class="p">:</span><span class="o">&lt;</span><span class="n">d</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">B</span><span class="p">:</span><span class="o">&lt;</span><span class="n">t</span><span class="p">(</span><span class="mi">0</span> <span class="mi">0</span> <span class="mf">.15</span><span class="p">)</span> <span class="o">&gt;</span> <span class="p">}</span>
-<span class="n">joint3</span> <span class="p">(</span><span class="n">arm2</span> <span class="n">eff</span> <span class="p">)</span> <span class="p">{</span> <span class="n">joint</span><span class="p">:</span><span class="n">hingeX</span><span class="p">,</span> <span class="n">A</span><span class="p">:</span><span class="o">&lt;</span><span class="n">t</span><span class="p">(</span><span class="mi">0</span> <span class="mi">0</span> <span class="mf">.15</span><span class="p">)</span> <span class="n">d</span><span class="p">(</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Q</span><span class="p">:</span><span class="o">&lt;</span><span class="n">d</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">B</span><span class="p">:</span><span class="o">&lt;</span><span class="n">t</span><span class="p">(</span><span class="mi">0</span> <span class="mi">0</span> <span class="mf">.15</span><span class="p">)</span> <span class="o">&gt;</span> <span class="p">}</span>
-
-<span class="n">target</span> <span class="p">{</span> <span class="n">X</span><span class="p">:</span><span class="o">&lt;</span><span class="n">t</span><span class="p">(</span><span class="mf">.0</span> <span class="mf">.2</span> <span class="mf">1.7</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span><span class="n">sphere</span><span class="p">,</span> <span class="n">mass</span><span class="p">:</span><span class="mf">.001</span><span class="p">,</span> <span class="n">size</span><span class="p">:[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mf">.02</span><span class="p">],</span> <span class="n">color</span><span class="p">:[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">]</span> <span class="p">}</span>
-</pre></div>
-</div>
-<p>The first line defines a frame “stem“, which has absolute pose “&lt;t(0 0
-.5)&gt;“ (pose specifications are described below). It also has a shape
-attached, namely a capsule of length 1 and radius .05. And it has
-inertial mass attached, namely with mass 1.</p>
-<p>The 2nd to 4th line form a block of 3 new frames: the <code class="docutils literal notranslate"><span class="pre">joint1_pre</span></code>
-frame is child of step, which fixed relative transformation
-<code class="docutils literal notranslate"><span class="pre">&lt;t(0</span> <span class="pre">0</span> <span class="pre">.5)</span> <span class="pre">d(90</span> <span class="pre">1</span> <span class="pre">0</span> <span class="pre">0)&gt;</span></code> (.5 meter up, 90 degress rotation about x).
-The <code class="docutils literal notranslate"><span class="pre">joint1</span></code> frame is a child of <code class="docutils literal notranslate"><span class="pre">joint1_pre</span></code>. But this frame is
-special! It is a joint, which means that its relative transformation to
-the parent is not fixed, but varies with joint dofs. Here, it is 1 joint
-dofs describing a hinge joint about the parent’s x-axis. This joint is
-here initialized to non-zero, namely to a relative transform
-<code class="docutils literal notranslate"><span class="pre">&lt;d(-30</span> <span class="pre">1</span> <span class="pre">0</span> <span class="pre">0)&gt;</span></code>. The <code class="docutils literal notranslate"><span class="pre">arm1</span></code> frame is then a child of <code class="docutils literal notranslate"><span class="pre">joint1</span></code>,
-with a relative transform <code class="docutils literal notranslate"><span class="pre">&lt;t(0</span> <span class="pre">0</span> <span class="pre">.15)&gt;</span></code>, a capsule shape attached,
-and mass.</p>
-<p>This is a typical example for a chain of frames from one link, via a
-joint, to the next. All robot configurations are just trees; and the
-configuration file simply defines frames one-by-one, where each frame
-may have 1 parent frame.</p>
-<p>The next two lines define two more frames <code class="docutils literal notranslate"><span class="pre">arm2</span></code> and <code class="docutils literal notranslate"><span class="pre">eff</span></code> mass and
-capsule shapes; but they’re yet all located at zero absolute pose. The
-following two lines are actually a short hand notation to introduce a
-joint frames between arm1 and arm2 (arm2 and arm3) in retrospect. The
-<code class="docutils literal notranslate"><span class="pre">joint2</span></code> declaration implicitly first defines a <code class="docutils literal notranslate"><span class="pre">joint2_pre</span></code> child
-of arm1 with fixed relative transformation A; then the <code class="docutils literal notranslate"><span class="pre">joint2</span></code> chile
-of <code class="docutils literal notranslate"><span class="pre">joint2_pre</span></code> with hinge joint and initial transformation Q; then
-attaches the arm2 frame as its child with fixed relative transformation
-B. So this is a typical short hand to specify a joint (more similarly to
-how its done in URDF). But the generated underlying data structure is
-just a tree of frames.</p>
-<section id="editing-using-kinedit">
-<h4>Editing using <code class="docutils literal notranslate"><span class="pre">kinEdit</span></code><a class="headerlink" href="#editing-using-kinedit" title="Permalink to this heading"></a></h4>
-<p>Whenever working with .g-files, you should try to display them using the
-<code class="docutils literal notranslate"><span class="pre">$RAI/bin/kinEdit</span></code> command line tool. CMake automatically compiles it;
-otherwise call ’make bin’ in <code class="docutils literal notranslate"><span class="pre">$RAI</span></code> to compile this. Then you can call
-<code class="docutils literal notranslate"><span class="pre">kinEdit</span> <span class="pre">someFile.g</span></code> on any model file. (In python, the equivalence is
-to reload the configuration from file repeatedly.) Whenever <code class="docutils literal notranslate"><span class="pre">kinEdit</span></code>
-reads a file, it also outputs a file <code class="docutils literal notranslate"><span class="pre">z.g</span></code> and <code class="docutils literal notranslate"><span class="pre">z.urdf</span></code> of what it
-read. Sometimes it is useful to look into this. It can also be used to
-clean and prune kinematic structures.</p>
-<p>But more than that, you can keep the display open when editing the file
-in any text editor. Whenever you save the file the display will notice
-it, reload the file, and display the updated model. This allows some
-degree of continuous editing. You might sometimes have to hit enter in
-the window to enforce reloading. The little tool tries to catch and
-report on syntax errors and be robust, but it crashes on some syntax
-errors and then needs to be restarted manually.</p>
-</section>
-<section id="import-from-urdf">
-<h4>Import from URDF<a class="headerlink" href="#import-from-urdf" title="Permalink to this heading"></a></h4>
-<p>You can convert URDF files to .g-files using the <code class="docutils literal notranslate"><span class="pre">rai/bin/urdf2rai.py</span></code>
-script. However, the overall conversion is only partially automatic. The
-resulting g-file encodes the full kinematic structure, but the mesh
-files usually require manual fiddling. First, in the g-file, you have to
-change the path to their location in the file system (removing the
-’package’ part). Potentially that’s all you need. However, the rai code
-calls various collision libraries that need clean and correct
-(orientation, holes, etc) mesh files. Those that come with URDF files
-are typically not clean and correct. I typically use meshlab (the
-command line tool) to automatically clean and compress meshes into ply
-files.</p>
-<p>The best guide for the whole conversion pipeline is hubo/HOWTO.sh in the
-rai-robotModels repository, which also describes mesh cleaning scripts.
-We also managed to import a [full
-kitchen](<a class="reference external" href="https://github.com/MarcToussaint/rai-robotModels/tree/master/bremenKitchen">https://github.com/MarcToussaint/rai-robotModels/tree/master/bremenKitchen</a>)
-from unreal, where we first exported the description to JSON. There are
-also some working examples to import ‘gltf‘.</p>
-<p>Finally, the collada file format can represent trees of frames and
-objects, which can be loaded. This can be augmented with just a little
-extra information on joints to make this a properly articulated robot
-world.</p>
-</section>
-<section id="notation-to-specify-transformations">
-<h4>Notation to specify transformations<a class="headerlink" href="#notation-to-specify-transformations" title="Permalink to this heading"></a></h4>
-<p>Transformation can always be specified as 7-vectors
-<code class="docutils literal notranslate"><span class="pre">Q:[p1</span> <span class="pre">p2</span> <span class="pre">p3</span> <span class="pre">q0</span> <span class="pre">q1</span> <span class="pre">q2</span> <span class="pre">q3]</span></code> (position, quaternion), or also 3- or
-4-vectors if you only want to set position or orientation. But this is
-not always intuitive for human editing. Therefore, the bracket notation
-<code class="docutils literal notranslate"><span class="pre">&lt;...&gt;</span></code> allows for another notation, namely as a chaining of little
-interpretable transformations, as in the old turtle language.</p>
-<p>Specifically, you specify a transform by chaining:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">t</span><span class="p">(</span><span class="n">x</span> <span class="n">y</span> <span class="n">z</span><span class="p">)</span>       <span class="c1"># translation by (x,y,z)</span>
-<span class="n">q</span><span class="p">(</span><span class="n">q0</span> <span class="n">q1</span> <span class="n">q2</span> <span class="n">q3</span><span class="p">)</span> <span class="c1"># rotation by a quaternion</span>
-<span class="n">r</span><span class="p">(</span><span class="n">r</span> <span class="n">x</span> <span class="n">y</span> <span class="n">z</span><span class="p">)</span>     <span class="c1"># rotation by `r` _radians_ around the axis (x,y,z)</span>
-<span class="n">d</span><span class="p">(</span><span class="n">d</span> <span class="n">x</span> <span class="n">y</span> <span class="n">z</span><span class="p">)</span>     <span class="c1"># rotation by `d` _degrees_ around the axis (x,y,z)</span>
-<span class="n">E</span><span class="p">(</span><span class="n">r</span> <span class="n">p</span> <span class="n">y</span><span class="p">)</span>       <span class="c1"># rotation by roll-pitch-yaw Euler angles</span>
-</pre></div>
-</div>
-</section>
-<section id="joint-types">
-<h4>Joint types<a class="headerlink" href="#joint-types" title="Permalink to this heading"></a></h4>
-<p>The <code class="docutils literal notranslate"><span class="pre">libry.JT</span></code> enum (in python; or rai::JointType in C++) lists all
-available joint type. Currently these are:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hingeX</span><span class="p">,</span> <span class="n">hingeY</span><span class="p">,</span> <span class="n">hingeZ</span><span class="p">,</span> <span class="n">transX</span><span class="p">,</span> <span class="n">transY</span><span class="p">,</span> <span class="n">transZ</span><span class="p">,</span> <span class="n">transXY</span><span class="p">,</span> <span class="n">trans3</span><span class="p">,</span> <span class="n">transXYPhi</span><span class="p">,</span> <span class="n">universal</span><span class="p">,</span> <span class="n">rigid</span><span class="p">,</span> <span class="n">quatBall</span><span class="p">,</span> <span class="n">phiTransXY</span><span class="p">,</span> <span class="n">XBall</span><span class="p">,</span> <span class="n">free</span><span class="p">,</span> <span class="n">tau</span>
-</pre></div>
-</div>
-<p>A quatBall is a quaternion ball joint with 4 dofs (that supports all
-differentiability and optimization); a free joint is a full 7 dof joint;
-a rigid joint might seem redundant, but internally it sometimes markes a
-break between separate objects (like an object sitting rigidly on a
-table) rather than having multiple shapes attached to the same object.</p>
-<p>The joint’s dofs can be initialized equivalently either with a <code class="docutils literal notranslate"><span class="pre">q</span></code>
-attribute (defining the dofs values), or a <code class="docutils literal notranslate"><span class="pre">Q</span></code> attribute (defining the
-resulting relative transformation generated by the joint).</p>
-</section>
+<p>The shows this file syntax is used to specify robot/environment
+configurations.</p>
 </section>
 </section>
 <section id="cameras">
@@ -1740,13 +1357,13 @@ forward, i.e., pixels in front of the camera have a positive depth
 </ul>
 <p>The transformation from camera coordinates <span class="math notranslate nohighlight">\(x\)</span> to image
 coordinates <span class="math notranslate nohighlight">\(u\)</span> is involves perspective projection. For better
-readability, let’s write – only for this equation –
-<span class="math notranslate nohighlight">\(x \equiv (x,y,z)\)</span>. Then the mapping is</p>
+readability, let’s write (only in this equation)
+<span class="math notranslate nohighlight">\(x \equiv (\texttt{x},\texttt{y},\texttt{z})\)</span>. Then the mapping is</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 \label{eqxtou}
 u =  \left(\begin{array}{c}u_x \\ u_y \\ u_d\end{array}\right)
-&amp;=  \left(\begin{array}{c}(f_x x + s y)/z + c_x\\ f_y y/z + c_y \\ z\end{array}\right)  ~.\end{aligned}\end{split}\]</div>
+&amp;=  \left(\begin{array}{c}(f_x \texttt{x}+ s \texttt{y})/\texttt{z}+ c_x\\ f_y \texttt{y}/\texttt{z}+ c_y \\ \texttt{z}\end{array}\right)  ~.\end{aligned}\end{split}\]</div>
 <p>Here, the five so-called <strong>intrinsic parameters</strong>
 <span class="math notranslate nohighlight">\(f_x,f_y,c_x,c_y,s\)</span> are the focal length <span class="math notranslate nohighlight">\(f_x,f_y\)</span>, the
 image center <span class="math notranslate nohighlight">\(c_x,c_y\)</span>, and a image skew <span class="math notranslate nohighlight">\(s\)</span> (which is
@@ -1856,56 +1473,13 @@ We can decompose it using</p>
   (K,R^{\!\top\!}) &amp;\gets \text{RQ-decomposition}( [P^+_{1:3,:}]^{{\hspace{-0.0pt}\textrm{-}\hspace{-0.5pt}}1} ]\end{aligned}\end{split}\]</div>
 </section>
 </section>
-<section id="placeholder-1">
-<span id="id4"></span><h2>Placeholder<a class="headerlink" href="#placeholder-1" title="Permalink to this heading"></a></h2>
-<section id="shapes">
-<span id="secshapes"></span><h3>Shapes<a class="headerlink" href="#shapes" title="Permalink to this heading"></a></h3>
-</section>
-<section id="kinematics-formally">
-<span id="seckinematics"></span><h3>Kinematics formally<a class="headerlink" href="#kinematics-formally" title="Permalink to this heading"></a></h3>
-<p>– Switching Kinematics?</p>
-<aside class="footnote-list brackets">
-<aside class="footnote brackets" id="id5" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
-<p>Transformation of accelerations:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{aligned}
-\dot v
- &amp;= \dot v_1
-      + \dot w_1 \times (r_1 \cdot t_2)
-      + w_1 \times (w_1 \times (r_1 \cdot t_2))\\
-      &amp;\quad+ 2\, w_1 \times (r_1 \cdot v_2)
-      + r_1 \cdot \dot v_2 \\
-\dot w
- &amp;= \dot w_1 + w_1 \times (r_1 \cdot w_2) + r_1 \cdot \dot w_2\end{aligned}\end{split}\]</div>
-<p>Used identities: for any vectors <span class="math notranslate nohighlight">\(a,b,c\)</span> and rotation
-<span class="math notranslate nohighlight">\(r\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{aligned}
-&amp;r \cdot (a \times b) = (r \cdot a) \times (r \cdot b)\\
-&amp; a \times (b \times c) = b (a c) - c (ab) \\
-&amp;\partial_t (r \cdot a) = w \times (r \cdot a) + r \cdot \dot a \\
-%&amp; \del_t (r_0 \circ r \cdot t)
-% = w_0 \times (r_0 \circ r \cdot t)
-% + r_0 \cdot \[w \times (r \cdot t) + r \cdot v\]
-% = (w_0 + r_0 \cdot w) \times (r_0 \circ r \cdot t) + r_0 r \cdot v  \\
-&amp; \partial_t (w \times a) = \dot w \times t + w \times \dot a\end{aligned}\end{split}\]</div>
-</aside>
-<aside class="footnote brackets" id="id6" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">2</a><span class="fn-bracket">]</span></span>
-<p>There is ways to handle the invariance w.r.t. quaternion sign
-properly.</p>
-</aside>
-</aside>
-</section>
-</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../tutorials/script5-PathFind.html" class="btn btn-neutral float-left" title="Path finding example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../tutorials/nlp-solver.html" class="btn btn-neutral float-left" title="Optimization (NLP formulation and solving)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="../old/old.html" class="btn btn-neutral float-right" title="Old Material" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

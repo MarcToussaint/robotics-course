@@ -63,10 +63,10 @@
 <li class="toctree-l3"><a class="reference internal" href="1b-botop.html">BotOp (Robot Operation) interface</a></li>
 <li class="toctree-l3"><a class="reference internal" href="1c-komo.html">KOMO: Motion Optimization</a></li>
 <li class="toctree-l3"><a class="reference internal" href="1d-real.html">Starting with a real robot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html">Differentiable Features &amp; Collision Evaluation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../tutorials.html#in-depth">In Depth</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#preliminary">Preliminary</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../script/script.html">Lecture Script</a></li>
@@ -121,7 +121,7 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-version: 0.0.22 compile time: Oct 10 2023 22:38:22
+version: 0.0.23 compile time: Oct 20 2023 14:36:37
 </pre></div></div>
 </div>
 <p>The following creates an empty configuration, and opens a view window for it.</p>
@@ -291,6 +291,8 @@ dict_keys([&#39;hingeX&#39;, &#39;hingeY&#39;, &#39;hingeZ&#39;, &#39;transX&#39
 </div>
 <p>Please see the <a class="reference external" href="https://marctoussaint.github.io/robotics-course/script/script.html#kinematics">Script:Kinematics</a> on the basics of such joints (=parameterized transformations). The <code class="docutils literal notranslate"><span class="pre">quatBall</span></code> perhaps deserves special explanation: it realizes a ball joint by introducing the 4D quaternion as joint state - this sometimes requires special attention. But the rai code implements correct Jacobians (accounting also for implicit normalization) w.r.t. the quaternion parameterization. The <code class="docutils literal notranslate"><span class="pre">free</span></code>
 joint is a 7D joint with 3D position and <code class="docutils literal notranslate"><span class="pre">quatBall</span></code>.</p>
+<p>There is also a <code class="docutils literal notranslate"><span class="pre">rigid</span></code> joint, which simply means no DOF and seems fully redundant: having no joint or a rigid joint is the same. However, there is a semantic difference. A child frame without joint is really considered to be <em>a part</em> of the parent: The parent could be a <em>link</em> with multiple shapes (e.g. convex parts) or masses associated, but it is semantically one big link. When a frame has a joint (including a <code class="docutils literal notranslate"><span class="pre">rigid</span></code> joint), it is not considered part of its parent. That semantics rarely
+makes a difference, but it does in certain picking or walking scenarios, where objects, endeffectors or feet <em>attach</em> to other objects via a rigid joint.</p>
 </section>
 <section id="Specifying-transformations:-Quaternions-&amp;-turtle-strings">
 <h2>Specifying transformations: Quaternions &amp; turtle strings<a class="headerlink" href="#Specifying-transformations:-Quaternions-&-turtle-strings" title="Permalink to this heading"></a></h2>
@@ -314,7 +316,7 @@ joint is a 7D joint with 3D position and <code class="docutils literal notransla
 0
 </pre></div></div>
 </div>
-<p>But to specify transformations as a human, it is easier to use what I call turtle commands: a string of ‘translate’, ‘rotate’ commands that is sequenced to define a transformation:</p>
+<p>But to specify transformations using translation and quaternion is not always intuitive as a human. Therefore, we also allow for a <em>turtle string</em> notation, namely a string that chains little interpretable ‘translate’ and ‘rotate’ commands to define a transformation, as in the old turtle language. Here is an example:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
@@ -335,8 +337,14 @@ joint is a 7D joint with 3D position and <code class="docutils literal notransla
 0
 </pre></div></div>
 </div>
-<p>Also rpy-Euler angles <code class="docutils literal notranslate"><span class="pre">E</span></code>, rotation-by-radians <code class="docutils literal notranslate"><span class="pre">r</span></code>, and quaternions <code class="docutils literal notranslate"><span class="pre">q</span></code> can be used in turtle strings.</p>
-</section>
+<p>Here is a specification of the possible commands:</p>
+<pre>
+  t(x y z)       # translation by (x,y,z)
+  q(q0 q1 q2 q3) # rotation by a quaternion
+  r(r x y z)     # rotation by `r` _radians_ around the axis (x,y,z)
+  d(d x y z)     # rotation by `d` _degrees_ around the axis (x,y,z)
+  E(r p y)       # rotation by roll-pitch-yaw Euler angles
+</pre></section>
 <section id="Loading-existing-configurations">
 <h2>Loading existing configurations<a class="headerlink" href="#Loading-existing-configurations" title="Permalink to this heading"></a></h2>
 <p>You will usually load predefined configurations from file, and then perhaps edit and combine them manually. The rai package has several robot models predefined and installed in the <code class="docutils literal notranslate"><span class="pre">raiPath</span></code>. They typically have the <code class="docutils literal notranslate"><span class="pre">.g</span></code>-file extension (see <a class="reference external" href="https://marctoussaint.github.io/robotics-course/script/script.html#graph-yaml-files">Script:gFiles</a> on this file format, which is a yaml-conform graph file). Converting from URDF to configuration files is possible (see advanced tutorial).</p>
@@ -436,11 +444,11 @@ frames: [&#39;panda_base&#39;, &#39;panda_link0&#39;, &#39;panda_link0_0&#39;, &
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-gripper pos: [0.28285113 0.48303487 0.78372153]
-gripper quat: [-0.82227892 -0.21950445  0.40232861  0.33735273]
-gripper rot: [[ 0.44864964  0.37817024 -0.80975353]
- [-0.73142193  0.67602185 -0.08953445]
- [ 0.51355182  0.63244108  0.57989897]]
+gripper pos: [0.22972161 0.63675584 0.81163634]
+gripper quat: [-0.79663237 -0.24376386  0.46490269  0.29970242]
+gripper rot: [[ 0.3880879   0.25085235 -0.8868263 ]
+ [-0.70415824  0.70151528 -0.10971544]
+ [ 0.59459982  0.66704528  0.44888934]]
 </pre></div></div>
 </div>
 <p>The above provides basic forward kinematics: After <code class="docutils literal notranslate"><span class="pre">setJointState</span></code> you can query the pose of any configuration frame.</p>
@@ -460,17 +468,17 @@ gripper rot: [[ 0.44864964  0.37817024 -0.80975353]
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-position of gripper: [0.27017462 0.03622352 0.84999348]
-Jacobian: [[-3.62235225e-02  5.13463103e-01 -7.02622624e-02 -2.71168832e-01
-  -1.27611357e-02  2.56483270e-02  2.60208521e-18  0.00000000e+00
+position of gripper: [0.1938467  0.05571584 0.92707862]
+Jacobian: [[-5.57158418e-02  5.93961135e-01 -1.59973178e-02 -3.74233985e-01
+   3.40893538e-03 -3.55845920e-02  4.33680869e-18  0.00000000e+00
    0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
    0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00]
- [ 2.70174616e-01  6.03150204e-02  5.76809785e-01 -2.28430634e-02
-   1.64795742e-01  2.69416090e-02 -6.93889390e-17  0.00000000e+00
+ [ 1.93846702e-01 -1.18141540e-02  6.14899795e-01  3.09760548e-02
+   1.46708625e-01  3.69133387e-02  5.55111512e-17  0.00000000e+00
    0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
    0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00]
- [ 0.00000000e+00 -2.72555698e-01 -3.69637629e-03  4.88346517e-01
-  -1.75743534e-02  2.34009216e-01  1.73472348e-18  0.00000000e+00
+ [ 0.00000000e+00 -1.92700374e-01 -5.24486684e-02  4.31994181e-01
+  -2.28855824e-02  2.31333401e-01  5.20417043e-18  0.00000000e+00
    0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
    0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00]]
 </pre></div></div>
@@ -490,12 +498,12 @@ Jacobian: [[-3.62235225e-02  5.13463103e-01 -7.02622624e-02 -2.71168832e-01
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(array([-0.287672]),
- array([[ 8.92832227e-02,  5.19279493e-02,  5.58803809e-01,
-         -3.76354350e-02, -2.31257978e-02,  1.11019864e-03,
-         -3.11061377e-17, -0.00000000e+00, -7.07358385e-02,
-          3.18319343e-02, -5.48892145e-01, -7.56432874e-03,
-          6.87288685e-02,  6.43205889e-04,  1.36335428e-17,
+(array([-0.40236503]),
+ array([[-2.42147163e-02,  9.94071777e-03,  5.57838017e-01,
+         -2.81537448e-02, -4.43005956e-02, -9.59797410e-05,
+          1.82288149e-16, -0.00000000e+00,  5.00697618e-03,
+         -1.37520471e-02, -5.44630216e-01,  1.79043783e-02,
+          7.34786608e-02,  1.94588018e-02, -1.88400330e-17,
          -0.00000000e+00]]))
 </pre></div></div>
 </div>
@@ -514,17 +522,17 @@ Jacobian: [[-3.62235225e-02  5.13463103e-01 -7.02622624e-02 -2.71168832e-01
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(array([ 0.35672715, -0.68401201,  0.63629656]),
- array([[ 0.68401201,  0.6319515 ,  0.32046993, -0.61004922,  0.49726775,
-         -0.55852166, -0.31342281,  0.        ,  0.        ,  0.        ,
+(array([ 0.14746986, -0.58349898,  0.79861228]),
+ array([[ 0.58349898,  0.79845435,  0.29047621, -0.73479687,  0.50459046,
+         -0.69895086, -0.17492902,  0.        ,  0.        ,  0.        ,
           0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
           0.        ],
-        [ 0.35672715,  0.07423351,  0.72343628, -0.07620321, -0.28012681,
-         -0.01113349, -0.72925977,  0.        ,  0.        ,  0.        ,
+        [ 0.14746986, -0.01588162,  0.77300206, -0.01285582, -0.4321508 ,
+          0.04105352, -0.81009853,  0.        ,  0.        ,  0.        ,
           0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
           0.        ],
-        [ 0.        , -0.27449095,  0.59802111,  0.26009446, -0.57991671,
-          0.3011558 , -0.60823213,  0.        ,  0.        ,  0.        ,
+        [ 0.        , -0.15904446,  0.51114844,  0.12629287, -0.40892364,
+          0.159062  , -0.55958932,  0.        ,  0.        ,  0.        ,
           0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
           0.        ]]))
 </pre></div></div>
@@ -934,15 +942,15 @@ joint names:  [&#39;panda_joint1&#39;, &#39;panda_joint2&#39;, &#39;panda_joint3
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-pressed key: 121 y
+pressed key: 113 q
 </pre></div></div>
 </div>
 <p>You can also get a screenshot:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">img</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">view_getScreenshot</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">img</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">view_getRgb</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">img</span><span class="p">),</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -956,7 +964,7 @@ pressed key: 121 y
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -974,7 +982,7 @@ pressed key: 121 y
 </div>
 <p>And release everything, including closing the view</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">C</span>

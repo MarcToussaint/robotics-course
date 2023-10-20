@@ -52,10 +52,10 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../tutorials.html#basics-on-configurations-botop-komo">Basics on Configurations, BotOp &amp; KOMO</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../tutorials.html#in-depth">In Depth</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="features.html">Differentiable Features &amp; Collision Evaluation</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Importing, Editing &amp; Manipulating Configurations</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#Importing-robot-models">Importing robot models</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#Conversion-from-URDF">Conversion from URDF</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Configuration-file-(.g-file)-syntax">Configuration file (.g-file) syntax</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#Interactive-Editing">Interactive Editing</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#How-to-attach-frames---faking-grasps">How to attach frames - faking grasps</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#Advanced:-YAML-and-dict-representations">Advanced: YAML and dict representations</a></li>
@@ -63,9 +63,11 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="komo-reporting.html">KOMO: Reporting &amp; Explaining Convergence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="simulation.html">Direct Simulation Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rendering.html">CameraView, Offscreen (headless), and Realistic Rendering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rrt-example.html">Path finding example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nlp-solver.html">Optimization (NLP formulation and solving)</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#preliminary">Preliminary</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../script/script.html">Lecture Script</a></li>
@@ -194,14 +196,33 @@ The path where model files are pre-installed:
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>urdf2rai.py ur10.urdf &gt; ur10_org.g
 </pre></div>
 </div>
-<p>That should generate a <code class="docutils literal notranslate"><span class="pre">ur10_org.g</span></code> file that can be displayed with <code class="docutils literal notranslate"><span class="pre">kinEdit</span> <span class="pre">ur10_org.g</span></code>. Note, by default that <strong>excludes</strong> exporting collision shapes (as I typically replace them, e.g. by the convex hull of the visual shapes). The <code class="docutils literal notranslate"><span class="pre">-coll</span> <span class="pre">1</span></code> option of the script should include also the collision shapes.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">rai-robotModels</span></code> should have more info on conversion from URDF.</p>
+<p>That should generate a <code class="docutils literal notranslate"><span class="pre">ur10_org.g</span></code> file that can be displayed with <code class="docutils literal notranslate"><span class="pre">kinEdit</span> <span class="pre">ur10_org.g</span></code>. Note, by default that <strong>excludes</strong> exporting collision shapes (as I typically replace them, e.g. by the convex hull of the visual shapes). The <code class="docutils literal notranslate"><span class="pre">-coll</span> <span class="pre">1</span></code> option of the script should include also the collision shapes. The <code class="docutils literal notranslate"><span class="pre">rai-robotModels</span></code> repository README provides more info on conversion from URDF, as well as specific examples for those models included in the package.</p>
 </section>
+<section id="Configuration-file-(.g-file)-syntax">
+<h2>Configuration file (.g-file) syntax<a class="headerlink" href="#Configuration-file-(.g-file)-syntax" title="Permalink to this heading"></a></h2>
+<p>The <a class="reference external" href=".../yaml-graph-files">Appendix:Yaml-Graph Files</a> provides a more detailed description of the underlying syntax of the .g-files. While the syntax should be yaml compatible, the fact that node names use <code class="docutils literal notranslate"><span class="pre">(&lt;parents&gt;)</span></code> to define the parent(s) of a node, filenames should be strings <code class="docutils literal notranslate"><span class="pre">&lt;filename&gt;</span></code>, and the additional <code class="docutils literal notranslate"><span class="pre">Include</span></code>, <code class="docutils literal notranslate"><span class="pre">Edit</span></code>, and <code class="docutils literal notranslate"><span class="pre">Delete</span></code> tags extend the semantics of what can be define in such a file.</p>
+<p>In essence, to describe a robot/world configuration, every node describes a frame, and is described by three things:</p>
+<pre>
+  <frame-name> ( <parent> ) { <attributes> }
+</pre><p>where <code class="docutils literal notranslate"><span class="pre">&lt;parent&gt;</span></code> needs to be a previously defined frame, or omitted, if the frame is a root frame. The attributes define properties of the frame, such as its pose (<code class="docutils literal notranslate"><span class="pre">X</span></code>), relative transformation (<code class="docutils literal notranslate"><span class="pre">Q</span></code>), shape, joint, and inertia properties. The main interpreted attributes are the following. Internally, a few more attributes are interpreted in experimental code (also your python code can retrieve attributes via <code class="docutils literal notranslate"><span class="pre">f.info()</span></code>).</p>
+<p>Frame:</p>
+<pre>
+X Q
+</pre><p>Shape:</p>
+<pre>
+shape size contact mesh meshscale core sdf color texture
+</pre><p>Joint:</p>
+<pre>
+joint joint_scale q Q limits ctrl_limits ctrl_H sampleUniform joint_active mimic
+</pre><p>Inertia:</p>
+<pre>
+mass inertia
+</pre></section>
 <section id="Interactive-Editing">
 <h2>Interactive Editing<a class="headerlink" href="#Interactive-Editing" title="Permalink to this heading"></a></h2>
 <p>When developing your own model (robot or scene), you could of course just use the python commands <code class="docutils literal notranslate"><span class="pre">addFrame</span></code> etc. But that might be cumbersome and not interactive enough. The .g-file format is fairly easy to edit. To help doing this more interactively, there is the <code class="docutils literal notranslate"><span class="pre">watchFile</span></code> method:</p>
-<p>Open the file you want to edit (here <code class="docutils literal notranslate"><span class="pre">mini.g</span></code>) in any editor. At the same time, open it from within python and display it using <code class="docutils literal notranslate"><span class="pre">watchFile</span></code>. The key benefit is that <code class="docutils literal notranslate"><span class="pre">watchFile</span></code> reloads and re-displays the file whenever it is externally modified (it watches the file’s inode). That enables interactive editing.</p>
-<p><strong>TODO</strong>: The following is still not crash-robust when readers throw syntax error. kinEdit better?</p>
+<p>Open the file you want to edit (here <code class="docutils literal notranslate"><span class="pre">mini.g</span></code>) in any editor. At the same time, open it from within python and display it using <code class="docutils literal notranslate"><span class="pre">watchFile</span></code>. The key benefit is that <code class="docutils literal notranslate"><span class="pre">watchFile</span></code> reloads and re-displays the file whenever it is externally modified (it watches the file’s inode). That enables interactive editing. It also allows you to return information on objects you point on (their name and attributes), which helps a lot to inspect models. It also reports on collisions in the configuration.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">ry-view</span></code> command line script is shipped with the python package, which simply calls <code class="docutils literal notranslate"><span class="pre">watchFile</span></code>. Editing from command line with this script makes it easier to see the info and error messages, e.g. when you get the syntax wrong. Jupyter is problematic, as it holds info messages back – still, here an example directly from within python:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
@@ -215,25 +236,7 @@ The path where model files are pre-installed:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span>
-<span class="n">C</span><span class="o">.</span><span class="n">addFile</span><span class="p">(</span><span class="s1">&#39;mini.g&#39;</span><span class="p">)</span>
-<span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-0
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">watchFile</span><span class="p">(</span><span class="s1">&#39;mini.g&#39;</span><span class="p">)</span>
+<span class="n">C</span><span class="o">.</span><span class="n">watchFile</span><span class="p">(</span><span class="s1">&#39;mini.g&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -243,14 +246,14 @@ The path where model files are pre-installed:
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 -- kin.cpp:watchFile:3510(0) reloading `mini.g&#39; ...
-Configuration: q.N=1 #frames=3 #dofs=1 #shapes=3 #ucertainties=0 #proxies=0 #forces=0 #evals=385
--- kin.cpp:watchFile:3537(0) watching...
+Configuration: q.N=1 #frames=3 #dofs=1 #shapes=3 #ucertainties=0 #proxies=0 #forces=0 #evals=107
+-- kin.cpp:watchFile:3544(0) watching...
 The file z.log.global was modified.
 EXITING
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">C</span>
@@ -262,7 +265,7 @@ EXITING
 <h2>How to attach frames - faking grasps<a class="headerlink" href="#How-to-attach-frames---faking-grasps" title="Permalink to this heading"></a></h2>
 <p>Note, this is not real grasping. Just editing the kinematic tree in your configuration</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">robotic</span> <span class="kn">import</span> <span class="n">ry</span>
@@ -272,7 +275,7 @@ EXITING
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="n">ry</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span>
@@ -282,7 +285,7 @@ EXITING
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -291,7 +294,7 @@ EXITING
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="s2">&quot;l_gripper&quot;</span><span class="p">,</span> <span class="s2">&quot;r_gripper&quot;</span><span class="p">)</span>
@@ -299,7 +302,7 @@ EXITING
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#move a bit around</span>
@@ -316,7 +319,7 @@ EXITING
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">C</span>
@@ -328,7 +331,7 @@ EXITING
 <h2>Advanced: YAML and dict representations<a class="headerlink" href="#Advanced:-YAML-and-dict-representations" title="Permalink to this heading"></a></h2>
 <p>The following shows that configuration files are essentially YAML files with some special semantics. We can load the configuration description as a dict using yaml as follows:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">yaml</span>
@@ -349,13 +352,26 @@ EXITING
 </pre></div></div>
 </div>
 <p>This dict contains all information about the configuration.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">C</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[15], line 1</span>
+<span class="ansi-green-fg">----&gt; 1</span> <span class="ansi-bold" style="color: rgb(0,135,0)">del</span> C
+
+<span class="ansi-red-fg">NameError</span>: name &#39;C&#39; is not defined
+</pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:

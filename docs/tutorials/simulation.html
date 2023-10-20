@@ -23,7 +23,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Inverse Kinematics as Optimization (to be merged)" href="komo1-IK-toBeMerged.html" />
+    <link rel="next" title="CameraView, Offscreen (headless), and Realistic Rendering" href="rendering.html" />
     <link rel="prev" title="KOMO: Reporting &amp; Explaining Convergence" href="komo-reporting.html" /> 
 </head>
 
@@ -52,7 +52,6 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../tutorials.html#basics-on-configurations-botop-komo">Basics on Configurations, BotOp &amp; KOMO</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../tutorials.html#in-depth">In Depth</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="features.html">Differentiable Features &amp; Collision Evaluation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="configurationEditing.html">Importing, Editing &amp; Manipulating Configurations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="komo-reporting.html">KOMO: Reporting &amp; Explaining Convergence</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Direct Simulation Interface</a><ul>
@@ -62,9 +61,11 @@
 <li class="toctree-l4"><a class="reference internal" href="#Resetting-and-messing-with-state">Resetting and messing with state</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="rendering.html">CameraView, Offscreen (headless), and Realistic Rendering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rrt-example.html">Path finding example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nlp-solver.html">Optimization (NLP formulation and solving)</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#preliminary">Preliminary</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../script/script.html">Lecture Script</a></li>
@@ -98,7 +99,7 @@
              
   <section id="Direct-Simulation-Interface">
 <h1>Direct Simulation Interface<a class="headerlink" href="#Direct-Simulation-Interface" title="Permalink to this heading"></a></h1>
-<p>BotOp is a narrow control interface to a real or simulated robot, which is also real time and threaded (as for a real robot). However, sometimes we need a more low-level interface to a physical simulator, e.g. to implement a Reinforcement Learning environment. TODO: explain simulation modes: all=kinematic, robot=kinematic + objects=physical, all=physical TODO: PhysX multi-body mode (motors), gains, friction (gravity compensation?)</p>
+<p>BotOp is a narrow control interface to a real or simulated robot, which is also real time and threaded (as for a real robot). However, sometimes we need a more low-level interface to a physical simulator, e.g. to implement a Reinforcement Learning environment.</p>
 <section id="Minimalistic-example">
 <h2>Minimalistic example<a class="headerlink" href="#Minimalistic-example" title="Permalink to this heading"></a></h2>
 <p>Let’s first create the smallest possible example: A dropping ball. All we have to do is create a configuration with a ball, create an “attached” simulation, and step it:</p>
@@ -427,14 +428,14 @@ physx/motorKd: 100
     <span class="n">f</span><span class="o">.</span><span class="n">setShape</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">ST</span><span class="o">.</span><span class="n">ssBox</span><span class="p">,</span> <span class="p">[</span><span class="mf">.1</span><span class="p">,</span><span class="mf">.2</span><span class="p">,</span><span class="mf">.1</span><span class="p">,</span><span class="mf">.02</span><span class="p">])</span> <span class="o">.</span><span class="n">setColor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mf">.1</span><span class="o">*</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="o">-</span><span class="mf">.1</span><span class="o">*</span><span class="n">i</span><span class="p">])</span>
     <span class="n">f</span><span class="o">.</span><span class="n">setPosition</span><span class="p">([</span><span class="mf">.7</span> <span class="o">-</span> <span class="mf">.15</span><span class="o">*</span><span class="n">i</span><span class="p">,</span><span class="o">-</span><span class="mf">.2</span><span class="p">,</span><span class="mf">1.</span><span class="p">])</span>
     <span class="n">f</span><span class="o">.</span><span class="n">setMass</span><span class="p">(</span><span class="mf">1.</span><span class="p">)</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">addAttribute</span><span class="p">(</span><span class="s1">&#39;friction&#39;</span><span class="p">,</span> <span class="mf">.05</span><span class="o">*</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s1">&#39;friction&#39;</span><span class="p">,</span> <span class="mf">.05</span><span class="o">*</span><span class="n">i</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
     <span class="n">f</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ball_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="n">f</span><span class="o">.</span><span class="n">setShape</span><span class="p">(</span><span class="n">ry</span><span class="o">.</span><span class="n">ST</span><span class="o">.</span><span class="n">sphere</span><span class="p">,</span> <span class="p">[</span><span class="mf">.05</span><span class="p">])</span> <span class="o">.</span><span class="n">setColor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mf">.1</span><span class="o">*</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="o">-</span><span class="mf">.1</span><span class="o">*</span><span class="n">i</span><span class="p">])</span>
     <span class="n">f</span><span class="o">.</span><span class="n">setPosition</span><span class="p">([</span><span class="mf">.7</span> <span class="o">-</span> <span class="mf">.15</span><span class="o">*</span><span class="n">i</span><span class="p">,</span><span class="mf">.2</span><span class="p">,</span><span class="mf">1.</span><span class="p">])</span>
     <span class="n">f</span><span class="o">.</span><span class="n">setMass</span><span class="p">(</span><span class="mf">.2</span><span class="p">)</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">addAttribute</span><span class="p">(</span><span class="s1">&#39;restitution&#39;</span><span class="p">,</span> <span class="mf">.5</span><span class="o">+</span><span class="mf">.1</span><span class="o">*</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s1">&#39;restitution&#39;</span><span class="p">,</span> <span class="mf">.5</span><span class="o">+</span><span class="mf">.1</span><span class="o">*</span><span class="n">i</span><span class="p">)</span>
 <span class="n">C</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -655,7 +656,7 @@ physx/motorKd: 100
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="komo-reporting.html" class="btn btn-neutral float-left" title="KOMO: Reporting &amp; Explaining Convergence" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="komo1-IK-toBeMerged.html" class="btn btn-neutral float-right" title="Inverse Kinematics as Optimization (to be merged)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="rendering.html" class="btn btn-neutral float-right" title="CameraView, Offscreen (headless), and Realistic Rendering" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
